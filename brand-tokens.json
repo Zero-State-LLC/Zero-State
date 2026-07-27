@@ -16,6 +16,15 @@
     "easing": "linear",
     "iterations": 1
   },
+  "typography": {
+    "display": "Georgia, Times New Roman, serif",
+    "body": "Inter, system-ui, sans-serif",
+    "mono": "system monospace"
+  },
+  "spacing": {
+    "unit": 4,
+    "scale": [4, 8, 12, 16, 24, 32, 48, 72, 112]
+  },
   "logo": {
     "name": "Balanced Aperture",
     "splitAngleDegrees": 45,
