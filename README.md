@@ -41,4 +41,6 @@ Pushes to `main` run validation and deploy through the GitHub Pages Actions work
 - Replace reviewed privacy and terms text in `privacy.html` and `terms.html`.
 - Confirm external product destinations and product-claim approvals.
 - Complete trademark and typography-licensing review.
-- Select and add an approved repository license; see `LICENSE-TODO.md`.
+- The repository source is licensed under Apache-2.0. Product names and marks
+  are not licensed for unrelated use; Apache-2.0 expressly excludes trademark
+  rights.
