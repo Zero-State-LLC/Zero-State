@@ -41,9 +41,20 @@
     </div>
   </div>
   <div class="identity-stage" aria-label="Zero State identity in motion">
-    <img class="identity-base" src="assets/zero-state-mark.svg" alt="Zero State Balanced Aperture mark">
-    <svg class="identity-motion" viewBox="0 0 1000 1000" aria-hidden="true">
-      <path class="highway-line" d="M -260 1260 L 1260 -260"/>
+    <svg class="identity-mark identity-motion" viewBox="0 0 1000 1000" role="img" aria-labelledby="identity-title identity-desc" data-logo-center-x="500" data-logo-center-y="500" data-split-angle="-45">
+      <title id="identity-title">Zero State Balanced Aperture mark in transition</title>
+      <desc id="identity-desc">An open reference frame surrounding a split zero ring while an evenly dashed yellow highway line travels through the exact center and split axis of the zero.</desc>
+      <g fill="none" stroke="#1D2321" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true">
+        <g stroke-width="54">
+          <path d="M 118 118 H 338"/><path d="M 118 118 V 338"/>
+          <path d="M 882 118 H 662"/><path d="M 882 118 V 338"/>
+          <path d="M 118 882 H 338"/><path d="M 118 882 V 662"/>
+          <path d="M 882 882 H 662"/><path d="M 882 882 V 662"/>
+        </g>
+        <path class="zero-ring-arc" d="M 291.72 668.66 A 268 268 0 0 1 668.66 291.72" stroke-width="70"/>
+        <path class="zero-ring-arc" d="M 708.28 331.34 A 268 268 0 0 1 331.34 708.28" stroke-width="70"/>
+      </g>
+      <path class="highway-line" d="M -260 1260 L 1260 -260" data-axis-start="-260,1260" data-axis-center="500,500" data-axis-end="1260,-260"/>
     </svg>
     <div class="identity-caption"><span>The world moves.</span><span>The reference remains.</span></div>
   </div>
