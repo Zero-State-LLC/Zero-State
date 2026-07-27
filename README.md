@@ -11,7 +11,7 @@ Zero State is the willingness to return to first principles as the world is chan
 | OBSERVED | Static pages, brand assets, and validation checks exist in this repository. |
 | INFERRED | The site is designed to present an adaptable first-principles practice. |
 | ASPIRATIONAL | Philosophy statements describe the undertaking, not product guarantees. |
-| NOT_READY | Contact endpoint, legal text, external product destinations, trademark review, and typography licensing review. |
+| NOT_READY | External product destinations, trademark review, and typography licensing review. |
 
 ## Local development
 
@@ -37,8 +37,6 @@ Pushes to `main` run validation and deploy through the GitHub Pages Actions work
 
 ## Launch blockers
 
-- Replace the visibly labeled `hello@zerostate.example` in `contact.html` with a monitored operational address.
-- Replace reviewed privacy and terms text in `privacy.html` and `terms.html`.
 - Confirm external product destinations and product-claim approvals.
 - Complete trademark and typography-licensing review.
 - The repository source is licensed under Apache-2.0. Product names and marks

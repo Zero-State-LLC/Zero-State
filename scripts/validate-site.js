@@ -41,9 +41,11 @@ if (!/stroke-dasharray:\s*150\s+150/.test(fs.readFileSync(path.join(root, 'style
 const css = fs.readFileSync(path.join(root, 'styles.css'), 'utf8');
 if (!/@media \(prefers-reduced-motion: reduce\)[\s\S]*?\.highway-line\s*\{\s*display:\s*none/.test(css)) fail('styles.css', 'reduced-motion does not hide the highway');
 if (!/\.highway-line\.is-ready\s*\{\s*animation:\s*highway\s+4\.8s\s+linear\s+1\s+both/.test(css)) fail('styles.css', 'highway animation must be linear and one-pass');
-if (!/NOT_READY_FOR_LAUNCH/.test(fs.readFileSync(path.join(root, 'privacy.html'), 'utf8'))) fail('privacy.html', 'legal placeholder status is not explicit');
-if (!/NOT_READY_FOR_LAUNCH/.test(fs.readFileSync(path.join(root, 'terms.html'), 'utf8'))) fail('terms.html', 'legal placeholder status is not explicit');
-if (!/Placeholder address\. Replace before launch\./.test(fs.readFileSync(path.join(root, 'contact.html'), 'utf8'))) fail('contact.html', 'contact placeholder is not explicit');
+if (!/Effective date:/.test(fs.readFileSync(path.join(root, 'privacy.html'), 'utf8'))) fail('privacy.html', 'privacy notice has no effective date');
+if (!/admin@lastreetshits\.com/.test(fs.readFileSync(path.join(root, 'privacy.html'), 'utf8'))) fail('privacy.html', 'privacy contact is missing');
+if (!/Effective date:/.test(fs.readFileSync(path.join(root, 'terms.html'), 'utf8'))) fail('terms.html', 'terms have no effective date');
+if (!/admin@lastreetshits\.com/.test(fs.readFileSync(path.join(root, 'terms.html'), 'utf8'))) fail('terms.html', 'terms contact is missing');
+if (!/admin@lastreetshits\.com/.test(fs.readFileSync(path.join(root, 'contact.html'), 'utf8'))) fail('contact.html', 'operational contact is missing');
 
 if (failures.length) {
   console.error(`Zero State validation failed (${failures.length}):`);

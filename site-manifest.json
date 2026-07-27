@@ -15,9 +15,9 @@
     "products/experiments.html"
   ],
   "known_placeholders": [
-    "contact email",
     "product external URLs",
-    "legal copy"
+    "trademark review",
+    "typography licensing review"
   ],
   "launch_ready": false
 }
