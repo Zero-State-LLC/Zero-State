@@ -36,9 +36,22 @@ for (const file of htmlFiles) {
 }
 
 const index = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
-if ((index.match(/identity-motion/g) || []).length < 1) fail('index.html', 'identity motion element is missing');
-if (!/stroke-dasharray:\s*150\s+150/.test(fs.readFileSync(path.join(root, 'styles.css'), 'utf8'))) fail('styles.css', 'highway dash and gap are not equal');
 const css = fs.readFileSync(path.join(root, 'styles.css'), 'utf8');
+
+if ((index.match(/identity-motion/g) || []).length < 1) fail('index.html', 'identity motion element is missing');
+if (/class=["'][^"']*identity-base/.test(index)) fail('index.html', 'motion and logo must not use separately positioned SVG/image layers');
+if (!/<svg[^>]*class=["'][^"']*identity-mark[^"']*identity-motion[^"']*["'][^>]*viewBox=["']0 0 1000 1000["']/.test(index)) {
+  fail('index.html', 'logo mark and highway motion must share one authoritative SVG coordinate system');
+}
+if (!/data-logo-center-x=["']500["'][^>]*data-logo-center-y=["']500["'][^>]*data-split-angle=["']-45["']/.test(index)) {
+  fail('index.html', 'authoritative zero center and split-angle metadata are missing');
+}
+if (!/class=["']highway-line["'][^>]*d=["']M -260 1260 L 1260 -260["']/.test(index)) {
+  fail('index.html', 'highway path must cross the 1000×1000 logo viewBox through the zero center on the -45° split axis');
+}
+if (!/data-axis-center=["']500,500["']/.test(index)) fail('index.html', 'highway axis does not explicitly declare the zero center');
+if ((index.match(/class=["']zero-ring-arc["']/g) || []).length !== 2) fail('index.html', 'split zero must contain exactly two governed ring arcs');
+if (!/stroke-dasharray:\s*150\s+150/.test(css)) fail('styles.css', 'highway dash and gap are not equal');
 if (!/@media \(prefers-reduced-motion: reduce\)[\s\S]*?\.highway-line\s*\{\s*display:\s*none/.test(css)) fail('styles.css', 'reduced-motion does not hide the highway');
 if (!/\.highway-line\.is-ready\s*\{\s*animation:\s*highway\s+4\.8s\s+linear\s+1\s+both/.test(css)) fail('styles.css', 'highway animation must be linear and one-pass');
 if (!/Effective date:/.test(fs.readFileSync(path.join(root, 'privacy.html'), 'utf8'))) fail('privacy.html', 'privacy notice has no effective date');
@@ -52,4 +65,4 @@ if (failures.length) {
   failures.forEach((message) => console.error(`- ${message}`));
   process.exit(1);
 }
-console.log(`PASS: ${requiredPages.length} pages, internal links, metadata, accessibility smoke checks, and identity-motion rules validated.`);
+console.log(`PASS: ${requiredPages.length} pages, internal links, metadata, accessibility smoke checks, and collinear identity-motion geometry validated.`);
