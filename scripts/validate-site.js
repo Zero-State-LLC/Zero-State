@@ -7,7 +7,7 @@ const root = path.resolve(__dirname, '..');
 const requiredPages = [
   'index.html', 'work.html', 'philosophy.html', 'about.html', 'contact.html',
   'privacy.html', 'terms.html', 'products/abraxas.html', 'products/waykin.html',
-  'products/patchhive.html', 'products/experiments.html'
+  'products/patchhive.html', 'products/surveillance-survivor.html', 'products/experiments.html'
 ];
 const failures = [];
 const fail = (file, message) => failures.push(`${file}: ${message}`);
@@ -36,6 +36,8 @@ for (const file of htmlFiles) {
 }
 
 const index = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
+const work = fs.readFileSync(path.join(root, 'work.html'), 'utf8');
+const surveillance = fs.readFileSync(path.join(root, 'products/surveillance-survivor.html'), 'utf8');
 const css = fs.readFileSync(path.join(root, 'styles.css'), 'utf8');
 
 if ((index.match(/identity-motion/g) || []).length < 1) fail('index.html', 'identity motion element is missing');
@@ -54,6 +56,10 @@ if ((index.match(/class=["']zero-ring-arc["']/g) || []).length !== 2) fail('inde
 if (!/stroke-dasharray:\s*150\s+150/.test(css)) fail('styles.css', 'highway dash and gap are not equal');
 if (!/@media \(prefers-reduced-motion: reduce\)[\s\S]*?\.highway-line\s*\{\s*display:\s*none/.test(css)) fail('styles.css', 'reduced-motion does not hide the highway');
 if (!/\.highway-line\.is-ready\s*\{\s*animation:\s*highway\s+4\.8s\s+linear\s+1\s+both/.test(css)) fail('styles.css', 'highway animation must be linear and one-pass');
+if (!/Surveillance Survivor/.test(index)) fail('index.html', 'Surveillance Survivor is missing from selected work');
+if (!/Active pre-alpha · simulator-ready vertical slice · not release-ready/.test(work)) fail('work.html', 'Surveillance Survivor readiness posture is missing or overstated');
+if (!/iPhone-first satirical survivor roguelite/.test(surveillance)) fail('products/surveillance-survivor.html', 'canonical README description is missing');
+if (!/scrimshawlife-ctrl\/Surveillance-Survivor/.test(surveillance)) fail('products/surveillance-survivor.html', 'canonical repository link is missing');
 if (!/Effective date:/.test(fs.readFileSync(path.join(root, 'privacy.html'), 'utf8'))) fail('privacy.html', 'privacy notice has no effective date');
 if (!/admin@lastreetshits\.com/.test(fs.readFileSync(path.join(root, 'privacy.html'), 'utf8'))) fail('privacy.html', 'privacy contact is missing');
 if (!/Effective date:/.test(fs.readFileSync(path.join(root, 'terms.html'), 'utf8'))) fail('terms.html', 'terms have no effective date');
@@ -65,4 +71,4 @@ if (failures.length) {
   failures.forEach((message) => console.error(`- ${message}`));
   process.exit(1);
 }
-console.log(`PASS: ${requiredPages.length} pages, internal links, metadata, accessibility smoke checks, and collinear identity-motion geometry validated.`);
+console.log(`PASS: ${requiredPages.length} pages, internal links, metadata, accessibility smoke checks, product-source posture, and collinear identity-motion geometry validated.`);
