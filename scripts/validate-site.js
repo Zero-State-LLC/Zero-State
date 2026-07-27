@@ -1,0 +1,53 @@
+#!/usr/bin/env node
+/* Deterministic static-site checks; intentionally dependency-free for reproducible Pages builds. */
+const fs = require('node:fs');
+const path = require('node:path');
+
+const root = path.resolve(__dirname, '..');
+const requiredPages = [
+  'index.html', 'work.html', 'philosophy.html', 'about.html', 'contact.html',
+  'privacy.html', 'terms.html', 'products/abraxas.html', 'products/waykin.html',
+  'products/patchhive.html', 'products/experiments.html'
+];
+const failures = [];
+const fail = (file, message) => failures.push(`${file}: ${message}`);
+const exists = (file) => fs.existsSync(path.join(root, file));
+const htmlFiles = requiredPages.filter(exists);
+
+for (const file of requiredPages) if (!exists(file)) fail(file, 'required page is missing');
+for (const asset of ['assets/zero-state-mark.svg', 'assets/zero-state-mark-inverse.svg']) {
+  if (!exists(asset)) fail(asset, 'required logo asset is missing');
+}
+
+for (const file of htmlFiles) {
+  const html = fs.readFileSync(path.join(root, file), 'utf8');
+  for (const token of ['<!doctype html>', '<html lang="en">', '<title>', 'name="description"', '<main id="main"', 'Skip to content']) {
+    if (!html.toLowerCase().includes(token.toLowerCase())) fail(file, `missing required document feature: ${token}`);
+  }
+  if (/<a\b[^>]*\bhref=["'](?:#|)["']/i.test(html)) fail(file, 'contains an empty or # link');
+  if (/(?:href|src)=["']\//i.test(html)) fail(file, 'contains a root-absolute path that breaks project Pages');
+
+  const links = [...html.matchAll(/(?:href|src)=["']([^"'#?]+)["']/gi)].map((match) => match[1]);
+  for (const link of links) {
+    if (/^(?:https?:|mailto:|tel:|data:)/i.test(link)) continue;
+    const target = path.normalize(path.join(path.dirname(file), link));
+    if (!exists(target)) fail(file, `broken internal reference: ${link}`);
+  }
+}
+
+const index = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
+if ((index.match(/identity-motion/g) || []).length < 1) fail('index.html', 'identity motion element is missing');
+if (!/stroke-dasharray:\s*150\s+150/.test(fs.readFileSync(path.join(root, 'styles.css'), 'utf8'))) fail('styles.css', 'highway dash and gap are not equal');
+const css = fs.readFileSync(path.join(root, 'styles.css'), 'utf8');
+if (!/@media \(prefers-reduced-motion: reduce\)[\s\S]*?\.highway-line\s*\{\s*display:\s*none/.test(css)) fail('styles.css', 'reduced-motion does not hide the highway');
+if (!/\.highway-line\.is-ready\s*\{\s*animation:\s*highway\s+4\.8s\s+linear\s+1\s+both/.test(css)) fail('styles.css', 'highway animation must be linear and one-pass');
+if (!/NOT_READY_FOR_LAUNCH/.test(fs.readFileSync(path.join(root, 'privacy.html'), 'utf8'))) fail('privacy.html', 'legal placeholder status is not explicit');
+if (!/NOT_READY_FOR_LAUNCH/.test(fs.readFileSync(path.join(root, 'terms.html'), 'utf8'))) fail('terms.html', 'legal placeholder status is not explicit');
+if (!/Placeholder address\. Replace before launch\./.test(fs.readFileSync(path.join(root, 'contact.html'), 'utf8'))) fail('contact.html', 'contact placeholder is not explicit');
+
+if (failures.length) {
+  console.error(`Zero State validation failed (${failures.length}):`);
+  failures.forEach((message) => console.error(`- ${message}`));
+  process.exit(1);
+}
+console.log(`PASS: ${requiredPages.length} pages, internal links, metadata, accessibility smoke checks, and identity-motion rules validated.`);

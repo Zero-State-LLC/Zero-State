@@ -1,0 +1,23 @@
+{
+  "version": "0.2.0",
+  "status": "prototype",
+  "pages": [
+    "index",
+    "work",
+    "philosophy",
+    "about",
+    "contact",
+    "privacy",
+    "terms",
+    "products/abraxas.html",
+    "products/waykin.html",
+    "products/patchhive.html",
+    "products/experiments.html"
+  ],
+  "known_placeholders": [
+    "contact email",
+    "product external URLs",
+    "legal copy"
+  ],
+  "launch_ready": false
+}

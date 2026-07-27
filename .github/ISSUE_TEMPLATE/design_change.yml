@@ -1,0 +1,9 @@
+name: Design change
+description: Propose a constrained design change.
+body:
+  - type: textarea
+    attributes:
+      label: Rationale
+      description: Include the affected brand constraint and visual evidence.
+    validations:
+      required: true

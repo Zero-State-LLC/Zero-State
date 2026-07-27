@@ -1,0 +1,24 @@
+{
+  "version": "0.1.0",
+  "status": "development",
+  "colors": {
+    "stone": "#F4F0E8",
+    "paper": "#FBF9F4",
+    "carbon": "#1D2321",
+    "line": "#B9B2A7",
+    "transitionYellow": "#F2C200",
+    "deepTeal": "#486F6A"
+  },
+  "motion": {
+    "highwayDurationMs": 4800,
+    "dash": 150,
+    "gap": 150,
+    "easing": "linear",
+    "iterations": 1
+  },
+  "logo": {
+    "name": "Balanced Aperture",
+    "splitAngleDegrees": 45,
+    "ringGapDegrees": 12
+  }
+}

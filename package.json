@@ -1,0 +1,18 @@
+{
+  "name": "zero-state",
+  "version": "0.2.0",
+  "private": true,
+  "description": "Canonical website and public brand surface for Zero State.",
+  "scripts": {
+    "serve": "python3 -m http.server 8080",
+    "validate:html": "node scripts/validate-site.js",
+    "lint:css": "node scripts/validate-site.js --css",
+    "check:links": "node scripts/validate-site.js --links",
+    "test:a11y": "node scripts/validate-site.js --a11y",
+    "build": "node scripts/validate-site.js",
+    "test": "node scripts/validate-site.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

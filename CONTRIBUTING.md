@@ -1,0 +1,5 @@
+# Contributing
+
+Keep changes small, accessible, and consistent with the approved Zero State philosophy and Balanced Aperture identity.
+
+Before opening a pull request, run `npm test`. Do not make legal, contact, product-availability, trademark, or licensing claims without an approved source. Changes to the static mark or highway-centerline motion require explicit brand review.
