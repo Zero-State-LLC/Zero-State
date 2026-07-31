@@ -1,4 +1,3 @@
-
 const header = document.querySelector('[data-header]');
 const menuButton = document.querySelector('[data-menu-button]');
 const nav = document.querySelector('[data-nav]');
@@ -25,19 +24,45 @@ nav?.querySelectorAll('a').forEach((link) => {
   });
 });
 
-// Re-trigger the one-pass highway motion when the hero enters the viewport.
+// Cinematic motif control: the one controlled highway passage + residue state
 const motion = document.querySelector('.identity-motion .highway-line');
+const stage = document.querySelector('.identity-stage');
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-const playMotion = () => motion?.classList.add('is-ready');
-if (motion && !reducedMotion && 'IntersectionObserver' in window) {
-  const stage = document.querySelector('.identity-stage');
+
+const playHighway = () => {
+  if (!motion) return;
+  motion.classList.add('is-ready');
+  
+  // After passage, apply residue state for latent trace
+  setTimeout(() => {
+    if (stage && !reducedMotion) {
+      stage.classList.add('residue');
+    }
+  }, 5200);
+};
+
+if (motion && !reducedMotion && 'IntersectionObserver' in window && stage) {
   const observer = new IntersectionObserver(([entry]) => {
     if (entry.isIntersecting) {
-      playMotion();
+      playHighway();
       observer.disconnect();
     }
   }, { threshold: 0.35 });
-  if (stage) observer.observe(stage);
+  observer.observe(stage);
 } else if (motion && !reducedMotion) {
-  playMotion();
+  playHighway();
+}
+
+// Optional: allow re-triggering the passage on click of the stage (for observation)
+if (stage && motion) {
+  stage.addEventListener('click', () => {
+    if (reducedMotion) return;
+    motion.classList.remove('is-ready');
+    void motion.offsetWidth; // force reflow
+    motion.classList.add('is-ready');
+    stage.classList.remove('residue');
+    setTimeout(() => stage.classList.add('residue'), 5200);
+  });
+  stage.style.cursor = 'pointer';
+  stage.setAttribute('title', 'Click to replay the passage');
 }
