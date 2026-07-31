@@ -629,3 +629,60 @@ body::after {
   opacity: 0.035;
   pointer-events: none;
 }
+
+/* Mercurial elements (Kubrick: Mercury as mediation, mutability, reflection, transmission)
+ * Layered onto the highway passage as quicksilver volatility contained by the aperture.
+ * Reflective surfaces + mutable trace + mediation across states.
+ * No new independent motion. Mutation of the existing passage.
+ * One-to-one avoided; effects only.
+ */
+
+/* Mercurial echo (the mutable, fluid reflection of the directed change) */
+.mercurial-echo {
+  transition: opacity 200ms linear;
+}
+.identity-stage.residue .mercurial-echo {
+  opacity: 0.18;
+}
+.identity-stage.residue .mercurial-echo path {
+  stroke: #C8A800; /* muted quicksilver tone within yellow signal */
+  stroke-width: 14;
+  stroke-dasharray: 90 180; /* mutation from primary */
+}
+.identity-stage.residue .mercurial-echo path:nth-of-type(2) {
+  stroke: #D0D0D0;
+  stroke-width: 6;
+  stroke-dasharray: 60 210;
+  opacity: 0.5;
+}
+
+/* Quicksilver sheen on the primary passage (specular/reflective behavior during the motion)
+ * Restrained linear specular — liquid metal quality without urgency.
+ */
+.highway-line.is-ready {
+  filter: drop-shadow(0 0 1px rgba(242, 194, 0, 0.4));
+}
+.identity-stage.residue .highway-line {
+  filter: none;
+}
+
+/* Mercurial traces on product scenes and thresholds (recurrence with mediation/mutability) */
+.product-card .scene-trace.mercurial,
+.threshold-cross.mercurial {
+  background: repeating-linear-gradient(
+    to right,
+    #C8A800 0, #C8A800 1px,
+    transparent 1px, transparent 24px
+  );
+  opacity: 0.09;
+}
+.product-card .scene-trace.mercurial {
+  height: 1px;
+}
+
+/* When the identity is in mercurial residue state, the aperture corners subtly "hold" the volatility */
+.identity-stage.residue .enclosed::before,
+.identity-stage.residue .enclosed::after {
+  border-color: #C8A800;
+  opacity: 0.22;
+}

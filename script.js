@@ -113,3 +113,41 @@ if (firstThreshold && !reduced) {
     });
   }
 }
+
+
+// Mercurial activation — the passage mutates into quicksilver mediation/reflection in residue
+// (Kubrick: mutable trace, reflective surfaces, mediation across states; no new motion)
+function activateMercurial() {
+  const stage = document.querySelector('.identity-stage');
+  if (!stage) return;
+  stage.classList.add('residue'); // ensures mercurial-echo styles fire
+  // Mutate some scene traces into mercurial variants for recurrence with mediation
+  document.querySelectorAll('.scene-trace, .threshold-cross').forEach((el, i) => {
+    if (i % 2 === 0) el.classList.add('mercurial');
+  });
+}
+
+// Hook into existing residue timing
+const origHighwayReady = document.querySelector('.highway-line');
+if (origHighwayReady) {
+  // After the primary passage completes its cycle, deepen into mercurial residue
+  setTimeout(() => {
+    const stage = document.querySelector('.identity-stage');
+    if (stage && stage.classList.contains('residue')) {
+      activateMercurial();
+    }
+  }, 5200);
+}
+
+// Also on deliberate re-trigger (click on stage) for user to cross the mercurial threshold again
+const stageEl = document.querySelector('.identity-stage');
+if (stageEl) {
+  stageEl.addEventListener('click', () => {
+    const echoes = document.querySelectorAll('.mercurial-echo');
+    echoes.forEach(e => {
+      e.style.opacity = '0.25';
+      setTimeout(() => { e.style.opacity = ''; }, 1800);
+    });
+    activateMercurial();
+  });
+}
