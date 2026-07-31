@@ -66,3 +66,50 @@ if (stage && motion) {
   stage.style.cursor = 'pointer';
   stage.setAttribute('title', 'Click to replay the passage');
 }
+
+
+// Profound motif lifecycle: recurrence with mutation + residue accumulation (Kubrick)
+const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function applyMutation(el, className = 'mutated') {
+  if (!el || reduced) return;
+  el.classList.add(className);
+}
+
+const motifObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    const el = entry.target;
+
+    if (el.classList.contains('product-card')) {
+      const trace = el.querySelector('.scene-trace');
+      applyMutation(trace);
+    }
+
+    if (el.classList.contains('threshold-cross')) {
+      applyMutation(el);
+    }
+
+    if (el.classList.contains('identity-stage')) {
+      // Already handled by highway, but ensure residue deepens
+      setTimeout(() => el.classList.add('residue'), 4800);
+    }
+  });
+}, { threshold: 0.4 });
+
+document.querySelectorAll('.product-card, .threshold-cross, .identity-stage').forEach(el => {
+  motifObserver.observe(el);
+});
+
+// One additional controlled passage on the first threshold (transfer of the signal)
+const firstThreshold = document.querySelector('.threshold-cross');
+if (firstThreshold && !reduced) {
+  const stage = document.querySelector('.identity-stage');
+  if (stage) {
+    stage.addEventListener('click', () => {
+      firstThreshold.classList.remove('mutated');
+      void firstThreshold.offsetWidth;
+      firstThreshold.classList.add('mutated');
+    });
+  }
+}
