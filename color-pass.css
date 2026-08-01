@@ -81,18 +81,28 @@ body {
   background: linear-gradient(112deg, var(--carbon) 0 62%, var(--signal-cobalt) 84%, var(--signal-violet));
   -webkit-background-clip: text;
   background-clip: text;
-  color: transparent;
+  color: var(--carbon);
+  -webkit-text-fill-color: transparent;
+}
+
+@supports not ((background-clip: text) or (-webkit-background-clip: text)) {
+  .hero h1 {
+    background: none;
+    color: var(--carbon);
+  }
 }
 
 .button.primary {
   background: linear-gradient(115deg, var(--carbon) 0 72%, #33413d);
+  color: #FFFFFF;
   box-shadow: 5px 5px 0 var(--signal-yellow);
 }
 
 .button.primary:hover,
 .button.primary:focus-visible {
-  background: linear-gradient(115deg, var(--signal-teal), #245f5a);
-  border-color: var(--signal-teal);
+  background: linear-gradient(115deg, #245F5A, #184944);
+  border-color: #245F5A;
+  color: #FFFFFF;
   box-shadow: 5px 5px 0 var(--signal-vermilion);
 }
 
@@ -112,8 +122,8 @@ body {
     -10px -10px 0 rgba(242, 194, 0, .09);
 }
 
-.identity-caption span:first-child { color: var(--signal-cobalt); }
-.identity-caption span:last-child { color: var(--signal-teal); }
+.identity-caption span:first-child { color: #244AAE; }
+.identity-caption span:last-child { color: #215F5A; }
 
 .section-dark {
   position: relative;
@@ -121,17 +131,29 @@ body {
     radial-gradient(circle at 12% 6%, rgba(47, 127, 120, .23), transparent 28rem),
     radial-gradient(circle at 88% 94%, rgba(114, 86, 184, .22), transparent 34rem),
     var(--carbon);
+  color: #F8F5EE;
 }
 
 .section-dark .eyebrow {
-  color: var(--signal-gold);
+  color: #FFE26A;
+}
+
+.section-dark .section-heading p {
+  color: #F1EEE7;
 }
 
 .product-card {
   overflow: hidden;
+  color: var(--carbon);
   border-color: rgba(255,255,255,.16);
   box-shadow: 0 18px 45px rgba(0,0,0,.16);
   transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.product-card h3,
+.product-card p,
+.product-card a {
+  color: var(--carbon);
 }
 
 .product-card:hover {
@@ -147,20 +169,22 @@ body {
   background: var(--card-signal, var(--signal-yellow));
 }
 
-.product-card:nth-child(1) { --card-signal: var(--signal-violet); background: linear-gradient(155deg, #FCFAFF, #EEE8FA); }
-.product-card:nth-child(2) { --card-signal: var(--signal-teal); background: linear-gradient(155deg, #F7FCFB, #DDEEEA); }
-.product-card:nth-child(3) { --card-signal: var(--signal-yellow); background: linear-gradient(155deg, #FFFDF4, #F6EDBE); }
-.product-card:nth-child(4) { --card-signal: var(--signal-cobalt); background: linear-gradient(155deg, #F8FAFF, #E0E7FA); }
-.product-card:nth-child(5) { --card-signal: var(--signal-vermilion); background: linear-gradient(155deg, #FFF9F6, #F5DDD4); }
-.product-card:nth-child(6) { --card-signal: var(--signal-cyan); background: linear-gradient(155deg, #F5FCFD, #DCEFF2); }
+.product-card:nth-child(1) { --card-signal: #62459F; background: linear-gradient(155deg, #FCFAFF, #EEE8FA); }
+.product-card:nth-child(2) { --card-signal: #22645E; background: linear-gradient(155deg, #F7FCFB, #DDEEEA); }
+.product-card:nth-child(3) { --card-signal: #745C00; background: linear-gradient(155deg, #FFFDF4, #F6EDBE); }
+.product-card:nth-child(4) { --card-signal: #274BAE; background: linear-gradient(155deg, #F8FAFF, #E0E7FA); }
+.product-card:nth-child(5) { --card-signal: #A73F28; background: linear-gradient(155deg, #FFF9F6, #F5DDD4); }
+.product-card:nth-child(6) { --card-signal: #286C78; background: linear-gradient(155deg, #F5FCFD, #DCEFF2); }
 
 .product-card .product-meta,
 .product-card .product-index {
   color: var(--card-signal);
+  font-weight: 700;
 }
 
 .product-card a {
   border-bottom-color: var(--card-signal);
+  font-weight: 700;
 }
 
 .values-list {
@@ -171,13 +195,19 @@ body {
   position: relative;
   min-height: 220px;
   padding: 28px;
+  color: var(--carbon);
   border: 1px solid color-mix(in srgb, var(--value-signal) 32%, var(--line));
   background: linear-gradient(145deg, color-mix(in srgb, var(--value-signal) 12%, white), var(--paper));
 }
 
-.value-card:nth-child(1) { --value-signal: var(--signal-vermilion); }
-.value-card:nth-child(2) { --value-signal: var(--signal-cobalt); }
-.value-card:nth-child(3) { --value-signal: var(--signal-teal); }
+.value-card h3,
+.value-card p {
+  color: var(--carbon);
+}
+
+.value-card:nth-child(1) { --value-signal: #A73F28; }
+.value-card:nth-child(2) { --value-signal: #274BAE; }
+.value-card:nth-child(3) { --value-signal: #215F5A; }
 
 .value-card::after {
   content: "";
@@ -191,32 +221,42 @@ body {
 
 .value-card span {
   color: var(--value-signal);
+  font-weight: 700;
 }
 
 .section-accent {
+  color: #17211E;
   background:
     linear-gradient(110deg, rgba(242,194,0,.92) 0 6px, transparent 6px),
     linear-gradient(125deg, #FFF1B7 0%, #F6D8C8 48%, #DDE8F9 100%);
 }
 
-.section-accent h2 {
-  color: #17211e;
+.section-accent h2,
+.section-accent p {
+  color: #17211E;
 }
 
 .site-footer {
   background: linear-gradient(90deg, color-mix(in srgb, var(--carbon) 96%, var(--signal-cobalt)), var(--carbon));
-  color: var(--stone);
+  color: #F8F5EE;
   border-top: 6px solid var(--signal-yellow);
+}
+
+.site-footer a,
+.site-footer p,
+.site-footer span {
+  color: inherit;
 }
 
 .site-footer .footer-links a:hover,
 .site-footer .footer-links a:focus-visible {
-  color: var(--signal-gold);
+  color: #FFE26A;
 }
 
 @media (max-width: 900px) {
   .site-nav {
     background: color-mix(in srgb, var(--stone) 92%, var(--signal-yellow));
+    color: var(--carbon);
   }
 
   .hero::before {
