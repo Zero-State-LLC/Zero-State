@@ -1,7 +1,7 @@
 // Load the global chromatic layer after the base stylesheet on every page.
 const colorPass = document.createElement('link');
 colorPass.rel = 'stylesheet';
-colorPass.href = 'color-pass.css';
+colorPass.href = new URL('color-pass.css', document.currentScript?.src || document.baseURI).href;
 document.head.appendChild(colorPass);
 
 const header = document.querySelector('[data-header]');
