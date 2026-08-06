@@ -572,6 +572,14 @@ h1 .ref {
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
+.work-description {
+  max-width: 760px;
+  margin-top: 4px;
+  color: var(--work-body);
+  font: 15px/1.55 var(--sans);
+  letter-spacing: 0;
+  text-transform: none;
+}
 .work-title {
   font: 500 clamp(30px, 3.6vw, 48px) / 1.05 var(--serif);
   letter-spacing: -0.035em;
