@@ -1,11 +1,15 @@
-document.getElementById('year').textContent = new Date().getFullYear();
+const year = document.querySelector('[data-year]');
+if (year) year.textContent = String(new Date().getFullYear());
 
-const mark = document.querySelector('.aperture-stage');
-const axis = document.querySelector('.axis');
+const axis = document.querySelector('[data-axis]');
+const replay = document.querySelector('[data-axis-replay]');
 
-mark?.addEventListener('click', () => {
+const replayAxis = () => {
+  if (!axis) return;
   axis.style.animation = 'none';
-  requestAnimationFrame(() => {
-    axis.style.animation = '';
-  });
-});
+  // Force reflow so the animation restarts cleanly.
+  void axis.offsetWidth;
+  axis.style.animation = '';
+};
+
+replay?.addEventListener('click', replayAxis);
