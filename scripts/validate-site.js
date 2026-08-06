@@ -66,7 +66,7 @@ if (!/scrimshawlife-ctrl\/Hexwire/.test(hexwire)) fail('products/hexwire.html', 
 if (!/Surveillance Survivor/.test(index)) fail('index.html', 'Surveillance Survivor is missing from selected work');
 if (!/Active pre-alpha · simulator-ready vertical slice · not release-ready/.test(work)) fail('work.html', 'Surveillance Survivor readiness posture is missing or overstated');
 if (!/iPhone-first satirical survivor roguelite/.test(surveillance)) fail('products/surveillance-survivor.html', 'canonical README description is missing');
-if (!/scrimshawlife-ctrl\/Surveillance-Survivor/.test(surveillance)) fail('products/surveillance-survivor.html', 'canonical repository link is missing');
+if (!/Zero-State-LLC\/Surveillance-Survivor/.test(surveillance)) fail('products/surveillance-survivor.html', 'canonical repository link is missing');
 if (!/Effective date:/.test(fs.readFileSync(path.join(root, 'privacy.html'), 'utf8'))) fail('privacy.html', 'privacy notice has no effective date');
 if (!/admin@lastreetshits\.com/.test(fs.readFileSync(path.join(root, 'privacy.html'), 'utf8'))) fail('privacy.html', 'privacy contact is missing');
 if (!/Effective date:/.test(fs.readFileSync(path.join(root, 'terms.html'), 'utf8'))) fail('terms.html', 'terms have no effective date');
