@@ -1,8 +1,9 @@
 /* Zer0 State — Cinematic Symbolic Minimalism (Kubrick redesign)
  * Genre: Observational frame / title sequence minimalism
- * Core motifs: Balanced Aperture (reference frame + split Ø), Highway Centerline (passage of change)
- * Principles: motif as transformer, one controlled motion, geometric rigor, latent symbolism, evidence over declaration
+ * Core motifs: Balanced Aperture (reference frame + split Ø), Highway Centerline (static passage of change)
+ * Principles: motif as transformer, geometric rigor, latent symbolism, evidence over declaration
  * Tokens derived from original brand + expanded for cinematic states
+ * Animation removed 2026-08-05: static residue mark only
  */
 
 :root {
@@ -37,9 +38,6 @@
   --highway: #F2C200;
   --residue: rgba(29, 35, 33, 0.12);
   --frame-width: 54px; /* derived from mark */
-  --highway-duration: 4800ms;
-  --dash: 150;
-  --gap: 150;
 }
 
 /* Base */
@@ -233,13 +231,12 @@ h3 {
   text-decoration-thickness: 1px;
 }
 
-/* Identity Stage — The Aperture / Projector Gate */
+/* Identity Stage — The Aperture / Projector Gate (static) */
 .identity-stage {
   border: 1px solid var(--line);
   background: var(--paper);
   padding: 34px;
   position: relative;
-  /* Cinematic frame feel */
   box-shadow: 0 0 0 1px var(--line) inset;
 }
 .identity-mark {
@@ -248,32 +245,14 @@ h3 {
   overflow: visible;
 }
 
-/* Highway animation — the single controlled motion */
+/* Static highway residue (no animation) */
 .highway-line {
   fill: none;
-  stroke: var(--yellow);
-  stroke-width: 58;
-  stroke-linecap: butt;
-  stroke-dasharray: 150 150;
-  opacity: 0;
-}
-.highway-line.is-ready {
-  animation: highway 4.8s linear 1 both;
-}
-}
-@keyframes highway {
-  from { stroke-dashoffset: 900; opacity: 1; }
-  85% { opacity: 1; }
-  to { stroke-dashoffset: -900; opacity: 0; }
-}
-
-/* Residue state (after passage or persistent trace) */
-.identity-stage.residue .highway-line {
-  opacity: 0.12;
   stroke: var(--carbon);
   stroke-width: 28;
+  stroke-linecap: butt;
   stroke-dasharray: 80 220;
-  animation: none;
+  opacity: 0.12;
 }
 
 .identity-caption {
@@ -487,10 +466,6 @@ h3 {
   .site-nav.is-open { display: flex; }
 }
 
-/* Reduced motion */
-
-}
-
 /* Subtle film grain / observational texture (very light, optional) */
 body::after {
   content: "";
@@ -507,17 +482,10 @@ body::after {
 }
 .shell, .section, header, footer { position: relative; z-index: 2; }
 
-/* Validator compatibility + cinematic */
-
-@media (prefers-reduced-motion: reduce) {
-  .highway-line { display: none; animation: none !important; }
-  .identity-stage.residue .highway-line { opacity: 0.1; }
-}
-
-/* === Profound Cinematic Extensions (Kubrick transformation grammar) ===
- * Motif lifecycle: seed → passage → recurrence with mutation → residue (open)
- * Operations: ENCLOSE, CROSS_THRESHOLD, DIVIDE, REPEAT_MUTATE, TRANSFER
- * No labels. Effects only. Every recurrence mutates.
+/* === Profound Cinematic Extensions (static motif only) ===
+ * Motif lifecycle simplified: enclosure + static residue
+ * Operations: ENCLOSE, DIVIDE
+ * No labels. Effects only.
  */
 
 /* Enclosure (aperture corners as active container) */
@@ -537,7 +505,7 @@ body::after {
 .enclosed::before { top: -1px; left: -1px; border-right: none; border-bottom: none; }
 .enclosed::after { bottom: -1px; right: -1px; border-left: none; border-top: none; }
 
-/* Threshold crossing (highway trace as active divider) */
+/* Threshold crossing (static highway trace as divider) */
 .threshold-cross {
   position: relative;
   height: 2px;
@@ -630,43 +598,7 @@ body::after {
   pointer-events: none;
 }
 
-/* Mercurial elements (Kubrick: Mercury as mediation, mutability, reflection, transmission)
- * Layered onto the highway passage as quicksilver volatility contained by the aperture.
- * Reflective surfaces + mutable trace + mediation across states.
- * No new independent motion. Mutation of the existing passage.
- * One-to-one avoided; effects only.
- */
-
-/* Mercurial echo (the mutable, fluid reflection of the directed change) */
-.mercurial-echo {
-  transition: opacity 200ms linear;
-}
-.identity-stage.residue .mercurial-echo {
-  opacity: 0.18;
-}
-.identity-stage.residue .mercurial-echo path {
-  stroke: #C8A800; /* muted quicksilver tone within yellow signal */
-  stroke-width: 14;
-  stroke-dasharray: 90 180; /* mutation from primary */
-}
-.identity-stage.residue .mercurial-echo path:nth-of-type(2) {
-  stroke: #D0D0D0;
-  stroke-width: 6;
-  stroke-dasharray: 60 210;
-  opacity: 0.5;
-}
-
-/* Quicksilver sheen on the primary passage (specular/reflective behavior during the motion)
- * Restrained linear specular — liquid metal quality without urgency.
- */
-.highway-line.is-ready {
-  filter: drop-shadow(0 0 1px rgba(242, 194, 0, 0.4));
-}
-.identity-stage.residue .highway-line {
-  filter: none;
-}
-
-/* Mercurial traces on product scenes and thresholds (recurrence with mediation/mutability) */
+/* Mercurial traces on product scenes and thresholds (static) */
 .product-card .scene-trace.mercurial,
 .threshold-cross.mercurial {
   background: repeating-linear-gradient(
@@ -678,13 +610,6 @@ body::after {
 }
 .product-card .scene-trace.mercurial {
   height: 1px;
-}
-
-/* When the identity is in mercurial residue state, the aperture corners subtly "hold" the volatility */
-.identity-stage.residue .enclosed::before,
-.identity-stage.residue .enclosed::after {
-  border-color: #C8A800;
-  opacity: 0.22;
 }
 
 /* === 2026-08 Redesign Additions (Split Studio / Evidence reel) ===
