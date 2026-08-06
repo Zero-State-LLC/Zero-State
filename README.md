@@ -33,7 +33,12 @@ npm test
 
 ## Deployment
 
-Pushes to `main` run validation and deploy through the GitHub Pages Actions workflow. Expected URL after the repository exists and Pages is enabled: `https://scrimshawlife-ctrl.github.io/zero-state/`.
+Pushes to `main` run validation and deploy through the GitHub Pages Actions workflow.
+
+| Surface | URL |
+| --- | --- |
+| Org (canonical) | https://zero-state-llc.github.io/Zero-State/ |
+| Dark landing concept (Prabu) | https://zero-state-llc.github.io/Zero-State/concepts/dark-landing/ |
 
 ## Launch blockers
 
