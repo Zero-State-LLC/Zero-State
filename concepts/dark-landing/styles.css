@@ -42,7 +42,8 @@
   --space-2xl: 100px;
   --space-3xl: 140px;
   --z-skip: 99;
-  --z-mast: 20;
+  --z-mast: 40;
+  --mast-height: 92px;
 }
 
 * { box-sizing: border-box; }
@@ -98,18 +99,33 @@ img { display: block; max-width: 100%; height: auto; }
 }
 
 .masthead {
-  position: absolute;
-  z-index: var(--z-mast);
+  position: sticky;
   top: 0;
-  left: 50%;
+  z-index: var(--z-mast);
+  width: 100%;
+  background: transparent;
+  transition:
+    background-color var(--dur-short) var(--ease-out),
+    border-color var(--dur-short) var(--ease-out),
+    backdrop-filter var(--dur-short) var(--ease-out);
+  border-bottom: 1px solid transparent;
+}
+.masthead.is-scrolled {
+  background: rgba(12, 16, 15, 0.92);
+  border-bottom-color: var(--line);
+  backdrop-filter: blur(10px);
+}
+.masthead-inner {
   width: min(calc(100% - 64px), var(--shell));
-  height: 92px;
-  transform: translateX(-50%);
+  margin: 0 auto;
+  min-height: var(--mast-height);
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 20px;
   border-bottom: 1px solid var(--line);
 }
+.masthead.is-scrolled .masthead-inner { border-bottom-color: transparent; }
 .wordmark {
   display: inline-flex;
   align-items: center;
@@ -117,9 +133,16 @@ img { display: block; max-width: 100%; height: auto; }
   font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.16em;
+  flex-shrink: 0;
 }
 .wordmark img { width: 26px; height: 42px; object-fit: contain; }
-nav { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; justify-content: flex-end; }
+nav {
+  display: flex;
+  align-items: center;
+  gap: 8px 20px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
 nav a {
   font-family: var(--mono);
   color: var(--muted);
@@ -127,6 +150,10 @@ nav a {
   letter-spacing: 0.11em;
   text-transform: uppercase;
   white-space: nowrap;
+  padding: 10px 4px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
   transition: color var(--dur-short) var(--ease-out);
 }
 nav a:hover { color: var(--stone); }
@@ -134,17 +161,18 @@ nav .nav-signal {
   color: var(--stone);
   border-bottom: 2px solid var(--signal);
   padding: 10px 0 8px;
+  min-height: auto;
 }
 
 .hero {
-  min-height: 100svh;
+  min-height: min(100svh, 920px);
   position: relative;
   overflow: hidden;
   display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(min(100%, 380px), 0.85fr);
+  grid-template-columns: minmax(0, 1.15fr) minmax(min(100%, 340px), 0.85fr);
   align-items: center;
-  gap: 7vw;
-  padding: 150px max(32px, calc((100vw - var(--shell)) / 2)) var(--space-2xl);
+  gap: 5vw;
+  padding: 48px max(32px, calc((100vw - var(--shell)) / 2)) 72px;
   border-bottom: 1px solid var(--line);
 }
 .hero-grid {
@@ -170,8 +198,8 @@ nav .nav-signal {
 h1, h2, p { margin-top: 0; }
 h1 {
   max-width: 900px;
-  margin: 28px 0 32px;
-  font: 500 clamp(54px, 6.5vw, 104px) / 0.94 var(--serif);
+  margin: 20px 0 24px;
+  font: 500 clamp(48px, 5.8vw, 92px) / 0.94 var(--serif);
   letter-spacing: -0.05em;
   font-style: normal;
   overflow-wrap: anywhere;
@@ -235,7 +263,7 @@ h1 .ref {
 
 .aperture-stage {
   position: relative;
-  min-height: 560px;
+  min-height: 480px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -292,31 +320,34 @@ h1 .ref {
 .axis-replay {
   position: absolute;
   z-index: 5;
-  right: 16px;
-  bottom: 16px;
-  min-height: 36px;
-  padding: 0 12px;
-  border: 1px solid var(--line);
-  background: rgba(12, 16, 15, 0.72);
-  color: var(--muted);
-  font: 10px var(--mono);
+  right: 14px;
+  top: 14px;
+  min-height: 32px;
+  padding: 0 10px;
+  border: 1px solid var(--line-soft);
+  background: transparent;
+  color: var(--muted-deep);
+  font: 9px var(--mono);
   letter-spacing: 0.1em;
   text-transform: uppercase;
   cursor: pointer;
+  opacity: 0.72;
   transition:
     color var(--dur-short) var(--ease-out),
-    border-color var(--dur-short) var(--ease-out);
+    border-color var(--dur-short) var(--ease-out),
+    opacity var(--dur-short) var(--ease-out);
 }
 .axis-replay:hover {
   color: var(--stone);
-  border-color: var(--signal);
+  border-color: var(--line);
+  opacity: 1;
 }
 .stage-caption {
   position: absolute;
   z-index: 4;
   bottom: 16px;
   left: 20px;
-  right: 120px;
+  right: 20px;
   margin: 0;
   display: flex;
   justify-content: space-between;
@@ -327,13 +358,12 @@ h1 .ref {
   text-transform: uppercase;
 }
 .hero-foot {
-  position: absolute;
-  bottom: 25px;
-  left: max(32px, calc((100vw - var(--shell)) / 2));
-  right: max(32px, calc((100vw - var(--shell)) / 2));
+  grid-column: 1 / -1;
+  position: relative;
   display: flex;
   justify-content: space-between;
   gap: 16px;
+  margin-top: 8px;
   color: var(--muted-deep);
   font: 9px var(--mono);
   letter-spacing: 0.12em;
@@ -386,7 +416,7 @@ h1 .ref {
   font: 500 clamp(28px, 3.6vw, 48px) / 1.12 var(--serif);
   letter-spacing: -0.035em;
   font-style: normal;
-  color: var(--muted);
+  color: var(--stone-soft);
   border-bottom: 1px solid var(--line-soft);
   overflow-wrap: anywhere;
 }
@@ -425,7 +455,11 @@ h1 .ref {
   margin: 0;
   color: var(--muted);
   line-height: 1.7;
-  max-width: 52ch;
+  max-width: 56ch;
+}
+.suite-intro p strong {
+  color: var(--stone);
+  font-weight: 600;
 }
 .mark-grid {
   list-style: none;
@@ -506,10 +540,11 @@ h1 .ref {
 .work-row {
   min-height: 108px;
   display: grid;
-  grid-template-columns: 48px minmax(0, 1fr) minmax(0, 0.85fr) 28px;
+  grid-template-columns: 48px minmax(0, 1fr) 28px;
   align-items: center;
-  gap: 24px;
+  gap: 20px;
   border-bottom: 1px solid var(--line-warm);
+  padding-block: 18px;
   padding-inline: 0;
   transition:
     background-color var(--dur-short) var(--ease-out),
@@ -519,15 +554,26 @@ h1 .ref {
   background: var(--paper-work-hover);
   padding-inline: 14px;
 }
-.work-num,
-.work-type {
+.work-num {
   color: var(--work-meta);
   font: 10px var(--mono);
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
+.work-main {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+.work-type {
+  color: var(--work-meta);
+  font: 10px/1.4 var(--mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
 .work-title {
-  font: 500 clamp(30px, 3.6vw, 48px) var(--serif);
+  font: 500 clamp(30px, 3.6vw, 48px) / 1.05 var(--serif);
   letter-spacing: -0.035em;
   overflow-wrap: anywhere;
   min-width: 0;
@@ -692,28 +738,38 @@ footer .footer-meta { text-align: right; justify-self: end; }
   nav a,
   .work-row,
   .mark-card img,
-  .axis-replay {
+  .axis-replay,
+  .masthead {
     transition: none !important;
   }
+  .masthead.is-scrolled { backdrop-filter: none; }
 }
 
 @media (max-width: 900px) {
-  .masthead {
+  .masthead-inner {
     width: calc(100% - 40px);
-    height: auto;
     min-height: 72px;
-    padding: 12px 0;
+    padding: 10px 0;
     flex-wrap: wrap;
-    gap: 12px;
+    gap: 8px 12px;
   }
-  nav { gap: 16px; width: 100%; justify-content: flex-start; }
+  nav {
+    gap: 4px 12px;
+    width: 100%;
+    justify-content: flex-start;
+  }
+  nav a {
+    min-height: 40px;
+    padding: 8px 2px;
+  }
   .hero {
     grid-template-columns: 1fr;
-    padding: 130px 20px 88px;
+    min-height: 0;
+    padding: 28px 20px 64px;
   }
-  .hero h1 { font-size: clamp(48px, 14vw, 80px); }
-  .aperture-stage { min-height: 360px; margin-top: 12px; }
-  .hero-foot { left: 20px; right: 20px; position: relative; margin-top: 28px; bottom: auto; }
+  .hero h1 { font-size: clamp(44px, 12vw, 72px); }
+  .aperture-stage { min-height: 340px; margin-top: 8px; }
+  .hero-foot { margin-top: 20px; }
   .manifesto {
     width: calc(100% - 40px);
     padding: 88px 0 72px;
@@ -725,13 +781,13 @@ footer .footer-meta { text-align: right; justify-self: end; }
   .identity-suite { padding: 88px 20px; }
   .mark-grid { grid-template-columns: 1fr 1fr; }
   .mark-card,
-  .mark-card:nth-child(n) { min-height: 320px; }
+  .mark-card:nth-child(n) { min-height: 300px; }
   .work { padding: 88px 20px; }
   .work-row {
     grid-template-columns: 36px minmax(0, 1fr) 24px;
-    min-height: 92px;
+    min-height: 0;
+    padding-block: 16px;
   }
-  .work-type { display: none; }
   .principles { grid-template-columns: 1fr; }
   .principle-mark {
     min-height: 360px;

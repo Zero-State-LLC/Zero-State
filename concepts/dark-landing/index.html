@@ -12,17 +12,19 @@
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
-  <header class="masthead">
-    <a class="wordmark" href="../../index.html" aria-label="Zero State home">
-      <img src="../../assets/danny-email-bundle/zero_state_mark_3.png" alt="" width="32" height="42">
-      <span>ZERØ STATE</span>
-    </a>
-    <nav aria-label="Primary">
-      <a href="#work">Work</a>
-      <a href="#method">Method</a>
-      <a href="../../work.html">Full portfolio</a>
-      <a class="nav-signal" href="#contact">Begin here</a>
-    </nav>
+  <header class="masthead" data-masthead>
+    <div class="masthead-inner">
+      <a class="wordmark" href="../../index.html" aria-label="Zero State home">
+        <img src="../../assets/danny-email-bundle/zero_state_mark_3.png" alt="" width="32" height="42">
+        <span>ZERØ STATE</span>
+      </a>
+      <nav aria-label="Primary">
+        <a href="#evidence">Evidence</a>
+        <a href="#method">Method</a>
+        <a href="../../work.html">Full portfolio</a>
+        <a class="nav-signal" href="#contact">Begin here</a>
+      </nav>
+    </div>
   </header>
 
   <main id="main">
@@ -34,7 +36,7 @@
         <h1 id="hero-title">The world moves.<span class="ref">The reference remains.</span></h1>
         <p class="lede">We build thoughtful, adaptable software by returning to first principles—then combining the tools already here in ways that weren’t obvious before.</p>
         <div class="hero-actions">
-          <a class="button" href="#work">Enter the work <span aria-hidden="true">↘</span></a>
+          <a class="button" href="#evidence">See the evidence <span aria-hidden="true">↘</span></a>
           <a class="quiet-link" href="#method">Read our method</a>
         </div>
       </div>
@@ -52,7 +54,7 @@
         >
         <div class="axis" data-axis aria-hidden="true"></div>
         <p class="stage-caption"><span>Intelligence</span><span>Begins at zero</span></p>
-        <button type="button" class="axis-replay" data-axis-replay>Replay axis</button>
+        <button type="button" class="axis-replay" data-axis-replay aria-label="Replay passage motion">Replay motion</button>
       </div>
 
       <div class="hero-foot">
@@ -76,9 +78,9 @@
     <section class="identity-suite" aria-labelledby="identity-title">
       <header class="suite-intro">
         <h2 id="identity-title">One state.<br>Four expressions.</h2>
-        <p>Four marks from the original identity suite. Each is one expression of the same system—not a color inventory.</p>
+        <p>Four marks from the original identity suite. Below: <strong>mark name</strong> · what it holds in the system.</p>
       </header>
-      <ul class="mark-grid">
+      <ul class="mark-grid" aria-label="Identity marks">
         <li class="mark-card">
           <img src="../../assets/danny-email-bundle/zero_state_mark_1.png" alt="" width="308" height="413" loading="lazy" decoding="async">
           <div class="mark-meta">
@@ -110,41 +112,51 @@
       </ul>
     </section>
 
-    <section class="work" id="work" aria-labelledby="work-title">
+    <section class="work" id="evidence" aria-labelledby="evidence-title">
       <header class="section-head">
-        <h2 id="work-title">Systems in motion.</h2>
+        <h2 id="evidence-title">Systems in motion.</h2>
         <p>Products are not claims. They are evidence of the method under pressure—aligned with the live portfolio.</p>
       </header>
 
       <div class="work-list">
         <a class="work-row" href="../../products/abraxas.html">
           <span class="work-num">01</span>
-          <span class="work-title">Abraxas</span>
-          <span class="work-type">Governed symbolic intelligence</span>
+          <span class="work-main">
+            <span class="work-title">Abraxas</span>
+            <span class="work-type">Governed symbolic intelligence</span>
+          </span>
           <span class="work-arrow" aria-hidden="true">↗</span>
         </a>
         <a class="work-row" href="../../products/waykin.html">
           <span class="work-num">02</span>
-          <span class="work-title">Waykin</span>
-          <span class="work-type">Movement, memory &amp; presence</span>
+          <span class="work-main">
+            <span class="work-title">Waykin</span>
+            <span class="work-type">Movement, memory &amp; presence</span>
+          </span>
           <span class="work-arrow" aria-hidden="true">↗</span>
         </a>
         <a class="work-row" href="../../products/patchhive.html">
           <span class="work-num">03</span>
-          <span class="work-title">PatchHive</span>
-          <span class="work-type">Modular synthesis systems</span>
+          <span class="work-main">
+            <span class="work-title">PatchHive</span>
+            <span class="work-type">Modular synthesis systems</span>
+          </span>
           <span class="work-arrow" aria-hidden="true">↗</span>
         </a>
         <a class="work-row" href="../../products/hexwire.html">
           <span class="work-num">04</span>
-          <span class="work-title">HexWire</span>
-          <span class="work-type">Tactical cyberpunk RPG</span>
+          <span class="work-main">
+            <span class="work-title">HexWire</span>
+            <span class="work-type">Tactical cyberpunk RPG</span>
+          </span>
           <span class="work-arrow" aria-hidden="true">↗</span>
         </a>
         <a class="work-row" href="../../products/surveillance-survivor.html">
           <span class="work-num">05</span>
-          <span class="work-title">Surveillance Survivor</span>
-          <span class="work-type">Satirical survivor roguelite</span>
+          <span class="work-main">
+            <span class="work-title">Surveillance Survivor</span>
+            <span class="work-type">Satirical survivor roguelite</span>
+          </span>
           <span class="work-arrow" aria-hidden="true">↗</span>
         </a>
       </div>
