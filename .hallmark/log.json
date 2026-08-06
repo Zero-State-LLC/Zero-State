@@ -1,5 +1,21 @@
 [
   {
+    "date": "2026-08-05",
+    "scope": "app",
+    "genre": "modern-minimal",
+    "macrostructure": "Split Studio / Indexed Evidence Reel + Long Document + Workbench alignment",
+    "theme": "Zero State carbon-stone-teal (evolved)",
+    "brief": "Full repo sweep: work.html (evidence list), philosophy/about/contact (Long Document), all product pages (Workbench), legal pages, CSS polish. design.md updated."
+  },
+  {
+    "date": "2026-08-05",
+    "scope": "app",
+    "genre": "modern-minimal",
+    "macrostructure": "Split Studio / Indexed Evidence Reel",
+    "theme": "Zero State carbon-stone-teal (evolved)",
+    "brief": "Redesign: homepage Split Studio diptych + indexed evidence reel; evolve design.md and supporting styles."
+  },
+  {
     "date": "2026-07-26",
     "scope": "app",
     "genre": "modern-minimal",

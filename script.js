@@ -1,3 +1,8 @@
+// Load the global chromatic layer after the base stylesheet on every page.
+const colorPass = document.createElement('link');
+colorPass.rel = 'stylesheet';
+colorPass.href = new URL('color-pass.css', document.currentScript?.src || document.baseURI).href;
+document.head.appendChild(colorPass);
 
 const header = document.querySelector('[data-header]');
 const menuButton = document.querySelector('[data-menu-button]');
@@ -24,20 +29,3 @@ nav?.querySelectorAll('a').forEach((link) => {
     nav?.classList.remove('is-open');
   });
 });
-
-// Re-trigger the one-pass highway motion when the hero enters the viewport.
-const motion = document.querySelector('.identity-motion .highway-line');
-const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-const playMotion = () => motion?.classList.add('is-ready');
-if (motion && !reducedMotion && 'IntersectionObserver' in window) {
-  const stage = document.querySelector('.identity-stage');
-  const observer = new IntersectionObserver(([entry]) => {
-    if (entry.isIntersecting) {
-      playMotion();
-      observer.disconnect();
-    }
-  }, { threshold: 0.35 });
-  if (stage) observer.observe(stage);
-} else if (motion && !reducedMotion) {
-  playMotion();
-}
