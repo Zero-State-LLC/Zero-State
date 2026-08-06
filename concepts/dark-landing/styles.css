@@ -428,49 +428,57 @@ h1 .ref {
   max-width: 52ch;
 }
 .mark-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   border-top: 1px solid var(--line);
   border-left: 1px solid var(--line);
 }
 .mark-card {
-  min-height: 420px;
   margin: 0;
-  padding: 20px;
-  position: relative;
-  display: grid;
-  place-items: center;
+  padding: 24px 20px 22px;
+  min-height: 420px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
   border-right: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
-  overflow: hidden;
   background: var(--void);
 }
-.mark-card:nth-child(1) { min-height: 460px; }
-.mark-card:nth-child(2) { min-height: 400px; background: var(--carbon); }
-.mark-card:nth-child(3) { min-height: 480px; }
-.mark-card:nth-child(4) { min-height: 420px; background: var(--carbon-2); }
-.mark-card > span,
-.mark-card figcaption {
-  position: absolute;
-  z-index: 2;
-  left: 18px;
-  color: var(--muted);
-  font: 9px var(--mono);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-.mark-card > span { top: 18px; }
-.mark-card figcaption { bottom: 18px; }
+.mark-card:nth-child(2) { background: var(--carbon); }
+.mark-card:nth-child(4) { background: var(--carbon-2); }
 .mark-card img {
-  position: relative;
-  z-index: 2;
-  width: 78%;
-  max-height: 340px;
+  width: min(78%, 220px);
+  max-height: 280px;
   object-fit: contain;
   filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.55));
   transition: opacity var(--dur-short) var(--ease-out);
 }
 .mark-card:hover img { opacity: 0.92; }
+.mark-meta {
+  width: 100%;
+  text-align: left;
+  border-top: 1px solid var(--line-soft);
+  padding-top: 14px;
+}
+.mark-name {
+  margin: 0 0 4px;
+  color: var(--stone);
+  font: 700 12px var(--mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.mark-sense {
+  margin: 0;
+  color: var(--muted);
+  font: 400 14px/1.4 var(--sans);
+  letter-spacing: 0.01em;
+  text-transform: none;
+}
 
 /* Work — evidence list (light band) */
 .work {
