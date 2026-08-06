@@ -12,6 +12,14 @@ Modern-minimal: quiet, structural, and exact. Cinematic restraint with one contr
 - Current: Split Studio diptych energy for marketing surfaces + indexed "evidence" / reel presentation for work. Philosophy and content pages remain Long Document.
 - Emphasis on recurring motif (aperture as anchor across folds), tighter vertical rhythm, document-like ruled sections, and evidence language over marketing card uniformity.
 
+## Full repo sweep (August 2026)
+
+- Work page converted to evidence-list style for consistency with homepage.
+- Philosophy, About, Contact, and all product pages refreshed for structural alignment (Long Document and Workbench).
+- Legal pages lightly aligned.
+- Added supporting CSS for page-hero, product-detail, longform, and status elements.
+- All changes preserve exact copy, the Balanced Aperture mark + highway animation, and validation requirements.
+
 ## Macrostructure family
 
 - Marketing / Homepage: Split Studio (diptych text + aperture proof) with asymmetric editorial sections and recurring motif dividers.

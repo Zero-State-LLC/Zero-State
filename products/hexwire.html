@@ -8,7 +8,7 @@
 <link rel="icon" href="../assets/zero-state-mark.svg" type="image/svg+xml">
 <link rel="stylesheet" href="../styles.css">
 </head>
-<body class="">
+<body>
 <a class="skip-link" href="#main">Skip to content</a>
 
 <header class="site-header" data-header>
@@ -29,15 +29,38 @@
   </div>
 </header>
 
-<main id="main"><section class="page-hero shell product-hero">
-<p class="eyebrow">Tactical cyberpunk hex-grid RPG</p><h1>HexWire</h1><p class="hero-lede">Every action trades power for exposure.</p>
-<p class="status">Stabilized vertical slice · CI-verified · device and App Store release gates remain</p></section>
-<section class="section shell product-detail">
-<div class="split"><h2>What it is</h2><div><p>HexWire is a tactical cyberpunk hex-grid RPG for iPhone and iPad, built with SwiftUI and SpriteKit.</p><p>Its pressure-driven combat loop is Signal → Power → Trace → Escalation → Lay Low → Tempo Tradeoff. Four runners—street samurai, mage, decker, and face—operate across six authored multi-room missions and interstitial scene-missions.</p></div></div>
-</section>
-<section class="section section-accent"><div class="shell product-detail">
-<div class="split"><h2>Systems and architecture</h2><div><p>The campaign includes a persistent economy with nuyen, black-market access, and cyberware; faction heat that persists between missions; seeded replay rerolls; an endless gauntlet; and New Game+ scaling.</p><p>GameState is the single gameplay authority. The UI and SpriteKit layers emit intents and render from state rather than mutating authoritative state directly.</p><p>The current repository posture is a stabilized vertical slice with deterministic tests and CI-verified iPhone and iPad builds. Owner-device touch-layer checks, disabling the development mission unlock, and App Store signing and metadata remain release blockers.</p><a class="text-link" href="https://github.com/scrimshawlife-ctrl/Hexwire">Read the canonical repository description <span aria-hidden="true">↗</span></a></div></div>
-</div></section></main>
+<main id="main">
+  <section class="page-hero shell product-hero">
+    <p class="eyebrow">Tactical cyberpunk hex-grid RPG</p>
+    <h1>HexWire</h1>
+    <p class="hero-lede">Every action trades power for exposure.</p>
+    <p class="status">Stabilized vertical slice · CI-verified · device and App Store release gates remain</p>
+  </section>
+
+  <section class="section shell product-detail">
+    <div class="split">
+      <h2>What it is</h2>
+      <div>
+        <p>HexWire is a tactical cyberpunk hex-grid RPG for iPhone and iPad, built with SwiftUI and SpriteKit.</p>
+        <p>Its pressure-driven combat loop is Signal → Power → Trace → Escalation → Lay Low → Tempo Tradeoff. Four runners—street samurai, mage, decker, and face—operate across six authored multi-room missions and interstitial scene-missions.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-accent">
+    <div class="shell product-detail">
+      <div class="split">
+        <h2>Systems and architecture</h2>
+        <div>
+          <p>The campaign includes a persistent economy with nuyen, black-market access, and cyberware; faction heat that persists between missions; seeded replay rerolls; an endless gauntlet; and New Game+ scaling.</p>
+          <p>GameState is the single gameplay authority. The UI and SpriteKit layers emit intents and render from state rather than mutating authoritative state directly.</p>
+          <p>The current repository posture is a stabilized vertical slice with deterministic tests and CI-verified iPhone and iPad builds. Owner-device touch-layer checks, disabling the development mission unlock, and App Store signing and metadata remain release blockers.</p>
+          <a class="text-link" href="https://github.com/scrimshawlife-ctrl/Hexwire">Read the canonical repository description <span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
 
 <footer class="site-footer">
   <div class="shell footer-grid">
@@ -54,5 +77,5 @@
   </div>
 </footer>
 <script src="../script.js"></script>
-
-</body></html>
+</body>
+</html>

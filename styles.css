@@ -796,3 +796,69 @@ body::after {
     padding-bottom: 72px;
   }
 }
+
+/* === Full repo sweep polish (2026-08) === */
+
+/* Page hero consistency */
+.page-hero {
+  padding: 72px 0 48px;
+}
+.page-hero h1 {
+  margin-bottom: 16px;
+}
+
+/* Product pages */
+.product-hero .status {
+  margin-top: 12px;
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: .08em;
+  color: var(--ink-subtle);
+}
+
+.product-detail .split {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: var(--space-xl);
+  align-items: start;
+}
+
+.product-detail h2 {
+  margin-top: 0;
+  font-size: 15px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--teal);
+}
+
+.longform h2 {
+  margin-top: var(--space-xl);
+  margin-bottom: 8px;
+}
+
+/* Contact specific */
+.contact-page .button {
+  margin-top: 24px;
+}
+
+.placeholder-note {
+  font-size: 13px;
+  color: var(--ink-subtle);
+  margin-top: 8px;
+}
+
+/* Evidence status inside items */
+.evidence-body .status {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: .08em;
+  color: var(--ink-subtle);
+  margin: 8px 0;
+}
+
+@media (max-width: 820px) {
+  .product-detail .split {
+    grid-template-columns: 1fr;
+  }
+}
