@@ -340,34 +340,69 @@ h1 .ref {
   text-transform: uppercase;
 }
 
-/* Manifesto — single-column head, then copy + note */
+/* Manifesto — stacked label → lead line → rest → body note */
 .manifesto {
   width: min(calc(100% - 64px), var(--shell));
   margin: 0 auto;
   padding: var(--space-3xl) 0 var(--space-2xl);
   display: grid;
-  grid-template-columns: minmax(0, 1.5fr) minmax(0, 0.7fr);
-  gap: 5vw;
-  align-items: start;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+  max-width: 920px;
 }
-.manifesto-copy {
-  font: 500 clamp(32px, 4vw, 60px) / 1.12 var(--serif);
-  letter-spacing: -0.035em;
+.manifesto-head {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  margin: 0 0 28px;
 }
-.manifesto-copy p {
-  margin: 0 0 18px;
-  color: var(--ink-soft);
+.section-kicker {
+  margin: 0;
+  color: var(--teal-meta);
+  font: 11px/1.3 var(--mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.manifesto-head h2 {
+  margin: 0;
+  max-width: 18ch;
+  font: 500 clamp(36px, 4.8vw, 64px) / 1.08 var(--serif);
+  letter-spacing: -0.04em;
   font-style: normal;
+  color: var(--stone);
+  overflow-wrap: anywhere;
 }
-.manifesto-copy .lit { color: var(--stone); }
+.manifesto-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border-top: 1px solid var(--line);
+  padding-top: 28px;
+}
+.manifesto-line {
+  margin: 0;
+  padding: 14px 0;
+  font: 500 clamp(28px, 3.6vw, 48px) / 1.12 var(--serif);
+  letter-spacing: -0.035em;
+  font-style: normal;
+  color: var(--muted);
+  border-bottom: 1px solid var(--line-soft);
+  overflow-wrap: anywhere;
+}
+.manifesto-line.lit {
+  color: var(--stone);
+  border-bottom-color: var(--line);
+  padding-bottom: 28px;
+}
 .manifesto-note {
-  padding: 4px 0 0 22px;
+  margin: 32px 0 0;
+  max-width: 52ch;
+  padding: 0 0 0 20px;
   border-left: 2px solid var(--signal);
   color: var(--muted);
-  font-size: 15px;
-  line-height: 1.7;
+  font: 400 16px/1.7 var(--sans);
 }
-.manifesto-note p { margin: 0; }
 
 /* Identity suite */
 .identity-suite {
@@ -673,8 +708,11 @@ footer .footer-meta { text-align: right; justify-self: end; }
   .hero-foot { left: 20px; right: 20px; position: relative; margin-top: 28px; bottom: auto; }
   .manifesto {
     width: calc(100% - 40px);
-    grid-template-columns: 1fr;
     padding: 88px 0 72px;
+  }
+  .manifesto-head h2,
+  .manifesto-line {
+    max-width: none;
   }
   .identity-suite { padding: 88px 20px; }
   .mark-grid { grid-template-columns: 1fr 1fr; }
