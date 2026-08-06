@@ -7,7 +7,8 @@ const root = path.resolve(__dirname, '..');
 const requiredPages = [
   'index.html', 'work.html', 'philosophy.html', 'about.html', 'contact.html',
   'privacy.html', 'terms.html', 'products/abraxas.html', 'products/waykin.html',
-  'products/patchhive.html', 'products/surveillance-survivor.html', 'products/experiments.html'
+  'products/patchhive.html', 'products/hexwire.html', 'products/surveillance-survivor.html',
+  'products/experiments.html'
 ];
 const failures = [];
 const fail = (file, message) => failures.push(`${file}: ${message}`);
@@ -38,6 +39,7 @@ for (const file of htmlFiles) {
 const index = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
 const work = fs.readFileSync(path.join(root, 'work.html'), 'utf8');
 const surveillance = fs.readFileSync(path.join(root, 'products/surveillance-survivor.html'), 'utf8');
+const hexwire = fs.readFileSync(path.join(root, 'products/hexwire.html'), 'utf8');
 const css = fs.readFileSync(path.join(root, 'styles.css'), 'utf8');
 
 if ((index.match(/identity-motion/g) || []).length < 1) fail('index.html', 'identity motion element is missing');
@@ -53,9 +55,14 @@ if (!/class=["']highway-line["'][^>]*d=["']M -260 1260 L 1260 -260["']/.test(ind
 }
 if (!/data-axis-center=["']500,500["']/.test(index)) fail('index.html', 'highway axis does not explicitly declare the zero center');
 if ((index.match(/class=["']zero-ring-arc["']/g) || []).length !== 2) fail('index.html', 'split zero must contain exactly two governed ring arcs');
-if (!/stroke-dasharray:\s*150\s+150/.test(css)) fail('styles.css', 'highway dash and gap are not equal');
-if (!/@media \(prefers-reduced-motion: reduce\)[\s\S]*?\.highway-line\s*\{\s*display:\s*none/.test(css)) fail('styles.css', 'reduced-motion does not hide the highway');
-if (!/\.highway-line\.is-ready\s*\{\s*animation:\s*highway\s+4\.8s\s+linear\s+1\s+both/.test(css)) fail('styles.css', 'highway animation must be linear and one-pass');
+// Static highway residue only — animation was intentionally removed from main.
+if (!/\.highway-line\s*\{[\s\S]*?stroke-dasharray:\s*80\s+220/.test(css)) fail('styles.css', 'static highway residue dash pattern is missing');
+if (/\.highway-line\.is-ready\s*\{/.test(css) || /@keyframes\s+highway\b/.test(css)) fail('styles.css', 'highway animation must remain removed');
+if (!/HexWire/.test(index)) fail('index.html', 'HexWire is missing from selected work');
+if (!/Stabilized vertical slice · CI-verified · device and App Store release gates remain/.test(work)) fail('work.html', 'HexWire readiness posture is missing or overstated');
+if (!/tactical cyberpunk hex-grid RPG/.test(hexwire)) fail('products/hexwire.html', 'canonical HexWire README description is missing');
+if (!/Signal → Power → Trace → Escalation → Lay Low → Tempo Tradeoff/.test(hexwire)) fail('products/hexwire.html', 'canonical HexWire pressure loop is missing');
+if (!/scrimshawlife-ctrl\/Hexwire/.test(hexwire)) fail('products/hexwire.html', 'canonical HexWire repository link is missing');
 if (!/Surveillance Survivor/.test(index)) fail('index.html', 'Surveillance Survivor is missing from selected work');
 if (!/Active pre-alpha · simulator-ready vertical slice · not release-ready/.test(work)) fail('work.html', 'Surveillance Survivor readiness posture is missing or overstated');
 if (!/iPhone-first satirical survivor roguelite/.test(surveillance)) fail('products/surveillance-survivor.html', 'canonical README description is missing');
