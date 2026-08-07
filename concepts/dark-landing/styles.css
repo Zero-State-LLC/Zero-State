@@ -629,32 +629,47 @@ h1 .ref {
   color: var(--muted);
 }
 
+/* Footer — statement close (aligned with production site voice) */
 footer {
-  min-height: 140px;
   width: min(calc(100% - 64px), var(--shell));
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: center;
-  gap: 24px;
+  grid-template-columns: 1fr;
+  justify-items: start;
+  gap: 16px;
   color: var(--muted);
   font: 10px var(--mono);
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  padding: 36px 0;
+  padding: 40px 0 48px;
+  border-top: 1px solid var(--line);
 }
 footer p { margin: 0; }
-footer .footer-meta { text-align: right; justify-self: end; }
+footer .footer-statement {
+  max-width: 36ch;
+  color: var(--stone-soft);
+  font: 400 13px/1.5 var(--sans);
+  letter-spacing: 0.01em;
+  text-transform: none;
+}
+footer .footer-meta {
+  color: var(--muted-deep);
+}
 .footer-links {
   display: flex;
-  gap: 20px;
-  justify-content: center;
+  flex-wrap: wrap;
+  gap: 16px 20px;
 }
 .footer-links a {
   color: var(--muted);
   transition: color var(--dur-short) var(--ease-out);
 }
 .footer-links a:hover { color: var(--stone); }
+/* Product pages share this footer pattern */
+.dark-product-page footer,
+body.dark-product-page footer {
+  width: min(calc(100% - 64px), var(--shell));
+}
 
 @keyframes pulse {
   from { transform: translateY(-16%); opacity: 0; }
@@ -724,9 +739,6 @@ footer .footer-meta { text-align: right; justify-self: end; }
   .closing { padding: 88px 20px; min-height: 48vh; }
   footer {
     width: calc(100% - 40px);
-    grid-template-columns: 1fr;
-    padding: 36px 0;
+    padding: 32px 0 40px;
   }
-  footer .footer-meta,
-  .footer-links { justify-self: start; text-align: left; }
 }

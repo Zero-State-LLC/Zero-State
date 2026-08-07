@@ -2,6 +2,35 @@
  * continuation of dark landing · content-height hero (no forced 100vh)
  */
 
+.dark-product-page footer {
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: start;
+  gap: 16px;
+  width: min(calc(100% - 64px), var(--shell));
+  margin: 0 auto;
+  padding: 40px 0 48px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font: 10px var(--mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.dark-product-page footer .footer-statement {
+  max-width: 36ch;
+  margin: 0;
+  color: var(--stone-soft);
+  font: 400 13px/1.5 var(--sans);
+  letter-spacing: 0.01em;
+  text-transform: none;
+}
+.dark-product-page footer .footer-meta { margin: 0; color: var(--muted-deep); }
+.dark-product-page footer .footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 20px;
+}
+
 body.dark-product-page {
   min-height: 0;
   background:
