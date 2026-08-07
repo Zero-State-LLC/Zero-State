@@ -1,5 +1,5 @@
 {
-  "version": "0.3.0",
+  "version": "0.3.1",
   "status": "prototype",
   "pages": [
     "index",
@@ -26,8 +26,12 @@
     "Zero-State-LLC/Hollersports",
     "Zero-State-LLC/Marigold-Market"
   ],
+  "public_sources": {
+    "org_repositories": "https://github.com/orgs/Zero-State-LLC/repositories",
+    "site": "https://zero-state-llc.github.io/Zero-State/"
+  },
   "known_placeholders": [
-    "product external URLs",
+    "app store and production product destinations",
     "trademark review",
     "typography licensing review"
   ],
