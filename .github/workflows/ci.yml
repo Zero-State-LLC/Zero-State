@@ -1,8 +1,14 @@
+# Validate the static site on every push and pull request.
+# Uses the same Node entrypoint as the Pages build job.
+
 name: Site validation
 
 on:
   push:
+    branches:
+      - main
   pull_request:
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -11,14 +17,29 @@ jobs:
   validate:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
-      - run: npm ci
-      - run: npm run validate:html
-      - run: npm run lint:css
-      - run: npm run check:links
-      - run: npm run test:a11y
-      - run: npm run build
+
+      - name: Install
+        run: npm ci
+
+      - name: Validate HTML
+        run: npm run validate:html
+
+      - name: Lint CSS
+        run: npm run lint:css
+
+      - name: Check links
+        run: npm run check:links
+
+      - name: Accessibility smoke
+        run: npm run test:a11y
+
+      - name: Build (site validation)
+        run: npm run build

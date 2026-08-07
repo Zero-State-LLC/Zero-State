@@ -33,12 +33,19 @@ npm test
 
 ## Deployment
 
-Pushes to `main` run validation and deploy through the GitHub Pages Actions workflow.
+| Workflow | Trigger | Job |
+| --- | --- | --- |
+| **Site validation** | push to `main`, pull requests, manual | validate |
+| **Deploy GitHub Pages** | push to `main`, manual | build → deploy |
+
+Pages source must be **GitHub Actions** (not “Deploy from a branch”). The deploy job uses the `github-pages` environment, which allows branch `main`.
+
+If a merge to `main` does not start a deploy, check **Actions → Deploy GitHub Pages** for a `push` run. Re-run with **Run workflow** (`workflow_dispatch`) if needed.
 
 | Surface | URL |
 | --- | --- |
 | Org (canonical) | https://zero-state-llc.github.io/Zero-State/ |
-| Dark landing concept (Prabu) | https://zero-state-llc.github.io/Zero-State/concepts/dark-landing/ |
+| Dark landing concept | https://zero-state-llc.github.io/Zero-State/concepts/dark-landing/ |
 
 ## Launch blockers
 
