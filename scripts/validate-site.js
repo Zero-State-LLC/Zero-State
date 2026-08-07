@@ -55,24 +55,17 @@ const psyfi = fs.readFileSync(path.join(root, 'products/psyfi.html'), 'utf8');
 const hollersports = fs.readFileSync(path.join(root, 'products/hollersports.html'), 'utf8');
 const marigold = fs.readFileSync(path.join(root, 'products/marigold-market.html'), 'utf8');
 const hexwire = fs.readFileSync(path.join(root, 'products/hexwire.html'), 'utf8');
-const css = fs.readFileSync(path.join(root, 'styles.css'), 'utf8');
+const cssDark = fs.readFileSync(path.join(root, 'styles-dark.css'), 'utf8');
 
-if ((index.match(/identity-motion/g) || []).length < 1) fail('index.html', 'identity motion element is missing');
-if (/class=["'][^"']*identity-base/.test(index)) fail('index.html', 'motion and logo must not use separately positioned SVG/image layers');
-if (!/<svg[^>]*class=["'][^"']*identity-mark[^"']*identity-motion[^"']*["'][^>]*viewBox=["']0 0 1000 1000["']/.test(index)) {
-  fail('index.html', 'logo mark and highway motion must share one authoritative SVG coordinate system');
-}
-if (!/data-logo-center-x=["']500["'][^>]*data-logo-center-y=["']500["'][^>]*data-split-angle=["']-45["']/.test(index)) {
-  fail('index.html', 'authoritative zero center and split-angle metadata are missing');
-}
-if (!/class=["']highway-line["'][^>]*d=["']M -260 1260 L 1260 -260["']/.test(index)) {
-  fail('index.html', 'highway path must cross the 1000×1000 logo viewBox through the zero center on the -45° split axis');
-}
-if (!/data-axis-center=["']500,500["']/.test(index)) fail('index.html', 'highway axis does not explicitly declare the zero center');
-if ((index.match(/class=["']zero-ring-arc["']/g) || []).length !== 2) fail('index.html', 'split zero must contain exactly two governed ring arcs');
-// Static highway residue only — animation was intentionally removed from main.
-if (!/\.highway-line\s*\{[\s\S]*?stroke-dasharray:\s*80\s+220/.test(css)) fail('styles.css', 'static highway residue dash pattern is missing');
-if (/\.highway-line\.is-ready\s*\{/.test(css) || /@keyframes\s+highway\b/.test(css)) fail('styles.css', 'highway animation must remain removed');
+// Official dark home — primary identity logo + social preview
+if (!/aperture-mark/.test(index)) fail('index.html', 'primary identity aperture mark is missing');
+if (!/zero_state_logo/.test(index)) fail('index.html', 'Zero State logo asset is missing from home');
+if (!/Opportunity begins at zero/i.test(index)) fail('index.html', 'logo tagline alt text must say Opportunity begins at zero');
+if (!/og:image/.test(index) || !/assets\/og-image\.png/.test(index)) fail('index.html', 'Open Graph social preview image is missing');
+if (!/twitter:card/.test(index)) fail('index.html', 'Twitter card meta is missing');
+if (!exists('assets/og-image.png')) fail('assets/og-image.png', 'social preview image file is missing');
+if (!exists('styles-dark.css')) fail('styles-dark.css', 'official dark home stylesheet is missing');
+if (!/hero-grid/.test(index)) fail('index.html', 'landing field grid is missing');
 
 // Org portfolio completeness
 for (const name of ['Waykin', 'PatchHive', 'PsyFi', 'Surveillance Survivor', 'HexWire', 'Hollersports', 'Marigold Market']) {
@@ -117,4 +110,4 @@ if (failures.length) {
   failures.forEach((message) => console.error(`- ${message}`));
   process.exit(1);
 }
-console.log(`PASS: ${requiredPages.length} pages, product heroes, internal links, metadata, accessibility smoke checks, product-source posture, and collinear identity-motion geometry validated.`);
+console.log(`PASS: ${requiredPages.length} pages, product heroes, dark home, social preview, internal links, metadata, and product-source posture validated.`);

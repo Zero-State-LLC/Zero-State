@@ -2,6 +2,13 @@
 
 All notable changes to the Zero State public website are documented here.
 
+## 0.3.1 — 2026-08-07
+
+- Promote dark landing to the **official home** (`index.html` + `styles-dark.css`); legacy `concepts/dark-landing/` redirects.
+- Logo tagline: **Opportunity begins at zero** (was Intelligence begins at zero).
+- Hero field grid slightly brighter with cool “electrified” signal tint.
+- Social preview: `assets/og-image.png` + Open Graph / Twitter Card meta on home.
+
 ## 0.3.0 — 2026-08-07
 
 Public brand surface aligned to the Zero-State-LLC org portfolio, with Hallmark layout fixes and automated Pages deploy.

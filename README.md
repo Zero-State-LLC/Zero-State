@@ -40,13 +40,19 @@ npm test
 
 `npm test` runs deterministic site validation (pages, assets, internal links, product posture, identity-motion constraints). Dev server: `http://localhost:8080`.
 
+## Social preview
+
+`assets/og-image.png` (1200×630) is referenced by Open Graph and Twitter Card meta on the home page.
+
 ## Structure
 
 | Path | Role |
 | --- | --- |
 | `index.html`, `work.html`, `philosophy.html`, `about.html`, `contact.html` | Primary surfaces |
 | `products/` | Parent-brand product summaries + repo links |
-| `concepts/dark-landing/` | Dark concept landing (method band + evidence list) |
+| `index.html` + `styles-dark.css` | **Official home** (dark landing) |
+| `concepts/dark-landing/` | Redirect to official home (legacy URL) |
+| `styles-light.css` | Secondary light pages (work, philosophy, about, …) |
 | `assets/` | Marks, retina identity, product heroes |
 | `styles.css`, `script.js` | Shared light-site presentation |
 | `design.md` | Locked design system |
@@ -66,7 +72,8 @@ Pages source must be **GitHub Actions**. The deploy job uses the `github-pages` 
 | --- | --- |
 | Org (canonical) | https://zero-state-llc.github.io/Zero-State/ |
 | Work | https://zero-state-llc.github.io/Zero-State/work.html |
-| Dark landing concept | https://zero-state-llc.github.io/Zero-State/concepts/dark-landing/ |
+| Official home (dark) | https://zero-state-llc.github.io/Zero-State/ |
+| Legacy dark-landing URL | redirects to home |
 
 ## Release
 
