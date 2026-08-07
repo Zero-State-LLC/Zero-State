@@ -2,16 +2,34 @@
 
 Canonical website and public brand surface for Zero State — software for a world that keeps changing.
 
+**Version:** `0.3.0` · **Status:** DEVELOPMENT_PREVIEW
+
 Zero State is the willingness to return to first principles as the world is changing. We believe the tools for a more desirable future already exist; we are learning how to combine them wisely. Products are what this philosophy has produced so far.
 
-## Status: DEVELOPMENT_PREVIEW
+## Status
 
 | Classification | Meaning |
 | --- | --- |
-| OBSERVED | Static pages, brand assets, and validation checks exist in this repository. |
-| INFERRED | The site is designed to present an adaptable first-principles practice. |
+| OBSERVED | Static pages, brand assets, org portfolio, validation, and Pages deploy exist in this repository. |
+| INFERRED | The site presents an adaptable first-principles practice and evidence-led portfolio. |
 | ASPIRATIONAL | Philosophy statements describe the undertaking, not product guarantees. |
 | NOT_READY | App Store / production product destinations, trademark review, and typography licensing review. |
+
+## Portfolio
+
+Public product pages map to org repositories:
+
+| Product | Repository |
+| --- | --- |
+| Waykin | [Zero-State-LLC/Waykin](https://github.com/Zero-State-LLC/Waykin) |
+| PatchHive | [Zero-State-LLC/Patch-Hive](https://github.com/Zero-State-LLC/Patch-Hive) |
+| PsyFi | [Zero-State-LLC/Psy-Fi](https://github.com/Zero-State-LLC/Psy-Fi) |
+| Surveillance Survivor | [Zero-State-LLC/Surveillance-Survivor](https://github.com/Zero-State-LLC/Surveillance-Survivor) |
+| HexWire | [Zero-State-LLC/Hexwire](https://github.com/Zero-State-LLC/Hexwire) |
+| Hollersports | [Zero-State-LLC/Hollersports](https://github.com/Zero-State-LLC/Hollersports) |
+| Marigold Market | [Zero-State-LLC/Marigold-Market](https://github.com/Zero-State-LLC/Marigold-Market) |
+
+Org listing: https://github.com/orgs/Zero-State-LLC/repositories
 
 ## Local development
 
@@ -20,16 +38,20 @@ npm run serve
 npm test
 ```
 
-`npm test` verifies required pages and assets, metadata and landmarks, internal links, Pages-safe paths, placeholder signaling, and the balanced highway motion constraints. The development server uses `http://localhost:8080`.
+`npm test` runs deterministic site validation (pages, assets, internal links, product posture, identity-motion constraints). Dev server: `http://localhost:8080`.
 
 ## Structure
 
-- `index.html`, `work.html`, `philosophy.html`, `about.html`, `contact.html`: primary site pages
-- `products/`: product-context pages
-- `assets/`: Balanced Aperture mark variants
-- `styles.css`, `script.js`: shared presentation and interaction
-- `scripts/validate-site.js`: deterministic validation
-- `.github/workflows/`: CI and official GitHub Pages deployment
+| Path | Role |
+| --- | --- |
+| `index.html`, `work.html`, `philosophy.html`, `about.html`, `contact.html` | Primary surfaces |
+| `products/` | Parent-brand product summaries + repo links |
+| `concepts/dark-landing/` | Dark concept landing (method band + evidence list) |
+| `assets/` | Marks, retina identity, product heroes |
+| `styles.css`, `script.js` | Shared light-site presentation |
+| `design.md` | Locked design system |
+| `scripts/validate-site.js` | CI / Pages build validation |
+| `.github/workflows/` | Site validation + GitHub Pages deploy |
 
 ## Deployment
 
@@ -38,20 +60,28 @@ npm test
 | **Site validation** | push to `main`, pull requests, manual | validate |
 | **Deploy GitHub Pages** | push to `main`, manual | build → deploy |
 
-Pages source must be **GitHub Actions** (not “Deploy from a branch”). The deploy job uses the `github-pages` environment, which allows branch `main`.
-
-If a merge to `main` does not start a deploy, check **Actions → Deploy GitHub Pages** for a `push` run. Re-run with **Run workflow** (`workflow_dispatch`) if needed.
+Pages source must be **GitHub Actions**. The deploy job uses the `github-pages` environment (branch `main` allowed).
 
 | Surface | URL |
 | --- | --- |
 | Org (canonical) | https://zero-state-llc.github.io/Zero-State/ |
+| Work | https://zero-state-llc.github.io/Zero-State/work.html |
 | Dark landing concept | https://zero-state-llc.github.io/Zero-State/concepts/dark-landing/ |
+
+## Release
+
+See [CHANGELOG.md](CHANGELOG.md). Tags follow semver (`v0.3.0`).
+
+```bash
+# After docs bump on main
+git tag -a v0.3.0 -m "Zero State site 0.3.0"
+git push origin v0.3.0
+gh release create v0.3.0 --title "v0.3.0" --notes-file CHANGELOG.md
+```
 
 ## Launch blockers
 
-- **Product destinations:** public sources are the [Zero-State-LLC repositories](https://github.com/orgs/Zero-State-LLC/repositories) and this site. App Store and production product URLs are not claimed until a release is ready.
+- **Product destinations:** public sources are the org repositories and this site. App Store and production product URLs are not claimed until a release is ready.
 - **Trademark review:** product and company marks still need formal trademark review before broad commercial use claims.
 - **Typography licensing:** production face licensing must be confirmed before shipping non-system display type.
-- The repository source is licensed under Apache-2.0. Product names and marks
-  are not licensed for unrelated use; Apache-2.0 expressly excludes trademark
-  rights.
+- Repository source is Apache-2.0. Product names and marks are not licensed for unrelated use; Apache-2.0 expressly excludes trademark rights.

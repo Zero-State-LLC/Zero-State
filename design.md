@@ -19,6 +19,13 @@ Modern-minimal: quiet, structural, and exact. Cinematic restraint with one contr
 - Evidence lists: thumbs + title/type (dark landing); featured Waykin + compact cards (homepage/work); drop per-card essay bodies and ordinal indices on grids.
 - Remove evidence hover scale; stamp production CSS to this design.md; product heroes content-height (no forced 100vh).
 
+## Release 0.3.0 notes (2026-08-07)
+
+- Identity stage is logo-only: no corner chrome, no frame border, transparent stage over page void.
+- Primary nav leads with **Begin here**, then progressive destinations.
+- Portfolio and heroes are org-repo-bound; parent-brand product copy avoids external stack brand names (Abraxas / ABX-Core).
+- See `CHANGELOG.md` for the full release inventory.
+
 ## Full repo sweep (August 2026)
 
 - Work page converted to evidence-list style for consistency with homepage.
