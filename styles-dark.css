@@ -308,12 +308,31 @@ h1 .ref {
   position: relative;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   gap: 16px;
   margin-top: 8px;
   color: var(--muted-deep);
   font: 9px var(--mono);
   letter-spacing: 0.12em;
   text-transform: uppercase;
+}
+.hero-foot-mail {
+  color: var(--stone-soft);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: color var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out);
+}
+.hero-foot-mail:hover {
+  color: var(--stone);
+  border-bottom-color: var(--signal);
+}
+.closing-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 18px 28px;
+  margin-top: 8px;
 }
 
 /* Method — single band (position lines + one doctrine + short prose) */

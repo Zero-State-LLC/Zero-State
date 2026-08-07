@@ -127,10 +127,12 @@ if (!/cinematic/.test(kubrick)) fail('skills/kubrick.html', 'Kubrick README desc
 if (!/advisory only|fail closed|fail-closed/.test(neon)) fail('skills/neon-genie.html', 'Neon Genie README description is missing');
 
 if (!/Effective date:/.test(fs.readFileSync(path.join(root, 'privacy.html'), 'utf8'))) fail('privacy.html', 'privacy notice has no effective date');
-if (!/admin@lastreetshits\.com/.test(fs.readFileSync(path.join(root, 'privacy.html'), 'utf8'))) fail('privacy.html', 'privacy contact is missing');
+if (!/zer0state@zer0state\.com/.test(fs.readFileSync(path.join(root, 'privacy.html'), 'utf8'))) fail('privacy.html', 'privacy contact is missing');
 if (!/Effective date:/.test(fs.readFileSync(path.join(root, 'terms.html'), 'utf8'))) fail('terms.html', 'terms have no effective date');
-if (!/admin@lastreetshits\.com/.test(fs.readFileSync(path.join(root, 'terms.html'), 'utf8'))) fail('terms.html', 'terms contact is missing');
-if (!/admin@lastreetshits\.com/.test(fs.readFileSync(path.join(root, 'contact.html'), 'utf8'))) fail('contact.html', 'operational contact is missing');
+if (!/zer0state@zer0state\.com/.test(fs.readFileSync(path.join(root, 'terms.html'), 'utf8'))) fail('terms.html', 'terms contact is missing');
+if (!/zer0state@zer0state\.com/.test(fs.readFileSync(path.join(root, 'contact.html'), 'utf8'))) fail('contact.html', 'operational contact is missing');
+if (/San Diego/i.test(index)) fail('index.html', 'San Diego location copy must be removed');
+if (!/zer0state@zer0state\.com/.test(index)) fail('index.html', 'home contact email is missing');
 
 if (failures.length) {
   console.error(`Zero State validation failed (${failures.length}):`);
