@@ -182,6 +182,37 @@ body.dark-product-page {
   text-transform: uppercase;
 }
 
+/* Product hero images have varying native aspect ratios; the shared near-square
+   hero-stage box crops them under object-fit:cover, so each page pins the stage
+   to its own source aspect ratio instead of stretching or cropping. */
+.marigold-hero { aspect-ratio: 1672 / 941; }
+.hexwire-hero { aspect-ratio: 853 / 1844; }
+.hollersports-hero { aspect-ratio: 1672 / 941; }
+.patchhive-hero { aspect-ratio: 1408 / 704; }
+.psyfi-hero { aspect-ratio: 1400 / 933; }
+.surveillance-survivor-hero { aspect-ratio: 1280 / 640; }
+.waykin-hero { aspect-ratio: 1024 / 1024; }
+
+.marigold-hero,
+.hexwire-hero,
+.hollersports-hero,
+.patchhive-hero,
+.psyfi-hero,
+.surveillance-survivor-hero,
+.waykin-hero {
+  min-height: 0;
+  align-self: center;
+}
+.marigold-hero img,
+.hexwire-hero img,
+.hollersports-hero img,
+.patchhive-hero img,
+.psyfi-hero img,
+.surveillance-survivor-hero img,
+.waykin-hero img {
+  min-height: 0;
+}
+
 .dark-product-page .product-section {
   position: relative;
   z-index: 1;
@@ -286,6 +317,13 @@ body.dark-product-page {
   }
   .product-mark-stage img { width: min(58%, 250px); max-height: 300px; }
   .product-hero-stage img { min-height: 280px; }
+  .marigold-hero,
+  .hexwire-hero,
+  .hollersports-hero,
+  .patchhive-hero,
+  .psyfi-hero,
+  .surveillance-survivor-hero,
+  .waykin-hero { min-height: 0; }
   .dark-product-page .product-detail {
     width: calc(100% - 40px);
     padding: 82px 0;
