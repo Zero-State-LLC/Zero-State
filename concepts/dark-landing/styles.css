@@ -93,8 +93,8 @@ img { display: block; max-width: 100%; height: auto; }
 .skip-link:focus-visible { outline: var(--focus-ring); outline-offset: 3px; }
 
 /* Focus — instant ring, never animated */
-:where(a, button, .work-row, .axis-replay):focus { outline: none; }
-:where(a, button, .work-row, .axis-replay):focus-visible {
+:where(a, button, .work-row):focus { outline: none; }
+:where(a, button, .work-row):focus-visible {
   outline: var(--focus-ring);
   outline-offset: 3px;
 }
@@ -262,101 +262,26 @@ h1 .ref {
 }
 .quiet-link:hover { color: var(--stone); }
 
+/* Identity mark only — no frame, no corner chrome, transparent stage */
 .aperture-stage {
   position: relative;
   min-height: 480px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid var(--line);
-  background: var(--stage);
-  overflow: hidden;
+  border: 0;
+  background: transparent;
+  overflow: visible;
 }
-.aperture-stage::before,
-.aperture-stage::after {
-  content: "";
-  position: absolute;
-  background: var(--line);
-  pointer-events: none;
-}
-.aperture-stage::before { width: 100%; height: 1px; left: 0; top: 50%; }
-.aperture-stage::after { width: 1px; height: 100%; left: 50%; top: 0; }
 .aperture-mark {
-  width: min(88%, 500px);
-  max-height: 520px;
+  width: min(92%, 520px);
+  max-height: 560px;
   object-fit: contain;
   position: relative;
   z-index: 2;
-  filter: drop-shadow(0 16px 60px rgba(0, 0, 0, 0.45));
-}
-.stage-index {
-  position: absolute;
-  top: 18px;
-  left: 20px;
-  z-index: 4;
-  color: var(--muted);
-  font: 10px var(--mono);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  margin: 0;
-}
-.axis {
-  position: absolute;
-  z-index: 3;
-  width: 1px;
-  height: 120%;
-  left: 50%;
-  top: -10%;
-  background: linear-gradient(
-    transparent,
-    var(--signal) 20%,
-    var(--signal-soft) 50%,
-    var(--signal) 80%,
-    transparent
-  );
-  opacity: 0.42;
-  animation: pulse 4.8s linear 1 both;
-  pointer-events: none;
-}
-.axis-replay {
-  position: absolute;
-  z-index: 5;
-  right: 14px;
-  top: 14px;
-  min-height: 32px;
-  padding: 0 10px;
-  border: 1px solid var(--line-soft);
   background: transparent;
-  color: var(--muted-deep);
-  font: 9px var(--mono);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  cursor: pointer;
-  opacity: 0.72;
-  transition:
-    color var(--dur-short) var(--ease-out),
-    border-color var(--dur-short) var(--ease-out),
-    opacity var(--dur-short) var(--ease-out);
-}
-.axis-replay:hover {
-  color: var(--stone);
-  border-color: var(--line);
-  opacity: 1;
-}
-.stage-caption {
-  position: absolute;
-  z-index: 4;
-  bottom: 16px;
-  left: 20px;
-  right: 20px;
-  margin: 0;
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  color: var(--muted);
-  font: 9px var(--mono);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  /* Soft lift only — mark PNG already has alpha */
+  filter: drop-shadow(0 12px 40px rgba(0, 0, 0, 0.35));
 }
 .hero-foot {
   grid-column: 1 / -1;
@@ -684,7 +609,6 @@ body.dark-product-page footer {
   .quiet-link,
   nav a,
   .work-row,
-  .axis-replay,
   .masthead {
     transition: none !important;
   }
