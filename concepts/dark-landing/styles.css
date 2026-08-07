@@ -1,5 +1,5 @@
 /* Hallmark · concept · design-system: design.md · role: dark-landing exploration
- * out-of-band: dark paper variant · keeps original mark suite · sole signal: highway yellow
+ * out-of-band: dark paper variant · philosophy prose from Constitution/Messaging · sole signal: highway yellow
  * genre: modern-minimal · contrast: pass
  */
 
@@ -434,84 +434,59 @@ h1 .ref {
   font: 400 16px/1.7 var(--sans);
 }
 
-/* Identity suite */
-.identity-suite {
+/* Philosophy — Constitution + Messaging canon as calm prose */
+.philosophy {
   border-top: 1px solid var(--line);
   padding: var(--space-2xl) max(32px, calc((100vw - var(--shell)) / 2)) var(--space-3xl);
   background: var(--suite);
 }
-.suite-intro {
-  max-width: 720px;
-  margin-bottom: 56px;
+.philosophy-intro {
+  max-width: 820px;
+  margin-bottom: 40px;
 }
-.suite-intro h2 {
-  margin: 0 0 18px;
-  font: 500 clamp(48px, 5.5vw, 84px) / 0.96 var(--serif);
-  letter-spacing: -0.05em;
+.philosophy-intro .section-kicker {
+  margin: 0 0 20px;
+}
+.philosophy-intro h2 {
+  margin: 0;
+  max-width: 18ch;
+  font: 500 clamp(40px, 5vw, 72px) / 1.02 var(--serif);
+  letter-spacing: -0.045em;
   font-style: normal;
   overflow-wrap: anywhere;
-}
-.suite-intro p {
-  margin: 0;
-  color: var(--muted);
-  line-height: 1.7;
-  max-width: 56ch;
-}
-.suite-intro p strong {
   color: var(--stone);
-  font-weight: 600;
 }
-.mark-grid {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  border-top: 1px solid var(--line);
-  border-left: 1px solid var(--line);
-}
-.mark-card {
-  margin: 0;
-  padding: 24px 20px 22px;
-  min-height: 420px;
+.philosophy-body {
+  max-width: 68ch;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  border-right: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-  background: var(--void);
+  gap: 0;
 }
-.mark-card:nth-child(2) { background: var(--carbon); }
-.mark-card:nth-child(4) { background: var(--carbon-2); }
-.mark-card img {
-  width: min(78%, 220px);
-  max-height: 280px;
-  object-fit: contain;
-  filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.55));
-  transition: opacity var(--dur-short) var(--ease-out);
-}
-.mark-card:hover img { opacity: 0.92; }
-.mark-meta {
-  width: 100%;
-  text-align: left;
-  border-top: 1px solid var(--line-soft);
-  padding-top: 14px;
-}
-.mark-name {
-  margin: 0 0 4px;
+.philosophy-doctrine {
+  margin: 0 0 36px;
+  padding: 0 0 0 20px;
+  border-left: 2px solid var(--signal);
   color: var(--stone);
-  font: 700 12px var(--mono);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  font: 500 clamp(20px, 2.2vw, 28px) / 1.35 var(--serif);
+  letter-spacing: -0.02em;
 }
-.mark-sense {
+.philosophy-prose {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.philosophy-prose p {
   margin: 0;
   color: var(--muted);
-  font: 400 14px/1.4 var(--sans);
-  letter-spacing: 0.01em;
-  text-transform: none;
+  font: 400 17px/1.75 var(--sans);
+  max-width: 62ch;
+}
+.philosophy-close {
+  margin: 40px 0 0;
+  color: var(--stone-soft);
+  font: 500 15px/1.5 var(--mono);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
 /* Work — evidence list (light band) */
@@ -745,7 +720,6 @@ footer .footer-meta { text-align: right; justify-self: end; }
   .quiet-link,
   nav a,
   .work-row,
-  .mark-card img,
   .axis-replay,
   .masthead {
     transition: none !important;
@@ -786,10 +760,8 @@ footer .footer-meta { text-align: right; justify-self: end; }
   .manifesto-line {
     max-width: none;
   }
-  .identity-suite { padding: 88px 20px; }
-  .mark-grid { grid-template-columns: 1fr 1fr; }
-  .mark-card,
-  .mark-card:nth-child(n) { min-height: 300px; }
+  .philosophy { padding: 88px 20px; }
+  .philosophy-intro h2 { max-width: none; }
   .work { padding: 88px 20px; }
   .work-row {
     grid-template-columns: 36px minmax(0, 1fr) 24px;
