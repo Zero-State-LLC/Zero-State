@@ -2,6 +2,11 @@
 
 All notable changes to the Zero State public website are documented here.
 
+## 0.3.2 — 2026-08-07
+
+- Add **Hermes / OpenClaw skills** portfolio section on Work and home evidence.
+- Four org skill repos: Abraxas Orchestra, Hyperlex, Kubrick, Neon Genie — README heroes, detail pages under `skills/`, repository links.
+
 ## 0.3.1 — 2026-08-07
 
 - Promote dark landing to the **official home** (`index.html` + `styles-dark.css`); legacy `concepts/dark-landing/` redirects.

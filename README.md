@@ -29,6 +29,16 @@ Public product pages map to org repositories:
 | Hollersports | [Zero-State-LLC/Hollersports](https://github.com/Zero-State-LLC/Hollersports) |
 | Marigold Market | [Zero-State-LLC/Marigold-Market](https://github.com/Zero-State-LLC/Marigold-Market) |
 
+
+### Hermes / OpenClaw skills
+
+| Skill | Repository |
+| --- | --- |
+| Abraxas Orchestra | [Zero-State-LLC/Abraxas-Orchestra](https://github.com/Zero-State-LLC/Abraxas-Orchestra) |
+| Hyperlex | [Zero-State-LLC/Hyperlex](https://github.com/Zero-State-LLC/Hyperlex) |
+| Kubrick | [Zero-State-LLC/Kubrick](https://github.com/Zero-State-LLC/Kubrick) |
+| Neon Genie | [Zero-State-LLC/NeonGenie](https://github.com/Zero-State-LLC/NeonGenie) |
+
 Org listing: https://github.com/orgs/Zero-State-LLC/repositories
 
 ## Local development

@@ -383,9 +383,14 @@ h1 .ref {
 
 /* Work — compact evidence list (thumb + title/type only) */
 .work {
-  padding: 100px max(32px, calc((100vw - var(--shell)) / 2)) 120px;
+  padding: 100px max(32px, calc((100vw - var(--shell)) / 2)) 80px;
   background: var(--paper-work);
   color: var(--carbon-2);
+}
+.work-skills {
+  padding-top: 48px;
+  padding-bottom: 120px;
+  border-top: 1px solid var(--line-warm);
 }
 .section-head {
   max-width: 520px;
