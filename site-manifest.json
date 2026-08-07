@@ -1,5 +1,5 @@
 {
-  "version": "0.2.0",
+  "version": "0.3.0",
   "status": "prototype",
   "pages": [
     "index",
@@ -9,10 +9,20 @@
     "contact",
     "privacy",
     "terms",
-    "products/abraxas.html",
     "products/waykin.html",
     "products/patchhive.html",
-    "products/experiments.html"
+    "products/psyfi.html",
+    "products/surveillance-survivor.html",
+    "products/hollersports.html",
+    "products/marigold-market.html"
+  ],
+  "portfolio_repos": [
+    "Zero-State-LLC/Waykin",
+    "Zero-State-LLC/Patch-Hive",
+    "Zero-State-LLC/Psy-Fi",
+    "Zero-State-LLC/Surveillance-Survivor",
+    "Zero-State-LLC/Hollersports",
+    "Zero-State-LLC/Marigold-Market"
   ],
   "known_placeholders": [
     "product external URLs",
