@@ -41,7 +41,16 @@ Public product pages map to org repositories:
 
 Org listing: https://github.com/orgs/Zero-State-LLC/repositories
 
+## Custom domain (Apple enrollment)
+
+Company domain **`zer0state.com`** should serve this site (not the Squarespace parking page).
+
+See [docs/custom-domain.md](docs/custom-domain.md) for DNS records and cutover steps.
+
+Until DNS is live, the public site is: https://zero-state-llc.github.io/Zero-State/
+
 ## Local development
+
 
 ```bash
 npm run serve
