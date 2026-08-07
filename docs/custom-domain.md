@@ -9,6 +9,17 @@ Map the company domain to this GitHub Pages site so Apple Developer enrollment a
 | `zer0state.com` | This repository (GitHub Pages) |
 | `www.zer0state.com` | Same site (optional but recommended) |
 
+## Critical order of operations
+
+**Do not add a `CNAME` file or set the Pages custom domain until DNS for `zer0state.com` already points at GitHub.**
+
+If the custom domain is configured first, `https://zero-state-llc.github.io/Zero-State/` redirects to `zer0state.com`, and visitors still see the Squarespace “Coming Soon” page.
+
+1. Update DNS A/CNAME records (below)
+2. Wait until `dig +short zer0state.com A` returns GitHub IPs
+3. Then add `CNAME` with `zer0state.com` and enable the domain in Pages settings
+4. Enforce HTTPS after certificate provisions
+
 Keep **email MX on Hostinger** (or current mail provider). Do not delete MX/SPF records when changing web A/CNAME records.
 
 ## 1. Repo (done when `CNAME` is on `main`)
