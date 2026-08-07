@@ -9,7 +9,8 @@ const requiredPages = [
   'privacy.html', 'terms.html',
   'products/waykin.html', 'products/patchhive.html', 'products/psyfi.html',
   'products/surveillance-survivor.html', 'products/hexwire.html',
-  'products/hollersports.html', 'products/marigold-market.html'
+  'products/hollersports.html', 'products/marigold-market.html',
+  'skills/orchestra.html', 'skills/hyperlex.html', 'skills/kubrick.html', 'skills/neon-genie.html'
 ];
 const requiredHeroes = [
   'assets/products/waykin-hero.png',
@@ -18,7 +19,11 @@ const requiredHeroes = [
   'assets/products/surveillance-survivor-hero.png',
   'assets/products/hexwire-hero.png',
   'assets/products/hollersports-hero.jpg',
-  'assets/products/marigold-hero.jpg'
+  'assets/products/marigold-hero.jpg',
+  'assets/skills/orchestra-hero.jpg',
+  'assets/skills/hyperlex-hero.jpg',
+  'assets/skills/kubrick-hero.jpg',
+  'assets/skills/neon-genie-hero.jpg'
 ];
 const failures = [];
 const fail = (file, message) => failures.push(`${file}: ${message}`);
@@ -98,6 +103,28 @@ if (!/Signal → Power → Trace → Escalation → Lay Low → Tempo Tradeoff/.
 if (!/Zero-State-LLC\/Hexwire/.test(hexwire)) fail('products/hexwire.html', 'canonical repository link is missing');
 if (!/not medical advice/.test(psyfi)) fail('products/psyfi.html', 'PsyFi research-only disclaimer is missing');
 if (!/Eurorack rig-intelligence/.test(patchhive)) fail('products/patchhive.html', 'PatchHive canonical product description is missing');
+
+// Hermes / OpenClaw skills section
+for (const name of ['Abraxas Orchestra', 'Hyperlex', 'Kubrick', 'Neon Genie']) {
+  if (!index.includes(name)) fail('index.html', `${name} is missing from skills evidence`);
+  if (!work.includes(name)) fail('work.html', `${name} is missing from skills portfolio`);
+}
+if (!/id=["']skills["']/.test(work)) fail('work.html', 'skills section anchor is missing');
+if (!/Hermes \/ OpenClaw/.test(work) && !/Hermes \/ OpenClaw/.test(index)) {
+  fail('work.html', 'Hermes / OpenClaw skills section label is missing');
+}
+const orchestra = fs.readFileSync(path.join(root, 'skills/orchestra.html'), 'utf8');
+const hyperlex = fs.readFileSync(path.join(root, 'skills/hyperlex.html'), 'utf8');
+const kubrick = fs.readFileSync(path.join(root, 'skills/kubrick.html'), 'utf8');
+const neon = fs.readFileSync(path.join(root, 'skills/neon-genie.html'), 'utf8');
+if (!/Zero-State-LLC\/Abraxas-Orchestra/.test(orchestra)) fail('skills/orchestra.html', 'canonical repository link is missing');
+if (!/Zero-State-LLC\/Hyperlex/.test(hyperlex)) fail('skills/hyperlex.html', 'canonical repository link is missing');
+if (!/Zero-State-LLC\/Kubrick/.test(kubrick)) fail('skills/kubrick.html', 'canonical repository link is missing');
+if (!/Zero-State-LLC\/NeonGenie/.test(neon)) fail('skills/neon-genie.html', 'canonical repository link is missing');
+if (!/symbolic maps/.test(orchestra)) fail('skills/orchestra.html', 'Orchestra README description is missing');
+if (!/cultural radar for slang|memetic/.test(hyperlex)) fail('skills/hyperlex.html', 'Hyperlex README description is missing');
+if (!/cinematic/.test(kubrick)) fail('skills/kubrick.html', 'Kubrick README description is missing');
+if (!/advisory only|fail closed|fail-closed/.test(neon)) fail('skills/neon-genie.html', 'Neon Genie README description is missing');
 
 if (!/Effective date:/.test(fs.readFileSync(path.join(root, 'privacy.html'), 'utf8'))) fail('privacy.html', 'privacy notice has no effective date');
 if (!/admin@lastreetshits\.com/.test(fs.readFileSync(path.join(root, 'privacy.html'), 'utf8'))) fail('privacy.html', 'privacy contact is missing');

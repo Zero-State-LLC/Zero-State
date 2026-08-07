@@ -16,7 +16,11 @@
     "products/surveillance-survivor.html",
     "products/hexwire.html",
     "products/hollersports.html",
-    "products/marigold-market.html"
+    "products/marigold-market.html",
+    "skills/orchestra.html",
+    "skills/hyperlex.html",
+    "skills/kubrick.html",
+    "skills/neon-genie.html"
   ],
   "portfolio_repos": [
     "Zero-State-LLC/Waykin",
@@ -37,5 +41,11 @@
     "typography licensing review"
   ],
   "launch_ready": false,
-  "official_home": "dark"
+  "official_home": "dark",
+  "skill_repos": [
+    "Zero-State-LLC/Abraxas-Orchestra",
+    "Zero-State-LLC/Hyperlex",
+    "Zero-State-LLC/Kubrick",
+    "Zero-State-LLC/NeonGenie"
+  ]
 }
