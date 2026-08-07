@@ -368,6 +368,20 @@ h3 {
   font-size: 17px;
   line-height: 1.65;
 }
+.longform ul {
+  margin: 0 0 var(--space-md);
+  padding-left: 1.25rem;
+}
+.longform li { margin-bottom: 0.45rem; }
+.longform h3 {
+  margin-top: var(--space-lg);
+  margin-bottom: var(--space-xs);
+  font-size: 1.05rem;
+}
+.longform code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+}
 .lede {
   font-size: 21px;
   line-height: 1.45;

@@ -6,7 +6,7 @@ const path = require('node:path');
 const root = path.resolve(__dirname, '..');
 const requiredPages = [
   'index.html', 'work.html', 'philosophy.html', 'about.html', 'contact.html',
-  'privacy.html', 'terms.html',
+  'privacy.html', 'terms.html', 'marketing.html',
   'products/waykin.html', 'products/patchhive.html', 'products/psyfi.html',
   'products/surveillance-survivor.html', 'products/hexwire.html',
   'products/hollersports.html', 'products/marigold-market.html',
@@ -126,11 +126,26 @@ if (!/cultural radar for slang|memetic/.test(hyperlex)) fail('skills/hyperlex.ht
 if (!/cinematic/.test(kubrick)) fail('skills/kubrick.html', 'Kubrick README description is missing');
 if (!/advisory only|fail closed|fail-closed/.test(neon)) fail('skills/neon-genie.html', 'Neon Genie README description is missing');
 
-if (!/Effective date:/.test(fs.readFileSync(path.join(root, 'privacy.html'), 'utf8'))) fail('privacy.html', 'privacy notice has no effective date');
-if (!/zer0state@zer0state\.com/.test(fs.readFileSync(path.join(root, 'privacy.html'), 'utf8'))) fail('privacy.html', 'privacy contact is missing');
+const privacy = fs.readFileSync(path.join(root, 'privacy.html'), 'utf8');
+const marketing = fs.readFileSync(path.join(root, 'marketing.html'), 'utf8');
+const contact = fs.readFileSync(path.join(root, 'contact.html'), 'utf8');
+const about = fs.readFileSync(path.join(root, 'about.html'), 'utf8');
+
+if (!/Effective date:/.test(privacy)) fail('privacy.html', 'privacy notice has no effective date');
+if (!/zer0state@zer0state\.com/.test(privacy)) fail('privacy.html', 'privacy contact is missing');
+if (!/Zero State LLC/.test(privacy)) fail('privacy.html', 'legal entity name is missing');
+if (!/Children/i.test(privacy)) fail('privacy.html', 'children section is missing');
+if (!/Your privacy rights/i.test(privacy)) fail('privacy.html', 'privacy rights section is missing');
+if (!/Information we collect/i.test(privacy)) fail('privacy.html', 'collection section is missing');
 if (!/Effective date:/.test(fs.readFileSync(path.join(root, 'terms.html'), 'utf8'))) fail('terms.html', 'terms have no effective date');
 if (!/zer0state@zer0state\.com/.test(fs.readFileSync(path.join(root, 'terms.html'), 'utf8'))) fail('terms.html', 'terms contact is missing');
-if (!/zer0state@zer0state\.com/.test(fs.readFileSync(path.join(root, 'contact.html'), 'utf8'))) fail('contact.html', 'operational contact is missing');
+if (!/zer0state@zer0state\.com/.test(contact)) fail('contact.html', 'operational contact is missing');
+if (!/support/i.test(contact)) fail('contact.html', 'support framing is missing');
+if (!/Zero State LLC/.test(marketing)) fail('marketing.html', 'legal entity name is missing');
+if (!/Marigold Market/.test(marketing)) fail('marketing.html', 'product marketing cards are incomplete');
+if (!/privacy\.html/.test(marketing)) fail('marketing.html', 'privacy link is missing');
+if (!/contact\.html/.test(marketing)) fail('marketing.html', 'support link is missing');
+if (!/Zero State LLC/.test(about)) fail('about.html', 'legal entity name is missing');
 if (/San Diego/i.test(index)) fail('index.html', 'San Diego location copy must be removed');
 if (!/zer0state@zer0state\.com/.test(index)) fail('index.html', 'home contact email is missing');
 
