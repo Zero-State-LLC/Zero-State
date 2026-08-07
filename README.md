@@ -2,7 +2,7 @@
 
 Canonical website and public brand surface for Zero State — software for a world that keeps changing.
 
-**Version:** `0.3.0` · **Status:** DEVELOPMENT_PREVIEW
+**Version:** `0.3.2` · **Status:** DEVELOPMENT_PREVIEW
 
 Zero State is the willingness to return to first principles as the world is changing. We believe the tools for a more desirable future already exist; we are learning how to combine them wisely. Products are what this philosophy has produced so far.
 
@@ -87,13 +87,13 @@ Pages source must be **GitHub Actions**. The deploy job uses the `github-pages` 
 
 ## Release
 
-See [CHANGELOG.md](CHANGELOG.md). Tags follow semver (`v0.3.0`).
+See [CHANGELOG.md](CHANGELOG.md). Tags follow semver (`v0.3.2`).
 
 ```bash
 # After docs bump on main
-git tag -a v0.3.0 -m "Zero State site 0.3.0"
-git push origin v0.3.0
-gh release create v0.3.0 --title "v0.3.0" --notes-file CHANGELOG.md
+git tag -a v0.3.2 -m "Zero State site 0.3.0"
+git push origin v0.3.2
+gh release create v0.3.2 --title "v0.3.0" --notes-file CHANGELOG.md
 ```
 
 ## Launch blockers

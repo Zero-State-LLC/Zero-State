@@ -300,3 +300,41 @@ body.dark-product-page {
     flex-direction: column;
   }
 }
+
+/* Skill install CTAs */
+.install-panel {
+  margin-top: 28px;
+  padding: 20px 22px;
+  border: 1px solid var(--line);
+  background: rgba(5, 7, 6, 0.55);
+}
+.install-panel h3 {
+  margin: 0 0 12px;
+  color: var(--stone);
+  font: 500 18px/1.3 var(--serif);
+  letter-spacing: -0.02em;
+}
+.install-panel p {
+  margin: 0 0 12px;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.55;
+}
+.install-panel pre {
+  margin: 0 0 14px;
+  padding: 14px 16px;
+  overflow-x: auto;
+  border: 1px solid var(--line-soft);
+  background: var(--void);
+  color: var(--stone-soft);
+  font: 12px/1.55 var(--mono);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.install-panel pre:last-child { margin-bottom: 0; }
+.install-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 20px;
+  margin-top: 16px;
+}
