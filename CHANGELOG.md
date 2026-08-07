@@ -4,8 +4,22 @@ All notable changes to the Zero State public website are documented here.
 
 ## 0.3.2 — 2026-08-07
 
-- Add **Hermes / OpenClaw skills** portfolio section on Work and home evidence.
-- Four org skill repos: Abraxas Orchestra, Hyperlex, Kubrick, Neon Genie — README heroes, detail pages under `skills/`, repository links.
+Cumulative release since `v0.3.0`: official dark home, social preview, and Hermes/OpenClaw skills portfolio.
+
+### Skills
+- Add **Hermes / OpenClaw skills** section on Work and home evidence.
+- Four org skill repos: Abraxas Orchestra, Hyperlex, Kubrick, Neon Genie — README heroes, `skills/*` pages, repository links.
+- Install CTAs on each skill page (clone + host install paths from each README).
+
+### Home & brand
+- Official home is the dark landing (`styles-dark.css`); legacy `concepts/dark-landing/` redirects.
+- Logo tagline: **Opportunity begins at zero**.
+- Slightly electrified hero field grid.
+- Social preview: `assets/og-image.png` + Open Graph / Twitter Card meta.
+
+### Docs
+- README portfolio tables for products and skills.
+- `site-manifest.json` records `skill_repos` and `official_home: dark`.
 
 ## 0.3.1 — 2026-08-07
 
