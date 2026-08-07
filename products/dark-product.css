@@ -1,7 +1,9 @@
-/* Product continuation of the Zero State dark landing concept. */
+/* Hallmark · design-system: design.md · product Workbench
+ * continuation of dark landing · content-height hero (no forced 100vh)
+ */
 
 body.dark-product-page {
-  min-height: 100vh;
+  min-height: 0;
   background:
     linear-gradient(var(--line-soft) 1px, transparent 1px),
     linear-gradient(90deg, var(--line-soft) 1px, transparent 1px),
@@ -34,9 +36,9 @@ body.dark-product-page {
   position: relative;
   z-index: 1;
   width: min(calc(100% - 64px), var(--shell));
-  min-height: 680px;
+  min-height: 0;
   margin: 0 auto;
-  padding: 120px 0 110px;
+  padding: 100px 0 88px;
   display: grid;
   grid-template-columns: minmax(0, 1.05fr) minmax(360px, 0.72fr);
   grid-template-rows: auto auto auto auto;

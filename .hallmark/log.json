@@ -1,10 +1,18 @@
 [
   {
+    "date": "2026-08-07",
+    "scope": "app + concept",
+    "genre": "modern-minimal",
+    "macrostructure": "Single method band + featured evidence reel + compact list",
+    "theme": "Zero State carbon-stone-highway (design.md)",
+    "brief": "Hallmark audit fixes: collapse manifesto+philosophy, one signal rail, compact evidence, no hover scale, CSS stamps"
+  },
+  {
     "date": "2026-08-06",
     "scope": "concept",
     "genre": "modern-minimal",
     "macrostructure": "Dark diptych concept / evidence list",
-    "theme": "Zero State dark paper variant \u00b7 sole signal yellow",
+    "theme": "Zero State dark paper variant · sole signal yellow",
     "brief": "UX pass: Evidence nav, sticky mast, mark key, mobile work type, Replay motion, fold density."
   },
   {
@@ -12,7 +20,7 @@
     "scope": "concept",
     "genre": "modern-minimal",
     "macrostructure": "Dark diptych concept / evidence list",
-    "theme": "Zero State dark paper variant \u00b7 sole signal yellow",
+    "theme": "Zero State dark paper variant · sole signal yellow",
     "brief": "Hallmark pass on concepts/dark-landing: keep logos + dark paper; fix system drift, eyebrows, focus, tokens, work list, a11y."
   },
   {
@@ -30,13 +38,5 @@
     "macrostructure": "Split Studio / Indexed Evidence Reel",
     "theme": "Zero State carbon-stone-teal (evolved)",
     "brief": "Redesign: homepage Split Studio diptych + indexed evidence reel; evolve design.md and supporting styles."
-  },
-  {
-    "date": "2026-07-26",
-    "scope": "app",
-    "genre": "modern-minimal",
-    "macrostructure": "Marquee Hero / Workbench / Long Document",
-    "theme": "Zero State carbon-stone-teal",
-    "brief": "Repository-wide anti-slop redesign"
   }
 ]

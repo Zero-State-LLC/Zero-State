@@ -12,6 +12,13 @@ Modern-minimal: quiet, structural, and exact. Cinematic restraint with one contr
 - Current: Split Studio diptych energy for marketing surfaces + indexed "evidence" / reel presentation for work. Philosophy and content pages remain Long Document.
 - Emphasis on recurring motif (aperture as anchor across folds), tighter vertical rhythm, document-like ruled sections, and evidence language over marketing card uniformity.
 
+## Hallmark audit pass (2026-08-07)
+
+- Dark landing: collapse dual manifesto + philosophy into one **method** band (position lines + single doctrine rail + two short prose grafs).
+- One signal side-stripe only (doctrine).
+- Evidence lists: thumbs + title/type (dark landing); featured Waykin + compact cards (homepage/work); drop per-card essay bodies and ordinal indices on grids.
+- Remove evidence hover scale; stamp production CSS to this design.md; product heroes content-height (no forced 100vh).
+
 ## Full repo sweep (August 2026)
 
 - Work page converted to evidence-list style for consistency with homepage.
