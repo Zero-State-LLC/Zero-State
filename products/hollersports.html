@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Hollersports is a deterministic, provenance-tracked sports wagering analysis engine that prevents slate leakage and produces reproducible picks.">
+<meta name="description" content="Hollersports is a deterministic, provenance-tracked sports analytics engine that prevents slate leakage and produces reproducible outputs.">
 <meta name="theme-color" content="#0c100f">
 <title>Hollersports — Zero State</title>
 <link rel="icon" href="../assets/danny-email-bundle/retina/zero_state_mark_3_retina.png" type="image/png">
@@ -25,7 +25,7 @@
   <section class="page-hero shell product-hero">
     <p class="eyebrow">Deterministic sports analysis</p>
     <h1>Hollersports</h1>
-    <p class="hero-lede">A deterministic, provenance-tracked sports wagering analysis engine that prevents slate leakage and produces reproducible picks.</p>
+    <p class="hero-lede">A deterministic, provenance-tracked sports analytics engine that prevents slate leakage and produces reproducible outputs.</p>
     <p class="status">Active development</p>
     <figure class="product-hero-stage hollersports-hero">
       <img src="../assets/products/hollersports-hero.jpg" alt="HollerSports brand art — stadium floor with basketball, football, soccer, and baseball" width="1672" height="941" loading="eager" decoding="async">
@@ -36,8 +36,8 @@
     <div class="product-detail"><div class="split">
       <h2>What it is</h2>
       <div>
-        <p>Hollersports runs full analysis slates through a single orchestrator: initialize isolated state, validate inputs, run Monte Carlo simulations, and select picks—so the same games and lines produce the same outputs.</p>
-        <p>It is built to stop silent bleed between slates. Each slate gets a fresh run state: no prior picks, no reused simulations, recomputed game context, and calibration memory only when explicitly opted in.</p>
+        <p>Hollersports runs full analysis slates through a single orchestrator: initialize isolated state, validate inputs, run Monte Carlo simulations, and generate outputs—so the same games and inputs produce the same results.</p>
+        <p>It is built to stop silent bleed between slates. Each slate gets a fresh run state: no prior outputs, no reused simulations, recomputed game context, and calibration memory only when explicitly opted in.</p>
       </div>
     </div></div>
   </section>
@@ -47,8 +47,8 @@
       <h2>Operating contract</h2>
       <div>
         <p><strong>State isolation.</strong> Every slate starts from <code>init_new_slate_state</code> with no artifacts from previous runs.</p>
-        <p><strong>Provenance.</strong> Inputs and intermediate artifacts are fingerprinted—source games and lines, market, game context, and calibration—so analysis can be audited end to end.</p>
-        <p><strong>Input validation.</strong> Before processing, state is asserted against the current games, lines, and provider so stale state cannot be reused by accident.</p>
+        <p><strong>Provenance.</strong> Inputs and intermediate artifacts are fingerprinted—source games and datasets, category, game context, and calibration—so analysis can be audited end to end.</p>
+        <p><strong>Input validation.</strong> Before processing, state is asserted against the current games, datasets, and provider so stale state cannot be reused by accident.</p>
         <p><strong>Controlled calibration.</strong> Cross-slate calibration is opt-in and explicit; the default is discard, not silent merge.</p>
         <p>A companion feedback loop can ingest expected outcomes and game results, compute residuals, and update model priors with append-only ledgers. Engine architecture and validation live in the product repository.</p>
         <a class="text-link" href="https://github.com/Zero-State-LLC/Hollersports">Read the canonical repository <span aria-hidden="true">↗</span></a>
