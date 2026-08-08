@@ -1,221 +1,201 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="Zero State products and Hermes / OpenClaw skills — the org portfolio as evidence of the philosophy in practice.">
-<meta name="theme-color" content="#F4F0E8">
-<title>Work — Zero State</title>
-<link rel="icon" href="assets/zero-state-mark.svg" type="image/svg+xml">
-<link rel="stylesheet" href="styles-light.css">
+<meta name="theme-color" content="#0c100f">
+<title>Portfolio — Zero State</title>
+<link rel="icon" href="assets/danny-email-bundle/retina/zero_state_mark_3_retina.png" type="image/png">
+<link rel="stylesheet" href="styles-dark.css">
 </head>
-<body>
+<body class="portfolio-page">
 <a class="skip-link" href="#main">Skip to content</a>
 
-<header class="site-header" data-header>
-  <div class="shell nav-wrap">
-    <a class="brand" href="index.html" aria-label="Zero State home">
-      <img src="assets/zero-state-mark.svg" alt="" width="34" height="34">
+<header class="masthead" data-masthead>
+  <div class="masthead-inner">
+    <a class="wordmark" href="index.html" aria-label="Zero State home">
+      <img src="assets/danny-email-bundle/retina/zero_state_mark_3_retina.png" alt="" width="32" height="42">
       <span>ZERØ STATE</span>
     </a>
-    <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-nav" data-menu-button>
-      <span class="sr-only">Toggle navigation</span><span></span><span></span>
-    </button>
-    <nav id="site-nav" class="site-nav" aria-label="Primary" data-nav>
-      <a class="nav-cta" href="contact.html">Begin here</a>
-      <a href="work.html">Work</a>
-      <a href="philosophy.html">Philosophy</a>
-      <a href="about.html">About</a>
+    <nav aria-label="Primary">
+      <a class="nav-signal" href="index.html#contact">Begin here</a>
+      <a href="index.html#method">Method</a>
+      <a href="index.html#evidence">Evidence</a>
+      <a href="work.html" aria-current="page">Full portfolio</a>
     </nav>
   </div>
 </header>
 
 <main id="main">
-  <section class="page-hero shell">
+  <section class="portfolio-hero">
+    <p class="eyebrow">Zero State LLC · Portfolio</p>
     <h1>Products and skills are the evidence.</h1>
-    <p class="hero-lede">The portfolio is the Zero-State-LLC surface: shipped products and Hermes / OpenClaw skills. Heroes come from each project’s own repository.</p>
+    <p class="hero-lede">The public surface of the method: software systems and installable agent skills. Each entry links to a parent-brand page and the org repository. Heroes come from each project’s own source of truth.</p>
   </section>
 
-  <section class="section shell evidence" id="products" aria-labelledby="products-title">
-    <header class="portfolio-section-head">
+  <section class="portfolio-section" id="products" aria-labelledby="products-title">
+    <header class="portfolio-head">
       <p class="eyebrow">Products</p>
       <h2 id="products-title">Software systems</h2>
-      <p>Application and platform work under Zero State. Each entry links to a parent-brand page and the org repository.</p>
+      <p>Application and platform work under Zero State. Equal footing — no featured claim, only evidence.</p>
     </header>
-    <article class="evidence-feature">
-      <a class="evidence-card" href="products/waykin.html">
-        <div class="evidence-media">
+
+    <div class="portfolio-grid">
+      <a class="portfolio-card" href="products/waykin.html">
+        <div class="portfolio-media">
           <img src="assets/products/waykin-hero.png" alt="Waykin concept: walker and luminous companion Lira in a mountain valley at dawn" width="1024" height="1024" loading="eager" decoding="async">
         </div>
-        <div class="evidence-body">
-          <span class="evidence-meta">Audio-first adaptive walking</span>
-          <h2 class="evidence-title">Waykin</h2>
-          <p>You move. Lira moves with you. The world responds. Bond grows.</p>
-          <p class="evidence-status">Active development</p>
-          <span class="evidence-cta">Open product page ↗</span>
+        <div class="portfolio-body">
+          <span class="portfolio-meta">Audio-first adaptive walking</span>
+          <h3 class="portfolio-title">Waykin</h3>
+          <p class="portfolio-status">Active development</p>
         </div>
       </a>
-    </article>
 
-    <div class="evidence-list evidence-list-compact">
-      <article class="evidence-item">
-        <a class="evidence-card" href="products/patchhive.html">
-          <div class="evidence-media">
-            <img src="assets/products/patchhive-hero.jpg" alt="PatchHive cyber hive product banner" width="1408" height="704" loading="lazy" decoding="async">
-          </div>
-          <div class="evidence-body">
-            <span class="evidence-meta">Eurorack rig intelligence</span>
-            <h3 class="evidence-title">PatchHive</h3>
-            <p class="evidence-status">v0.3.0-alpha · not production</p>
-          </div>
-        </a>
-      </article>
+      <a class="portfolio-card" href="products/patchhive.html">
+        <div class="portfolio-media">
+          <img src="assets/products/patchhive-hero.jpg" alt="PatchHive cyber hive product banner" width="1408" height="704" loading="lazy" decoding="async">
+        </div>
+        <div class="portfolio-body">
+          <span class="portfolio-meta">Eurorack rig intelligence</span>
+          <h3 class="portfolio-title">PatchHive</h3>
+          <p class="portfolio-status">v0.3.0-alpha · not production</p>
+        </div>
+      </a>
 
-      <article class="evidence-item">
-        <a class="evidence-card" href="products/psyfi.html">
-          <div class="evidence-media">
-            <img src="assets/products/psyfi-hero.jpg" alt="PsyFi consciousness field visualization hero" width="1400" height="933" loading="lazy" decoding="async">
-          </div>
-          <div class="evidence-body">
-            <span class="evidence-meta">Consciousness-field simulation</span>
-            <h3 class="evidence-title">PsyFi</h3>
-            <p class="evidence-status">Active development · research instrument</p>
-          </div>
-        </a>
-      </article>
+      <a class="portfolio-card" href="products/psyfi.html">
+        <div class="portfolio-media">
+          <img src="assets/products/psyfi-hero.jpg" alt="PsyFi consciousness field visualization hero" width="1400" height="933" loading="lazy" decoding="async">
+        </div>
+        <div class="portfolio-body">
+          <span class="portfolio-meta">Consciousness-field simulation</span>
+          <h3 class="portfolio-title">PsyFi</h3>
+          <p class="portfolio-status">Active development · research instrument</p>
+        </div>
+      </a>
 
-      <article class="evidence-item">
-        <a class="evidence-card" href="products/surveillance-survivor.html">
-          <div class="evidence-media">
-            <img src="assets/products/surveillance-survivor-hero.png" alt="Surveillance Survivor pixel-art hero" width="1280" height="640" loading="lazy" decoding="async">
-          </div>
-          <div class="evidence-body">
-            <span class="evidence-meta">Satirical survivor roguelite</span>
-            <h3 class="evidence-title">Surveillance Survivor</h3>
-            <p class="evidence-status">Active pre-alpha · simulator-ready · not release-ready</p>
-          </div>
-        </a>
-      </article>
+      <a class="portfolio-card" href="products/surveillance-survivor.html">
+        <div class="portfolio-media">
+          <img src="assets/products/surveillance-survivor-hero.png" alt="Surveillance Survivor pixel-art hero" width="1280" height="640" loading="lazy" decoding="async">
+        </div>
+        <div class="portfolio-body">
+          <span class="portfolio-meta">Satirical survivor roguelite</span>
+          <h3 class="portfolio-title">Surveillance Survivor</h3>
+          <p class="portfolio-status">Active pre-alpha · simulator-ready · not release-ready</p>
+        </div>
+      </a>
 
-      <article class="evidence-item">
-        <a class="evidence-card" href="products/hexwire.html">
-          <div class="evidence-media">
-            <img src="assets/products/hexwire-hero.png" alt="HexWire title splash art" width="853" height="1844" loading="lazy" decoding="async">
-          </div>
-          <div class="evidence-body">
-            <span class="evidence-meta">Tactical cyberpunk RPG</span>
-            <h3 class="evidence-title">HexWire</h3>
-            <p class="evidence-status">Stabilized vertical slice · CI-verified · device and App Store release gates remain</p>
-          </div>
-        </a>
-      </article>
+      <a class="portfolio-card" href="products/hexwire.html">
+        <div class="portfolio-media">
+          <img src="assets/products/hexwire-hero.png" alt="HexWire title splash art" width="853" height="1844" loading="lazy" decoding="async">
+        </div>
+        <div class="portfolio-body">
+          <span class="portfolio-meta">Tactical cyberpunk RPG</span>
+          <h3 class="portfolio-title">HexWire</h3>
+          <p class="portfolio-status">Stabilized vertical slice · CI-verified · device and App Store release gates remain</p>
+        </div>
+      </a>
 
-      <article class="evidence-item">
-        <a class="evidence-card" href="products/hollersports.html">
-          <div class="evidence-media">
-            <img src="assets/products/hollersports-hero.jpg" alt="HollerSports brand art — stadium floor with multi-sport equipment" width="1672" height="941" loading="lazy" decoding="async">
-          </div>
-          <div class="evidence-body">
-            <span class="evidence-meta">Deterministic sports analysis</span>
-            <h3 class="evidence-title">Hollersports</h3>
-            <p class="evidence-status">Active development</p>
-          </div>
-        </a>
-      </article>
+      <a class="portfolio-card" href="products/hollersports.html">
+        <div class="portfolio-media">
+          <img src="assets/products/hollersports-hero.jpg" alt="HollerSports brand art — stadium floor with multi-sport equipment" width="1672" height="941" loading="lazy" decoding="async">
+        </div>
+        <div class="portfolio-body">
+          <span class="portfolio-meta">Deterministic sports analysis</span>
+          <h3 class="portfolio-title">Hollersports</h3>
+          <p class="portfolio-status">Active development</p>
+        </div>
+      </a>
 
-      <article class="evidence-item">
-        <a class="evidence-card" href="products/marigold-market.html">
-          <div class="evidence-media">
-            <img src="assets/products/marigold-hero.jpg" alt="Marigold Market brand art — cozy village shop and market stand" width="1672" height="941" loading="lazy" decoding="async">
-          </div>
-          <div class="evidence-body">
-            <span class="evidence-meta">Hybrid-casual sorting puzzle</span>
-            <h3 class="evidence-title">Marigold Market</h3>
-            <p class="evidence-status">Pre-release 0.1.x · iOS</p>
-          </div>
-        </a>
-      </article>
+      <a class="portfolio-card" href="products/marigold-market.html">
+        <div class="portfolio-media">
+          <img src="assets/products/marigold-hero.jpg" alt="Marigold Market brand art — cozy village shop and market stand" width="1672" height="941" loading="lazy" decoding="async">
+        </div>
+        <div class="portfolio-body">
+          <span class="portfolio-meta">Hybrid-casual sorting puzzle</span>
+          <h3 class="portfolio-title">Marigold Market</h3>
+          <p class="portfolio-status">Pre-release 0.1.x · iOS</p>
+        </div>
+      </a>
     </div>
   </section>
 
-  <section class="section shell evidence evidence-skills" id="skills" aria-labelledby="skills-title">
-    <header class="portfolio-section-head">
+  <section class="portfolio-section portfolio-section-skills" id="skills" aria-labelledby="skills-title">
+    <header class="portfolio-head">
       <p class="eyebrow">Hermes / OpenClaw</p>
       <h2 id="skills-title">Agent skills</h2>
       <p>Installable skills for Hermes and OpenClaw. Same evidence standard as products: README heroes, repository as source of truth.</p>
     </header>
 
-    <div class="evidence-list evidence-list-compact">
-      <article class="evidence-item">
-        <a class="evidence-card" href="skills/orchestra.html">
-          <div class="evidence-media">
-            <img src="assets/skills/orchestra-hero.jpg" alt="Abraxas Orchestra — symbolic architecture skill" width="1376" height="752" loading="lazy" decoding="async">
-          </div>
-          <div class="evidence-body">
-            <span class="evidence-meta">Symbolic software architecture</span>
-            <h3 class="evidence-title">Abraxas Orchestra</h3>
-            <p class="evidence-status">v0.7.0 · orchestra · offline CLI</p>
-          </div>
-        </a>
-      </article>
+    <div class="portfolio-grid">
+      <a class="portfolio-card" href="skills/orchestra.html">
+        <div class="portfolio-media">
+          <img src="assets/skills/orchestra-hero.jpg" alt="Abraxas Orchestra — symbolic architecture skill" width="1376" height="752" loading="lazy" decoding="async">
+        </div>
+        <div class="portfolio-body">
+          <span class="portfolio-meta">Symbolic software architecture</span>
+          <h3 class="portfolio-title">Abraxas Orchestra</h3>
+          <p class="portfolio-status">v0.7.0 · orchestra · offline CLI</p>
+        </div>
+      </a>
 
-      <article class="evidence-item">
-        <a class="evidence-card" href="skills/hyperlex.html">
-          <div class="evidence-media">
-            <img src="assets/skills/hyperlex-hero.jpg" alt="Hyperlex — memetic emergence" width="768" height="1152" loading="lazy" decoding="async">
-          </div>
-          <div class="evidence-body">
-            <span class="evidence-meta">Memetic emergence engine</span>
-            <h3 class="evidence-title">Hyperlex</h3>
-            <p class="evidence-status">v0.4.0 · settled forecasts only</p>
-          </div>
-        </a>
-      </article>
+      <a class="portfolio-card" href="skills/hyperlex.html">
+        <div class="portfolio-media">
+          <img src="assets/skills/hyperlex-hero.jpg" alt="Hyperlex — memetic emergence" width="768" height="1152" loading="lazy" decoding="async">
+        </div>
+        <div class="portfolio-body">
+          <span class="portfolio-meta">Memetic emergence engine</span>
+          <h3 class="portfolio-title">Hyperlex</h3>
+          <p class="portfolio-status">v0.4.0 · settled forecasts only</p>
+        </div>
+      </a>
 
-      <article class="evidence-item">
-        <a class="evidence-card" href="skills/kubrick.html">
-          <div class="evidence-media">
-            <img src="assets/skills/kubrick-hero.jpg" alt="Kubrick — Symbolic Cinematic Narrative Engineering" width="1168" height="784" loading="lazy" decoding="async">
-          </div>
-          <div class="evidence-body">
-            <span class="evidence-meta">Cinematic narrative engineering</span>
-            <h3 class="evidence-title">Kubrick</h3>
-            <p class="evidence-status">v0.16.0 · production surfaces</p>
-          </div>
-        </a>
-      </article>
+      <a class="portfolio-card" href="skills/kubrick.html">
+        <div class="portfolio-media">
+          <img src="assets/skills/kubrick-hero.jpg" alt="Kubrick — Symbolic Cinematic Narrative Engineering" width="1168" height="784" loading="lazy" decoding="async">
+        </div>
+        <div class="portfolio-body">
+          <span class="portfolio-meta">Cinematic narrative engineering</span>
+          <h3 class="portfolio-title">Kubrick</h3>
+          <p class="portfolio-status">v0.16.0 · production surfaces</p>
+        </div>
+      </a>
 
-      <article class="evidence-item">
-        <a class="evidence-card" href="skills/neon-genie.html">
-          <div class="evidence-media">
-            <img src="assets/skills/neon-genie-hero.jpg" alt="Neon Genie — luminous lamp on a dark network grid" width="1280" height="859" loading="lazy" decoding="async">
-          </div>
-          <div class="evidence-body">
-            <span class="evidence-meta">Opportunity &amp; product intelligence</span>
-            <h3 class="evidence-title">Neon Genie</h3>
-            <p class="evidence-status">v3.23.0 · advisory only · fail-closed</p>
-          </div>
-        </a>
-      </article>
+      <a class="portfolio-card" href="skills/neon-genie.html">
+        <div class="portfolio-media">
+          <img src="assets/skills/neon-genie-hero.jpg" alt="Neon Genie — luminous lamp on a dark network grid" width="1280" height="859" loading="lazy" decoding="async">
+        </div>
+        <div class="portfolio-body">
+          <span class="portfolio-meta">Opportunity &amp; product intelligence</span>
+          <h3 class="portfolio-title">Neon Genie</h3>
+          <p class="portfolio-status">v3.23.0 · advisory only · fail-closed</p>
+        </div>
+      </a>
     </div>
+  </section>
+
+  <section class="portfolio-foot shell">
+    <p>App Store marketing overview · <a href="marketing.html">Products page</a></p>
+    <p><a class="quiet-link" href="index.html#evidence">Return to home evidence ↖</a></p>
   </section>
 </main>
 
-<footer class="site-footer">
-  <div class="shell footer-grid">
-    <a class="brand footer-brand" href="index.html">
-      <img src="assets/zero-state-mark-inverse.svg" alt="" width="32" height="32">
-      <span>ZERØ STATE</span>
-    </a>
-    <p>Software for a world that keeps changing.</p>
-    <div class="footer-links">
-      <a href="privacy.html">Privacy</a>
-      <a href="terms.html">Terms</a>
-      <a href="marketing.html">Products</a>
-      <a href="contact.html">Support</a>
-      <span>© <span data-year></span> Zero State LLC</span>
-    </div>
+<footer>
+  <a class="wordmark" href="index.html" aria-label="Zero State home">
+    <img src="assets/danny-email-bundle/retina/zero_state_mark_3_retina.png" alt="" width="30" height="40">
+    <span>ZERØ STATE</span>
+  </a>
+  <p class="footer-statement">Software for a world that keeps changing.</p>
+  <div class="footer-links">
+    <a href="privacy.html">Privacy</a>
+    <a href="terms.html">Terms</a>
+    <a href="marketing.html">Products</a>
+    <a href="contact.html">Support</a>
+    <a href="about.html">About</a>
   </div>
+  <p class="footer-meta">© <span data-year></span> Zero State LLC</p>
 </footer>
-<script src="script.js"></script>
+<script src="script-home.js"></script>
 </body>
 </html>
