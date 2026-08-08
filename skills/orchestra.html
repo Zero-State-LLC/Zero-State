@@ -26,7 +26,7 @@
     <p class="eyebrow">Hermes + OpenClaw skill</p>
     <h1>Abraxas Orchestra</h1>
     <p class="hero-lede">Structure software with traditional symbolic maps — scaffold, diagram, analyze, and plan renames without silent auto-refactors.</p>
-    <p class="status">v0.7.0 · skill name: orchestra · offline CLI</p>
+    <p class="status">v0.8.0 · skill name: orchestra · offline CLI · guided wizard</p>
     <figure class="product-hero-stage">
       <img src="../assets/skills/orchestra-hero.jpg" alt="Abraxas Orchestra — symbolic architecture skill" width="1200" height="675" loading="eager" decoding="async">
       <figcaption><span>From repository</span><span>README hero</span></figcaption>
@@ -39,6 +39,7 @@
       <div>
         <p>Orchestra is a local Hermes and OpenClaw coding-agent skill for organizing software the way traditional systems organize meaning — Tree of Life, alchemy stages, runes, planetary spheres, I Ching, and related maps.</p>
         <p>It scaffolds dual-named project skeletons, emits architecture diagrams (HTML, JSON, Mermaid), and can analyze a local tree into a rename plan. Weak or forced mappings are labeled; filesystem writes require explicit confirmation. Not a network service or silent auto-refactorer.</p>
+        <p>Unsure which flags to use? Prefer the packaging wizard: collect answers in chat, then <code>orchestra.py wizard --answers … --print-only</code> (print-only by default; <code>--run</code> is explicit).</p>
       </div>
     </div></div>
   </section>
@@ -56,6 +57,8 @@ cd Abraxas-Orchestra
 bash scripts/smoke.sh
 bash install.sh --dry-run
 bash install.sh
+# Guided plan (print-only):
+# python3 scripts/orchestra.py wizard --preset greenfield --print-only
 # OpenClaw:
 # bash install.sh --target ~/.openclaw/skills/orchestra</pre>
           <div class="install-actions">
