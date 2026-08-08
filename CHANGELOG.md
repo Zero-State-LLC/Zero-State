@@ -21,6 +21,13 @@ Cumulative release since `v0.3.0`: official dark home, social preview, and Herme
 - README portfolio tables for products and skills.
 - `site-manifest.json` records `skill_repos` and `official_home: dark`.
 
+## Unreleased
+
+### Portfolio copy
+- Distill product and skill pages to short descriptions (no README deferral, no nested install paths).
+- Portfolio/marketing intros no longer point at repositories as “source of truth.”
+- Skill pages: drop “From repository / README hero” captions; single “Source on GitHub” link.
+
 ## 0.3.1 — 2026-08-07
 
 - Promote dark landing to the **official home** (`index.html` + `styles-dark.css`); legacy `concepts/dark-landing/` redirects.
