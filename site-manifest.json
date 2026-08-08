@@ -21,7 +21,8 @@
     "skills/orchestra.html",
     "skills/hyperlex.html",
     "skills/kubrick.html",
-    "skills/neon-genie.html"
+    "skills/neon-genie.html",
+    "skills/sigil-forge.html"
   ],
   "portfolio_repos": [
     "Zero-State-LLC/Waykin",
@@ -49,6 +50,7 @@
     "Zero-State-LLC/Abraxas-Orchestra",
     "Zero-State-LLC/Hyperlex",
     "Zero-State-LLC/Kubrick",
-    "Zero-State-LLC/NeonGenie"
+    "Zero-State-LLC/NeonGenie",
+    "Zero-State-LLC/Sigil-Forge"
   ]
 }

@@ -38,6 +38,7 @@ Public product pages map to org repositories:
 | Hyperlex | [Zero-State-LLC/Hyperlex](https://github.com/Zero-State-LLC/Hyperlex) |
 | Kubrick | [Zero-State-LLC/Kubrick](https://github.com/Zero-State-LLC/Kubrick) |
 | Neon Genie | [Zero-State-LLC/NeonGenie](https://github.com/Zero-State-LLC/NeonGenie) |
+| Sigil-Forge | [Zero-State-LLC/Sigil-Forge](https://github.com/Zero-State-LLC/Sigil-Forge) |
 
 Org listing: https://github.com/orgs/Zero-State-LLC/repositories
 
