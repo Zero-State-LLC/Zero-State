@@ -112,3 +112,10 @@ gh release create v0.3.2 --title "v0.3.0" --notes-file CHANGELOG.md
 - **Trademark review:** product and company marks still need formal trademark review before broad commercial use claims.
 - **Typography licensing:** production face licensing must be confirmed before shipping non-system display type.
 - Repository source is Apache-2.0. Product names and marks are not licensed for unrelated use; Apache-2.0 expressly excludes trademark rights.
+
+
+## License
+
+Copyright © 2026 Zero State LLC. All Rights Reserved. Licensed under the Zero State Proprietary License v1.0. See [`LICENSE`](LICENSE).
+
+Third-party components remain subject to their respective licenses.
