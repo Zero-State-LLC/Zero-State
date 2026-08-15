@@ -9,7 +9,7 @@ const requiredPages = [
   'privacy.html', 'terms.html', 'marketing.html',
   'products/waykin.html', 'products/patchhive.html', 'products/psyfi.html',
   'products/surveillance-survivor.html', 'products/hexwire.html',
-  'products/hollersports.html', 'products/marigold-market.html',
+  'products/hollersports.html', 'products/marigold-market.html', 'products/slosh.html',
   'skills/orchestra.html', 'skills/hyperlex.html', 'skills/kubrick.html', 'skills/neon-genie.html'
 ];
 const requiredHeroes = [
@@ -20,6 +20,7 @@ const requiredHeroes = [
   'assets/products/hexwire-hero.png',
   'assets/products/hollersports-hero.jpg',
   'assets/products/marigold-hero.jpg',
+  'assets/products/slosh-hero.gif',
   'assets/skills/orchestra-hero.jpg',
   'assets/skills/hyperlex-hero.jpg',
   'assets/skills/kubrick-hero.jpg',
@@ -60,6 +61,7 @@ const psyfi = fs.readFileSync(path.join(root, 'products/psyfi.html'), 'utf8');
 const hollersports = fs.readFileSync(path.join(root, 'products/hollersports.html'), 'utf8');
 const marigold = fs.readFileSync(path.join(root, 'products/marigold-market.html'), 'utf8');
 const hexwire = fs.readFileSync(path.join(root, 'products/hexwire.html'), 'utf8');
+const slosh = fs.readFileSync(path.join(root, 'products/slosh.html'), 'utf8');
 const cssDark = fs.readFileSync(path.join(root, 'styles-dark.css'), 'utf8');
 
 // Official dark home — primary identity logo + social preview
@@ -73,7 +75,7 @@ if (!exists('styles-dark.css')) fail('styles-dark.css', 'official dark home styl
 if (!/hero-grid/.test(index)) fail('index.html', 'landing field grid is missing');
 
 // Org portfolio completeness
-for (const name of ['Waykin', 'PatchHive', 'PsyFi', 'Surveillance Survivor', 'HexWire', 'Hollersports', 'Marigold Market']) {
+for (const name of ['Waykin', 'PatchHive', 'PsyFi', 'Surveillance Survivor', 'HexWire', 'Hollersports', 'Marigold Market', 'Slosh']) {
   if (!index.includes(name)) fail('index.html', `${name} is missing from selected work`);
   if (!work.includes(name)) fail('work.html', `${name} is missing from portfolio`);
 }
@@ -84,6 +86,7 @@ if (!/assets\/products\/surveillance-survivor-hero\.png/.test(work)) fail('work.
 if (!/assets\/products\/hexwire-hero\.png/.test(work)) fail('work.html', 'HexWire hero image is missing');
 if (!/assets\/products\/hollersports-hero\.jpg/.test(work)) fail('work.html', 'Hollersports hero image is missing');
 if (!/assets\/products\/marigold-hero\.jpg/.test(work)) fail('work.html', 'Marigold Market hero image is missing');
+if (!/assets\/products\/slosh-hero\.gif/.test(work)) fail('work.html', 'Slosh hero image is missing');
 
 if (!/Active pre-alpha · simulator-ready · not release-ready/.test(work) && !/Active pre-alpha · simulator-ready vertical slice · not release-ready/.test(work)) {
   fail('work.html', 'Surveillance Survivor readiness posture is missing or overstated');
@@ -92,17 +95,22 @@ if (!/Stabilized vertical slice · CI-verified · device and App Store release g
   fail('work.html', 'HexWire readiness posture is missing or overstated');
 }
 if (!/iPhone-first satirical survivor roguelite/.test(surveillance)) fail('products/surveillance-survivor.html', 'canonical README description is missing');
-if (!/Zero-State-LLC\/Surveillance-Survivor/.test(surveillance)) fail('products/surveillance-survivor.html', 'canonical repository link is missing');
-if (!/Zero-State-LLC\/Waykin/.test(waykin)) fail('products/waykin.html', 'canonical repository link is missing');
-if (!/Zero-State-LLC\/Patch-Hive/.test(patchhive)) fail('products/patchhive.html', 'canonical repository link is missing');
-if (!/Zero-State-LLC\/Psy-Fi/.test(psyfi)) fail('products/psyfi.html', 'canonical repository link is missing');
-if (!/Zero-State-LLC\/Hollersports/.test(hollersports)) fail('products/hollersports.html', 'canonical repository link is missing');
-if (!/Zero-State-LLC\/Marigold-Market/.test(marigold)) fail('products/marigold-market.html', 'canonical repository link is missing');
 if (!/tactical cyberpunk hex-grid RPG/.test(hexwire)) fail('products/hexwire.html', 'canonical HexWire README description is missing');
 if (!/Signal → Power → Trace → Escalation → Lay Low → Tempo Tradeoff/.test(hexwire)) fail('products/hexwire.html', 'canonical HexWire pressure loop is missing');
-if (!/Zero-State-LLC\/Hexwire/.test(hexwire)) fail('products/hexwire.html', 'canonical repository link is missing');
 if (!/not medical advice/.test(psyfi)) fail('products/psyfi.html', 'PsyFi research-only disclaimer is missing');
 if (!/Eurorack rig-intelligence/.test(patchhive)) fail('products/patchhive.html', 'PatchHive canonical product description is missing');
+if (!/fifteen living water modes/i.test(slosh)) fail('products/slosh.html', 'Slosh water-mode description is missing');
+if (!/watchOS \+ iOS/.test(slosh)) fail('products/slosh.html', 'Slosh platform posture is missing');
+for (const [name, html] of [
+  ['products/waykin.html', waykin], ['products/patchhive.html', patchhive],
+  ['products/psyfi.html', psyfi], ['products/surveillance-survivor.html', surveillance],
+  ['products/hexwire.html', hexwire], ['products/hollersports.html', hollersports],
+  ['products/marigold-market.html', marigold], ['products/slosh.html', slosh]
+]) {
+  if (/<a\b[^>]*href=["'][^"']*(?:github\.com|gitlab\.com|bitbucket\.org)[^"']*["']/i.test(html)) {
+    fail(name, 'product page exposes a codebase link');
+  }
+}
 
 // Hermes / OpenClaw skills section
 for (const name of ['Abraxas Orchestra', 'Hyperlex', 'Kubrick', 'Neon Genie']) {
@@ -142,7 +150,7 @@ if (!/zer0state@zer0state\.com/.test(fs.readFileSync(path.join(root, 'terms.html
 if (!/zer0state@zer0state\.com/.test(contact)) fail('contact.html', 'operational contact is missing');
 if (!/support/i.test(contact)) fail('contact.html', 'support framing is missing');
 if (!/Zero State LLC/.test(marketing)) fail('marketing.html', 'legal entity name is missing');
-if (!/Marigold Market/.test(marketing)) fail('marketing.html', 'product marketing cards are incomplete');
+if (!/Marigold Market/.test(marketing) || !/Slosh/.test(marketing)) fail('marketing.html', 'product marketing cards are incomplete');
 if (!/privacy\.html/.test(marketing)) fail('marketing.html', 'privacy link is missing');
 if (!/contact\.html/.test(marketing)) fail('marketing.html', 'support link is missing');
 if (!/Zero State LLC/.test(about)) fail('about.html', 'legal entity name is missing');
