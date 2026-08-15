@@ -192,6 +192,7 @@ body.dark-product-page {
 .psyfi-hero { aspect-ratio: 1400 / 933; }
 .surveillance-survivor-hero { aspect-ratio: 1280 / 640; }
 .waykin-hero { aspect-ratio: 1024 / 1024; }
+.slosh-hero { aspect-ratio: 416 / 496; }
 
 .marigold-hero,
 .hexwire-hero,
@@ -203,6 +204,10 @@ body.dark-product-page {
   min-height: 0;
   align-self: center;
 }
+.slosh-hero {
+  min-height: 0;
+  align-self: center;
+}
 .marigold-hero img,
 .hexwire-hero img,
 .hollersports-hero img,
@@ -210,6 +215,9 @@ body.dark-product-page {
 .psyfi-hero img,
 .surveillance-survivor-hero img,
 .waykin-hero img {
+  min-height: 0;
+}
+.slosh-hero img {
   min-height: 0;
 }
 

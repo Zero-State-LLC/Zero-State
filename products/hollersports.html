@@ -46,8 +46,11 @@
     <div class="product-detail"><div class="split">
       <h2>In short</h2>
       <div>
-        <p>Sports analysis that isolates every slate, fingerprints its inputs, and refuses silent bleed between runs — so the same slate can be reproduced and audited.</p>
-        <a class="text-link" href="https://github.com/Zero-State-LLC/Hollersports">Source on GitHub <span aria-hidden="true">↗</span></a>
+        <p><strong>State isolation.</strong> Every slate starts from <code>init_new_slate_state</code> with no artifacts from previous runs.</p>
+        <p><strong>Provenance.</strong> Inputs and intermediate artifacts are fingerprinted—source games and datasets, category, game context, and calibration—so analysis can be audited end to end.</p>
+        <p><strong>Input validation.</strong> Before processing, state is asserted against the current games, datasets, and provider so stale state cannot be reused by accident.</p>
+        <p><strong>Controlled calibration.</strong> Cross-slate calibration is opt-in and explicit; the default is discard, not silent merge.</p>
+        <p>A companion feedback loop can ingest expected outcomes and game results, compute residuals, and update model priors with append-only ledgers. Engine architecture and validation live in the product repository.</p>
       </div>
     </div></div>
   </section>

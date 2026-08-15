@@ -18,6 +18,7 @@
     "products/hexwire.html",
     "products/hollersports.html",
     "products/marigold-market.html",
+    "products/slosh.html",
     "skills/orchestra.html",
     "skills/hyperlex.html",
     "skills/kubrick.html",
@@ -31,7 +32,8 @@
     "Zero-State-LLC/Surveillance-Survivor",
     "Zero-State-LLC/Hexwire",
     "Zero-State-LLC/Hollersports",
-    "Zero-State-LLC/Marigold-Market"
+    "Zero-State-LLC/Marigold-Market",
+    "Zero-State-LLC/slosh"
   ],
   "public_sources": {
     "org_repositories": "https://github.com/orgs/Zero-State-LLC/repositories",
