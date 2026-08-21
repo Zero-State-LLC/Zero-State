@@ -13,20 +13,14 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://zer0state.com/marketing.html</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://zer0state.com/about.html</loc>
-    <lastmod>2026-08-15</lastmod>
+    <loc>https://zer0state.com/philosophy.html</loc>
+    <lastmod>2026-08-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://zer0state.com/philosophy.html</loc>
-    <lastmod>2026-08-07</lastmod>
+    <loc>https://zer0state.com/about.html</loc>
+    <lastmod>2026-08-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -47,6 +41,12 @@
     <lastmod>2026-08-11</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://zer0state.com/marketing.html</loc>
+    <lastmod>2026-08-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://zer0state.com/products/waykin.html</loc>
