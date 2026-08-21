@@ -37,11 +37,9 @@
   ],
   "public_sources": {
     "org_repositories": "https://github.com/orgs/Zero-State-LLC/repositories",
-    "site": "https://zero-state-llc.github.io/Zero-State/",
-    "canonical_domain_pending": "https://zer0state.com"
+    "site": "https://zer0state.com/"
   },
   "known_placeholders": [
-    "custom domain zer0state.com DNS cutover (still Squarespace coming soon)",
     "app store and production product destinations",
     "trademark review",
     "typography licensing review"

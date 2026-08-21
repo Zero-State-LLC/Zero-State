@@ -1,9 +1,11 @@
 #!/usr/bin/env node
 /* Deterministic static-site checks; intentionally dependency-free for reproducible Pages builds. */
+const { execFileSync } = require('node:child_process');
 const fs = require('node:fs');
 const path = require('node:path');
 
 const root = path.resolve(__dirname, '..');
+const APEX = 'https://zer0state.com';
 const requiredPages = [
   'index.html', 'work.html', 'philosophy.html', 'about.html', 'contact.html',
   'privacy.html', 'terms.html', 'marketing.html',
@@ -12,6 +14,51 @@ const requiredPages = [
   'products/hollersports.html', 'products/marigold-market.html', 'products/slosh.html',
   'skills/orchestra.html', 'skills/hyperlex.html', 'skills/kubrick.html', 'skills/neon-genie.html'
 ];
+
+function officialPageFile(entry) {
+  if (entry === 'index' || entry === 'index.html') return 'index.html';
+  return entry.endsWith('.html') ? entry : `${entry}.html`;
+}
+
+function officialPageLoc(file) {
+  return file === 'index.html' ? `${APEX}/` : `${APEX}/${file}`;
+}
+
+function lastmodFor(file) {
+  try {
+    const date = execFileSync('git', ['log', '-1', '--format=%cs', '--', file], {
+      cwd: root,
+      encoding: 'utf8',
+      stdio: ['ignore', 'pipe', 'ignore']
+    }).trim();
+    return /^\d{4}-\d{2}-\d{2}$/.test(date) ? date : '';
+  } catch {
+    return '';
+  }
+}
+
+function sitemapMeta(file) {
+  if (file === 'index.html') return { changefreq: 'weekly', priority: '1.0' };
+  if (file === 'privacy.html' || file === 'terms.html') return { changefreq: 'yearly', priority: '0.4' };
+  if (file === 'work.html' || file === 'marketing.html') return { changefreq: 'monthly', priority: '0.8' };
+  if (file.startsWith('products/') || file.startsWith('skills/')) {
+    return { changefreq: 'monthly', priority: '0.6' };
+  }
+  return { changefreq: 'monthly', priority: '0.7' };
+}
+
+function writeSitemap(files) {
+  const urls = files.map((file) => {
+    const loc = officialPageLoc(file);
+    const lastmod = lastmodFor(file);
+    const { changefreq, priority } = sitemapMeta(file);
+    const lastmodXml = lastmod ? `\n    <lastmod>${lastmod}</lastmod>` : '';
+    return `  <url>\n    <loc>${loc}</loc>${lastmodXml}\n    <changefreq>${changefreq}</changefreq>\n    <priority>${priority}</priority>\n  </url>`;
+  });
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join('\n')}\n</urlset>\n`;
+  fs.writeFileSync(path.join(root, 'sitemap.xml'), xml);
+}
+
 const requiredHeroes = [
   'assets/products/waykin-hero.png',
   'assets/products/patchhive-hero.jpg',
@@ -157,9 +204,72 @@ if (!/Zero State LLC/.test(about)) fail('about.html', 'legal entity name is miss
 if (/San Diego/i.test(index)) fail('index.html', 'San Diego location copy must be removed');
 if (!/zer0state@zer0state\.com/.test(index)) fail('index.html', 'home contact email is missing');
 
+if (!exists('robots.txt')) fail('robots.txt', 'crawler instructions file is missing');
+if (!exists('site-manifest.json')) fail('site-manifest.json', 'official page list is missing');
+if (exists('robots.txt')) {
+  const robots = fs.readFileSync(path.join(root, 'robots.txt'), 'utf8');
+  if (!/^User-agent:\s*\*/m.test(robots)) fail('robots.txt', 'must allow crawlers with User-agent: *');
+  if (!/^Sitemap:\s*https:\/\/zer0state\.com\/sitemap\.xml\s*$/m.test(robots)) {
+    fail('robots.txt', 'must point Sitemap at https://zer0state.com/sitemap.xml');
+  }
+}
+
+const officialFiles = [];
+const officialSitemapLocs = [];
+if (exists('site-manifest.json')) {
+  const manifest = JSON.parse(fs.readFileSync(path.join(root, 'site-manifest.json'), 'utf8'));
+  if (/Squarespace|DNS cutover|canonical_domain_pending/i.test(JSON.stringify(manifest))) {
+    fail('site-manifest.json', 'stale custom-domain / Squarespace pending note must be removed');
+  }
+  if (manifest.public_sources?.site !== `${APEX}/`) {
+    fail('site-manifest.json', `public site must be ${APEX}/`);
+  }
+  const pages = Array.isArray(manifest.pages) ? manifest.pages : [];
+  for (const entry of pages) {
+    const file = officialPageFile(entry);
+    if (/dark-landing|site-manifest/i.test(file)) {
+      fail('site-manifest.json', `must not list non-official page: ${entry}`);
+      continue;
+    }
+    officialFiles.push(file);
+    officialSitemapLocs.push(officialPageLoc(file));
+  }
+  writeSitemap(officialFiles);
+}
+
+if (!exists('sitemap.xml')) fail('sitemap.xml', 'public sitemap is missing');
+if (exists('sitemap.xml') && officialSitemapLocs.length) {
+  const sitemap = fs.readFileSync(path.join(root, 'sitemap.xml'), 'utf8');
+  const locs = [...sitemap.matchAll(/<loc>\s*([^<]+?)\s*<\/loc>/g)].map((match) => match[1].trim());
+  if (locs.length !== officialSitemapLocs.length) {
+    fail('sitemap.xml', `must list exactly ${officialSitemapLocs.length} official unique HTML pages`);
+  }
+  for (const loc of officialSitemapLocs) {
+    if (!locs.includes(loc)) fail('sitemap.xml', `missing official page: ${loc}`);
+  }
+  for (const loc of locs) {
+    if (!officialSitemapLocs.includes(loc)) fail('sitemap.xml', `unexpected loc: ${loc}`);
+    if (/index\.html|dark-landing|site-manifest|www\.zer0state|github\.io/i.test(loc)) {
+      fail('sitemap.xml', `must not list duplicate or non-official URL: ${loc}`);
+    }
+  }
+}
+
+for (const file of officialFiles) {
+  if (!exists(file)) {
+    fail(file, 'official manifest page is missing');
+    continue;
+  }
+  const html = fs.readFileSync(path.join(root, file), 'utf8');
+  const loc = officialPageLoc(file);
+  const canonical = html.match(/<link\s+rel=["']canonical["']\s+href=["']([^"']+)["']/i);
+  if (!canonical) fail(file, `missing canonical for ${loc}`);
+  else if (canonical[1] !== loc) fail(file, `canonical must be ${loc}`);
+}
+
 if (failures.length) {
   console.error(`Zero State validation failed (${failures.length}):`);
   failures.forEach((message) => console.error(`- ${message}`));
   process.exit(1);
 }
-console.log(`PASS: ${requiredPages.length} pages, product heroes, dark home, social preview, internal links, metadata, and product-source posture validated.`);
+console.log(`PASS: ${requiredPages.length} pages, sitemap/robots, product heroes, dark home, social preview, internal links, metadata, and product-source posture validated.`);

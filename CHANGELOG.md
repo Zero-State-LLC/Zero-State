@@ -23,6 +23,11 @@ Cumulative release since `v0.3.0`: official dark home, social preview, and Herme
 
 ## Unreleased
 
+### Discovery
+- Add public `robots.txt` and `sitemap.xml` at the site root for apex `https://zer0state.com/` (21 official unique HTML pages).
+- Generate `sitemap.xml` from `site-manifest.json` during site validation so new official pages stay listed.
+- Official HTML canonicals (and home social URLs) use the live apex host.
+
 ### Portfolio copy
 - Distill product and skill pages to short descriptions (no README deferral, no nested install paths).
 - Portfolio/marketing intros no longer point at repositories as “source of truth.”
