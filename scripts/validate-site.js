@@ -12,6 +12,29 @@ const requiredPages = [
   'products/hollersports.html', 'products/marigold-market.html', 'products/slosh.html',
   'skills/orchestra.html', 'skills/hyperlex.html', 'skills/kubrick.html', 'skills/neon-genie.html'
 ];
+const officialSitemapLocs = [
+  'https://zer0state.com/',
+  'https://zer0state.com/work.html',
+  'https://zer0state.com/marketing.html',
+  'https://zer0state.com/about.html',
+  'https://zer0state.com/philosophy.html',
+  'https://zer0state.com/contact.html',
+  'https://zer0state.com/privacy.html',
+  'https://zer0state.com/terms.html',
+  'https://zer0state.com/products/waykin.html',
+  'https://zer0state.com/products/patchhive.html',
+  'https://zer0state.com/products/psyfi.html',
+  'https://zer0state.com/products/surveillance-survivor.html',
+  'https://zer0state.com/products/hexwire.html',
+  'https://zer0state.com/products/hollersports.html',
+  'https://zer0state.com/products/marigold-market.html',
+  'https://zer0state.com/products/slosh.html',
+  'https://zer0state.com/skills/orchestra.html',
+  'https://zer0state.com/skills/hyperlex.html',
+  'https://zer0state.com/skills/kubrick.html',
+  'https://zer0state.com/skills/neon-genie.html',
+  'https://zer0state.com/skills/sigil-forge.html'
+];
 const requiredHeroes = [
   'assets/products/waykin-hero.png',
   'assets/products/patchhive-hero.jpg',
@@ -157,9 +180,35 @@ if (!/Zero State LLC/.test(about)) fail('about.html', 'legal entity name is miss
 if (/San Diego/i.test(index)) fail('index.html', 'San Diego location copy must be removed');
 if (!/zer0state@zer0state\.com/.test(index)) fail('index.html', 'home contact email is missing');
 
+if (!exists('robots.txt')) fail('robots.txt', 'crawler instructions file is missing');
+if (!exists('sitemap.xml')) fail('sitemap.xml', 'public sitemap is missing');
+if (exists('robots.txt')) {
+  const robots = fs.readFileSync(path.join(root, 'robots.txt'), 'utf8');
+  if (!/^User-agent:\s*\*/m.test(robots)) fail('robots.txt', 'must allow crawlers with User-agent: *');
+  if (!/^Sitemap:\s*https:\/\/zer0state\.com\/sitemap\.xml\s*$/m.test(robots)) {
+    fail('robots.txt', 'must point Sitemap at https://zer0state.com/sitemap.xml');
+  }
+}
+if (exists('sitemap.xml')) {
+  const sitemap = fs.readFileSync(path.join(root, 'sitemap.xml'), 'utf8');
+  const locs = [...sitemap.matchAll(/<loc>\s*([^<]+?)\s*<\/loc>/g)].map((match) => match[1].trim());
+  if (locs.length !== officialSitemapLocs.length) {
+    fail('sitemap.xml', `must list exactly ${officialSitemapLocs.length} official unique HTML pages`);
+  }
+  for (const loc of officialSitemapLocs) {
+    if (!locs.includes(loc)) fail('sitemap.xml', `missing official page: ${loc}`);
+  }
+  for (const loc of locs) {
+    if (!officialSitemapLocs.includes(loc)) fail('sitemap.xml', `unexpected loc: ${loc}`);
+    if (/index\.html|dark-landing|site-manifest|www\.zer0state|github\.io/i.test(loc)) {
+      fail('sitemap.xml', `must not list duplicate or non-official URL: ${loc}`);
+    }
+  }
+}
+
 if (failures.length) {
   console.error(`Zero State validation failed (${failures.length}):`);
   failures.forEach((message) => console.error(`- ${message}`));
   process.exit(1);
 }
-console.log(`PASS: ${requiredPages.length} pages, product heroes, dark home, social preview, internal links, metadata, and product-source posture validated.`);
+console.log(`PASS: ${requiredPages.length} pages, sitemap/robots, product heroes, dark home, social preview, internal links, metadata, and product-source posture validated.`);

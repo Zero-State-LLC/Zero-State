@@ -77,6 +77,7 @@ npm test
 | `styles.css`, `script.js` | Shared light-site presentation |
 | `design.md` | Locked design system |
 | `scripts/validate-site.js` | CI / Pages build validation |
+| `sitemap.xml`, `robots.txt` | Public crawler list at `https://zer0state.com/` |
 | `.github/workflows/` | Site validation + GitHub Pages deploy |
 
 ## Deployment
