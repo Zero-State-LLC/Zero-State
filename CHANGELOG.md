@@ -36,6 +36,9 @@ Cumulative release since `v0.3.0`: official dark home, social preview, and Herme
 - Generate `sitemap.xml` from `site-manifest.json` during site validation so new official pages stay listed.
 - Official HTML canonicals (and home social URLs) use the live apex host.
 
+### Portfolio
+- Add **Noema** as a first-party Zero State product on home evidence, Work, and marketing. Public door: [noema.guru](https://noema.guru). Autogive remains client work.
+
 ### Portfolio copy
 - Distill product and skill pages to short descriptions (no README deferral, no nested install paths).
 - Portfolio/marketing intros no longer point at repositories as “source of truth.”

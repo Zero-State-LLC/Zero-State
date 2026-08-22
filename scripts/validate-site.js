@@ -12,6 +12,7 @@ const requiredPages = [
   'products/waykin.html', 'products/patchhive.html', 'products/psyfi.html',
   'products/surveillance-survivor.html', 'products/hexwire.html',
   'products/hollersports.html', 'products/marigold-market.html', 'products/slosh.html',
+  'products/noema.html',
   'clients/autogive.html',
   'community/suas.html',
   'skills/orchestra.html', 'skills/hyperlex.html', 'skills/kubrick.html', 'skills/neon-genie.html'
@@ -70,6 +71,7 @@ const requiredHeroes = [
   'assets/products/hollersports-hero.jpg',
   'assets/products/marigold-hero.jpg',
   'assets/products/slosh-hero.gif',
+  'assets/products/noema-hero.jpg',
   'assets/skills/orchestra-hero.jpg',
   'assets/skills/hyperlex-hero.jpg',
   'assets/skills/kubrick-hero.jpg',
@@ -113,6 +115,7 @@ const hollersports = fs.readFileSync(path.join(root, 'products/hollersports.html
 const marigold = fs.readFileSync(path.join(root, 'products/marigold-market.html'), 'utf8');
 const hexwire = fs.readFileSync(path.join(root, 'products/hexwire.html'), 'utf8');
 const slosh = fs.readFileSync(path.join(root, 'products/slosh.html'), 'utf8');
+const noema = fs.readFileSync(path.join(root, 'products/noema.html'), 'utf8');
 const cssDark = fs.readFileSync(path.join(root, 'styles-dark.css'), 'utf8');
 
 // Official dark home — primary identity logo + social preview
@@ -126,7 +129,7 @@ if (!exists('styles-dark.css')) fail('styles-dark.css', 'official dark home styl
 if (!/hero-grid/.test(index)) fail('index.html', 'landing field grid is missing');
 
 // Org portfolio completeness
-for (const name of ['Waykin', 'PatchHive', 'PsyFi', 'Surveillance Survivor', 'HexWire', 'Hollersports', 'Marigold Market', 'Slosh']) {
+for (const name of ['Waykin', 'PatchHive', 'PsyFi', 'Surveillance Survivor', 'HexWire', 'Hollersports', 'Marigold Market', 'Slosh', 'Noema']) {
   if (!index.includes(name)) fail('index.html', `${name} is missing from selected work`);
   if (!work.includes(name)) fail('work.html', `${name} is missing from portfolio`);
 }
@@ -138,6 +141,9 @@ if (!/assets\/products\/hexwire-hero\.png/.test(work)) fail('work.html', 'HexWir
 if (!/assets\/products\/hollersports-hero\.jpg/.test(work)) fail('work.html', 'Hollersports hero image is missing');
 if (!/assets\/products\/marigold-hero\.jpg/.test(work)) fail('work.html', 'Marigold Market hero image is missing');
 if (!/assets\/products\/slosh-hero\.gif/.test(work)) fail('work.html', 'Slosh hero image is missing');
+if (!/assets\/products\/noema-hero\.jpg/.test(work)) fail('work.html', 'Noema hero image is missing');
+if (!/products\/noema\.html/.test(work)) fail('work.html', 'Noema product card must open the parent-brand product page');
+if (!/products\/noema\.html/.test(index)) fail('index.html', 'Noema evidence row must open the parent-brand product page');
 
 if (!/Active pre-alpha · simulator-ready · not release-ready/.test(work) && !/Active pre-alpha · simulator-ready vertical slice · not release-ready/.test(work)) {
   fail('work.html', 'Surveillance Survivor readiness posture is missing or overstated');
@@ -156,7 +162,8 @@ for (const [name, html] of [
   ['products/waykin.html', waykin], ['products/patchhive.html', patchhive],
   ['products/psyfi.html', psyfi], ['products/surveillance-survivor.html', surveillance],
   ['products/hexwire.html', hexwire], ['products/hollersports.html', hollersports],
-  ['products/marigold-market.html', marigold], ['products/slosh.html', slosh]
+  ['products/marigold-market.html', marigold], ['products/slosh.html', slosh],
+  ['products/noema.html', noema]
 ]) {
   if (/<a\b[^>]*href=["'][^"']*(?:github\.com|gitlab\.com|bitbucket\.org)[^"']*["']/i.test(html)) {
     fail(name, 'product page exposes a codebase link');
@@ -275,7 +282,15 @@ if (!/zer0state@zer0state\.com/.test(fs.readFileSync(path.join(root, 'terms.html
 if (!/zer0state@zer0state\.com/.test(contact)) fail('contact.html', 'operational contact is missing');
 if (!/support/i.test(contact)) fail('contact.html', 'support framing is missing');
 if (!/Zero State LLC/.test(marketing)) fail('marketing.html', 'legal entity name is missing');
-if (!/Marigold Market/.test(marketing) || !/Slosh/.test(marketing)) fail('marketing.html', 'product marketing cards are incomplete');
+if (!/Marigold Market/.test(marketing) || !/Slosh/.test(marketing) || !/Noema/.test(marketing)) fail('marketing.html', 'product marketing cards are incomplete');
+if (!/https:\/\/noema\.guru/.test(noema)) fail('products/noema.html', 'primary noema.guru destination is missing');
+if (!/noopener noreferrer/.test(noema)) fail('products/noema.html', 'external noema.guru link must use rel="noopener noreferrer"');
+if (/href=["'][^"']*(?:github\.io|workers\.dev|\/admin(?:\/|"|')|\/play(?:\/|"|'))/i.test(noema)) {
+  fail('products/noema.html', 'must link the noema.guru apex only — not admin, play, github.io, or workers.dev');
+}
+if (/world\.perihelion-reach-3|Civic Exchange|Recover/i.test(noema + marketing)) {
+  fail('products/noema.html', 'must not mention internal world ids, Civic Exchange, or operator Recover language');
+}
 if (!/privacy\.html/.test(marketing)) fail('marketing.html', 'privacy link is missing');
 if (!/contact\.html/.test(marketing)) fail('marketing.html', 'support link is missing');
 if (!/Zero State LLC/.test(about)) fail('about.html', 'legal entity name is missing');
