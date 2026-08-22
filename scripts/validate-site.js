@@ -13,6 +13,7 @@ const requiredPages = [
   'products/surveillance-survivor.html', 'products/hexwire.html',
   'products/hollersports.html', 'products/marigold-market.html', 'products/slosh.html',
   'clients/autogive.html',
+  'community/suas.html',
   'skills/orchestra.html', 'skills/hyperlex.html', 'skills/kubrick.html', 'skills/neon-genie.html'
 ];
 
@@ -42,7 +43,7 @@ function sitemapMeta(file) {
   if (file === 'index.html') return { changefreq: 'weekly', priority: '1.0' };
   if (file === 'privacy.html' || file === 'terms.html') return { changefreq: 'yearly', priority: '0.4' };
   if (file === 'work.html' || file === 'marketing.html') return { changefreq: 'monthly', priority: '0.8' };
-  if (file.startsWith('products/') || file.startsWith('skills/') || file.startsWith('clients/')) {
+  if (file.startsWith('products/') || file.startsWith('skills/') || file.startsWith('clients/') || file.startsWith('community/')) {
     return { changefreq: 'monthly', priority: '0.6' };
   }
   return { changefreq: 'monthly', priority: '0.7' };
@@ -73,7 +74,8 @@ const requiredHeroes = [
   'assets/skills/hyperlex-hero.jpg',
   'assets/skills/kubrick-hero.jpg',
   'assets/skills/neon-genie-hero.jpg',
-  'assets/clients/autogive-hero.png'
+  'assets/clients/autogive-hero.png',
+  'assets/community/suas-hero.png'
 ];
 const failures = [];
 const fail = (file, message) => failures.push(`${file}: ${message}`);
@@ -182,6 +184,64 @@ if (!/does not process donations/i.test(autogive)) fail('clients/autogive.html',
 if (!/deterministic fixture/i.test(autogive)) fail('clients/autogive.html', 'must keep demonstration-fixture posture from the live site');
 if (/HIPAA|donate through Zero State|Stripe checkout/i.test(autogive + work + index)) {
   fail('clients/autogive.html', 'contains disallowed donation-processing or medical claims');
+}
+if (!/id=["']community["']/.test(work)) fail('work.html', 'community section anchor is missing');
+if (!/id=["']community["']/.test(index)) fail('index.html', 'community evidence block is missing');
+if (!/\bSUAS\b/.test(work)) fail('work.html', 'SUAS community card is missing');
+if (!/\bSUAS\b/.test(index)) fail('index.html', 'SUAS community row is missing');
+if (!/assets\/community\/suas-hero\.png/.test(work)) fail('work.html', 'SUAS public-page screenshot is missing');
+if (!/community\/suas\.html/.test(work)) fail('work.html', 'SUAS community card must open the parent-brand community page');
+if (!/assets\/community\/suas-hero\.png/.test(index)) fail('index.html', 'SUAS public-page screenshot thumb is missing');
+if (/id=["']products["'][\s\S]*\bSUAS\b[\s\S]*id=["']clients["']/.test(work)) {
+  fail('work.html', 'SUAS must not appear inside the Products section');
+}
+const clientsBlock = work.match(/id=["']clients["'][\s\S]*?(?=id=["']community["']|id=["']skills["']|$)/);
+if (clientsBlock && /\bSUAS\b/.test(clientsBlock[0])) {
+  fail('work.html', 'SUAS must not appear inside the Clients section');
+}
+const communityAssets = exists('assets/community') ? fs.readdirSync(path.join(root, 'assets/community')) : [];
+if (communityAssets.some((name) => /luma|innovation4veterans/i.test(name))) {
+  fail('assets/community', 'must not ship a Luma event screenshot; link the event in copy only');
+}
+if (/\bSUAS\b/.test(fs.readFileSync(path.join(root, 'marketing.html'), 'utf8'))) {
+  fail('marketing.html', 'SUAS must not be listed as a product for sale');
+}
+const suas = exists('community/suas.html') ? fs.readFileSync(path.join(root, 'community/suas.html'), 'utf8') : '';
+if (!suas) {
+  fail('community/suas.html', 'community parent page is missing');
+} else {
+  if (!/https:\/\/scrimshawlife-ctrl\.github\.io\/suas\//.test(suas + work)) {
+    fail('community/suas.html', 'public SUAS page link (lowercase /suas/) is missing');
+  }
+  if (/scrimshawlife-ctrl\.github\.io\/SUAS/.test(suas + work + index)) {
+    fail('community/suas.html', 'must not use the 404 path /SUAS/');
+  }
+  if (!/https:\/\/luma\.com\/Innovation4Veterans/.test(suas + work)) {
+    fail('community/suas.html', 'Veteran Innovation Hackathon Luma link is missing');
+  }
+  if (!/noopener noreferrer/.test(suas)) {
+    fail('community/suas.html', 'external SUAS links must use rel="noopener noreferrer"');
+  }
+  if (!/Hacker Dojo/.test(suas + work)) fail('community/suas.html', 'Hacker Dojo venue is missing');
+  if (!/28[–-]30 August 2026/.test(suas + work)) fail('community/suas.html', 'hackathon dates are missing');
+  if (!/Veteran Innovation Hackathon/.test(suas + work + index)) {
+    fail('community/suas.html', 'hackathon name is missing');
+  }
+  if (!/SPEC-017/.test(suas + work) || !/NOT READY/.test(suas + work)) {
+    fail('community/suas.html', 'SPEC-017 · NOT READY posture is missing');
+  }
+  if (!/not a Zero State product/i.test(suas) || !/not .+ for sale/i.test(suas)) {
+    fail('community/suas.html', 'must state SUAS is not a Zero State product for sale');
+  }
+  if (!/does not claim HIPAA/i.test(suas)) {
+    fail('community/suas.html', 'must state SUAS does not claim HIPAA');
+  }
+  if (/(?:HIPAA compliant|provides live operations|diagnoses veterans|predicts suicide|provides emergency dispatch)/i.test(suas + work + index)) {
+    fail('community/suas.html', 'contains disallowed operational or clinical claims');
+  }
+  if (/\btransition\b/i.test(suas + work + index)) {
+    fail('community/suas.html', 'veteran-facing copy must not use the word transition');
+  }
 }
 if (!/Hermes \/ OpenClaw/.test(work) && !/Hermes \/ OpenClaw/.test(index)) {
   fail('work.html', 'Hermes / OpenClaw skills section label is missing');
