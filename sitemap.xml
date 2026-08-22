@@ -2,13 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://zer0state.com/</loc>
-    <lastmod>2026-08-22</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://zer0state.com/work.html</loc>
-    <lastmod>2026-08-22</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -98,7 +98,12 @@
   </url>
   <url>
     <loc>https://zer0state.com/clients/autogive.html</loc>
-    <lastmod>2026-08-22</lastmod>
+    <lastmod>2026-08-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://zer0state.com/community/suas.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
