@@ -23,6 +23,10 @@ Cumulative release since `v0.3.0`: official dark home, social preview, and Herme
 
 ## Unreleased
 
+### Clients
+- Add a **Clients** section on Work (`#clients`) and a short Clients block on the home evidence area, separate from Products.
+- First client entry: **Autogive.app** (Autonomously Giving Incorporated), with a real homepage screenshot and copy from the live public site. Autogive is client work, not a Zero State product.
+
 ### Discovery
 - Add public `robots.txt` and `sitemap.xml` at the site root for apex `https://zer0state.com/` (21 official unique HTML pages).
 - Generate `sitemap.xml` from `site-manifest.json` during site validation so new official pages stay listed.

@@ -406,10 +406,14 @@ h1 .ref {
   background: var(--paper-work);
   color: var(--carbon-2);
 }
+.work-clients,
 .work-skills {
   padding-top: 48px;
   padding-bottom: 120px;
   border-top: 1px solid var(--line-warm);
+}
+.work-clients {
+  padding-bottom: 48px;
 }
 .section-head {
   max-width: 520px;
@@ -745,11 +749,31 @@ body.dark-product-page footer {
   color: var(--muted);
   font: 400 17px/1.6 var(--sans);
 }
+.portfolio-jump {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 20px;
+  margin: 28px 0 0;
+}
+.portfolio-jump a {
+  color: var(--muted);
+  font: 10px/1.4 var(--mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border-bottom: 1px solid transparent;
+}
+.portfolio-jump a:hover {
+  color: var(--stone-soft);
+  border-bottom-color: var(--signal);
+}
 .portfolio-section {
   padding: 72px max(32px, calc((100vw - var(--shell)) / 2)) 96px;
 }
+.portfolio-section-clients,
 .portfolio-section-skills {
   border-top: 1px solid var(--line);
+}
+.portfolio-section-skills {
   background: rgba(0, 0, 0, 0.22);
 }
 .portfolio-head {
@@ -831,6 +855,11 @@ body.dark-product-page footer {
   font: 500 clamp(22px, 2.4vw, 28px) / 1.12 var(--serif);
   letter-spacing: -0.03em;
   color: var(--stone-soft);
+}
+.portfolio-desc {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font: 400 14px/1.5 var(--sans);
 }
 .portfolio-status {
   margin: 4px 0 0;

@@ -12,6 +12,7 @@ const requiredPages = [
   'products/waykin.html', 'products/patchhive.html', 'products/psyfi.html',
   'products/surveillance-survivor.html', 'products/hexwire.html',
   'products/hollersports.html', 'products/marigold-market.html', 'products/slosh.html',
+  'clients/autogive.html',
   'skills/orchestra.html', 'skills/hyperlex.html', 'skills/kubrick.html', 'skills/neon-genie.html'
 ];
 
@@ -41,7 +42,7 @@ function sitemapMeta(file) {
   if (file === 'index.html') return { changefreq: 'weekly', priority: '1.0' };
   if (file === 'privacy.html' || file === 'terms.html') return { changefreq: 'yearly', priority: '0.4' };
   if (file === 'work.html' || file === 'marketing.html') return { changefreq: 'monthly', priority: '0.8' };
-  if (file.startsWith('products/') || file.startsWith('skills/')) {
+  if (file.startsWith('products/') || file.startsWith('skills/') || file.startsWith('clients/')) {
     return { changefreq: 'monthly', priority: '0.6' };
   }
   return { changefreq: 'monthly', priority: '0.7' };
@@ -71,7 +72,8 @@ const requiredHeroes = [
   'assets/skills/orchestra-hero.jpg',
   'assets/skills/hyperlex-hero.jpg',
   'assets/skills/kubrick-hero.jpg',
-  'assets/skills/neon-genie-hero.jpg'
+  'assets/skills/neon-genie-hero.jpg',
+  'assets/clients/autogive-hero.png'
 ];
 const failures = [];
 const fail = (file, message) => failures.push(`${file}: ${message}`);
@@ -165,6 +167,22 @@ for (const name of ['Abraxas Orchestra', 'Hyperlex', 'Kubrick', 'Neon Genie']) {
   if (!work.includes(name)) fail('work.html', `${name} is missing from skills portfolio`);
 }
 if (!/id=["']skills["']/.test(work)) fail('work.html', 'skills section anchor is missing');
+if (!/id=["']clients["']/.test(work)) fail('work.html', 'clients section anchor is missing');
+if (!/id=["']clients["']/.test(index)) fail('index.html', 'clients evidence block is missing');
+if (!/Autogive\.app/.test(work)) fail('work.html', 'Autogive.app client card is missing');
+if (!/Autogive\.app/.test(index)) fail('index.html', 'Autogive.app client row is missing');
+if (!/assets\/clients\/autogive-hero\.png/.test(work)) fail('work.html', 'Autogive homepage screenshot is missing');
+if (!/clients\/autogive\.html/.test(work)) fail('work.html', 'Autogive client card must open the parent-brand client page');
+if (!/assets\/clients\/autogive-hero\.png/.test(index)) fail('index.html', 'Autogive homepage screenshot thumb is missing');
+const autogive = fs.readFileSync(path.join(root, 'clients/autogive.html'), 'utf8');
+if (!/https:\/\/autogive\.app/.test(autogive)) fail('clients/autogive.html', 'primary Autogive.app destination is missing');
+if (!/noopener noreferrer/.test(autogive)) fail('clients/autogive.html', 'external Autogive.app link must use rel="noopener noreferrer"');
+if (!/not a Zero State product/i.test(autogive)) fail('clients/autogive.html', 'must state Autogive is not a Zero State product');
+if (!/does not process donations/i.test(autogive)) fail('clients/autogive.html', 'must not imply Zero State or Autogive process donations');
+if (!/deterministic fixture/i.test(autogive)) fail('clients/autogive.html', 'must keep demonstration-fixture posture from the live site');
+if (/HIPAA|donate through Zero State|Stripe checkout/i.test(autogive + work + index)) {
+  fail('clients/autogive.html', 'contains disallowed donation-processing or medical claims');
+}
 if (!/Hermes \/ OpenClaw/.test(work) && !/Hermes \/ OpenClaw/.test(index)) {
   fail('work.html', 'Hermes / OpenClaw skills section label is missing');
 }
