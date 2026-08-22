@@ -195,6 +195,14 @@ if (!/assets\/community\/suas-hero\.png/.test(index)) fail('index.html', 'SUAS p
 if (/id=["']products["'][\s\S]*\bSUAS\b[\s\S]*id=["']clients["']/.test(work)) {
   fail('work.html', 'SUAS must not appear inside the Products section');
 }
+const clientsBlock = work.match(/id=["']clients["'][\s\S]*?(?=id=["']community["']|id=["']skills["']|$)/);
+if (clientsBlock && /\bSUAS\b/.test(clientsBlock[0])) {
+  fail('work.html', 'SUAS must not appear inside the Clients section');
+}
+const communityAssets = exists('assets/community') ? fs.readdirSync(path.join(root, 'assets/community')) : [];
+if (communityAssets.some((name) => /luma|innovation4veterans/i.test(name))) {
+  fail('assets/community', 'must not ship a Luma event screenshot; link the event in copy only');
+}
 if (/\bSUAS\b/.test(fs.readFileSync(path.join(root, 'marketing.html'), 'utf8'))) {
   fail('marketing.html', 'SUAS must not be listed as a product for sale');
 }
