@@ -19,6 +19,7 @@
     "products/hollersports.html",
     "products/marigold-market.html",
     "products/slosh.html",
+    "products/noema.html",
     "clients/autogive.html",
     "community/suas.html",
     "skills/orchestra.html",
@@ -35,7 +36,8 @@
     "Zero-State-LLC/Hexwire",
     "Zero-State-LLC/Hollersports",
     "Zero-State-LLC/Marigold-Market",
-    "Zero-State-LLC/slosh"
+    "Zero-State-LLC/slosh",
+    "Zero-State-LLC/Noema"
   ],
   "public_sources": {
     "org_repositories": "https://github.com/orgs/Zero-State-LLC/repositories",

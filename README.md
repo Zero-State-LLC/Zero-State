@@ -28,6 +28,7 @@ Public product pages map to org repositories:
 | HexWire | [Zero-State-LLC/Hexwire](https://github.com/Zero-State-LLC/Hexwire) |
 | Hollersports | [Zero-State-LLC/Hollersports](https://github.com/Zero-State-LLC/Hollersports) |
 | Marigold Market | [Zero-State-LLC/Marigold-Market](https://github.com/Zero-State-LLC/Marigold-Market) |
+| Noema | [noema.guru](https://noema.guru) |
 
 ### Clients
 

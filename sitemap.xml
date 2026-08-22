@@ -97,6 +97,11 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://zer0state.com/products/noema.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://zer0state.com/clients/autogive.html</loc>
     <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
