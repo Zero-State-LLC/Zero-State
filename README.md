@@ -29,6 +29,13 @@ Public product pages map to org repositories:
 | Hollersports | [Zero-State-LLC/Hollersports](https://github.com/Zero-State-LLC/Hollersports) |
 | Marigold Market | [Zero-State-LLC/Marigold-Market](https://github.com/Zero-State-LLC/Marigold-Market) |
 
+### Clients
+
+Client work is listed separately from Zero State products:
+
+| Client | Public site |
+| --- | --- |
+| Autogive.app | [autogive.app](https://autogive.app) |
 
 ### Hermes / OpenClaw skills
 
@@ -70,6 +77,7 @@ npm test
 | --- | --- |
 | `index.html`, `work.html`, `philosophy.html`, `about.html`, `contact.html` | Primary surfaces |
 | `products/` | Parent-brand product summaries + repo links |
+| `clients/` | Parent-brand client notes; live product remains on the client site |
 | `index.html` + `styles-dark.css` | **Official home** (dark landing) |
 | `concepts/dark-landing/` | Redirect to official home (legacy URL) |
 | `styles-light.css` | Secondary light pages (work, philosophy, about, …) |
