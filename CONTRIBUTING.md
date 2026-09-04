@@ -2,6 +2,8 @@
 
 Keep changes small, accessible, and consistent with the approved Zero State philosophy and Balanced Aperture identity.
 
+Agents and contributors follow [`AGENTS.md`](AGENTS.md). Non-trivial site/brand work starts with an intent under [`intent/`](intent/). This repository is the public website and brand surface — do not invent product behavior or destinations here.
+
 Before opening a pull request, run `npm test`. Do not make legal, contact, product-availability, trademark, or licensing claims without an approved source. Changes to the static mark or highway-centerline motion require explicit brand review.
 
 
