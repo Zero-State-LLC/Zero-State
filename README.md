@@ -80,10 +80,17 @@ npm test
 
 `assets/og-image.png` (1200×630) is referenced by Open Graph and Twitter Card meta on the home page.
 
+## Agent contract
+
+Humans and coding agents follow [`AGENTS.md`](AGENTS.md). [`CLAUDE.md`](CLAUDE.md) only points there. Non-trivial site/brand work starts with an intent under [`intent/`](intent/). Do not invent product work in this repository.
+
 ## Structure
 
 | Path | Role |
 | --- | --- |
+| `AGENTS.md` | Agent / contributor contract (site/brand scope) |
+| `CLAUDE.md` | Thin adapter → `AGENTS.md` |
+| `intent/` | Stage-0 proto-spec for non-trivial site/brand work |
 | `index.html`, `work.html`, `philosophy.html`, `about.html`, `contact.html` | Primary surfaces |
 | `products/` | Parent-brand product summaries + repo links |
 | `clients/` | Parent-brand client notes; live product remains on the client site |
