@@ -1,0 +1,61 @@
+{
+  "version": "0.3.2",
+  "status": "development_preview",
+  "release": "v0.3.2",
+  "pages": [
+    "index",
+    "work",
+    "philosophy",
+    "about",
+    "contact",
+    "privacy",
+    "terms",
+    "marketing",
+    "products/waykin.html",
+    "products/patchhive.html",
+    "products/psyfi.html",
+    "products/surveillance-survivor.html",
+    "products/hexwire.html",
+    "media/hexwire.html",
+    "products/hollersports.html",
+    "products/marigold-market.html",
+    "products/slosh.html",
+    "products/noema.html",
+    "clients/autogive.html",
+    "community/suas.html",
+    "skills/orchestra.html",
+    "skills/hyperlex.html",
+    "skills/kubrick.html",
+    "skills/neon-genie.html",
+    "skills/sigil-forge.html"
+  ],
+  "portfolio_repos": [
+    "Zero-State-LLC/Waykin",
+    "Zero-State-LLC/Patch-Hive",
+    "Zero-State-LLC/Psy-Fi",
+    "Zero-State-LLC/Surveillance-Survivor",
+    "Zero-State-LLC/Hexwire",
+    "Zero-State-LLC/Hollersports",
+    "Zero-State-LLC/Marigold-Market",
+    "Zero-State-LLC/slosh",
+    "Zero-State-LLC/Noema"
+  ],
+  "public_sources": {
+    "org_repositories": "https://github.com/orgs/Zero-State-LLC/repositories",
+    "site": "https://zer0state.com/"
+  },
+  "known_placeholders": [
+    "app store and production product destinations",
+    "trademark review",
+    "typography licensing review"
+  ],
+  "launch_ready": false,
+  "official_home": "dark",
+  "skill_repos": [
+    "Zero-State-LLC/Abraxas-Orchestra",
+    "Zero-State-LLC/Hyperlex",
+    "Zero-State-LLC/Kubrick",
+    "Zero-State-LLC/NeonGenie",
+    "Zero-State-LLC/Sigil-Forge"
+  ]
+}

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://zer0state.com/sitemap.xml
