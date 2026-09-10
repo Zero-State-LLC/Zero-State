@@ -1,17 +1,67 @@
 #!/usr/bin/env node
 /* Deterministic static-site checks; intentionally dependency-free for reproducible Pages builds. */
+const { execFileSync } = require('node:child_process');
 const fs = require('node:fs');
 const path = require('node:path');
 
 const root = path.resolve(__dirname, '..');
+const APEX = 'https://zer0state.com';
 const requiredPages = [
   'index.html', 'work.html', 'philosophy.html', 'about.html', 'contact.html',
   'privacy.html', 'terms.html', 'marketing.html',
   'products/waykin.html', 'products/patchhive.html', 'products/psyfi.html',
   'products/surveillance-survivor.html', 'products/hexwire.html',
   'products/hollersports.html', 'products/marigold-market.html', 'products/slosh.html',
+  'products/noema.html',
+  'clients/autogive.html',
+  'community/suas.html',
   'skills/orchestra.html', 'skills/hyperlex.html', 'skills/kubrick.html', 'skills/neon-genie.html'
 ];
+
+function officialPageFile(entry) {
+  if (entry === 'index' || entry === 'index.html') return 'index.html';
+  return entry.endsWith('.html') ? entry : `${entry}.html`;
+}
+
+function officialPageLoc(file) {
+  return file === 'index.html' ? `${APEX}/` : `${APEX}/${file}`;
+}
+
+function lastmodFor(file) {
+  try {
+    const date = execFileSync('git', ['log', '-1', '--format=%cs', '--', file], {
+      cwd: root,
+      encoding: 'utf8',
+      stdio: ['ignore', 'pipe', 'ignore']
+    }).trim();
+    return /^\d{4}-\d{2}-\d{2}$/.test(date) ? date : '';
+  } catch {
+    return '';
+  }
+}
+
+function sitemapMeta(file) {
+  if (file === 'index.html') return { changefreq: 'weekly', priority: '1.0' };
+  if (file === 'privacy.html' || file === 'terms.html') return { changefreq: 'yearly', priority: '0.4' };
+  if (file === 'work.html' || file === 'marketing.html') return { changefreq: 'monthly', priority: '0.8' };
+  if (file.startsWith('products/') || file.startsWith('skills/') || file.startsWith('clients/') || file.startsWith('community/')) {
+    return { changefreq: 'monthly', priority: '0.6' };
+  }
+  return { changefreq: 'monthly', priority: '0.7' };
+}
+
+function writeSitemap(files) {
+  const urls = files.map((file) => {
+    const loc = officialPageLoc(file);
+    const lastmod = lastmodFor(file);
+    const { changefreq, priority } = sitemapMeta(file);
+    const lastmodXml = lastmod ? `\n    <lastmod>${lastmod}</lastmod>` : '';
+    return `  <url>\n    <loc>${loc}</loc>${lastmodXml}\n    <changefreq>${changefreq}</changefreq>\n    <priority>${priority}</priority>\n  </url>`;
+  });
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join('\n')}\n</urlset>\n`;
+  fs.writeFileSync(path.join(root, 'sitemap.xml'), xml);
+}
+
 const requiredHeroes = [
   'assets/products/waykin-hero.png',
   'assets/products/patchhive-hero.jpg',
@@ -21,10 +71,13 @@ const requiredHeroes = [
   'assets/products/hollersports-hero.jpg',
   'assets/products/marigold-hero.jpg',
   'assets/products/slosh-hero.gif',
+  'assets/products/noema-hero.jpg',
   'assets/skills/orchestra-hero.jpg',
   'assets/skills/hyperlex-hero.jpg',
   'assets/skills/kubrick-hero.jpg',
-  'assets/skills/neon-genie-hero.jpg'
+  'assets/skills/neon-genie-hero.jpg',
+  'assets/clients/autogive-hero.png',
+  'assets/community/suas-hero.png'
 ];
 const failures = [];
 const fail = (file, message) => failures.push(`${file}: ${message}`);
@@ -62,6 +115,7 @@ const hollersports = fs.readFileSync(path.join(root, 'products/hollersports.html
 const marigold = fs.readFileSync(path.join(root, 'products/marigold-market.html'), 'utf8');
 const hexwire = fs.readFileSync(path.join(root, 'products/hexwire.html'), 'utf8');
 const slosh = fs.readFileSync(path.join(root, 'products/slosh.html'), 'utf8');
+const noema = fs.readFileSync(path.join(root, 'products/noema.html'), 'utf8');
 const cssDark = fs.readFileSync(path.join(root, 'styles-dark.css'), 'utf8');
 
 // Official dark home — primary identity logo + social preview
@@ -75,7 +129,7 @@ if (!exists('styles-dark.css')) fail('styles-dark.css', 'official dark home styl
 if (!/hero-grid/.test(index)) fail('index.html', 'landing field grid is missing');
 
 // Org portfolio completeness
-for (const name of ['Waykin', 'PatchHive', 'PsyFi', 'Surveillance Survivor', 'HexWire', 'Hollersports', 'Marigold Market', 'Slosh']) {
+for (const name of ['Waykin', 'PatchHive', 'PsyFi', 'Surveillance Survivor', 'HexWire', 'Hollersports', 'Marigold Market', 'Slosh', 'Noema']) {
   if (!index.includes(name)) fail('index.html', `${name} is missing from selected work`);
   if (!work.includes(name)) fail('work.html', `${name} is missing from portfolio`);
 }
@@ -87,6 +141,9 @@ if (!/assets\/products\/hexwire-hero\.png/.test(work)) fail('work.html', 'HexWir
 if (!/assets\/products\/hollersports-hero\.jpg/.test(work)) fail('work.html', 'Hollersports hero image is missing');
 if (!/assets\/products\/marigold-hero\.jpg/.test(work)) fail('work.html', 'Marigold Market hero image is missing');
 if (!/assets\/products\/slosh-hero\.gif/.test(work)) fail('work.html', 'Slosh hero image is missing');
+if (!/assets\/products\/noema-hero\.jpg/.test(work)) fail('work.html', 'Noema hero image is missing');
+if (!/products\/noema\.html/.test(work)) fail('work.html', 'Noema product card must open the parent-brand product page');
+if (!/products\/noema\.html/.test(index)) fail('index.html', 'Noema evidence row must open the parent-brand product page');
 
 if (!/Active pre-alpha · simulator-ready · not release-ready/.test(work) && !/Active pre-alpha · simulator-ready vertical slice · not release-ready/.test(work)) {
   fail('work.html', 'Surveillance Survivor readiness posture is missing or overstated');
@@ -105,7 +162,8 @@ for (const [name, html] of [
   ['products/waykin.html', waykin], ['products/patchhive.html', patchhive],
   ['products/psyfi.html', psyfi], ['products/surveillance-survivor.html', surveillance],
   ['products/hexwire.html', hexwire], ['products/hollersports.html', hollersports],
-  ['products/marigold-market.html', marigold], ['products/slosh.html', slosh]
+  ['products/marigold-market.html', marigold], ['products/slosh.html', slosh],
+  ['products/noema.html', noema]
 ]) {
   if (/<a\b[^>]*href=["'][^"']*(?:github\.com|gitlab\.com|bitbucket\.org)[^"']*["']/i.test(html)) {
     fail(name, 'product page exposes a codebase link');
@@ -118,6 +176,80 @@ for (const name of ['Abraxas Orchestra', 'Hyperlex', 'Kubrick', 'Neon Genie']) {
   if (!work.includes(name)) fail('work.html', `${name} is missing from skills portfolio`);
 }
 if (!/id=["']skills["']/.test(work)) fail('work.html', 'skills section anchor is missing');
+if (!/id=["']clients["']/.test(work)) fail('work.html', 'clients section anchor is missing');
+if (!/id=["']clients["']/.test(index)) fail('index.html', 'clients evidence block is missing');
+if (!/Autogive\.app/.test(work)) fail('work.html', 'Autogive.app client card is missing');
+if (!/Autogive\.app/.test(index)) fail('index.html', 'Autogive.app client row is missing');
+if (!/assets\/clients\/autogive-hero\.png/.test(work)) fail('work.html', 'Autogive homepage screenshot is missing');
+if (!/clients\/autogive\.html/.test(work)) fail('work.html', 'Autogive client card must open the parent-brand client page');
+if (!/assets\/clients\/autogive-hero\.png/.test(index)) fail('index.html', 'Autogive homepage screenshot thumb is missing');
+const autogive = fs.readFileSync(path.join(root, 'clients/autogive.html'), 'utf8');
+if (!/https:\/\/autogive\.app/.test(autogive)) fail('clients/autogive.html', 'primary Autogive.app destination is missing');
+if (!/noopener noreferrer/.test(autogive)) fail('clients/autogive.html', 'external Autogive.app link must use rel="noopener noreferrer"');
+if (!/not a Zero State product/i.test(autogive)) fail('clients/autogive.html', 'must state Autogive is not a Zero State product');
+if (!/does not process donations/i.test(autogive)) fail('clients/autogive.html', 'must not imply Zero State or Autogive process donations');
+if (!/deterministic fixture/i.test(autogive)) fail('clients/autogive.html', 'must keep demonstration-fixture posture from the live site');
+if (/HIPAA|donate through Zero State|Stripe checkout/i.test(autogive + work + index)) {
+  fail('clients/autogive.html', 'contains disallowed donation-processing or medical claims');
+}
+if (!/id=["']community["']/.test(work)) fail('work.html', 'community section anchor is missing');
+if (!/id=["']community["']/.test(index)) fail('index.html', 'community evidence block is missing');
+if (!/\bSUAS\b/.test(work)) fail('work.html', 'SUAS community card is missing');
+if (!/\bSUAS\b/.test(index)) fail('index.html', 'SUAS community row is missing');
+if (!/assets\/community\/suas-hero\.png/.test(work)) fail('work.html', 'SUAS public-page screenshot is missing');
+if (!/community\/suas\.html/.test(work)) fail('work.html', 'SUAS community card must open the parent-brand community page');
+if (!/assets\/community\/suas-hero\.png/.test(index)) fail('index.html', 'SUAS public-page screenshot thumb is missing');
+if (/id=["']products["'][\s\S]*\bSUAS\b[\s\S]*id=["']clients["']/.test(work)) {
+  fail('work.html', 'SUAS must not appear inside the Products section');
+}
+const clientsBlock = work.match(/id=["']clients["'][\s\S]*?(?=id=["']community["']|id=["']skills["']|$)/);
+if (clientsBlock && /\bSUAS\b/.test(clientsBlock[0])) {
+  fail('work.html', 'SUAS must not appear inside the Clients section');
+}
+const communityAssets = exists('assets/community') ? fs.readdirSync(path.join(root, 'assets/community')) : [];
+if (communityAssets.some((name) => /luma|innovation4veterans/i.test(name))) {
+  fail('assets/community', 'must not ship a Luma event screenshot; link the event in copy only');
+}
+if (/\bSUAS\b/.test(fs.readFileSync(path.join(root, 'marketing.html'), 'utf8'))) {
+  fail('marketing.html', 'SUAS must not be listed as a product for sale');
+}
+const suas = exists('community/suas.html') ? fs.readFileSync(path.join(root, 'community/suas.html'), 'utf8') : '';
+if (!suas) {
+  fail('community/suas.html', 'community parent page is missing');
+} else {
+  if (!/https:\/\/scrimshawlife-ctrl\.github\.io\/suas\//.test(suas + work)) {
+    fail('community/suas.html', 'public SUAS page link (lowercase /suas/) is missing');
+  }
+  if (/scrimshawlife-ctrl\.github\.io\/SUAS/.test(suas + work + index)) {
+    fail('community/suas.html', 'must not use the 404 path /SUAS/');
+  }
+  if (!/https:\/\/luma\.com\/Innovation4Veterans/.test(suas + work)) {
+    fail('community/suas.html', 'Veteran Innovation Hackathon Luma link is missing');
+  }
+  if (!/noopener noreferrer/.test(suas)) {
+    fail('community/suas.html', 'external SUAS links must use rel="noopener noreferrer"');
+  }
+  if (!/Hacker Dojo/.test(suas + work)) fail('community/suas.html', 'Hacker Dojo venue is missing');
+  if (!/28[–-]30 August 2026/.test(suas + work)) fail('community/suas.html', 'hackathon dates are missing');
+  if (!/Veteran Innovation Hackathon/.test(suas + work + index)) {
+    fail('community/suas.html', 'hackathon name is missing');
+  }
+  if (!/SPEC-017/.test(suas + work) || !/NOT READY/.test(suas + work)) {
+    fail('community/suas.html', 'SPEC-017 · NOT READY posture is missing');
+  }
+  if (!/not a Zero State product/i.test(suas) || !/not .+ for sale/i.test(suas)) {
+    fail('community/suas.html', 'must state SUAS is not a Zero State product for sale');
+  }
+  if (!/does not claim HIPAA/i.test(suas)) {
+    fail('community/suas.html', 'must state SUAS does not claim HIPAA');
+  }
+  if (/(?:HIPAA compliant|provides live operations|diagnoses veterans|predicts suicide|provides emergency dispatch)/i.test(suas + work + index)) {
+    fail('community/suas.html', 'contains disallowed operational or clinical claims');
+  }
+  if (/\btransition\b/i.test(suas + work + index)) {
+    fail('community/suas.html', 'veteran-facing copy must not use the word transition');
+  }
+}
 if (!/Hermes \/ OpenClaw/.test(work) && !/Hermes \/ OpenClaw/.test(index)) {
   fail('work.html', 'Hermes / OpenClaw skills section label is missing');
 }
@@ -150,16 +282,87 @@ if (!/zer0state@zer0state\.com/.test(fs.readFileSync(path.join(root, 'terms.html
 if (!/zer0state@zer0state\.com/.test(contact)) fail('contact.html', 'operational contact is missing');
 if (!/support/i.test(contact)) fail('contact.html', 'support framing is missing');
 if (!/Zero State LLC/.test(marketing)) fail('marketing.html', 'legal entity name is missing');
-if (!/Marigold Market/.test(marketing) || !/Slosh/.test(marketing)) fail('marketing.html', 'product marketing cards are incomplete');
+if (!/Marigold Market/.test(marketing) || !/Slosh/.test(marketing) || !/Noema/.test(marketing)) fail('marketing.html', 'product marketing cards are incomplete');
+if (!/https:\/\/noema\.guru/.test(noema)) fail('products/noema.html', 'primary noema.guru destination is missing');
+if (!/noopener noreferrer/.test(noema)) fail('products/noema.html', 'external noema.guru link must use rel="noopener noreferrer"');
+if (/href=["'][^"']*(?:github\.io|workers\.dev|\/admin(?:\/|"|')|\/play(?:\/|"|'))/i.test(noema)) {
+  fail('products/noema.html', 'must link the noema.guru apex only — not admin, play, github.io, or workers.dev');
+}
+if (/world\.perihelion-reach-3|Civic Exchange|Recover/i.test(noema + marketing)) {
+  fail('products/noema.html', 'must not mention internal world ids, Civic Exchange, or operator Recover language');
+}
 if (!/privacy\.html/.test(marketing)) fail('marketing.html', 'privacy link is missing');
 if (!/contact\.html/.test(marketing)) fail('marketing.html', 'support link is missing');
 if (!/Zero State LLC/.test(about)) fail('about.html', 'legal entity name is missing');
 if (/San Diego/i.test(index)) fail('index.html', 'San Diego location copy must be removed');
 if (!/zer0state@zer0state\.com/.test(index)) fail('index.html', 'home contact email is missing');
 
+if (!exists('robots.txt')) fail('robots.txt', 'crawler instructions file is missing');
+if (!exists('site-manifest.json')) fail('site-manifest.json', 'official page list is missing');
+if (exists('robots.txt')) {
+  const robots = fs.readFileSync(path.join(root, 'robots.txt'), 'utf8');
+  if (!/^User-agent:\s*\*/m.test(robots)) fail('robots.txt', 'must allow crawlers with User-agent: *');
+  if (!/^Sitemap:\s*https:\/\/zer0state\.com\/sitemap\.xml\s*$/m.test(robots)) {
+    fail('robots.txt', 'must point Sitemap at https://zer0state.com/sitemap.xml');
+  }
+}
+
+const officialFiles = [];
+const officialSitemapLocs = [];
+if (exists('site-manifest.json')) {
+  const manifest = JSON.parse(fs.readFileSync(path.join(root, 'site-manifest.json'), 'utf8'));
+  if (/Squarespace|DNS cutover|canonical_domain_pending/i.test(JSON.stringify(manifest))) {
+    fail('site-manifest.json', 'stale custom-domain / Squarespace pending note must be removed');
+  }
+  if (manifest.public_sources?.site !== `${APEX}/`) {
+    fail('site-manifest.json', `public site must be ${APEX}/`);
+  }
+  const pages = Array.isArray(manifest.pages) ? manifest.pages : [];
+  for (const entry of pages) {
+    const file = officialPageFile(entry);
+    if (/dark-landing|site-manifest/i.test(file)) {
+      fail('site-manifest.json', `must not list non-official page: ${entry}`);
+      continue;
+    }
+    officialFiles.push(file);
+    officialSitemapLocs.push(officialPageLoc(file));
+  }
+  writeSitemap(officialFiles);
+}
+
+if (!exists('sitemap.xml')) fail('sitemap.xml', 'public sitemap is missing');
+if (exists('sitemap.xml') && officialSitemapLocs.length) {
+  const sitemap = fs.readFileSync(path.join(root, 'sitemap.xml'), 'utf8');
+  const locs = [...sitemap.matchAll(/<loc>\s*([^<]+?)\s*<\/loc>/g)].map((match) => match[1].trim());
+  if (locs.length !== officialSitemapLocs.length) {
+    fail('sitemap.xml', `must list exactly ${officialSitemapLocs.length} official unique HTML pages`);
+  }
+  for (const loc of officialSitemapLocs) {
+    if (!locs.includes(loc)) fail('sitemap.xml', `missing official page: ${loc}`);
+  }
+  for (const loc of locs) {
+    if (!officialSitemapLocs.includes(loc)) fail('sitemap.xml', `unexpected loc: ${loc}`);
+    if (/index\.html|dark-landing|site-manifest|www\.zer0state|github\.io/i.test(loc)) {
+      fail('sitemap.xml', `must not list duplicate or non-official URL: ${loc}`);
+    }
+  }
+}
+
+for (const file of officialFiles) {
+  if (!exists(file)) {
+    fail(file, 'official manifest page is missing');
+    continue;
+  }
+  const html = fs.readFileSync(path.join(root, file), 'utf8');
+  const loc = officialPageLoc(file);
+  const canonical = html.match(/<link\s+rel=["']canonical["']\s+href=["']([^"']+)["']/i);
+  if (!canonical) fail(file, `missing canonical for ${loc}`);
+  else if (canonical[1] !== loc) fail(file, `canonical must be ${loc}`);
+}
+
 if (failures.length) {
   console.error(`Zero State validation failed (${failures.length}):`);
   failures.forEach((message) => console.error(`- ${message}`));
   process.exit(1);
 }
-console.log(`PASS: ${requiredPages.length} pages, product heroes, dark home, social preview, internal links, metadata, and product-source posture validated.`);
+console.log(`PASS: ${requiredPages.length} pages, sitemap/robots, product heroes, dark home, social preview, internal links, metadata, and product-source posture validated.`);

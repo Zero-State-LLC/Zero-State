@@ -28,7 +28,23 @@ Public product pages map to org repositories:
 | HexWire | [Zero-State-LLC/Hexwire](https://github.com/Zero-State-LLC/Hexwire) |
 | Hollersports | [Zero-State-LLC/Hollersports](https://github.com/Zero-State-LLC/Hollersports) |
 | Marigold Market | [Zero-State-LLC/Marigold-Market](https://github.com/Zero-State-LLC/Marigold-Market) |
+| Noema | [noema.guru](https://noema.guru) |
 
+### Clients
+
+Client work is listed separately from Zero State products:
+
+| Client | Public site |
+| --- | --- |
+| Autogive.app | [autogive.app](https://autogive.app) |
+
+### Community
+
+Civic and hackathon work is listed separately from Zero State products and client work:
+
+| Entry | Public page |
+| --- | --- |
+| SUAS | [scrimshawlife-ctrl.github.io/suas](https://scrimshawlife-ctrl.github.io/suas/) |
 
 ### Hermes / OpenClaw skills
 
@@ -64,12 +80,21 @@ npm test
 
 `assets/og-image.png` (1200×630) is referenced by Open Graph and Twitter Card meta on the home page.
 
+## Agent contract
+
+Humans and coding agents follow [`AGENTS.md`](AGENTS.md). [`CLAUDE.md`](CLAUDE.md) only points there. Non-trivial site/brand work starts with an intent under [`intent/`](intent/). Do not invent product work in this repository.
+
 ## Structure
 
 | Path | Role |
 | --- | --- |
+| `AGENTS.md` | Agent / contributor contract (site/brand scope) |
+| `CLAUDE.md` | Thin adapter → `AGENTS.md` |
+| `intent/` | Stage-0 proto-spec for non-trivial site/brand work |
 | `index.html`, `work.html`, `philosophy.html`, `about.html`, `contact.html` | Primary surfaces |
 | `products/` | Parent-brand product summaries + repo links |
+| `clients/` | Parent-brand client notes; live product remains on the client site |
+| `community/` | Parent-brand notes for civic and hackathon work; not products for sale |
 | `index.html` + `styles-dark.css` | **Official home** (dark landing) |
 | `concepts/dark-landing/` | Redirect to official home (legacy URL) |
 | `styles-light.css` | Secondary light pages (work, philosophy, about, …) |
@@ -77,6 +102,7 @@ npm test
 | `styles.css`, `script.js` | Shared light-site presentation |
 | `design.md` | Locked design system |
 | `scripts/validate-site.js` | CI / Pages build validation |
+| `sitemap.xml`, `robots.txt` | Public crawler list at `https://zer0state.com/` |
 | `.github/workflows/` | Site validation + GitHub Pages deploy |
 
 ## Deployment

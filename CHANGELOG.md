@@ -23,6 +23,22 @@ Cumulative release since `v0.3.0`: official dark home, social preview, and Herme
 
 ## Unreleased
 
+### Community
+- Add a **Community** section on Work (`#community`) and a short Community block on the home evidence area, separate from Products and Clients.
+- First community entry: **SUAS** (“Shut up and serve.”), with a real screenshot of https://scrimshawlife-ctrl.github.io/suas/ cropped to the live hero and category cards. The Veteran Innovation Hackathon is linked in copy only (`https://luma.com/Innovation4Veterans`); no Luma page image. Built by zer0state for the event at Hacker Dojo, 28–30 August 2026. SUAS is not a Zero State product and is not listed for sale. Status on the public page: SPEC-017 · NOT READY.
+
+### Clients
+- Add a **Clients** section on Work (`#clients`) and a short Clients block on the home evidence area, separate from Products.
+- First client entry: **Autogive.app** (Autonomously Giving Incorporated), with a real homepage screenshot and copy from the live public site. Autogive is client work, not a Zero State product.
+
+### Discovery
+- Add public `robots.txt` and `sitemap.xml` at the site root for apex `https://zer0state.com/` (21 official unique HTML pages).
+- Generate `sitemap.xml` from `site-manifest.json` during site validation so new official pages stay listed.
+- Official HTML canonicals (and home social URLs) use the live apex host.
+
+### Portfolio
+- Add **Noema** as a first-party Zero State product on home evidence, Work, and marketing. Public door: [noema.guru](https://noema.guru). Autogive remains client work.
+
 ### Portfolio copy
 - Distill product and skill pages to short descriptions (no README deferral, no nested install paths).
 - Portfolio/marketing intros no longer point at repositories as “source of truth.”

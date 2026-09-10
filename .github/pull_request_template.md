@@ -1,9 +1,12 @@
 ## Summary
 
-Describe the change and its purpose.
+## Related issue or project item
 
-## Checks
+## Testing performed
 
-- [ ] `npm test` passes
-- [ ] No placeholder was made to look operational
-- [ ] Brand, philosophy, and motion constraints remain intact
+## Collaboration checklist
+- [ ] Added or updated tests
+- [ ] Updated documentation if needed
+- [ ] Added the appropriate labels
+- [ ] Checked the linked GitHub Project item
+- [ ] Requested review from the Partner Agents team when appropriate

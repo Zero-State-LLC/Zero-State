@@ -193,6 +193,9 @@ body.dark-product-page {
 .surveillance-survivor-hero { aspect-ratio: 1280 / 640; }
 .waykin-hero { aspect-ratio: 1024 / 1024; }
 .slosh-hero { aspect-ratio: 416 / 496; }
+.autogive-hero { aspect-ratio: 1600 / 1000; }
+.suas-hero { aspect-ratio: 1600 / 1000; }
+.noema-hero { aspect-ratio: 1168 / 784; }
 
 .marigold-hero,
 .hexwire-hero,
@@ -200,7 +203,14 @@ body.dark-product-page {
 .patchhive-hero,
 .psyfi-hero,
 .surveillance-survivor-hero,
-.waykin-hero {
+.waykin-hero,
+.autogive-hero,
+.suas-hero,
+.noema-hero {
+  min-height: 0;
+  align-self: center;
+}
+.slosh-hero {
   min-height: 0;
   align-self: center;
 }
@@ -214,7 +224,13 @@ body.dark-product-page {
 .patchhive-hero img,
 .psyfi-hero img,
 .surveillance-survivor-hero img,
-.waykin-hero img {
+.waykin-hero img,
+.autogive-hero img,
+.suas-hero img,
+.noema-hero img {
+  min-height: 0;
+}
+.slosh-hero img {
   min-height: 0;
 }
 .slosh-hero img {
@@ -331,7 +347,10 @@ body.dark-product-page {
   .patchhive-hero,
   .psyfi-hero,
   .surveillance-survivor-hero,
-  .waykin-hero { min-height: 0; }
+  .waykin-hero,
+  .autogive-hero,
+  .suas-hero,
+  .noema-hero { min-height: 0; }
   .dark-product-page .product-detail {
     width: calc(100% - 40px);
     padding: 82px 0;

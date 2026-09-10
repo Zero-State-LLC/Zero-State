@@ -20,6 +20,9 @@
     "products/hollersports.html",
     "products/marigold-market.html",
     "products/slosh.html",
+    "products/noema.html",
+    "clients/autogive.html",
+    "community/suas.html",
     "skills/orchestra.html",
     "skills/hyperlex.html",
     "skills/kubrick.html",
@@ -34,15 +37,14 @@
     "Zero-State-LLC/Hexwire",
     "Zero-State-LLC/Hollersports",
     "Zero-State-LLC/Marigold-Market",
-    "Zero-State-LLC/slosh"
+    "Zero-State-LLC/slosh",
+    "Zero-State-LLC/Noema"
   ],
   "public_sources": {
     "org_repositories": "https://github.com/orgs/Zero-State-LLC/repositories",
-    "site": "https://zero-state-llc.github.io/Zero-State/",
-    "canonical_domain_pending": "https://zer0state.com"
+    "site": "https://zer0state.com/"
   },
   "known_placeholders": [
-    "custom domain zer0state.com DNS cutover (still Squarespace coming soon)",
     "app store and production product destinations",
     "trademark review",
     "typography licensing review"
