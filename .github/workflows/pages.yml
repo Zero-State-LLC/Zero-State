@@ -4,7 +4,12 @@ on:
   push:
     branches: [main]
     paths:
-      - "site/**"
+      - "**.html"
+      - "**.css"
+      - "**.js"
+      - "assets/**"
+      - "media/**"
+      - "products/**"
       - ".github/workflows/pages.yml"
   workflow_dispatch:
 
@@ -30,7 +35,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v5
         with:
-          path: site
+          path: .
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5
