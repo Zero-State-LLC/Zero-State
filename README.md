@@ -58,6 +58,8 @@ Civic and hackathon work is listed separately from Zero State products and clien
 
 Org listing: https://github.com/orgs/Zero-State-LLC/repositories
 
+Company org Hyperlex mirror may lag; the active Hyperlex train remote is [scrimshawlife-ctrl/Hyperlex](https://github.com/scrimshawlife-ctrl/Hyperlex) (dual-home).
+
 ## Custom domain (Apple enrollment)
 
 Company domain **`zer0state.com`** should serve this site (not the Squarespace parking page).
@@ -137,7 +139,7 @@ gh release create v0.3.2 --title "v0.3.0" --notes-file CHANGELOG.md
 - **Product destinations:** public sources are the org repositories and this site. App Store and production product URLs are not claimed until a release is ready.
 - **Trademark review:** product and company marks still need formal trademark review before broad commercial use claims.
 - **Typography licensing:** production face licensing must be confirmed before shipping non-system display type.
-- Repository source is Apache-2.0. Product names and marks are not licensed for unrelated use; Apache-2.0 expressly excludes trademark rights.
+- Product names and marks are not licensed for unrelated use.
 
 
 ## License
