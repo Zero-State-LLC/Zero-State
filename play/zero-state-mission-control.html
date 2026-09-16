@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ZERO STATE - Mission Control</title>
+<style>
+    :root {
+        --bg: #0a0a0f;
+        --primary: #00ff88;
+        --secondary: #7b2fff;
+        --alert: #ff3a6e;
+        --text: #ffffff;
+        --font-mono: system-ui, Courier New, monospace;
+    }
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: var(--font-mono);
+        overflow: hidden;
+        height: 100vh;
+    }
+    .neural-net {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: -1;
+    }
+    .neural-net .node {
+        fill: var(--primary);
+        opacity: 0.2;
+        animation: pulse 4s ease-in-out infinite;
+    }
+    .neural-net .edge {
+        stroke: var(--primary);
+        stroke-width: 0.5;
+        opacity: 0.1;
+        animation: pulse 4s ease-in-out infinite;
+    }
+    @keyframes pulse {
+        0% { opacity: 0.2; }
+        50% { opacity: 0.8; }
+        100% { opacity: 0.2; }
+    }
+    /* Stagger animation delays */
+    .neural-net .node:nth-child(odd) { animation-delay: 0s; }
+    .neural-net .node:nth-child(even) { animation-delay: 2s; }
+    .neural-net .edge:nth-child(odd) { animation-delay: 0s; }
+    .neural-net .edge:nth-child(even) { animation-delay: 2s; }
+    .container {
+        display: grid;
+        grid-template-rows: auto 1fr;
+        height: 100vh;
+        gap: 0;
+    }
+    header {
+        background: rgba(10,10,15,0.8);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--primary);
+        padding: 1.5rem;
+        text-align: center;
+        position: relative;
+        z-index: 10;
+    }
+    header .title {
+        font-size: 2.5rem;
+        letter-spacing: 0.1em;
+        margin-bottom: 0.5rem;
+        background: linear-gradient(90deg, var(--primary), var(--secondary));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-weight: bold;
+    }
+    header .subtitle {
+        font-size: 1.2rem;
+        opacity: 0.8;
+        margin-bottom: 0.5rem;
+    }
+    header .tagline {
+        font-size: 1rem;
+        opacity: 0.6;
+        font-style: italic;
+        margin-bottom: 1rem;
+    }
+    header .status-badge {
+        display: inline-block;
+        background: var(--primary);
+        color: var(--bg);
+        padding: 0.3rem 0.8rem;
+        border-radius: 4px;
+        font-size: 0.9rem;
+        font-weight: bold;
+        box-shadow: 0 0 8px var(--primary);
+    }
+    main {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0;
+        height: calc(100vh - 80px); /* Adjust for header */
+        overflow: hidden;
+        padding: 1rem;
+        box-sizing: border-box;
+    }
+    .agents-panel {
+        display: grid;
+        gap: 1rem;
+        overflow-y: auto;
+        padding-right: 0.5rem;
+    }
+    .agent-card {
+        background: rgba(10,10,15,0.6);
+        border: 1px solid var(--primary);
+        border-radius: 8px;
+        padding: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        transition: all 0.3s ease;
+        box-shadow: 0 0 15px rgba(0,255,136,0.2);
+    }
+    .agent-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 0 25px var(--primary);
+    }
+    .agent-icon {
+        width: 60px;
+        height: 60px;
+        flex-shrink: 0;
+    }
+    .agent-info {
+        flex: 1;
+    }
+    .agent-name {
+        font-size: 1.2rem;
+        margin-bottom: 0.2rem;
+        color: var(--primary);
+    }
+    .agent-role {
+        font-size: 0.9rem;
+        opacity: 0.7;
+        margin-bottom: 0.5rem;
+    }
+    .agent-status {
+        display: inline-block;
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+        padding: 0.2rem 0.5rem;
+        border-radius: 4px;
+    }
+    .agent-task {
+        font-size: 0.9rem;
+        margin-bottom: 0.3rem;
+        opacity: 0.9;
+    }
+    .agent-uptime {
+        font-size: 0.8rem;
+        opacity: 0.6;
+    }
+    .panel {
+        background: rgba(10,10,15,0.6);
+        border: 1px solid var(--primary);
+        border-radius: 8px;
+        padding: 1rem;
+        overflow-y: auto;
+        margin-left: 0.5rem;
+    }
+    .panel-title {
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+        color: var(--primary);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    .panel-title::before {
+        content: '';
+        width: 8px;
+        height: 8px;
+        background: var(--primary);
+        border-radius: 50%;
+        animation: pulse 2s infinite;
+    }
+    .metrics-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+    .metric-item {
+        text-align: center;
+    }
+    .metric-label {
+        font-size: 0.8rem;
+        opacity: 0.7;
+        margin-bottom: 0.2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    .metric-value {
+        font-size: 1.8rem;
+        font-weight: bold;
+        color: var(--primary);
+        min-height: 2.2rem;
+    }
+    .training-progress {
+        width: 100%;
+        height: 20px;
+        background: rgba(255,255,255,0.1);
+        border-radius: 10px;
+        overflow: hidden;
+        margin: 1rem 0;
+    }
+    .training-progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, var(--primary), var(--secondary));
+        width: 0%;
+        transition: width 0.5s ease;
+    }
+    .training-details {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        font-size: 0.9rem;
+    }
+    .log-container {
+        height: 200px;
+        overflow-y: auto;
+        background: rgba(0,0,0,0.3);
+        border-radius: 4px;
+        padding: 0.5rem;
+        font-family: var(--font-mono);
+        font-size: 0.85rem;
+        line-height: 1.4;
+    }
+    .log-entry {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.2rem 0;
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .log-time {
+        opacity: 0.6;
+        min-width: 60px;
+    }
+    .log-level {
+        text-transform: uppercase;
+        font-weight: bold;
+        min-width: 50px;
+        text-align: center;
+    }
+    .log-level.INFO { color: var(--primary); }
+    .log-level.WARN { color: var(--secondary); }
+    .log-level.ERROR { color: var(--alert); }
+    .log-msg {
+        flex: 1;
+        text-align: left;
+        padding-left: 0.5rem;
+    }
+    footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        padding: 0.5rem;
+        font-size: 0.8rem;
+        opacity: 0.6;
+        border-top: 1px solid var(--primary);
+        background: rgba(10,10,15,0.8);
+    }
+    @media (max-width: 1200px) {
+        main {
+            grid-template-columns: 1fr;
+            height: auto;
+        }
+        .agents-panel, .panel {
+            margin: 0;
+        }
+    }
+</style>
+</head>
+<body>
+    <svg class="neural-net" width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet"><circle class="node" cx="35.68%" cy="86.59%" r="0.8" /><circle class="node" cx="80.62%" cy="41.02%" r="0.8" /><circle class="node" cx="7.79%" cy="19.45%" r="0.8" /><circle class="node" cx="31.20%" cy="43.25%" r="0.8" /><circle class="node" cx="64.34%" cy="52.88%" r="0.8" /><circle class="node" cx="39.97%" cy="25.61%" r="0.8" /><circle class="node" cx="40.39%" cy="91.87%" r="0.8" /><circle class="node" cx="87.35%" cy="54.87%" r="0.8" /><circle class="node" cx="72.03%" cy="48.90%" r="0.8" /><circle class="node" cx="86.31%" cy="64.36%" r="0.8" /><circle class="node" cx="87.70%" cy="32.56%" r="0.8" /><circle class="node" cx="81.61%" cy="74.31%" r="0.8" /><circle class="node" cx="63.49%" cy="61.04%" r="0.8" /><circle class="node" cx="12.80%" cy="47.18%" r="0.8" /><circle class="node" cx="44.12%" cy="41.32%" r="0.8" /><circle class="node" cx="65.40%" cy="26.85%" r="0.8" /><circle class="node" cx="47.76%" cy="94.80%" r="0.8" /><circle class="node" cx="43.52%" cy="19.97%" r="0.8" /><circle class="node" cx="76.75%" cy="71.12%" r="0.8" /><circle class="node" cx="49.61%" cy="52.20%" r="0.8" /><circle class="node" cx="48.12%" cy="33.49%" r="0.8" /><circle class="node" cx="64.77%" cy="86.22%" r="0.8" /><circle class="node" cx="93.40%" cy="13.33%" r="0.8" /><circle class="node" cx="82.49%" cy="49.98%" r="0.8" /><circle class="node" cx="66.16%" cy="69.23%" r="0.8" /><circle class="node" cx="65.03%" cy="11.37%" r="0.8" /><circle class="node" cx="19.23%" cy="52.27%" r="0.8" /><circle class="node" cx="52.94%" cy="55.18%" r="0.8" /><circle class="node" cx="8.75%" cy="48.99%" r="0.8" /><circle class="node" cx="44.08%" cy="39.17%" r="0.8" /><circle class="node" cx="12.34%" cy="15.09%" r="0.8" /><circle class="node" cx="59.58%" cy="35.19%" r="0.8" /><circle class="node" cx="68.38%" cy="38.23%" r="0.8" /><circle class="node" cx="84.62%" cy="77.40%" r="0.8" /><circle class="node" cx="80.59%" cy="92.17%" r="0.8" /><circle class="node" cx="44.09%" cy="74.52%" r="0.8" /><circle class="node" cx="21.99%" cy="29.80%" r="0.8" /><circle class="node" cx="19.38%" cy="26.68%" r="0.8" /><circle class="node" cx="8.61%" cy="70.47%" r="0.8" /><circle class="node" cx="33.55%" cy="72.28%" r="0.8" /><line class="edge" x1="7.79%" y1="19.45%" x2="65.03%" y2="11.37%" /><line class="edge" x1="43.52%" y1="19.97%" x2="48.12%" y2="33.49%" /><line class="edge" x1="64.34%" y1="52.88%" x2="44.12%" y2="41.32%" /><line class="edge" x1="8.75%" y1="48.99%" x2="33.55%" y2="72.28%" /><line class="edge" x1="80.62%" y1="41.02%" x2="12.80%" y2="47.18%" /><line class="edge" x1="66.16%" y1="69.23%" x2="68.38%" y2="38.23%" /><line class="edge" x1="63.49%" y1="61.04%" x2="48.12%" y2="33.49%" /><line class="edge" x1="64.34%" y1="52.88%" x2="82.49%" y2="49.98%" /><line class="edge" x1="86.31%" y1="64.36%" x2="48.12%" y2="33.49%" /><line class="edge" x1="65.03%" y1="11.37%" x2="12.34%" y2="15.09%" /><line class="edge" x1="80.62%" y1="41.02%" x2="80.59%" y2="92.17%" /><line class="edge" x1="39.97%" y1="25.61%" x2="76.75%" y2="71.12%" /><line class="edge" x1="12.80%" y1="47.18%" x2="44.08%" y2="39.17%" /><line class="edge" x1="87.70%" y1="32.56%" x2="44.12%" y2="41.32%" /><line class="edge" x1="7.79%" y1="19.45%" x2="52.94%" y2="55.18%" /><line class="edge" x1="44.08%" y1="39.17%" x2="19.38%" y2="26.68%" /><line class="edge" x1="39.97%" y1="25.61%" x2="59.58%" y2="35.19%" /><line class="edge" x1="65.40%" y1="26.85%" x2="43.52%" y2="19.97%" /><line class="edge" x1="47.76%" y1="94.80%" x2="93.40%" y2="13.33%" /><line class="edge" x1="31.20%" y1="43.25%" x2="72.03%" y2="48.90%" /><line class="edge" x1="76.75%" y1="71.12%" x2="59.58%" y2="35.19%" /><line class="edge" x1="48.12%" y1="33.49%" x2="12.34%" y2="15.09%" /><line class="edge" x1="39.97%" y1="25.61%" x2="40.39%" y2="91.87%" /><line class="edge" x1="65.40%" y1="26.85%" x2="64.77%" y2="86.22%" /><line class="edge" x1="65.40%" y1="26.85%" x2="80.59%" y2="92.17%" /><line class="edge" x1="81.61%" y1="74.31%" x2="76.75%" y2="71.12%" /><line class="edge" x1="64.77%" y1="86.22%" x2="68.38%" y2="38.23%" /><line class="edge" x1="64.77%" y1="86.22%" x2="21.99%" y2="29.80%" /><line class="edge" x1="66.16%" y1="69.23%" x2="65.03%" y2="11.37%" /><line class="edge" x1="7.79%" y1="19.45%" x2="64.77%" y2="86.22%" /><line class="edge" x1="12.34%" y1="15.09%" x2="8.61%" y2="70.47%" /><line class="edge" x1="47.76%" y1="94.80%" x2="19.38%" y2="26.68%" /><line class="edge" x1="49.61%" y1="52.20%" x2="65.03%" y2="11.37%" /><line class="edge" x1="44.12%" y1="41.32%" x2="84.62%" y2="77.40%" /><line class="edge" x1="87.35%" y1="54.87%" x2="12.34%" y2="15.09%" /><line class="edge" x1="47.76%" y1="94.80%" x2="59.58%" y2="35.19%" /><line class="edge" x1="59.58%" y1="35.19%" x2="8.61%" y2="70.47%" /><line class="edge" x1="12.80%" y1="47.18%" x2="12.34%" y2="15.09%" /><line class="edge" x1="48.12%" y1="33.49%" x2="8.75%" y2="48.99%" /><line class="edge" x1="52.94%" y1="55.18%" x2="84.62%" y2="77.40%" /><line class="edge" x1="72.03%" y1="48.90%" x2="44.12%" y2="41.32%" /><line class="edge" x1="80.62%" y1="41.02%" x2="64.77%" y2="86.22%" /><line class="edge" x1="35.68%" y1="86.59%" x2="87.70%" y2="32.56%" /><line class="edge" x1="63.49%" y1="61.04%" x2="76.75%" y2="71.12%" /><line class="edge" x1="65.40%" y1="26.85%" x2="84.62%" y2="77.40%" /><line class="edge" x1="39.97%" y1="25.61%" x2="87.70%" y2="32.56%" /><line class="edge" x1="44.09%" y1="74.52%" x2="19.38%" y2="26.68%" /><line class="edge" x1="93.40%" y1="13.33%" x2="21.99%" y2="29.80%" /><line class="edge" x1="35.68%" y1="86.59%" x2="44.08%" y2="39.17%" /><line class="edge" x1="64.34%" y1="52.88%" x2="8.61%" y2="70.47%" /><line class="edge" x1="7.79%" y1="19.45%" x2="12.80%" y2="47.18%" /><line class="edge" x1="12.80%" y1="47.18%" x2="44.09%" y2="74.52%" /><line class="edge" x1="87.70%" y1="32.56%" x2="68.38%" y2="38.23%" /><line class="edge" x1="72.03%" y1="48.90%" x2="64.77%" y2="86.22%" /><line class="edge" x1="35.68%" y1="86.59%" x2="43.52%" y2="19.97%" /><line class="edge" x1="59.58%" y1="35.19%" x2="84.62%" y2="77.40%" /><line class="edge" x1="72.03%" y1="48.90%" x2="82.49%" y2="49.98%" /><line class="edge" x1="52.94%" y1="55.18%" x2="80.59%" y2="92.17%" /><line class="edge" x1="48.12%" y1="33.49%" x2="52.94%" y2="55.18%" /><line class="edge" x1="80.62%" y1="41.02%" x2="84.62%" y2="77.40%" /></svg>
+    <div class="container">
+        <header>
+            <div class="title">ZERO STATE</div>
+            <div class="subtitle">Mission Control</div>
+            <div class="tagline">Autonomous AI Infrastructure — Online</div>
+            <div class="status-badge">ALL SYSTEMS NOMINAL</div>
+        </header>
+        <main>
+            <section class="agents-panel">
+                <h2 class="panel-title">ACTIVE AGENTS</h2>
+                <div class="agent-card">
+                    <div class="agent-icon"><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'>
+<defs>
+  <filter id='glow'>
+    <feGaussianBlur stdDeviation='4' in='SourceAlpha' result='blur'/>
+    <feFlood flood-color='#ff6b00' result='glowColor'/>
+    <feComposite in2='blur' operator='in' result='coloredBlur'/>
+    <feMerge>
+      <feMergeNode in='coloredBlur'/>
+      <feMergeNode in='SourceGraphic'/>
+    </feMerge>
+  </filter>
+</defs>
+<rect width='120' height='120' fill='#0a0a0f'/>
+<g filter='url(#glow)' fill='#ff6b00'>
+  <rect x='40' y='10' width='40' height='10'/>
+  <rect x='58' y='20' width='4' height='60'/>
+</g>
+</svg></div>
+                    <div class="agent-info">
+                        <div class="agent-name">Forge</div>
+                        <div class="agent-role">Coding & Engineering</div>
+                        <div class="agent-status">● ACTIVE</div>
+                        <div class="agent-task">Assembling dashboard HTML</div>
+                        <div class="agent-uptime">4h 32m</div>
+                    </div>
+                </div>
+                <div class="agent-card">
+                    <div class="agent-icon"><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'>
+<defs>
+  <filter id='glow'>
+    <feGaussianBlur stdDeviation='4' in='SourceAlpha' result='blur'/>
+    <feFlood flood-color='#00ffff' result='glowColor'/>
+    <feComposite in2='blur' operator='in' result='coloredBlur'/>
+    <feMerge>
+      <feMergeNode in='coloredBlur'/>
+      <feMergeNode in='SourceGraphic'/>
+    </feMerge>
+  </filter>
+</defs>
+<rect width='120' height='120' fill='#0a0a0f'/>
+<g filter='url(#glow)' fill='#00ffff'>
+  <circle cx='60' cy='30' r='20'/>
+  <rect x='58' y='30' width='4' height='60'/>
+</g>
+</svg></div>
+                    <div class="agent-info">
+                        <div class="agent-name">Scout</div>
+                        <div class="agent-role">Research & Intelligence</div>
+                        <div class="agent-status">◉ RUNNING</div>
+                        <div class="agent-task">Analyzing training metrics</div>
+                        <div class="agent-uptime">3h 11m</div>
+                    </div>
+                </div>
+                <div class="agent-card">
+                    <div class="agent-icon"><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'>
+<defs>
+  <filter id='glow'>
+    <feGaussianBlur stdDeviation='4' in='SourceAlpha' result='blur'/>
+    <feFlood flood-color='#8a2be2' result='glowColor'/>
+    <feComposite in2='blur' operator='in' result='coloredBlur'/>
+    <feMerge>
+      <feMergeNode in='coloredBlur'/>
+      <feMergeNode in='SourceGraphic'/>
+    </feMerge>
+  </filter>
+</defs>
+<rect width='120' height='120' fill='#0a0a0f'/>
+<g filter='url(#glow)' fill='#8a2be2'>
+  <rect x='40' y='50' width='40' height='20'/>
+  <circle cx='40' cy='60' r='10'/>
+  <circle cx='80' cy='60' r='10'/>
+  <rect x='58' y='20' width='4' height='40'/>
+  <polygon points='60,20 50,0 70,0'/>
+</g>
+</svg></div>
+                    <div class="agent-info">
+                        <div class="agent-name">Scribe</div>
+                        <div class="agent-role">Writing & Documentation</div>
+                        <div class="agent-status">○ IDLE</div>
+                        <div class="agent-task">Drafting VC memo</div>
+                        <div class="agent-uptime">6h 05m</div>
+                    </div>
+                </div>
+                <div class="agent-card">
+                    <div class="agent-icon"><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'>
+<defs>
+  <filter id='glow'>
+    <feGaussianBlur stdDeviation='4' in='SourceAlpha' result='blur'/>
+    <feFlood flood-color='#ff00ff' result='glowColor'/>
+    <feComposite in2='blur' operator='in' result='coloredBlur'/>
+    <feMerge>
+      <feMergeNode in='coloredBlur'/>
+      <feMergeNode in='SourceGraphic'/>
+    </feMerge>
+  </filter>
+</defs>
+<rect width='120' height='120' fill='#0a0a0f'/>
+<g filter='url(#glow)' fill='#ff00ff'>
+  <ellipse cx='80' cy='40' rx='20' ry='12'/>
+  <circle cx='60' cy='40' r='6'/>
+  <rect x='50' y='80' width='4' height='30'/>
+  <rect x='40' y='70' width='20' height='10'/>
+  <circle cx='70' cy='30' r='3'/>
+  <circle cx='90' cy='50' r='3'/>
+</g>
+</svg></div>
+                    <div class="agent-info">
+                        <div class="agent-name">Studio</div>
+                        <div class="agent-role">Creative & Media</div>
+                        <div class="agent-status">● ACTIVE</div>
+                        <div class="agent-task">Generating agent portraits</div>
+                        <div class="agent-uptime">2h 47m</div>
+                    </div>
+                </div>
+            </section>
+            <section class="panels">
+                <div class="panel">
+                    <h2 class="panel-title">GPU STATUS</h2>
+                    <div class="metrics-grid">
+                        <div class="metric-item">
+                            <div class="metric-label">UTILIZATION</div>
+                            <div class="metric-value" id="gpu-utilization">76</div>
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-label">TEMP</div>
+                            <div class="metric-value" id="gpu-temperature">61</div>
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-label">VRAM</div>
+                            <div class="metric-value" id="gpu-memory">0</div>
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-label">THROUGHPUT</div>
+                            <div class="metric-value" id="gpu-throughput">0</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel">
+                    <h2 class="panel-title">TRAINING RUN</h2>
+                    <div class="training-details">
+                        <div>
+                            <div class="metric-label">EPOCH</div>
+                            <div class="metric-value" id="training-epoch">31 / 40</div>
+                        </div>
+                        <div>
+                            <div class="metric-label">UNBIND EXACT</div>
+                            <div class="metric-value" id="training-metric">0.7368</div>
+                        </div>
+                    </div>
+                    <div class="training-progress">
+                        <div class="training-progress-fill" id="training-progress-fill"></div>
+                    </div>
+                    <div>
+                        <div class="metric-label">STATUS</div>
+                        <div class="metric-value" id="training-status">RUNNING</div>
+                    </div>
+                </div>
+                <div class="panel">
+                    <h2 class="panel-title">SYSTEM LOG</h2>
+                    <div class="log-container" id="log-container">
+                        <!-- Log entries will be injected here -->
+                    </div>
+                </div>
+            </section>
+        </main>
+        <footer>Zero State LLC — z0D Orchestration Layer v1.0 — Powered by NVIDIA DGX Spark</footer>
+    </div>
+<script>
+    // Neural network animation stagger
+    document.querySelectorAll('.neural-net .node').forEach((node, index) => {
+        node.style.animationDelay = (index * 0.1) + 's';
+    });
+    document.querySelectorAll('.neural-net .edge').forEach((edge, index) => {
+        edge.style.animationDelay = (index * 0.05) + 's';
+    });
+    // GPU metrics fluctuation
+    const gpuMetrics = {"utilization": 76, "temperature": 61, "memory_used_gb": 74.2, "memory_total_gb": 128, "tok_per_sec": 52.3};
+    setInterval(() => {
+        // Utilization: fluctuate +/- 2
+        const util = Math.max(0, Math.min(100, gpuMetrics.utilization + (Math.random() - 0.5) * 4));
+        document.getElementById('gpu-utilization').textContent = util.toFixed(1) + '%';
+        // Temperature: fluctuate +/- 1
+        const temp = Math.max(0, Math.min(100, gpuMetrics.temperature + (Math.random() - 0.5) * 2));
+        document.getElementById('gpu-temperature').textContent = temp.toFixed(0) + '°C';
+        // Memory: fluctuate +/- 0.5 GB
+        const memUsed = Math.max(0, gpuMetrics.memory_used_gb + (Math.random() - 0.5) * 1);
+        const memTotal = gpuMetrics.memory_total_gb;
+        const percent = Math.round((memUsed / memTotal) * 100);
+        document.getElementById('gpu-memory').textContent = `${memUsed.toFixed(1)} GB / ${memTotal} GB (${percent}%)`;
+        // Throughput: fluctuate +/- 2 tok/s
+        const tok = Math.max(0, gpuMetrics.tok_per_sec + (Math.random() - 0.5) * 4);
+        document.getElementById('gpu-throughput').textContent = tok.toFixed(1) + ' tok/s';
+    }, 1500);
+    // Training run progress
+    let epoch = 31;
+    const totalEpochs = 40;
+    setInterval(() => {
+        epoch = Math.min(epoch + 1, totalEpochs);
+        document.getElementById('training-epoch').textContent = epoch + ' / ' + totalEpochs;
+        const progress = (epoch / totalEpochs) * 100;
+        document.getElementById('training-progress-fill').style.width = progress + '%';
+        // Slightly fluctuate metric
+        const metricBase = 0.7368;
+        const metric = metricBase + (Math.random() - 0.5) * 0.02;
+        document.getElementById('training-metric').textContent = metric.toFixed(4);
+    }, 5000);
+    // System log scrolling
+    const logContainer = document.getElementById('log-container');
+    let logs = [{"time": "17:42:03", "level": "INFO", "msg": "morph41 epoch 31/40 \u2014 exact=0.7421 (+0.005)"}, {"time": "17:41:55", "level": "INFO", "msg": "Nemotron-3-Super serving at 52.3 tok/s"}, {"time": "17:40:22", "level": "WARN", "msg": "GPU memory at 74.2 GB / 128 GB (58%)"}, {"time": "17:39:11", "level": "INFO", "msg": "Forge: assembled dashboard HTML v0.1"}, {"time": "17:38:44", "level": "INFO", "msg": "Scout: spec complete \u2014 6 sections, 4 agents"}, {"time": "17:37:30", "level": "INFO", "msg": "Tunnel established \u2014 spark.zer0state.com:13000"}, {"time": "17:36:01", "level": "INFO", "msg": "z0D orchestrator online \u2014 4 agents dispatched"}];
+    function addLogEntry() {
+        // Create a new fake log entry based on last entry or generic
+        const now = new Date();
+        const time = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', second:'2-digit'});
+        const levels = ['INFO', 'INFO', 'INFO', 'WARN'];
+        const level = levels[Math.floor(Math.random() * levels.length)];
+        const messages = [
+            `morph41 epoch ${epoch}/40 — exact=${(0.73 + Math.random()*0.02).toFixed(4)} (${Math.random()>0.5?'+':''}${(Math.random()*0.01-0.005).toFixed(4)})`,
+            `Nemotron-3-Super serving at ${(50 + Math.random()*10).toFixed(1)} tok/s`,
+            `GPU memory at ${(70 + Math.random()*10).toFixed(1)} GB / 128 GB ($({{(70 + Math.random()*10)/128*100).toFixed(0)}%))`,
+            `Forge: assembled dashboard HTML v0.${Math.floor(Math.random()*9)+1}`,
+            `Scout: analyzing metrics — ${Math.floor(Math.random()*100)} samples`,
+            `Scribe: drafting section ${Math.floor(Math.random()*5)+1}`,
+            `Studio: rendering asset ${Math.floor(Math.random()*20)+1}`,
+            `Tunnel established — spark.zer0state.com:${13000 + Math.floor(Math.random()*1000)}`,
+            `z0D orchestrator online — ${4 + Math.floor(Math.random()*3)} agents dispatched`
+        ];
+        const msg = messages[Math.floor(Math.random() * messages.length)];
+        const entry = {time, level, msg};
+        logs.unshift(entry);
+        // Keep only last 30 entries
+        if (logs.length > 30) logs.pop();
+        renderLogs();
+    }
+    function renderLogs() {
+        logContainer.innerHTML = '';
+        logs.forEach(entry => {
+            const div = document.createElement('div');
+            div.className = 'log-entry';
+            div.innerHTML = `
+                <span class="log-time">${entry.time}</span>
+                <span class="log-level ${entry.level}">${entry.level}</span>
+                <span class="log-msg">${entry.msg}</span>
+            `;
+            logContainer.appendChild(div);
+        });
+        // Scroll to top (newest at top)
+        logContainer.scrollTop = 0;
+    }
+    setInterval(addLogEntry, 3000);
+    // Initial render
+    renderLogs();
+</script>
+</body>
+</html>
