@@ -246,7 +246,11 @@ if (!suas) {
   if (/(?:HIPAA compliant|provides live operations|diagnoses veterans|predicts suicide|provides emergency dispatch)/i.test(suas + work + index)) {
     fail('community/suas.html', 'contains disallowed operational or clinical claims');
   }
-  if (/\btransition\b/i.test(suas + work + index)) {
+  // Check for the word transition outside of meta tags (to allow view-transition meta)
+  const combined = suas + work + index;
+  // Remove meta tags to avoid false positives from name="view-transition"
+  const noMeta = combined.replace(/<meta[^>]*>/gi, '');
+  if (/transition/i.test(noMeta)) {
     fail('community/suas.html', 'veteran-facing copy must not use the word transition');
   }
 }
