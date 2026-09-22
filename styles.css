@@ -896,6 +896,163 @@ body::after {
   }
 }
 
+
+
+/* === OKLCH Color Enhancements === */
+/* Re-define key colors using OKLCH for better perceptual uniformity */
+/* These override earlier variables due to cascade order */
+:root {
+  --color-bg: var(--stone);
+  --color-surface: var(--paper);
+  --color-text: var(--carbon);
+  --color-muted: var(--ink-muted);
+  --color-accent: oklch(0.70 0.20 60); /* approximate --yellow */
+  --color-accent-dark: oklch(0.60 0.20 50);
+  --color-teal: oklch(0.40 0.10 150); /* approximate --teal */
+  --color-line: var(--line);
+  --color-border: var(--line);
+  /* Soft shadow layers */
+  --shadow-low: 0 1px 3px rgba(0,0,0,0.08);
+  --shadow-medium: 0 4px 6px rgba(0,0,0,0.05);
+  --shadow-high: 0 12px 24px rgba(0,0,0,0.03);
+  --shadow-hover: 0 8px 32px rgba(0,0,0,0.12), 0 16px 48px rgba(0,0,0,0.06);
+}
+
+/* === Container Query Layout Enhancements === */
+/* Make .work-list a container */
+.work-list {
+  container-type: inline-size;
+  container-name: work-list;
+  /* Fluid gap and padding */
+  gap: clamp(1.5rem, 4cqi, 3rem);
+  padding: clamp(1rem, 2cqi, 2rem);
+  background: var(--color-surface);
+  border-radius: 0.5rem;
+}
+/* Responsive layout shifts based on container width */
+@container work-list (min-width: 600px) {
+  .work-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@container work-list (min-width: 900px) {
+  .work-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+/* Hero container query for image/text layout */
+@container hero (min-width: 800px) {
+  .hero {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+  .hero-img { grid-row: 1; grid-column: 2; }
+  .hero-copy { grid-row: 1; grid-column: 1; }
+}
+@container hero (max-width: 799px) {
+  .hero {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    align-items: stretch;
+  }
+  .hero-img { grid-row: 1; grid-column: 1; }
+  .hero-copy { grid-row: 2; grid-column: 1; }
+}
+
+/* === Subgrid Enhancements === */
+/* Ensure .work-list defines explicit row tracks for subgrid children */
+.work-list {
+  display: grid;
+  grid-template-rows: repeat(4, auto); /* thumbnail, title, description, button */
+}
+.work-list article {
+  display: grid;
+  grid-template-rows: subgrid; /* inherit parent's row tracks */
+  grid-row: span 4;
+}
+/* Place children into the inherited rows */
+.work-list .work-thumb   { grid-row: 1; }
+.work-list .work-main    { grid-row: 2 / 5; display: flex; flex-direction: column; gap: 0.5rem; }
+
+/* === Product Card Enhancements === */
+/* Make product cards use subgrid for internal layout */
+.product-card {
+  display: grid;
+  grid-template-rows: subgrid; /* inherit parent's row tracks if parent defines them */
+  /* If product-card is not inside a defined row-track parent, we still want internal grid */
+  /* We'll also keep the existing styling */
+}
+
+/* === Generic Card Utility === */
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem;
+  box-shadow: var(--shadow-low);
+  transition: box-shadow .2s ease;
+}
+.card:hover { box-shadow: var(--shadow-hover); }
+
+/* === Scalable Icon Classes === */
+.icon { display: inline-block; vertical-align: middle; }
+.icon-sm { width: 1rem; height: 1rem; }
+.icon-md { width: 1.5rem; height: 1.5rem; }
+.icon-lg { width: 2rem; height: 2rem; }
+.icon svg { width: 100%; height: 100%; fill: currentColor; }
+
+/* === Soft Shadow Utilities === */
+.shadow-low  { box-shadow: var(--shadow-low); }
+.shadow-medium { box-shadow: var(--shadow-medium); }
+.shadow-high   { box-shadow: var(--shadow-high); }
+.shadow-hover  { box-shadow: var(--shadow-hover); }
+
+/* === Button Enhancements === */
+/* Use accent colors for primary button */
+.button.primary {
+  background: var(--color-accent);
+  color: var(--color-bg);
+}
+.button.primary:hover {
+  background: var(--color-accent-dark);
+  color: var(--color-bg);
+}
+/* General button hover uses accent */
+.button:hover {
+  background: var(--color-accent);
+  color: var(--color-bg);
+  box-shadow: var(--shadow-hover);
+}
+
+/* === :has() Interactive Styling === */
+/* Style work-list rows on hover/focus */
+.work-list:has(.work-row:hover) {
+  background: rgba(var(--color-accent), 0.05);
+}
+.work-list:has(.work-row:focus-visible) {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+/* Example: if we add a class .active to indicate active state */
+.work-list:has(.work-row .active) {
+  border-left: 3px solid var(--color-accent);
+  padding-left: calc(var(--space-lg) - 3px);
+}
+
+/* === Evidence List Enhancements === */
+/* Make evidence items use subgrid for internal alignment */
+.evidence-item {
+  display: grid;
+  grid-template-rows: subgrid;
+  /* Assuming parent .evidence-list defines rows */
+}
+.evidence-item .evidence-media { grid-row: 1; }
+.evidence-item .evidence-body  { grid-row: 2; }
+
+/* === Footer Enhancements === */
+/* Keep existing footer styling but ensure it uses variables */
+.site-footer {
+  border-top: 1px solid var(--color-line);
+}
 /* View Transitions API - 2026 Performance Optimization */
 /* Enables smooth page transitions with zero JavaScript cost */
 
