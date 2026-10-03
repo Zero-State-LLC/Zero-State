@@ -1,85 +1,123 @@
 # Design — Zero State
 
-A locked design system for the Zero State public website.
+**Status: proposed — direction C · Cinematic monolith, pending owner review.** A sibling PR proposes the other direction. Whichever is approved becomes this file's locked system and is rolled out to every page before merge; until then the previous system (git history: `design.md` before 2026-10-02) still governs the inner pages.
 
 ## Genre
 
-Modern-minimal: quiet, structural, and exact. Cinematic restraint with one controlled expressive element — the Balanced Aperture mark and its highway-centerline passage.
+Atmospheric. Dark-first; the canvas carries the mood, type carries the meaning, one warm signal. Vibe: “monolith glow, cinematic void, bone serif”. Diversification axes: dark / classical-serif / chromatic-amber ~78°.
 
-## Iteration (2026-08 redesign)
+## Symbol system
 
-- Previous: Marquee Hero dominant with asymmetric editorial.
-- Current: Split Studio diptych energy for marketing surfaces + indexed "evidence" / reel presentation for work. Philosophy and content pages remain Long Document.
-- Emphasis on recurring motif (aperture as anchor across folds), tighter vertical rhythm, document-like ruled sections, and evidence language over marketing card uniformity.
-
-## Hallmark audit pass (2026-08-07)
-
-- Dark landing: collapse dual manifesto + philosophy into one **method** band (position lines + single doctrine rail + two short prose grafs).
-- One signal side-stripe only (doctrine).
-- Evidence lists: thumbs + title/type (dark landing); featured Waykin + compact cards (homepage/work); drop per-card essay bodies and ordinal indices on grids.
-- Remove evidence hover scale; stamp production CSS to this design.md; product heroes content-height (no forced 100vh).
-
-## Release 0.3.0 notes (2026-08-07)
-
-- Identity stage is logo-only: no corner chrome, no frame border, transparent stage over page void.
-- Primary nav leads with **Begin here**, then progressive destinations.
-- Portfolio and heroes are org-repo-bound; parent-brand product copy avoids external stack brand names (Abraxas / ABX-Core).
-- See `CHANGELOG.md` for the full release inventory.
-
-## Full repo sweep (August 2026)
-
-- Work page converted to evidence-list style for consistency with homepage.
-- Philosophy, About, Contact, and all product pages refreshed for structural alignment (Long Document and Workbench).
-- Legal pages lightly aligned.
-- Added supporting CSS for page-hero, product-detail, longform, and status elements.
-- All changes preserve exact copy, the Balanced Aperture mark + highway animation, and validation requirements.
+Graphics are symbolic, never literal. `assets/glyphs.svg` holds one symbol per product, client, community entry, skill, and section, all built from the mark's own primitives: axis, split ring, orbit, node, frame corner, dashed passage. Symbols are `currentColor` hairlines (`vector-effect: non-scaling-stroke`), referenced with `<svg><use href="assets/glyphs.svg#g-<key>"></use></svg>`. Evidence images (screenshots, key art) stay as secondary figures, loaded on demand.
 
 ## Macrostructure family
 
-- Marketing / Homepage: Split Studio (diptych text + aperture proof) with asymmetric editorial sections and recurring motif dividers.
-- Work / Product listings: Indexed reel / findings list (ruled rows, minimal cards, status as metadata).
-- Product pages: Workbench product brief (preserve existing).
-- Philosophy, About, legal: Long Document.
+- Home: Marquee Hero + Feature Stack — the lit logo fills the fold; the method plays as a pinned scene; the work list scrolls beside a pinned symbol; nav N9 edge-aligned minimal; footer Ft1 mast-headed.
+- Inner pages (planned for the rollout): Product, skill, client, community: a title-card hero (serif name, symbol lit behind it) then the story as a pinned two-column scene with the evidence figure. Work: Feature Stack at full length. Philosophy: pinned statements, one per screen. About, contact, legal: Long Document with a quiet rail.
 
-## Theme (evolved tokens)
+## Theme
 
-- Paper / base: #FBF9F4 (light), #F4F0E8 (stone)
-- Ink: #1D2321 (carbon)
-- Rule / line: #B9B2A7
-- Signal / Highway (sole chromatic accent): #F2C200 (used sparingly, only for the passage and key signals)
-- Secondary: #486F6A (deep teal) for meta labels
-- Supporting: softer inks for captions and rules
+- `--color-paper` oklch(12% 0.016 262)
+- `--color-paper-2` oklch(15.5% 0.018 262)
+- `--color-paper-3` oklch(19% 0.02 262)
+- `--color-ink` oklch(94% 0.014 85)
+- `--color-ink-2` oklch(81% 0.012 80)
+- `--color-muted` oklch(67% 0.014 255)
+- `--color-rule` oklch(29% 0.016 262)
+- `--color-rule-2` oklch(22% 0.016 262)
+- `--color-accent` oklch(82% 0.11 78)
+- `--color-accent-ink` oklch(17% 0.02 78)
+- `--color-focus` oklch(86% 0.14 78)
 
-The yellow highway remains the only strong color signal. Everything else is warm neutrals with high contrast.
+Neutrals are tinted toward the anchor hue; no pure black or white. The accent stays at or under 5 % of any viewport; at most two canvas blooms per page.
 
 ## Typography
 
-- Display: Georgia (serif), 600–700 weight, generous but controlled letter-spacing on large sizes.
-- Body: Inter / system-ui sans, 400–600.
-- Mono: system monospace for labels, status, meta, captions.
-- No italics on headings.
+- Display: Instrument Serif 400, roman only
+- Body: Geist 400 (300/500 for small UI)
 
-## Spacing and motion
+Headings are roman, never italic. Two families on the page. Display line-height 1.0–1.08, `overflow-wrap: anywhere` on headings. Faces are self-hosted (OFL 1.1, `assets/fonts/`).
 
-4-point scale (see styles.css tokens). 
+## Spacing
 
-Motion stance remains extremely quiet:
-- One controlled linear highway passage on the identity mark (IntersectionObserver + click replay).
-- Residue / mutation traces only.
-- No hover lifts, no decorative reveals, no bouncy easings.
-- prefers-reduced-motion: opacity crossfades only.
+Named 4-point scale in `tokens.css` (`--space-3xs` … `--space-3xl`). Pages reference tokens, never raw values.
 
-## Shared page rules
+## Motion
 
-- Masthead header (frame-like, not floating SaaS nav).
-- Section labels / eyebrows only when they name a real category or domain.
-- Footer closes with the company statement.
-- The Balanced Aperture mark (reference frame + split zero + highway) is sacred — never alter the SVG coordinate system or core animation semantics.
-- Product names and status language are preserved as factual evidence.
+- One light: the logo emerges (18 px rise), then a single band of light crosses the blade once, masked to the mark's own shape.
+- Pinned scenes, ≥ 62 rem and no-preference only: the method plays line by line across a 340 svh scroll; the local-intelligence frame corners close in as the section enters.
+- State: the pinned symbol crossfades to whichever entry sits in the reading band; focus moves it too.
 
-## Constraints for this redesign
+All motion is `transform` / `opacity` except the brand passage stroke. Every animation has a `prefers-reduced-motion` path (opacity only, ≤ 150 ms); scroll-linked motion is progressive enhancement (`@supports (animation-timeline: view())`) and never runs below 40 rem.
 
-- Preserve every line of existing philosophy and product copy.
-- Do not introduce new product claims or invented metrics.
-- Keep GitHub Pages compatibility (relative paths, no root-absolute links).
-- Maintain deterministic validation (required landmarks, no empty links, Pages-safe assets).
+## Microinteractions stance
+
+- Silent success; no toasts.
+- Focus rings appear instantly (2 px, focus token, never animated).
+- One hover signal per element.
+
+## CTA voice
+
+- Primary: Outlined pill, amber border; fills amber on hover. Light variant for the closing email.
+- Secondary: Underlined text link that turns amber.
+- Labels are verbs and never wrap.
+
+## What pages MUST share
+
+- The mark and wordmark (`assets/brand/`, `assets/danny-email-bundle/`).
+- The tokens in `tokens.css`, the two faces, the CTA voice.
+- The symbol system for every portfolio entry.
+
+## What pages MAY differ on
+
+- Macrostructure within the family above.
+- Whether a page carries scroll-linked motion (home and work may; legal pages do not).
+
+## Exports
+
+### tokens.css
+
+See [`tokens.css`](tokens.css) — the canonical source.
+
+### DTCG `tokens.json`
+
+```json
+{
+  "color": {
+    "paper": {
+      "$value": "oklch(12% 0.016 262)",
+      "$type": "color"
+    },
+    "ink": {
+      "$value": "oklch(94% 0.014 85)",
+      "$type": "color"
+    },
+    "muted": {
+      "$value": "oklch(67% 0.014 255)",
+      "$type": "color"
+    },
+    "rule": {
+      "$value": "oklch(29% 0.016 262)",
+      "$type": "color"
+    },
+    "accent": {
+      "$value": "oklch(82% 0.11 78)",
+      "$type": "color"
+    },
+    "focus": {
+      "$value": "oklch(86% 0.14 78)",
+      "$type": "color"
+    }
+  },
+  "font": {
+    "display": {
+      "$value": "Instrument Serif",
+      "$type": "fontFamily"
+    },
+    "body": {
+      "$value": "Geist",
+      "$type": "fontFamily"
+    }
+  }
+}
+```

@@ -1,5 +1,18 @@
 [
   {
+    "date": "2026-10-02",
+    "scope": "home (review PR)",
+    "genre": "atmospheric",
+    "theme": "custom",
+    "theme_axes": "dark / classical-serif / chromatic-amber ~78°",
+    "vibe": "monolith glow, cinematic void, bone serif",
+    "macrostructure": "Marquee Hero + Feature Stack",
+    "nav": "N9",
+    "footer": "Ft1",
+    "enrichment": "H1 logo monolith + light sweep (CSS) + symbol sprite",
+    "brief": "Home redesign for owner review — symbolic graphics, motion, every-width mobile, local intelligence (NVIDIA stack), program logos"
+  },
+  {
     "date": "2026-08-07",
     "scope": "app + concept",
     "genre": "modern-minimal",
