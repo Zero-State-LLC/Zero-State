@@ -1,5 +1,18 @@
 [
   {
+    "date": "2026-10-02",
+    "scope": "home (review PR)",
+    "genre": "atmospheric",
+    "theme": "custom",
+    "theme_axes": "dark / geometric-sans / warm",
+    "vibe": "observatory void, bone light, ember signal",
+    "macrostructure": "Map / Diagram",
+    "nav": "N10",
+    "footer": "Ft5",
+    "enrichment": "H9 Tier B SVG instrument + symbol sprite",
+    "brief": "Home redesign for owner review — symbolic graphics, motion, every-width mobile, local intelligence (NVIDIA stack), program logos"
+  },
+  {
     "date": "2026-08-07",
     "scope": "app + concept",
     "genre": "modern-minimal",

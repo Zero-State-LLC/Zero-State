@@ -97,7 +97,10 @@ Humans and coding agents follow [`AGENTS.md`](AGENTS.md). [`CLAUDE.md`](CLAUDE.m
 | `products/` | Parent-brand product summaries + repo links |
 | `clients/` | Parent-brand client notes; live product remains on the client site |
 | `community/` | Parent-brand notes for civic and hackathon work; not products for sale |
-| `index.html` + `styles-dark.css` | **Official home** (dark landing) |
+| `index.html` + `tokens.css` + `home.css` + `home.js` | **Official home** (dark landing) |
+| `styles-dark.css` | Inner product, skill, client, community, and work pages (until the redesign rollout) |
+| `assets/glyphs.svg` | Symbol system — one glyph per portfolio entry and section |
+| `assets/fonts/` | Self-hosted OFL faces (see `assets/THIRD_PARTY_NOTICES.md`) |
 | `concepts/dark-landing/` | Redirect to official home (legacy URL) |
 | `styles-light.css` | Secondary light pages (work, philosophy, about, …) |
 | `assets/` | Marks, retina identity, product heroes |

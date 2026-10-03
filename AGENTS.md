@@ -41,7 +41,8 @@ links, product posture, identity-motion constraints). Dev server:
   licensing claims without an approved source (`CONTRIBUTING.md`).
 - Changes to the static mark or highway-centerline motion require
   explicit brand review.
-- Official home is the dark landing (`index.html` + `styles-dark.css`).
+- Official home is the dark landing (`index.html` + `tokens.css` + `home.css` + `home.js`).
+  Inner pages keep `styles-dark.css` / `styles-light.css` until the redesign rollout.
 - Evidence labels: `OBSERVED` / `INFERRED` / `ASPIRATIONAL` / `NOT_READY`
   / `NOT_COMPUTABLE`. App Store and production product URLs stay
   `NOT_READY` until a release is ready.
