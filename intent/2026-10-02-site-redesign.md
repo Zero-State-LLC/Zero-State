@@ -4,9 +4,8 @@
 
 The owner asked for a redesign of zer0state.com that "dials up" the brand with current (2026) design practice: motion, full mobile support at every width, and graphics that are symbolic rather than literal. The brief also asks for new content:
 
-- program logos: Apple App Store Small Business Program, ElevenLabs Startup Grants, Databricks Startup Program, Neon Startup Program;
-- the NVIDIA mark with the line "Local intelligence built on the NVIDIA stack";
-- a section on local intelligence deployments for business.
+- program logos: ElevenLabs Startup Grants, Databricks Startup Program, Neon Startup Program;
+- a section on local intelligence deployments for business, framed as capability ("Local intelligence on your own hardware"), with no partner mark.
 
 The live home also has defects: stray `<source>` / `</picture>` tags in `index.html`, `srcset` entries that point at files which do not exist, and a 1 MB hero PNG as the largest paint.
 
@@ -41,7 +40,7 @@ Out of scope until the choice: inner pages, legal copy, product posture, and `st
 
 1. **Which direction?** Danny decides.
 2. **Local intelligence copy.** Drafted from the owner's brief ("local intelligence deployments for business, etc."). The owner confirms the service scope before merge.
-3. **Partner and program marks.** Apple's trademark guidelines restrict using the Apple logo to signal a relationship, and NVIDIA restricts logo use outside its partner programs. ElevenLabs, Databricks, and Neon brand terms still need checking. The owner decides whether to keep the marks, switch to text-only names, or use official program badges.
+3. **Partner and program marks.** Resolved by the owner: no Apple or NVIDIA marks on the home. ElevenLabs, Databricks, and Neon marks stay; their brand terms still need checking.
 4. **Program membership.** Supplied by the owner in session; not verified here.
 
 ## Verified / assumed claims
@@ -52,8 +51,8 @@ Out of scope until the choice: inner pages, legal copy, product posture, and `st
 | No horizontal scroll and no wrapped clickable text at 320 / 375 / 414 / 768 / 1024 / 1440 px | `OBSERVED` | scripted check in Chromium (local preview) |
 | Home makes zero third-party requests | `OBSERVED` | resource timing in local preview |
 | Hero image weight drops from 1 MB to 107 KB | `OBSERVED` | `assets/brand/zero_state_logo_1200.webp` |
-| Zero State is in the four named programs | `INFERRED` | owner statement in session |
-| Local intelligence deployments on the NVIDIA stack are offered | `ASPIRATIONAL` | owner brief; copy is a draft |
+| Zero State is in the three named programs | `INFERRED` | owner statement in session |
+| Local intelligence deployments on customer hardware are offered | `ASPIRATIONAL` | owner brief; copy is a draft |
 | Partner logo use is permitted | `NOT_COMPUTABLE` | needs brand-guideline review per company |
 
 ## Author / date

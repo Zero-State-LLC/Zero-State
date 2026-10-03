@@ -638,14 +638,14 @@ a { color: inherit; }
 /* ---------- programs · T2 logo wall ---------- */
 .programs { padding: var(--space-2xl) var(--page-pad) var(--space-3xl); }
 .programs h2 { color: var(--color-muted); font: 500 var(--text-xs)/1.3 var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; }
-.programs__list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: var(--space-lg); border-top: 1px solid var(--color-rule-2); }
+.programs__list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: var(--space-lg); border-top: 1px solid var(--color-rule-2); }
 .programs__list li { display: grid; gap: var(--space-2xs); align-content: start; padding: var(--space-lg) var(--space-md) var(--space-lg) 0; border-bottom: 1px solid var(--color-rule-2); }
-.programs__list li:nth-child(even) { padding-inline-start: var(--space-md); border-inline-start: 1px solid var(--color-rule-2); }
+.programs__list li + li { padding-inline-start: var(--space-md); border-inline-start: 1px solid var(--color-rule-2); }
 .program__logo { width: 28px; height: 28px; margin-bottom: var(--space-xs); color: var(--color-ink-2); }
 .program__brand { font-weight: 500; }
 .program__name { color: var(--color-muted); font: 400 var(--text-2xs)/1.5 var(--font-mono); letter-spacing: 0.02em; }
 @media (min-width: 48rem) {
-  .programs__list { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .programs__list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .programs__list li { border-bottom: 0; padding-inline-start: var(--space-lg); }
   .programs__list li + li { border-inline-start: 1px solid var(--color-rule-2); }
   .programs__list li:first-child { padding-inline-start: 0; }

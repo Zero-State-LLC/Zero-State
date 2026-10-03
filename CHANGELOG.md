@@ -25,7 +25,7 @@ Cumulative release since `v0.3.0`: official dark home, social preview, and Herme
 
 ### Home redesign — proposed (A · Observatory)
 - New home in review: symbolic graphics, motion with reduced-motion paths, verified at 320–1440 px.
-- New sections: local intelligence deployments (built on the NVIDIA stack) and program logos (Apple App Store Small Business Program, ElevenLabs Startup Grants, Databricks Startup Program, Neon Startup Program).
+- New sections: local intelligence deployments on your own hardware and program logos (ElevenLabs Startup Grants, Databricks Startup Program, Neon Startup Program).
 - Fixes malformed `<picture>` markup and dead `srcset` targets on the old home; hero image 1 MB → 107 KB; fonts self-hosted.
 - See `intent/2026-10-02-site-redesign.md`. Not deployed until approved.
 
