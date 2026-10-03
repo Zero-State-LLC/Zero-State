@@ -12,6 +12,6 @@ The files are the Latin and Latin Extended subsets served by Google Fonts. They 
 
 ## Partner and program marks
 
-Monochrome mark outlines for Apple, NVIDIA, Databricks, ElevenLabs, and Neon come from [Simple Icons](https://simpleicons.org) v16.33.0. The path data is CC0-1.0, and the outlines are inlined in the page markup.
+Monochrome mark outlines for Databricks, ElevenLabs, and Neon come from [Simple Icons](https://simpleicons.org) v16.33.0. The path data is CC0-1.0, and the outlines are inlined in the page markup.
 
-The marks are trademarks of their respective owners. They appear only to identify programs Zero State takes part in and the stack its local deployments use, and they do not imply endorsement. Each owner's brand guidelines apply. See `intent/2026-10-02-site-redesign.md` § Open questions before shipping.
+The marks are trademarks of their respective owners. They appear only to identify programs Zero State takes part in, and they do not imply endorsement. Each owner's brand guidelines apply. See `intent/2026-10-02-site-redesign.md` § Open questions before shipping.
