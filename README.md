@@ -104,9 +104,7 @@ Humans and coding agents follow [`AGENTS.md`](AGENTS.md). [`CLAUDE.md`](CLAUDE.m
 | `assets/glyphs.svg` | Symbol system — one glyph per portfolio entry and section |
 | `assets/fonts/` | Self-hosted OFL faces (see `assets/THIRD_PARTY_NOTICES.md`) |
 | `concepts/dark-landing/` | Redirect to official home (legacy URL) |
-| `styles-light.css` | Legacy; no page links it |
 | `assets/` | Marks, retina identity, product heroes |
-| `styles.css`, `script.js` | Legacy; no page links them |
 | `design.md` | Locked design system |
 | `scripts/validate-site.js` | CI / Pages build validation |
 | `sitemap.xml`, `robots.txt` | Public crawler list at `https://zer0state.com/` |
