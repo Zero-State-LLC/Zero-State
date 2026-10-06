@@ -414,8 +414,70 @@
 }
 
 /* ---------- principles ---------- */
-.principles { display: grid; gap: var(--space-xl); padding: var(--space-3xl) var(--page-pad); border-top: 1px solid var(--color-rule-2); }
-.principles__mark { width: 7rem; opacity: 0.9; }
+@property --clear { syntax: "<percentage>"; inherits: true; initial-value: 0%; }
+/* See clearly: live static on the black, which clears around the mark once the section is in view */
+.principles { position: relative; isolation: isolate; overflow: clip; display: grid; gap: var(--space-xl); padding: var(--space-3xl) var(--page-pad); border-top: 1px solid var(--color-rule-2); view-timeline-name: --principles; }
+.principles__static {
+  --clear-x: 22%;
+  --clear-y: 26%;
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  -webkit-mask-image: radial-gradient(circle at var(--clear-x) var(--clear-y), transparent var(--clear), black calc(var(--clear) + 24%));
+  mask-image: radial-gradient(circle at var(--clear-x) var(--clear-y), transparent var(--clear), black calc(var(--clear) + 24%));
+  transition: --clear 1800ms var(--ease-out);
+}
+.principles.is-revealed .principles__static { --clear: 16%; }
+.principles__static::before {
+  content: "";
+  position: absolute;
+  inset: -50%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='s'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.15' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23s)'/%3E%3C/svg%3E");
+  background-size: 220px 220px;
+  opacity: 0.16;
+  mix-blend-mode: screen;
+  animation: tv-static 640ms steps(1, end) infinite;
+}
+.principles__static::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(to bottom, var(--color-scanline) 0 1px, transparent 1px 3px);
+}
+@keyframes tv-static {
+  0% { transform: translate(0, 0); }
+  14% { transform: translate(-9%, 6%); }
+  28% { transform: translate(7%, -11%); }
+  42% { transform: translate(-4%, 13%); }
+  57% { transform: translate(12%, 3%); }
+  71% { transform: translate(-13%, -5%); }
+  85% { transform: translate(5%, 9%); }
+}
+.principles__mark { position: relative; justify-self: center; width: 9rem; margin: var(--space-xl) 0 var(--space-lg); }
+.principles__mark picture { position: relative; z-index: 1; display: block; animation: mark-float 7s var(--ease-in-out) infinite alternate; }
+.principles__orbits { position: absolute; z-index: 0; left: 50%; top: 50%; width: 175%; height: auto; aspect-ratio: 1; translate: -50% -50%; overflow: visible; }
+.principles__orbits * { fill: none; stroke: var(--color-rule); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.principles__orbits .orb__node { fill: var(--color-ink-2); stroke: none; }
+.principles__orbits .orb__node--lit { fill: var(--color-accent); }
+.pm__outer, .pm__ring { transform-box: view-box; transform-origin: 50% 50%; }
+.pm__outer { animation: orbit-turn 90s linear infinite; }
+.pm__ring { transform: rotate(var(--spin)); }
+/* the mark acquires its signal: noisy and blurred, then sharp */
+.js .principles:not(.is-revealed) .principles__mark img { opacity: 0.25; filter: blur(8px) contrast(1.6); }
+.principles.is-revealed .principles__mark img { animation: acquire 1500ms var(--ease-out) both; }
+@keyframes acquire {
+  0% { opacity: 0.25; filter: blur(8px) contrast(1.6); transform: translateX(-7px); }
+  8% { transform: translateX(6px); }
+  14% { opacity: 0.6; transform: translateX(-4px); }
+  22% { transform: translateX(2px); }
+  30% { transform: none; }
+  100% { opacity: 1; filter: none; transform: none; }
+}
+@keyframes mark-float { from { transform: translateY(4px); } to { transform: translateY(-8px); } }
+@keyframes orbit-turn { to { transform: rotate(360deg); } }
+@keyframes principles-spin { from { --spin: -60deg; } to { --spin: 60deg; } }
 .principles__copy { display: grid; gap: var(--space-xl); }
 .principles h2 { font: 200 var(--text-2xl)/1.05 var(--font-display); letter-spacing: -0.03em; }
 .principles h2 span { display: block; color: var(--color-ink-2); }
@@ -425,7 +487,7 @@
 .principles li p { color: var(--color-ink-2); }
 @media (min-width: 62rem) {
   .principles { grid-template-columns: minmax(0, 3fr) minmax(0, 9fr); align-items: start; column-gap: var(--space-2xl); }
-  .principles__mark { width: 100%; max-width: 13rem; }
+  .principles__mark { justify-self: start; width: 100%; max-width: 13rem; margin: var(--space-xl) 0 0 var(--space-xl); }
   .principles ol { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr) minmax(0, 0.9fr); column-gap: var(--space-xl); }
 }
 
@@ -459,6 +521,7 @@
     .hero__moves-inner { animation: drift linear both; animation-timeline: --hero; animation-range: exit 0% exit 90%; }
     .hero-grid::before { animation: floor linear both; animation-timeline: --hero; animation-range: exit 0% exit 100%; }
     .map { animation-play-state: running; }
+    .principles__orbits { animation: principles-spin linear both; animation-timeline: --principles; }
   }
 }
 @keyframes hero-spin { to { --spin: 140deg; } }
@@ -466,6 +529,8 @@
 @keyframes floor { to { transform: rotateX(72deg) translateY(128px); } }
 
 @media (prefers-reduced-motion: reduce) {
+  .principles__static::before, .principles__mark picture, .pm__outer, .principles.is-revealed .principles__mark img { animation: none !important; }
+  .js .principles .principles__mark img { opacity: 1 !important; filter: none !important; }
   .mz__highway.is-revealed { animation: none !important; }
   [data-reveal] .enc__corner { transform: none !important; }
 }

@@ -1,5 +1,20 @@
-// Zero State · home — orbital map readout (shared chrome lives in site.js).
+// Zero State · home — orbital map readout and the principles static (shared chrome lives in site.js).
 (() => {
+  // Centre the static's clear zone on the mark, at every size.
+  const principles = document.querySelector('[data-principles]');
+  const staticLayer = principles?.querySelector('.principles__static');
+  const mark = principles?.querySelector('.principles__mark');
+  if (principles && staticLayer && mark) {
+    const place = () => {
+      const s = principles.getBoundingClientRect();
+      const m = mark.getBoundingClientRect();
+      staticLayer.style.setProperty('--clear-x', `${((m.left + m.width / 2 - s.left) / s.width) * 100}%`);
+      staticLayer.style.setProperty('--clear-y', `${((m.top + m.height / 2 - s.top) / s.height) * 100}%`);
+    };
+    place();
+    new ResizeObserver(place).observe(principles);
+  }
+
   // Orbital map readout — hover or focus a symbol, read its posture.
   const map = document.querySelector('[data-map]');
   const readout = map?.querySelector('[data-readout]');

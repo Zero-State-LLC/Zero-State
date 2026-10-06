@@ -37,6 +37,7 @@ body::after {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 img, picture, svg { display: block; max-width: 100%; }
+img { height: auto; } /* keep aspect when an image's width/height attributes meet a narrower box */
 h1, h2, h3, p, ul, ol, figure { margin: 0; }
 h1, h2, h3 { overflow-wrap: anywhere; min-width: 0; }
 a:active { color: var(--color-accent); }
