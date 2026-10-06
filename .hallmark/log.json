@@ -1,5 +1,17 @@
 [
   {
+    "date": "2026-10-05",
+    "scope": "app",
+    "genre": "atmospheric",
+    "macrostructure": "design.md family — dossier · catalogue · long document",
+    "theme": "custom (design.md)",
+    "theme_axes": "dark / geometric-sans / warm",
+    "nav": "N10",
+    "footer": "Ft5",
+    "enrichment": "symbol-on-orbit hero per entry",
+    "brief": "Observatory rollout to all inner pages after Danny's pick on #53"
+  },
+  {
     "date": "2026-10-02",
     "scope": "home (review PR)",
     "genre": "atmospheric",

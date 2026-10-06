@@ -1,6 +1,6 @@
 # Design — Zero State
 
-**Status: proposed — direction A · Observatory, pending owner review.** A sibling PR proposes the other direction. Whichever is approved becomes this file's locked system and is rolled out to every page before merge; until then the previous system (git history: `design.md` before 2026-10-02) still governs the inner pages.
+**Status: adopted.** Danny chose direction A · Observatory on #53 (2026-10-03) and removed the Apple and NVIDIA marks. Every public page follows this file.
 
 ## Genre
 
@@ -13,7 +13,10 @@ Graphics are symbolic, never literal. `assets/glyphs.svg` holds one symbol per p
 ## Macrostructure family
 
 - Home: Map / Diagram — the portfolio is an orbital system map around the zero; hero H9 (logo inside a hand-built SVG instrument); nav N10 floating-on-scroll morph; footer Ft5 statement.
-- Inner pages (planned for the rollout): Product, skill, client, community: a dossier page whose hero is the entry's symbol on its orbit, with the evidence image as a framed figure beneath. Work: the orbital map at full size plus the list. Philosophy, about, contact, legal: Long Document with a hairline rail.
+- Product, skill, client, community, media kit: a dossier — the entry's symbol on its orbit beside the title, the evidence image framed beneath, then the story.
+- Work and the Products overview: a catalogue — symbol, posture, and evidence for every entry, grouped with a sticky group head on desktop.
+- Philosophy, about, contact, legal: Long Document with a quiet rail (an on-this-page list when a page has four or more sections).
+- Files: `tokens.css` + `site.css` + `site.js` on every page; `home.css` + `home.js` on the home; `pages.css` on inner pages.
 
 ## Theme
 

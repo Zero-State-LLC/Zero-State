@@ -1,54 +1,5 @@
-// Zero State · Observatory — nav morph, menu sheet, reveal-once, orbital readout.
+// Zero State · home — orbital map readout (shared chrome lives in site.js).
 (() => {
-  const year = document.querySelector('[data-year]');
-  if (year) year.textContent = String(new Date().getFullYear());
-
-  // N10 floating-on-scroll morph: one DOM, one class, boolean-flip guard.
-  const nav = document.querySelector('[data-nav]');
-  if (nav) {
-    const THRESHOLD = 80;
-    let floating = false;
-    let ticking = false;
-    const update = () => {
-      const next = window.scrollY > THRESHOLD;
-      if (next !== floating) {
-        floating = next;
-        nav.classList.toggle('is-floating', floating);
-      }
-    };
-    window.addEventListener('scroll', () => {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(() => { update(); ticking = false; });
-    }, { passive: true });
-    update();
-
-    const menu = nav.querySelector('[data-menu]');
-    const close = () => { nav.classList.remove('is-open'); menu?.setAttribute('aria-expanded', 'false'); };
-    menu?.addEventListener('click', () => {
-      const open = menu.getAttribute('aria-expanded') !== 'true';
-      menu.setAttribute('aria-expanded', String(open));
-      nav.classList.toggle('is-open', open);
-    });
-    nav.querySelectorAll('.nav__links a').forEach((a) => a.addEventListener('click', close));
-    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
-  }
-
-  // Reveal once — the method passage and the closing frame.
-  const reveals = document.querySelectorAll('[data-reveal]');
-  if ('IntersectionObserver' in window && reveals.length) {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add('is-revealed');
-        io.unobserve(entry.target);
-      });
-    }, { threshold: 0.45 });
-    reveals.forEach((el) => io.observe(el));
-  } else {
-    reveals.forEach((el) => el.classList.add('is-revealed'));
-  }
-
   // Orbital map readout — hover or focus a symbol, read its posture.
   const map = document.querySelector('[data-map]');
   const readout = map?.querySelector('[data-readout]');

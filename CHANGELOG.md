@@ -23,6 +23,11 @@ Cumulative release since `v0.3.0`: official dark home, social preview, and Herme
 
 ## Unreleased
 
+### Observatory rollout
+- Every public page moves onto the Observatory system: dossiers for products, skills, client, community, and the HexWire media kit; a catalogue for Work and Products; long documents with an on-this-page rail for philosophy, about, contact, privacy, and terms. Copy, alt text, and link targets carried over verbatim.
+- Shared `site.css` / `site.js` split out of the home files; cross-page view transitions hand the clicked symbol to the next page's hero.
+- Fixes the old inner pages' malformed `<picture>` markup; evidence images get WebP sources.
+
 ### Home redesign — proposed (A · Observatory)
 - New home in review: symbolic graphics, motion with reduced-motion paths, verified at 320–1440 px.
 - New sections: local intelligence deployments on your own hardware and program logos (ElevenLabs Startup Grants, Databricks Startup Program, Neon Startup Program).
