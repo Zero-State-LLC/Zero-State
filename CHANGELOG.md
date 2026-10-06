@@ -24,6 +24,7 @@ Cumulative release since `v0.3.0`: official dark home, social preview, and Herme
 ## Unreleased
 
 ### Observatory rollout
+- Footer adds YouTube (@zer0state_studio) and TikTok (@zer0state3) on every page; the home's structured data lists them too.
 - Every public page moves onto the Observatory system: dossiers for products, skills, client, community, and the HexWire media kit; a catalogue for Work and Products; long documents with an on-this-page rail for philosophy, about, contact, privacy, and terms. Copy, alt text, and link targets carried over verbatim.
 - Shared `site.css` / `site.js` split out of the home files; cross-page view transitions hand the clicked symbol to the next page's hero.
 - Fixes the old inner pages' malformed `<picture>` markup; evidence images get WebP sources.
