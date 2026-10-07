@@ -455,18 +455,32 @@
   71% { transform: translate(-13%, -5%); }
   85% { transform: translate(5%, 9%); }
 }
-.principles__mark { position: relative; justify-self: center; width: 9rem; margin: var(--space-xl) 0 var(--space-lg); }
-.principles__mark picture { position: relative; z-index: 1; display: block; animation: mark-float 7s var(--ease-in-out) infinite alternate; }
-.principles__orbits { position: absolute; z-index: 0; left: 50%; top: 50%; width: 175%; height: auto; aspect-ratio: 1; translate: -50% -50%; overflow: visible; }
-.principles__orbits * { fill: none; stroke: var(--color-rule); stroke-width: 1; vector-effect: non-scaling-stroke; }
-.principles__orbits .orb__node { fill: var(--color-ink-2); stroke: none; }
-.principles__orbits .orb__node--lit { fill: var(--color-accent); }
-.pm__outer, .pm__ring { transform-box: view-box; transform-origin: 50% 50%; }
-.pm__outer { animation: orbit-turn 90s linear infinite; }
-.pm__ring { transform: rotate(var(--spin)); }
+.principles__mark { position: relative; justify-self: center; width: min(14rem, 62vw); margin: var(--space-lg) 0; }
+/* the mark, redrawn as a vector: crisp at any size, parts move on their own */
+.m4 { display: block; width: 100%; height: auto; overflow: visible; animation: mark-float 7s var(--ease-in-out) infinite alternate; }
+.m4 * { vector-effect: non-scaling-stroke; }
+.m4__dots { fill: none; stroke: var(--color-muted); stroke-width: 1.5; stroke-dasharray: 1 7; stroke-linecap: round; }
+.m4__speck { fill: var(--color-ink); }
+.m4__speck--ember { fill: var(--color-accent); }
+.m4__rings circle { fill: none; stroke: var(--color-ink-2); stroke-width: 1.4; }
+.m4__rings circle:first-child { stroke-width: 1.8; }
+.m4__arc { fill: none; stroke: var(--color-ink); stroke-width: 3.2; stroke-linecap: round; }
+.m4__tick { stroke: var(--color-ink); stroke-width: 1.4; }
+.m4__axis { fill: none; stroke: var(--color-ink-2); stroke-width: 1.8; }
+.m4__cap circle { fill: var(--color-paper); stroke: var(--color-ink); stroke-width: 1.8; }
+.m4__cap .m4__cap-dot { fill: var(--color-ink); stroke: none; }
+.m4__ember { fill: var(--color-accent); filter: url(#m4-glow); }
+.m4__halo { fill: none; stroke: var(--color-ink); stroke-width: 1.6; }
+.m4__core { fill: var(--color-ink); filter: url(#m4-glow); }
+.m4__outer, .m4__spin { transform-box: view-box; transform-origin: 50% 50%; }
+.m4__outer { animation: orbit-turn 90s linear infinite; }
+.m4__spin { transform: rotate(var(--spin)); }
+.m4__ember { animation: ember-pulse 3.6s var(--ease-in-out) infinite alternate; }
+.m4__ember--axis { animation-delay: -1.8s; }
+@keyframes ember-pulse { from { opacity: 0.7; } to { opacity: 1; } }
 /* the mark acquires its signal: noisy and blurred, then sharp */
-.js .principles:not(.is-revealed) .principles__mark img { opacity: 0.25; filter: blur(8px) contrast(1.6); }
-.principles.is-revealed .principles__mark img { animation: acquire 1500ms var(--ease-out) both; }
+.js .principles:not(.is-revealed) .principles__mark .m4 { opacity: 0.25; filter: blur(8px) contrast(1.6);  animation: unveil 0s 8s forwards; }
+.principles.is-revealed .principles__mark .m4 { animation: acquire 1500ms var(--ease-out) both, mark-float 7s var(--ease-in-out) 1500ms infinite alternate; }
 @keyframes acquire {
   0% { opacity: 0.25; filter: blur(8px) contrast(1.6); transform: translateX(-7px); }
   8% { transform: translateX(6px); }
@@ -475,6 +489,7 @@
   30% { transform: none; }
   100% { opacity: 1; filter: none; transform: none; }
 }
+@keyframes unveil { to { opacity: 1; filter: none; } } /* safety net: never stay blurred */
 @keyframes mark-float { from { transform: translateY(4px); } to { transform: translateY(-8px); } }
 @keyframes orbit-turn { to { transform: rotate(360deg); } }
 @keyframes principles-spin { from { --spin: -60deg; } to { --spin: 60deg; } }
@@ -486,8 +501,8 @@
 .principles strong { font-weight: 500; font-size: var(--text-md); }
 .principles li p { color: var(--color-ink-2); }
 @media (min-width: 62rem) {
-  .principles { grid-template-columns: minmax(0, 3fr) minmax(0, 9fr); align-items: start; column-gap: var(--space-2xl); }
-  .principles__mark { justify-self: start; width: 100%; max-width: 13rem; margin: var(--space-xl) 0 0 var(--space-xl); }
+  .principles { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); align-items: center; column-gap: var(--space-2xl); }
+  .principles__mark { justify-self: center; width: 100%; max-width: 20rem; margin: var(--space-xl) 0 0 var(--space-xl); }
   .principles ol { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr) minmax(0, 0.9fr); column-gap: var(--space-xl); }
 }
 
@@ -521,7 +536,7 @@
     .hero__moves-inner { animation: drift linear both; animation-timeline: --hero; animation-range: exit 0% exit 90%; }
     .hero-grid::before { animation: floor linear both; animation-timeline: --hero; animation-range: exit 0% exit 100%; }
     .map { animation-play-state: running; }
-    .principles__orbits { animation: principles-spin linear both; animation-timeline: --principles; }
+    .principles__mark { animation: principles-spin linear both; animation-timeline: --principles; }
   }
 }
 @keyframes hero-spin { to { --spin: 140deg; } }
@@ -529,8 +544,8 @@
 @keyframes floor { to { transform: rotateX(72deg) translateY(128px); } }
 
 @media (prefers-reduced-motion: reduce) {
-  .principles__static::before, .principles__mark picture, .pm__outer, .principles.is-revealed .principles__mark img { animation: none !important; }
-  .js .principles .principles__mark img { opacity: 1 !important; filter: none !important; }
+  .principles__static::before, .m4, .m4__outer, .m4__ember, .principles.is-revealed .principles__mark .m4 { animation: none !important; }
+  .js .principles .principles__mark .m4 { opacity: 1 !important; filter: none !important; }
   .mz__highway.is-revealed { animation: none !important; }
   [data-reveal] .enc__corner { transform: none !important; }
 }

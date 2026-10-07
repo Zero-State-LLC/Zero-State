@@ -146,13 +146,18 @@
 <section class="principles" aria-labelledby="principles-title" data-reveal data-principles>
   <div class="principles__static" aria-hidden="true"></div>
   <figure class="principles__mark">
-    <svg class="principles__orbits" viewBox="0 0 400 400" aria-hidden="true" focusable="false">
-      <g class="pm__outer"><circle cx="200" cy="200" r="194" stroke-dasharray="2 7"/><circle class="orb__node" cx="200" cy="6" r="3"/></g>
-      <g class="pm__ring"><circle cx="200" cy="200" r="150"/><circle class="orb__node orb__node--lit" cx="350" cy="200" r="5"/><circle class="orb__node" cx="94" cy="306" r="3.5"/></g>
-      <circle cx="200" cy="200" r="104" stroke-dasharray="1 5"/>
+    <svg class="m4" viewBox="80 80 640 640" aria-hidden="true" focusable="false">
+      <defs><filter id="m4-glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="7" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+      <g class="m4__outer"><circle class="m4__dots" cx="400" cy="400" r="205"/><circle class="m4__speck" cx="502.5" cy="222.5" r="4.5"/><circle class="m4__speck m4__speck--ember" cx="598.0" cy="453.1" r="5"/><circle class="m4__speck" cx="222.5" cy="502.5" r="4"/></g>
+      <g class="m4__rings"><circle cx="400" cy="400" r="160"/><circle cx="400" cy="400" r="108"/><circle cx="400" cy="400" r="92"/></g>
+      <g class="m4__spin"><path class="m4__arc" d="M339.9 287.0A128 128 0 0 1 460.1 287.0 M460.1 513.0A128 128 0 0 1 339.9 513.0 M520.3 356.2A128 128 0 0 1 525.2 426.6 M274.8 426.6A128 128 0 0 1 279.7 356.2 M279.7 356.2A128 128 0 0 1 291.4 332.2 M513.0 460.1A128 128 0 0 1 498.1 482.3"/><path class="m4__tick" d="M470.7 470.7L482.0 482.0"/><path class="m4__tick" d="M329.3 470.7L318.0 482.0"/><path class="m4__tick" d="M329.3 329.3L318.0 318.0"/><path class="m4__tick" d="M470.7 329.3L482.0 318.0"/><circle class="m4__ember" cx="488.4" cy="488.4" r="8"/><circle class="m4__ember" cx="311.6" cy="488.4" r="8"/><circle class="m4__ember" cx="311.6" cy="311.6" r="8"/><circle class="m4__ember" cx="488.4" cy="311.6" r="8"/></g>
+      <path class="m4__axis" d="M400 119V366M400 434V681M179 400H366M434 400H621"/>
+      <path class="m4__arc m4__arc--cap" d="M360.5 214.2A190 190 0 0 1 439.5 214.2 M439.5 585.8A190 190 0 0 1 360.5 585.8"/>
+      <circle class="m4__ember m4__ember--axis" cx="400" cy="210" r="10"/><circle class="m4__ember m4__ember--axis" cx="400" cy="590" r="10"/>
+      <g class="m4__cap"><circle cx="400" cy="108" r="11"/><circle class="m4__cap-dot" cx="400" cy="108" r="5"/></g><g class="m4__cap"><circle cx="400" cy="692" r="11"/><circle class="m4__cap-dot" cx="400" cy="692" r="5"/></g><g class="m4__cap"><circle cx="168" cy="400" r="11"/><circle class="m4__cap-dot" cx="168" cy="400" r="5"/></g><g class="m4__cap"><circle cx="632" cy="400" r="11"/><circle class="m4__cap-dot" cx="632" cy="400" r="5"/></g>
+      <circle class="m4__halo" cx="400" cy="400" r="33"/><circle class="m4__core" cx="400" cy="400" r="25"/>
     </svg>
-    <picture><source srcset="assets/brand/zero_state_mark_4_640.webp" type="image/webp">
-    <img src="assets/danny-email-bundle/retina/zero_state_mark_4_retina.png" alt="" width="459" height="640" loading="lazy" decoding="async"></picture></figure>
+  </figure>
   <div class="principles__copy">
     <h2 id="principles-title">See clearly.<span>Build deliberately.</span></h2>
     <ol role="list"><li><strong>Creativity</strong><p>Perceives possibility and gives it form.</p></li><li><strong>Curiosity</strong><p>Finds what inherited assumptions cannot explain.</p></li><li><strong>Authenticity</strong><p>Keeps perception, judgment, expression, and action coherent.</p></li></ol>
