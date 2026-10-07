@@ -97,14 +97,14 @@ Humans and coding agents follow [`AGENTS.md`](AGENTS.md). [`CLAUDE.md`](CLAUDE.m
 | `products/` | Parent-brand product summaries + repo links |
 | `clients/` | Parent-brand client notes; live product remains on the client site |
 | `community/` | Parent-brand notes for civic and hackathon work; not products for sale |
-| `index.html` + `tokens.css` + `home.css` + `home.js` | **Official home** (dark landing) |
-| `styles-dark.css` | Inner product, skill, client, community, and work pages (until the redesign rollout) |
+| `index.html` + `home.css` + `home.js` | **Official home** (dark landing) |
+| `tokens.css` + `site.css` + `site.js` | Shared system on every page: tokens, nav, footer, motion |
+| `pages.css` | Inner-page templates: dossier, long document, catalogue |
+| `styles-dark.css` | Legacy; kept because the validator asserts it exists |
 | `assets/glyphs.svg` | Symbol system — one glyph per portfolio entry and section |
 | `assets/fonts/` | Self-hosted OFL faces (see `assets/THIRD_PARTY_NOTICES.md`) |
 | `concepts/dark-landing/` | Redirect to official home (legacy URL) |
-| `styles-light.css` | Secondary light pages (work, philosophy, about, …) |
 | `assets/` | Marks, retina identity, product heroes |
-| `styles.css`, `script.js` | Shared light-site presentation |
 | `design.md` | Locked design system |
 | `scripts/validate-site.js` | CI / Pages build validation |
 | `sitemap.xml`, `robots.txt` | Public crawler list at `https://zer0state.com/` |

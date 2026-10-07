@@ -23,11 +23,18 @@ Cumulative release since `v0.3.0`: official dark home, social preview, and Herme
 
 ## Unreleased
 
+### Observatory rollout
+- Footer adds YouTube (@zer0state_studio) and TikTok (@zer0state3) on every page; the home's structured data lists them too.
+- Every public page moves onto the Observatory system: dossiers for products, skills, client, community, and the HexWire media kit; a catalogue for Work and Products; long documents with an on-this-page rail for philosophy, about, contact, privacy, and terms. Copy, alt text, and link targets carried over verbatim.
+- Shared `site.css` / `site.js` split out of the home files; cross-page view transitions hand the clicked symbol to the next page's hero.
+- Fixes the old inner pages' malformed `<picture>` markup; evidence images get WebP sources.
+
 ### Home redesign — proposed (A · Observatory)
 - New home in review: symbolic graphics, motion with reduced-motion paths, verified at 320–1440 px.
 - New sections: local intelligence deployments on your own hardware and program logos (ElevenLabs Startup Grants, Databricks Startup Program, Neon Startup Program).
 - Fixes malformed `<picture>` markup and dead `srcset` targets on the old home; hero image 1 MB → 107 KB; fonts self-hosted.
 - See `intent/2026-10-02-site-redesign.md`. Not deployed until approved.
+- Surveillance Survivor's image is now the current build's title screen (SS-runtime `shell_title_backdrop` + `shell_wordmark`, composed with the app's own scrim), replacing the legacy pixel-art hero.
 
 ### Community
 - Add a **Community** section on Work (`#community`) and a short Community block on the home evidence area, separate from Products and Clients.

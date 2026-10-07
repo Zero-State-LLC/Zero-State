@@ -1,5 +1,17 @@
 [
   {
+    "date": "2026-10-05",
+    "scope": "app",
+    "genre": "atmospheric",
+    "macrostructure": "design.md family — dossier · catalogue · long document",
+    "theme": "custom (design.md)",
+    "theme_axes": "dark / geometric-sans / warm",
+    "nav": "N10",
+    "footer": "Ft5",
+    "enrichment": "symbol-on-orbit hero per entry",
+    "brief": "Observatory rollout to all inner pages after Danny's pick on #53"
+  },
+  {
     "date": "2026-10-02",
     "scope": "home (review PR)",
     "genre": "atmospheric",
@@ -10,7 +22,7 @@
     "nav": "N10",
     "footer": "Ft5",
     "enrichment": "H9 Tier B SVG instrument + symbol sprite",
-    "brief": "Home redesign for owner review — symbolic graphics, motion, every-width mobile, local intelligence (NVIDIA stack), program logos"
+    "brief": "Home redesign for owner review — symbolic graphics, motion, every-width mobile, local intelligence on your own hardware (owner removed Apple/NVIDIA marks), program logos"
   },
   {
     "date": "2026-08-07",

@@ -24,10 +24,12 @@
   <meta name="twitter:description" content="Zero State is an independent software studio building thoughtful, adaptable software from first principles, for a world that keeps changing.">
   <meta name="twitter:image" content="https://zer0state.com/assets/og-image.png">
   <link rel="preload" href="assets/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <script>document.documentElement.classList.add("js")</script>
   <link rel="stylesheet" href="tokens.css">
+  <link rel="stylesheet" href="site.css">
   <link rel="stylesheet" href="home.css">
   <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Organization","name":"Zero State LLC","alternateName":"ZERØ STATE","url":"https://zer0state.com/","logo":"https://zer0state.com/assets/og-image.png","email":"zer0state@zer0state.com","slogan":"Software for a world that keeps changing.","sameAs":["https://github.com/Zero-State-LLC","https://www.facebook.com/1289691754235122","https://www.instagram.com/zerostatehq/","https://x.com/z3r0st4t3"]}
+{"@context":"https://schema.org","@type":"Organization","name":"Zero State LLC","alternateName":"ZERØ STATE","url":"https://zer0state.com/","logo":"https://zer0state.com/assets/og-image.png","email":"zer0state@zer0state.com","slogan":"Software for a world that keeps changing.","sameAs":["https://github.com/Zero-State-LLC","https://www.facebook.com/1289691754235122","https://www.instagram.com/zerostatehq/","https://x.com/z3r0st4t3","https://www.youtube.com/@zer0state_studio","https://www.tiktok.com/@zer0state3"]}
 </script>
 </head>
 <body class="obs">
@@ -141,8 +143,15 @@
   <h2 id="programs-title">Supported by</h2>
   <ul class="programs__list" role="list"><li><svg class="program__logo" viewBox="0 0 24 24" aria-hidden="true" focusable="false" data-brand="ElevenLabs"><path fill="currentColor" d="M4.6035 0v24h4.9317V0zm9.8613 0v24h4.9317V0z"/></svg><span class="program__brand">ElevenLabs</span><span class="program__name">Startup Grants</span></li><li><svg class="program__logo" viewBox="0 0 24 24" aria-hidden="true" focusable="false" data-brand="Databricks"><path fill="currentColor" d="M.95 14.184L12 20.403l9.919-5.55v2.21L12 22.662l-10.484-5.96-.565.308v.77L12 24l11.05-6.218v-4.317l-.515-.309L12 19.118l-9.867-5.653v-2.21L12 16.805l11.05-6.218V6.32l-.515-.308L12 11.974 2.647 6.681 12 1.388l7.76 4.368.668-.411v-.566L12 0 .95 6.27v.72L12 13.207l9.919-5.55v2.26L12 15.52 1.516 9.56l-.565.308Z"/></svg><span class="program__brand">Databricks</span><span class="program__name">Startup Program</span></li><li><svg class="program__logo" viewBox="0 0 24 24" aria-hidden="true" focusable="false" data-brand="Neon"><path fill="currentColor" d="M24 0V24l-9.365-8.045V24H0V0ZM2.942 21.087h8.751V9.563l9.365 8.204V2.919L2.942 2.914Z"/></svg><span class="program__brand">Neon</span><span class="program__name">Startup Program</span></li></ul>
 </section>
-<section class="principles" aria-labelledby="principles-title">
-  <figure class="principles__mark"><picture><source srcset="assets/brand/zero_state_mark_4_640.webp" type="image/webp">
+<section class="principles" aria-labelledby="principles-title" data-reveal data-principles>
+  <div class="principles__static" aria-hidden="true"></div>
+  <figure class="principles__mark">
+    <svg class="principles__orbits" viewBox="0 0 400 400" aria-hidden="true" focusable="false">
+      <g class="pm__outer"><circle cx="200" cy="200" r="194" stroke-dasharray="2 7"/><circle class="orb__node" cx="200" cy="6" r="3"/></g>
+      <g class="pm__ring"><circle cx="200" cy="200" r="150"/><circle class="orb__node orb__node--lit" cx="350" cy="200" r="5"/><circle class="orb__node" cx="94" cy="306" r="3.5"/></g>
+      <circle cx="200" cy="200" r="104" stroke-dasharray="1 5"/>
+    </svg>
+    <picture><source srcset="assets/brand/zero_state_mark_4_640.webp" type="image/webp">
     <img src="assets/danny-email-bundle/retina/zero_state_mark_4_retina.png" alt="" width="459" height="640" loading="lazy" decoding="async"></picture></figure>
   <div class="principles__copy">
     <h2 id="principles-title">See clearly.<span>Build deliberately.</span></h2>
@@ -162,10 +171,11 @@
   <p class="foot__line">Software for a world that keeps changing.</p>
   <div class="foot__meta">
     <a class="wordmark" href="index.html" aria-label="Zero State home"><picture><source srcset="assets/brand/zero_state_mark_3_nav.webp" type="image/webp"><img src="assets/brand/zero_state_mark_3_nav.png" alt="" width="20" height="32"></picture><span>ZERØ STATE</span></a>
-    <nav class="foot__links" aria-label="Footer"><a href="https://github.com/Zero-State-LLC">GitHub</a><a href="https://www.facebook.com/1289691754235122" target="_blank" rel="noopener noreferrer">Facebook</a><a href="https://www.instagram.com/zerostatehq/" target="_blank" rel="noopener noreferrer">Instagram</a><a href="https://x.com/z3r0st4t3" target="_blank" rel="noopener noreferrer">X</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="marketing.html">Products</a><a href="#clients">Clients</a><a href="#community">Community</a><a href="contact.html">Support</a><a href="work.html">Work</a><a href="about.html">About</a></nav>
+    <nav class="foot__links" aria-label="Footer"><a href="https://github.com/Zero-State-LLC">GitHub</a><a href="https://www.facebook.com/1289691754235122" target="_blank" rel="noopener noreferrer">Facebook</a><a href="https://www.instagram.com/zerostatehq/" target="_blank" rel="noopener noreferrer">Instagram</a><a href="https://x.com/z3r0st4t3" target="_blank" rel="noopener noreferrer">X</a><a href="https://www.youtube.com/@zer0state_studio" target="_blank" rel="noopener noreferrer">YouTube</a><a href="https://www.tiktok.com/@zer0state3" target="_blank" rel="noopener noreferrer">TikTok</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="marketing.html">Products</a><a href="#clients">Clients</a><a href="#community">Community</a><a href="contact.html">Support</a><a href="work.html">Work</a><a href="about.html">About</a></nav>
     <p class="foot__legal">© <span data-year>2026</span> Zero State LLC</p>
   </div>
 </footer>
+<script src="site.js" defer></script>
 <script src="home.js" defer></script>
 </body>
 </html>

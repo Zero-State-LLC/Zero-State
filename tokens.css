@@ -17,6 +17,7 @@
   --color-veil-2: oklch(17% 0.01 65 / 0.84);
   --color-glow: oklch(72% 0.14 50 / 0.13);
   --color-glow-bone: oklch(93% 0.018 80 / 0.06);
+  --color-scanline: oklch(5% 0.01 65 / 0.55);
   --color-shadow: oklch(6% 0.01 65 / 0.8);
 
   --font-display: "Geist", ui-sans-serif, sans-serif;
