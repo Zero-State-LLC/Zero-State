@@ -12,7 +12,7 @@ const requiredPages = [
   'products/waykin.html', 'products/patchhive.html', 'products/psyfi.html',
   'products/surveillance-survivor.html', 'products/hexwire.html',
   'products/hollersports.html', 'products/marigold-market.html', 'products/slosh.html',
-  'products/noema.html',
+  'products/noema.html', 'products/pawl.html',
   'clients/autogive.html',
   'community/suas.html',
   'skills/orchestra.html', 'skills/hyperlex.html', 'skills/kubrick.html', 'skills/neon-genie.html'
@@ -72,6 +72,7 @@ const requiredHeroes = [
   'assets/products/marigold-hero.jpg',
   'assets/products/slosh-hero.gif',
   'assets/products/noema-hero.jpg',
+  'assets/products/pawl-hero.png',
   'assets/skills/orchestra-hero.jpg',
   'assets/skills/hyperlex-hero.jpg',
   'assets/skills/kubrick-hero.jpg',
@@ -129,7 +130,7 @@ if (!exists('styles-dark.css')) fail('styles-dark.css', 'official dark home styl
 if (!/hero-grid/.test(index)) fail('index.html', 'landing field grid is missing');
 
 // Org portfolio completeness
-for (const name of ['Waykin', 'PatchHive', 'PsyFi', 'Surveillance Survivor', 'HexWire', 'Hollersports', 'Marigold Market', 'Slosh', 'Noema']) {
+for (const name of ['Waykin', 'PatchHive', 'PsyFi', 'Surveillance Survivor', 'HexWire', 'Hollersports', 'Marigold Market', 'Slosh', 'Noema', 'Pawl']) {
   if (!index.includes(name)) fail('index.html', `${name} is missing from selected work`);
   if (!work.includes(name)) fail('work.html', `${name} is missing from portfolio`);
 }
@@ -142,13 +143,14 @@ if (!/assets\/products\/hollersports-hero\.jpg/.test(work)) fail('work.html', 'H
 if (!/assets\/products\/marigold-hero\.jpg/.test(work)) fail('work.html', 'Marigold Market hero image is missing');
 if (!/assets\/products\/slosh-hero\.gif/.test(work)) fail('work.html', 'Slosh hero image is missing');
 if (!/assets\/products\/noema-hero\.jpg/.test(work)) fail('work.html', 'Noema hero image is missing');
+if (!/assets\/products\/pawl-hero\.(?:png|webp)/.test(work)) fail('work.html', 'Pawl hero image is missing');
 if (!/products\/noema\.html/.test(work)) fail('work.html', 'Noema product card must open the parent-brand product page');
 if (!/products\/noema\.html/.test(index)) fail('index.html', 'Noema evidence row must open the parent-brand product page');
 
-if (!/Active pre-alpha · simulator-ready · not release-ready/.test(work) && !/Active pre-alpha · simulator-ready vertical slice · not release-ready/.test(work)) {
+if (!/Active pre-alpha · simulator-ready · not release-ready/.test(work) && !/Active pre-alpha · simulator-ready vertical slice · not release-ready/.test(work) && !/WIP · Active pre-alpha · approx\. Q1 2027 \(TestFlight target\)/.test(work)) {
   fail('work.html', 'Surveillance Survivor readiness posture is missing or overstated');
 }
-if (!/Stabilized vertical slice · CI-verified · device and App Store release gates remain/.test(work)) {
+if (!/Stabilized vertical slice · CI-verified · device and App Store release gates remain/.test(work) && !/WIP · Stabilized vertical slice · approx\. Q4 2026 \(App Store target\)/.test(work)) {
   fail('work.html', 'HexWire readiness posture is missing or overstated');
 }
 if (!/iPhone-first satirical survivor roguelite/.test(surveillance)) fail('products/surveillance-survivor.html', 'canonical README description is missing');
