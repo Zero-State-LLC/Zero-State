@@ -29,6 +29,7 @@ Public product pages map to org repositories:
 | Hollersports | [Zero-State-LLC/Hollersports](https://github.com/Zero-State-LLC/Hollersports) |
 | Marigold Market | [Zero-State-LLC/Marigold-Market](https://github.com/Zero-State-LLC/Marigold-Market) |
 | Noema | [noema.guru](https://noema.guru) |
+| Pawl | [pypi.org/project/pawl-gate](https://pypi.org/project/pawl-gate/) |
 
 ### Clients
 
@@ -77,6 +78,10 @@ npm test
 ```
 
 `npm test` runs deterministic site validation (pages, assets, internal links, product posture, identity-motion constraints). Dev server: `http://localhost:8080`.
+
+Pawl ratchets that validation in CI. Locally, run `/path/to/pawl check` after
+installing `pawl-gate==0.2.0`; the gate records the canonical `npm test` result
+without exposing the private product repositories.
 
 ## Social preview
 
