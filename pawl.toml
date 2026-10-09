@@ -1,0 +1,14 @@
+# Pawl gate definition. Code can only move forward.
+# Changes to this file and the baseline need human approval.
+
+[pawl]
+baseline = "pawl.baseline.json"
+debt_log = "PAWL_DEBT.md"
+lock_in_ci = true
+
+[[suite]]
+name = "site-validation"
+adapter = "junit"
+command = ["node", "scripts/pawl-site-test.js"]
+junit_path = "pawl-test-results.xml"
+identity = "ids"

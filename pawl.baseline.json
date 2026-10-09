@@ -1,0 +1,19 @@
+{
+  "pawl_baseline": 1,
+  "updated": "2026-10-08",
+  "suites": {
+    "site-validation": {
+      "failures": 0,
+      "failing_ids": [],
+      "collected": 1,
+      "identity": "ids",
+      "confirmed_orders": 1,
+      "collected_ids": [
+        "site::npm test"
+      ],
+      "skipped_ids": []
+    }
+  },
+  "metrics": {},
+  "quarantine": []
+}

@@ -3,3 +3,5 @@ node_modules/
 coverage/
 work/
 npm-debug.log*
+.pawl/
+pawl-test-results.xml
