@@ -275,10 +275,10 @@
     container-type: inline-size;
     pointer-events: none;
   }
-  .ring--mid { --r: 32cqi; --step: 40deg; --off: -70deg; }
+  .ring--mid { --r: 32cqi; --step: calc(360deg / var(--n)); --off: -70deg; }
   .ring--outer { --r: 46cqi; --step: 80deg; --off: -90deg; }
-  .ring--inner-a { --r: 17cqi; --step: 0deg; --off: -90deg; }
-  .ring--inner-b { --r: 17cqi; --step: 0deg; --off: 90deg; }
+  .ring--inner-a { --r: 17cqi; --step: 120deg; --off: -90deg; }
+  .ring--inner-b { --r: 17cqi; --step: 0deg; --off: 150deg; }
   .node {
     /* rigid rotation: every ring turns together, so spacing never collapses */
     --a: calc(var(--i) * var(--step) + var(--off) + var(--spin));
