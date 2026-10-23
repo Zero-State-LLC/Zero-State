@@ -150,9 +150,10 @@ if (!/products\/noema\.html/.test(index)) fail('index.html', 'Noema evidence row
 if (!/Active pre-alpha · simulator-ready · not release-ready/.test(work) && !/Active pre-alpha · simulator-ready vertical slice · not release-ready/.test(work)) {
   fail('work.html', 'Surveillance Survivor readiness posture is missing or overstated');
 }
-if (!/Stabilized vertical slice · CI-verified · device and App Store release gates remain/.test(work)) {
-  fail('work.html', 'HexWire readiness posture is missing or overstated');
+if (!/Live on the App Store · iPhone and iPad · \$3\.99/.test(work)) {
+  fail('work.html', 'HexWire live App Store status is missing');
 }
+if (!hexwire.includes('https://apps.apple.com/us/app/hexwire/id6800604898')) fail('products/hexwire.html', 'HexWire App Store link is missing');
 if (!/iPhone-first satirical survivor roguelite/.test(surveillance)) fail('products/surveillance-survivor.html', 'canonical README description is missing');
 if (!/tactical cyberpunk hex-grid RPG/.test(hexwire)) fail('products/hexwire.html', 'canonical HexWire README description is missing');
 if (!/Signal → Power → Trace → Escalation → Lay Low → Tempo Tradeoff/.test(hexwire)) fail('products/hexwire.html', 'canonical HexWire pressure loop is missing');
