@@ -22,6 +22,7 @@
     "products/slosh.html",
     "products/noema.html",
     "products/pawl.html",
+    "products/j-chain.html",
     "clients/autogive.html",
     "clients/zzthis.html",
     "community/suas.html",
@@ -40,7 +41,8 @@
     "Zero-State-LLC/Hollersports",
     "Zero-State-LLC/Marigold-Market",
     "Zero-State-LLC/slosh",
-    "Zero-State-LLC/Noema"
+    "Zero-State-LLC/Noema",
+    "Zero-State-LLC/JChain"
   ],
   "public_sources": {
     "org_repositories": "https://github.com/orgs/Zero-State-LLC/repositories",
