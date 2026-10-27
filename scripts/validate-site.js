@@ -330,6 +330,29 @@ if (exists('site-manifest.json')) {
   if (manifest.public_sources?.site !== `${APEX}/`) {
     fail('site-manifest.json', `public site must be ${APEX}/`);
   }
+  // LIVE tag: driven by manifest.live. Tagged pages and cards must match the manifest exactly.
+  const liveList = Array.isArray(manifest.live) ? manifest.live : [];
+  const liveTag = /class="live-tag"/g;
+  const livePages = new Set(liveList.map((e) => e.page));
+  for (const e of liveList) {
+    if (!/^https:\/\//.test(e.url || '') || e.http !== 200 || !e.checked) fail('site-manifest.json', `live entry ${e.name} needs an https url, http 200 and a checked date`);
+    if (!(manifest.pages || []).includes(e.page)) fail('site-manifest.json', `live entry ${e.name} is not an official page`);
+    if (exists(e.page)) {
+      const html = fs.readFileSync(path.join(root, e.page), 'utf8');
+      if (!/<p class="dossier__status"[^>]*><span class="live-tag">LIVE<\/span>/.test(html)) fail(e.page, 'live project needs the LIVE tag in its status line');
+    }
+  }
+  for (const entry of manifest.pages || []) {
+    const file = /\.html$/.test(entry) ? entry : `${entry}.html`;
+    if (!exists(file) || livePages.has(file)) continue;
+    if (liveTag.test(fs.readFileSync(path.join(root, file), 'utf8')) && !/^(index|work|marketing)\.html$/.test(file)) fail(file, 'only projects listed in manifest.live may carry the LIVE tag');
+    liveTag.lastIndex = 0;
+  }
+  for (const [name, html] of [['work.html', work], ['marketing.html', fs.readFileSync(path.join(root, 'marketing.html'), 'utf8')], ['index.html', index]]) {
+    const tagged = (html.match(/href="((?:products|clients)\/[a-z-]+\.html)"[^>]*>(?:(?!<\/a>).)*?<span class="(?:entry|node)__status"><span class="live-tag">LIVE<\/span>/gs) || []).map((s) => s.match(/href="([^"]+)"/)[1]);
+    for (const p of tagged) if (!livePages.has(p)) fail(name, `${p} card carries LIVE but is not in manifest.live`);
+    for (const p of livePages) if (name !== 'marketing.html' || p.startsWith('products/')) if (!tagged.includes(p)) fail(name, `${p} card is missing the LIVE tag`);
+  }
   const pages = Array.isArray(manifest.pages) ? manifest.pages : [];
   for (const entry of pages) {
     const file = officialPageFile(entry);

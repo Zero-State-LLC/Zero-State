@@ -215,3 +215,5 @@
 .blackdog-lockup span { color: var(--color-ink-2); font-size: var(--text-md); }
 .blackdog-lockup small { color: var(--color-accent); font: var(--text-xs)/1.4 var(--font-mono); }
 .entry__evidence--blackdog img { width: 70%; height: 70%; margin: 15% auto; object-fit: contain; }
+
+.dossier__status:has(.live-tag)::before { content: none; }
