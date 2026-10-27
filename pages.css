@@ -210,7 +210,7 @@
 /* BlackDog dossier lockup (mirrors the J-Chain lockup) */
 .blackdog-evidence { min-height: min(58vw, 28rem); background: radial-gradient(circle at 72% 35%, rgba(124, 242, 154, 0.14), transparent 35%), #171522; }
 .blackdog-lockup { display: grid; justify-items: center; gap: 10px; text-align: center; }
-.blackdog-lockup img { width: 96px; height: 96px; border-radius: 18px; }
+.blackdog-lockup img { width: 96px; height: 96px; }
 .blackdog-lockup strong { color: var(--color-ink); font: 700 clamp(28px, 5vw, 56px)/1 var(--font-mono); letter-spacing: 0.08em; }
 .blackdog-lockup span { color: var(--color-ink-2); font-size: var(--text-md); }
 .blackdog-lockup small { color: var(--color-accent); font: var(--text-xs)/1.4 var(--font-mono); }

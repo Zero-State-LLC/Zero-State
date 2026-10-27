@@ -38,7 +38,7 @@ are not weakened. Deploy still needs Danny's yes.
 - Waykin: PR #16 (2026-10-12) retargets the spec at Snap Spectacles, but the
   README and the site status still say iOS. Status left unchanged.
 - J-Chain: the site uses the live j-chain.net mark (https://j-chain.net/brand/mark-v2.svg, added 2026-10-24) at assets/products/jchain-mark.svg and as the g-jchain glyph, replacing the mark from PR #67 (Danny, 2026-10-26). The mark is the repo's "original stand-in mark", so it may change.
-- BlackDog: the entry mark and carousel glyph (a waveform) are site-side art, not a BlackDog brand asset.
+- BlackDog: the entry mark and carousel glyph (a waveform) are site-side art, not a BlackDog brand asset. It is a bare mark (no tile), matching the live J-Chain mark.
 - Autogive (no repo with tracked changes) and Sigil-Forge (version conflict
   above) have no Recent updates block.
 
