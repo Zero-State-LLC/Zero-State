@@ -10,14 +10,14 @@ copy that no longer match the project's real state.
 Update only version strings and status copy that can be verified from a real
 source (repo VERSION files, releases, PyPI, READMEs). Each dossier page also
 gets a "Recent updates" block summarising the last 30 days from releases,
-CHANGELOGs and merged PRs. No portfolio entries are added or removed. Out of scope: release-window estimates, patent status, links
+CHANGELOGs and merged PRs. Two entries are added at Danny's request (2026-10-26): J-Chain (folding in open PR #67) and BlackDog. Out of scope: release-window estimates, patent status, links
 to repositories that are now private, and anything that could not be verified.
 
 ## Affected users / systems
 
 Site visitors; `work.html`, `index.html`, `marketing.html`, `products/pawl.html`,
 `products/patchhive.html`, `products/surveillance-survivor.html`,
-`clients/zzthis.html`, `skills/{kubrick,neon-genie,orchestra}.html`.
+`clients/zzthis.html`, `skills/{kubrick,neon-genie,orchestra}.html`; new `products/j-chain.html` and `products/blackdog.html`, glyphs, marks, validator, manifest, sitemap and README table.
 
 ## Constraints / non-goals
 
@@ -37,6 +37,8 @@ are not weakened. Deploy still needs Danny's yes.
 
 - Waykin: PR #16 (2026-10-12) retargets the spec at Snap Spectacles, but the
   README and the site status still say iOS. Status left unchanged.
+- J-Chain: PR #67 ships its own mark (assets/products/jchain-mark.svg), which differs from the j-chain.net stand-in mark (/brand/mark-v2.svg). Kept as written; Danny to confirm which mark the site should show.
+- BlackDog: the entry mark and carousel glyph (a waveform) are site-side art, not a BlackDog brand asset.
 - Autogive (no repo with tracked changes) and Sigil-Forge (version conflict
   above) have no Recent updates block.
 
@@ -49,7 +51,9 @@ are not weakened. Deploy still needs Danny's yes.
 | Kubrick 0.27.15, Neon Genie 3.36.0, Orchestra 0.8.1 | `OBSERVED` | VERSION, CHANGELOG and README on each org repo main |
 | Hollersports is v0.5.0 advisory beta | `OBSERVED` | package version and tag v0.5.0-advisory-beta |
 | Pawl benchmark: 21/23 cheats caught in CI, 0/9 clean blocked | `OBSERVED` | pawl README, saved 2026-10-10 benchmark |
-| zzThat apps are not release-qualified | `OBSERVED` | zzthat README Status |
+| zzThat iOS/Android apps are live in alpha/beta | `OBSERVED` | Danny, 2026-10-18 (the zzthat README Status still says not release-qualified and is out of date) |
+| J-Chain runs spec v0.2.44, invite-only beta | `OBSERVED` | JChain README Status; j-chain.net/start and /llms.txt |
+| BlackDog spec 0.3.11, no release or tag, package 0.0.0, no model-quality claim | `OBSERVED` | BlackDog README, docs/VERSIONING.md, pyproject.toml, specs/001-faustcoder/spec.md |
 
 ## Author / date
 

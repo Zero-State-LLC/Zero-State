@@ -29,7 +29,9 @@ Cumulative release since `v0.3.0`: official dark home, social preview, and Herme
 - Skills: Kubrick v0.16.0 -> v0.27.15, Neon Genie v3.26.0 -> v3.36.0, Orchestra v0.8.0 -> v0.8.1 (repo VERSION files).
 - Hollersports Work card status names the current v0.5.0 advisory beta.
 - Surveillance Survivor "In short" now describes the one-level reboot (SS-specs, SS-runtime) instead of the legacy vertical slice.
-- zzThis page: the zzThat app reads as in development, not available.
+- zzThis page and the Work card: the zzThat apps read as in alpha/beta testing on iOS and Android (confirmed by Danny 2026-10-18; the zzthat repo docs are out of date). The AI photo-to-action feature stays unmentioned.
+- Add **J-Chain** (j-chain.net, invite-only beta, spec v0.2.44): folds in the content of PR #67 (catalogue entries, dossier page, carousel glyph, assets, validation coverage) with the spec version and a Recent updates block refreshed from the JChain repo.
+- Add **BlackDog** (formerly FaustCoder, renamed 2026-10-17 PT): Work, home and Products entries and a dossier page. Specification-first, spec 0.3.11, no tagged release, no model-quality claim; Recent updates from merged BlackDog PRs.
 - Add a "Recent updates" block (2 to 4 dated bullets, last 30 days, Pacific time) to each product, skill and client page, from releases, CHANGELOGs and merged PRs. Pages with no notable changes say so. Autogive and Sigil-Forge have none (no tracked source / unresolved version).
 - See `intent/2026-10-26-portfolio-refresh.md` for sources and open questions.
 
