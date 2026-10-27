@@ -52,7 +52,7 @@ are not weakened. Deploy still needs Danny's yes.
 | Hollersports is v0.5.0 advisory beta | `OBSERVED` | package version and tag v0.5.0-advisory-beta |
 | Pawl benchmark: 21/23 cheats caught in CI, 0/9 clean blocked | `OBSERVED` | pawl README, saved 2026-10-10 benchmark |
 | zzThat iOS/Android apps are live in alpha/beta | `OBSERVED` | Danny, 2026-10-18 (the zzthat README Status still says not release-qualified and is out of date) |
-| LIVE set (curl 2026-10-26): j-chain.net 200, noema.guru 200, autogive.app 200, zzthis.com 200, HexWire App Store page 200 (iTunes lookup: v1.0.0), PyPI pawl-gate 200 | `OBSERVED` | curl -L results; recorded in site-manifest.json `live` |
+| LIVE set (curl 2026-10-26): j-chain.net 200, noema.guru 200, autogive.app 200, zzthis.com 200, HexWire App Store page 200 (iTunes lookup: v1.0.0) (Pawl is on PyPI, 200, but is not tagged LIVE: Danny, 2026-10-26) | `OBSERVED` | curl -L results; recorded in site-manifest.json `live` |
 | Not LIVE: scry.zer0state.com 502; hollersports.com is a parked Cloudflare Registrar page; SUAS GitHub Pages 404; no public URL for PsyFi, Waykin, PatchHive, Slosh, Marigold Market, Surveillance Survivor or BlackDog | `OBSERVED` | curl results and site pages |
 | J-Chain runs spec v0.2.44, invite-only beta | `OBSERVED` | JChain README Status; j-chain.net/start and /llms.txt |
 | BlackDog spec 0.3.11, no release or tag, package 0.0.0, no model-quality claim | `OBSERVED` | BlackDog README, docs/VERSIONING.md, pyproject.toml, specs/001-faustcoder/spec.md |

@@ -90,14 +90,6 @@
       "note": "public"
     },
     {
-      "page": "products/pawl.html",
-      "name": "Pawl",
-      "url": "https://pypi.org/project/pawl-gate/",
-      "http": 200,
-      "checked": "2026-10-26",
-      "note": "public PyPI release"
-    },
-    {
       "page": "clients/autogive.html",
       "name": "Autogive.app",
       "url": "https://autogive.app",
