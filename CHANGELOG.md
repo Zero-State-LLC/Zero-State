@@ -23,6 +23,13 @@ Cumulative release since `v0.3.0`: official dark home, social preview, and Herme
 
 ## Unreleased
 
+### Portfolio mismatch fixes (2026-10-26)
+- Hollersports page, home card and Products card now read "On hold · v0.5.0 advisory beta", matching the Work card. No hollersports.com link (parked registrar page); the validator now rejects one.
+- PsyFi: removed "web ship live now" (no public URL found). The Work card and page now say web ship gates complete and native iOS deferred, per the repo readiness board; Recent updates adds the Oct 23 next-milestone note.
+- Waykin: ADR-0004 (PR #16) and the TypeScript core port (PR #17) are merged, so the status and page now say the iOS app is the reference implementation with a Snap Spectacles target (Lens in progress). Recent updates rewritten from merged PRs #14, #16, #17, #19, #21, #22.
+- SUAS: removed the dead GitHub Pages and repository links (404). The page keeps the description and the SPEC-017 NOT READY posture; the validator now rejects those links.
+- Hyperlex v0.4.0 -> v0.4.2 (repo VERSION file, which pyproject.toml reads; its README and STATUS still say 0.4.0). Sigil-Forge v0.13.0 -> v0.13.1 (org repo VERSION) plus a Recent updates block. README drops the dead scrimshawlife-ctrl/Hyperlex link.
+
 ### Portfolio refresh (2026-10-26)
 - Pawl status v0.2.0 -> v0.5.0 (PyPI pawl-gate 0.5.0); product page benchmark sentence now quotes the repo's saved 2026-10-10 benchmark (21 of 23 cheats caught in CI, 0 of 9 clean changes blocked).
 - PatchHive status v0.3.0-alpha -> v0.3.0-alpha.2 (GitHub pre-release).

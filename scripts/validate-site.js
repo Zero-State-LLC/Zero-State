@@ -218,15 +218,21 @@ if (communityAssets.some((name) => /luma|innovation4veterans/i.test(name))) {
 if (/\bSUAS\b/.test(fs.readFileSync(path.join(root, 'marketing.html'), 'utf8'))) {
   fail('marketing.html', 'SUAS must not be listed as a product for sale');
 }
+if (/hollersports\.com/i.test(work + index + fs.readFileSync(path.join(root, 'marketing.html'), 'utf8') + hollersports)) {
+  fail('products/hollersports.html', 'must not link hollersports.com (parked registrar page)');
+}
+if (/web ship live now/i.test(work + index + fs.readFileSync(path.join(root, 'marketing.html'), 'utf8') + psyfi)) {
+  fail('products/psyfi.html', 'PsyFi has no public URL; do not claim the web ship is live');
+}
 const suas = exists('community/suas.html') ? fs.readFileSync(path.join(root, 'community/suas.html'), 'utf8') : '';
 if (!suas) {
   fail('community/suas.html', 'community parent page is missing');
 } else {
-  if (!/https:\/\/scrimshawlife-ctrl\.github\.io\/suas\//.test(suas + work)) {
-    fail('community/suas.html', 'public SUAS page link (lowercase /suas/) is missing');
+  if (/scrimshawlife-ctrl\.github\.io\/suas/i.test(suas + work + index)) {
+    fail('community/suas.html', 'must not link the SUAS GitHub Pages site (returns 404)');
   }
-  if (/scrimshawlife-ctrl\.github\.io\/SUAS/.test(suas + work + index)) {
-    fail('community/suas.html', 'must not use the 404 path /SUAS/');
+  if (/github\.com\/scrimshawlife-ctrl\/SUAS/i.test(suas + work + index)) {
+    fail('community/suas.html', 'must not link the SUAS repositories (private, 404 for the public)');
   }
   if (!/https:\/\/luma\.com\/Innovation4Veterans/.test(suas + work)) {
     fail('community/suas.html', 'Veteran Innovation Hackathon Luma link is missing');
