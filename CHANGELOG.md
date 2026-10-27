@@ -30,6 +30,7 @@ Cumulative release since `v0.3.0`: official dark home, social preview, and Herme
 - Hollersports Work card status names the current v0.5.0 advisory beta.
 - Surveillance Survivor "In short" now describes the one-level reboot (SS-specs, SS-runtime) instead of the legacy vertical slice.
 - zzThis page: the zzThat app reads as in development, not available.
+- Add a "Recent updates" block (2 to 4 dated bullets, last 30 days, Pacific time) to each product, skill and client page, from releases, CHANGELOGs and merged PRs. Pages with no notable changes say so. Autogive and Sigil-Forge have none (no tracked source / unresolved version).
 - See `intent/2026-10-26-portfolio-refresh.md` for sources and open questions.
 
 ### Observatory rollout

@@ -190,3 +190,8 @@
 @media (prefers-reduced-motion: reduce) {
   .dossier__ring { transform: none !important; }
 }
+
+/* Recent updates list on dossier pages */
+.dossier__body .recent { display: grid; gap: var(--space-sm); list-style: none; padding: 0; }
+.dossier__body .recent li { display: grid; gap: var(--space-2xs, 2px); }
+.dossier__body .recent time { color: var(--color-muted); font: 400 var(--text-xs)/1.6 var(--font-mono); }

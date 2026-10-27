@@ -8,8 +8,9 @@ copy that no longer match the project's real state.
 ## Proposed outcome
 
 Update only version strings and status copy that can be verified from a real
-source (repo VERSION files, releases, PyPI, READMEs). No portfolio entries are
-added or removed. Out of scope: release-window estimates, patent status, links
+source (repo VERSION files, releases, PyPI, READMEs). Each dossier page also
+gets a "Recent updates" block summarising the last 30 days from releases,
+CHANGELOGs and merged PRs. No portfolio entries are added or removed. Out of scope: release-window estimates, patent status, links
 to repositories that are now private, and anything that could not be verified.
 
 ## Affected users / systems
@@ -33,6 +34,11 @@ are not weakened. Deploy still needs Danny's yes.
   Survivor Q1 2027) are not stated in the repos. Left as approved.
 - PsyFi "web ship live now": repo says production-ready for a Docker ship; no
   public deployment URL was found.
+
+- Waykin: PR #16 (2026-10-12) retargets the spec at Snap Spectacles, but the
+  README and the site status still say iOS. Status left unchanged.
+- Autogive (no repo with tracked changes) and Sigil-Forge (version conflict
+  above) have no Recent updates block.
 
 ## Verified / assumed claims
 

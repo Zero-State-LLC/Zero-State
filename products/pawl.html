@@ -52,6 +52,13 @@
         <p>Known failures are allowed—and can only go down. Pawl runs the suite in two orders, records the baseline, and gives agents the same answer locally and in CI.</p></div></section>
 <section class="dossier__section" aria-labelledby="s2"><h2 id="s2">In short</h2><div class="dossier__body"><p>Install it with <code>pip install pawl-gate</code>, initialize a repo with <code>pawl init --github</code>, and make the Pawl check required. Hooks support Claude Code, Codex, Cursor, and Hermes.</p>
         <p>In Pawl's saved 2026-10-10 benchmark, on an in-repo corpus of 23 synthetic agent cheats and 9 clean changes, Pawl in CI caught 21 of the 23 cheats and blocked none of the clean changes. That result is in-repo benchmark evidence, not a universal guarantee.</p></div></section>
+<section class="dossier__section" aria-labelledby="recent"><h2 id="recent">Recent updates</h2><div class="dossier__body"><p class="status">Last 30 days to Oct 26, 2026 · Pacific time</p>
+        <ul class="recent">
+          <li><time datetime="2026-10-13">Oct 13</time> <span>v0.5.0: the check now fails when a new test sits outside the recorded baseline.</span></li>
+          <li><time datetime="2026-10-10">Oct 10</time> <span>v0.4.0 and v0.4.1 (to Oct 13): the Codex protect hook also covers MCP tools, a broken config now blocks instead of passing, and known in-repo gaps were closed, including a trusted run of Pawl on its own repo.</span></li>
+          <li><time datetime="2026-10-10">Oct 10</time> <span>v0.3.0: a protected-contracts registry flags changes to spec authority files, and approvals now record where they came from.</span></li>
+          <li><time datetime="2026-10-08">Oct 8</time> <span>v0.2.0: metric checks fail closed on bad exit codes, and an approval label is bound to the commit it was applied at.</span></li>
+        </ul></div></section>
 <nav class="dossier__back" aria-label="Return"><p>Return to the evidence</p><a href="../index.html#evidence">All projects ↖</a></nav>
 </main>
 <footer class="foot">
