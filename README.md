@@ -48,7 +48,7 @@ Civic and hackathon work is listed separately from Zero State products and clien
 
 | Entry | Public page |
 | --- | --- |
-| SUAS | [scrimshawlife-ctrl.github.io/suas](https://scrimshawlife-ctrl.github.io/suas/) |
+| SUAS | Not currently available (the former GitHub Pages site returns 404); see [community/suas.html](community/suas.html) |
 
 ### Hermes / OpenClaw skills
 
@@ -61,8 +61,6 @@ Civic and hackathon work is listed separately from Zero State products and clien
 | Sigil-Forge | [Zero-State-LLC/Sigil-Forge](https://github.com/Zero-State-LLC/Sigil-Forge) |
 
 Org listing: https://github.com/orgs/Zero-State-LLC/repositories
-
-Company org Hyperlex mirror may lag; the active Hyperlex train remote is [scrimshawlife-ctrl/Hyperlex](https://github.com/scrimshawlife-ctrl/Hyperlex) (dual-home).
 
 ## Custom domain (Apple enrollment)
 
