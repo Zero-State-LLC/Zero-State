@@ -275,3 +275,7 @@ a { color: inherit; }
   [data-load] { animation-name: fade !important; }
   ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
 }
+
+/* LIVE tag: one component for every project with a public URL that answered 200 (see site-manifest.json "live") */
+.live-tag { display: inline-block; margin-right: 0.45em; padding: 0.05em 0.5em; border: 1px solid var(--color-live); border-radius: 999px; color: var(--color-live); font: 700 var(--text-2xs)/1.5 var(--font-mono); letter-spacing: 0.1em; vertical-align: baseline; white-space: nowrap; }
+.live-tag::before { content: ""; display: inline-block; width: 0.5em; height: 0.5em; margin-right: 0.45em; border-radius: 50%; background: var(--color-live); }

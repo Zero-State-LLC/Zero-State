@@ -22,6 +22,8 @@
     "products/slosh.html",
     "products/noema.html",
     "products/pawl.html",
+    "products/j-chain.html",
+    "products/blackdog.html",
     "clients/autogive.html",
     "clients/zzthis.html",
     "community/suas.html",
@@ -40,7 +42,9 @@
     "Zero-State-LLC/Hollersports",
     "Zero-State-LLC/Marigold-Market",
     "Zero-State-LLC/slosh",
-    "Zero-State-LLC/Noema"
+    "Zero-State-LLC/Noema",
+    "Zero-State-LLC/JChain",
+    "Zero-State-LLC/BlackDog"
   ],
   "public_sources": {
     "org_repositories": "https://github.com/orgs/Zero-State-LLC/repositories",
@@ -59,5 +63,47 @@
     "Zero-State-LLC/Kubrick",
     "Zero-State-LLC/NeonGenie",
     "Zero-State-LLC/Sigil-Forge"
+  ],
+  "live": [
+    {
+      "page": "products/j-chain.html",
+      "name": "J-Chain",
+      "url": "https://j-chain.net/",
+      "http": 200,
+      "checked": "2026-10-26",
+      "note": "invite-only beta"
+    },
+    {
+      "page": "products/hexwire.html",
+      "name": "HexWire",
+      "url": "https://apps.apple.com/us/app/hexwire/id6800604898",
+      "http": 200,
+      "checked": "2026-10-26",
+      "note": "App Store"
+    },
+    {
+      "page": "products/noema.html",
+      "name": "Noema",
+      "url": "https://noema.guru",
+      "http": 200,
+      "checked": "2026-10-26",
+      "note": "public"
+    },
+    {
+      "page": "clients/autogive.html",
+      "name": "Autogive.app",
+      "url": "https://autogive.app",
+      "http": 200,
+      "checked": "2026-10-26",
+      "note": "public site"
+    },
+    {
+      "page": "clients/zzthis.html",
+      "name": "zzThis",
+      "url": "https://zzthis.com",
+      "http": 200,
+      "checked": "2026-10-26",
+      "note": "public site"
+    }
   ]
 }

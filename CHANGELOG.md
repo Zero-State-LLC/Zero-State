@@ -23,6 +23,19 @@ Cumulative release since `v0.3.0`: official dark home, social preview, and Herme
 
 ## Unreleased
 
+### Portfolio refresh (2026-10-26)
+- Pawl status v0.2.0 -> v0.5.0 (PyPI pawl-gate 0.5.0); product page benchmark sentence now quotes the repo's saved 2026-10-10 benchmark (21 of 23 cheats caught in CI, 0 of 9 clean changes blocked).
+- PatchHive status v0.3.0-alpha -> v0.3.0-alpha.2 (GitHub pre-release).
+- Skills: Kubrick v0.16.0 -> v0.27.15, Neon Genie v3.26.0 -> v3.36.0, Orchestra v0.8.0 -> v0.8.1 (repo VERSION files).
+- Hollersports Work card status names the current v0.5.0 advisory beta.
+- Surveillance Survivor "In short" now describes the one-level reboot (SS-specs, SS-runtime) instead of the legacy vertical slice.
+- zzThis page and the Work card: the zzThat apps read as in alpha/beta testing on iOS and Android (confirmed by Danny 2026-10-18; the zzthat repo docs are out of date). The AI photo-to-action feature stays unmentioned.
+- Add **J-Chain** (j-chain.net, invite-only beta, spec v0.2.44): folds in the content of PR #67 (catalogue entries, dossier page, carousel glyph, assets, validation coverage) with the spec version and a Recent updates block refreshed from the JChain repo. The J-Chain mark and glyph are the live j-chain.net mark (mark-v2.svg), not the one from #67.
+- Add a green **LIVE** tag (`.live-tag`, one component in `site.css`) to projects whose public URL answered HTTP 200 on 2026-10-26 and is usable by the public or an invite beta: J-Chain, HexWire (App Store), Noema, Autogive.app and zzThis. It shows on Work, Products, home cards and each project page. The list lives in `site-manifest.json` (`live`), and the validator fails if tagged pages or cards drift from it.
+- Add **BlackDog** (formerly FaustCoder, renamed 2026-10-17 PT): Work, home and Products entries and a dossier page. Specification-first, spec 0.3.11, no tagged release, no model-quality claim; Recent updates from merged BlackDog PRs.
+- Add a "Recent updates" block (2 to 4 dated bullets, last 30 days, Pacific time) to each product, skill and client page, from releases, CHANGELOGs and merged PRs. Pages with no notable changes say so. Autogive and Sigil-Forge have none (no tracked source / unresolved version).
+- See `intent/2026-10-26-portfolio-refresh.md` for sources and open questions.
+
 ### Observatory rollout
 - Footer adds YouTube (@zer0state_studio) and TikTok (@zer0state3) on every page; the home's structured data lists them too.
 - Every public page moves onto the Observatory system: dossiers for products, skills, client, community, and the HexWire media kit; a catalogue for Work and Products; long documents with an on-this-page rail for philosophy, about, contact, privacy, and terms. Copy, alt text, and link targets carried over verbatim.

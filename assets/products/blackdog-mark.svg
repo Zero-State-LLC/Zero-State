@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" role="img" aria-labelledby="title desc">
+  <title id="title">BlackDog mark</title>
+  <desc id="desc">A sine waveform with one marked sample point.</desc>
+  <g transform="translate(48 48) scale(1.15) translate(-48 -50)">
+    <path d="M12 50c9-26 18-26 24 0s15 26 24 0 12-20 24-8" fill="none" stroke="#f3e9d2" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="36" cy="50" r="5" fill="#7cf29a"/>
+  </g>
+</svg>

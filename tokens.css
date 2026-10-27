@@ -11,6 +11,7 @@
   --color-rule-2: oklch(23% 0.009 65);
   --color-grid: oklch(36% 0.02 60);
   --color-accent: oklch(72% 0.14 50);
+  --color-live: #72ff8b; /* LIVE tag; matches the live J-Chain mark */
   --color-accent-ink: oklch(17% 0.02 50);
   --color-focus: oklch(78% 0.17 50);
   --color-veil: oklch(13% 0.008 65 / 0.74);
