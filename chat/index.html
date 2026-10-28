@@ -3,95 +3,214 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>GLM — zer0state access</title>
+<title>GLM WEB INTERFACE TEST — zer0state</title>
 <meta name="robots" content="noindex">
+<link rel="preload" href="/assets/fonts/geistmono-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/tokens.css">
 <style>
-:root { color-scheme: dark; }
+:root {
+  --bg: oklch(13% 0.008 65);
+  --ink: oklch(93% 0.018 80);
+  --muted: oklch(65% 0.012 70);
+  --rule: oklch(31% 0.01 65);
+  --accent: oklch(72% 0.14 50);
+  --live: #72ff8b;
+  --glow: oklch(72% 0.14 50 / 0.13);
+  --mono: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+}
 * { box-sizing: border-box; }
+html { height: 100%; }
 body {
-  margin: 0; min-height: 100vh; background: #0a0f1c; color: #dce4f5;
-  font: 15px/1.55 -apple-system, 'Segoe UI', sans-serif;
-  display: flex; flex-direction: column;
+  margin: 0; height: 100vh; display: flex; flex-direction: column;
+  background:
+    radial-gradient(1200px 500px at 70% -10%, var(--glow), transparent 60%),
+    var(--bg);
+  color: var(--ink);
+  font: 14px/1.6 var(--mono);
 }
+::selection { background: var(--accent); color: var(--bg); }
+
+/* scanline + grid texture */
+body::before {
+  content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  background:
+    repeating-linear-gradient(0deg, transparent 0 2px, oklch(93% 0.018 80 / 0.012) 2px 3px),
+    linear-gradient(90deg, oklch(93% 0.018 80 / 0.025) 1px, transparent 1px) 0 0 / 48px 48px;
+}
+
+/* ---------- header ---------- */
 header {
-  padding: 1rem 1.2rem; border-bottom: 1px solid #232c44;
-  display: flex; align-items: baseline; gap: .6rem;
+  position: relative; z-index: 2;
+  display: flex; align-items: center; gap: 1rem;
+  padding: .8rem 1.4rem; border-bottom: 1px solid var(--rule);
+  background: oklch(13% 0.008 65 / 0.86); backdrop-filter: blur(8px);
 }
-header h1 { font-size: .95rem; margin: 0; letter-spacing: .12em; }
-header span { color: #6b7794; font-size: .75rem; }
+.aperture {
+  width: 26px; height: 26px; border: 1.5px solid var(--accent); border-radius: 50%;
+  position: relative; flex: none;
+}
+.aperture::before {
+  content: ''; position: absolute; inset: 4px; border-radius: 50%;
+  border: 1.5px solid var(--accent);
+  clip-path: polygon(50% 50%, 100% 0, 100% 58%, 50% 58%);
+  transform: rotate(45deg);
+}
+.title { display: flex; flex-direction: column; line-height: 1.15; }
+.title b { font-size: .82rem; letter-spacing: .18em; font-weight: 600; }
+.title b .flash { color: var(--accent); }
+.title small { color: var(--muted); font-size: .66rem; letter-spacing: .08em; }
+.hstatus { margin-left: auto; display: flex; gap: 1.1rem; align-items: center; font-size: .68rem; color: var(--muted); letter-spacing: .06em; }
+.dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--live); margin-right: .45em; box-shadow: 0 0 8px var(--live); animation: pulse 2.2s infinite; }
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .35; } }
+
+/* ---------- stream ---------- */
 #log {
-  flex: 1; overflow-y: auto; padding: 1.2rem; max-width: 860px; margin: 0 auto; width: 100%;
-  display: flex; flex-direction: column; gap: .8rem;
+  position: relative; z-index: 1;
+  flex: 1; overflow-y: auto; padding: 1.4rem 1.4rem 1rem;
+  display: flex; flex-direction: column; gap: 1rem;
+  max-width: 920px; width: 100%; margin: 0 auto;
+  scrollbar-width: thin; scrollbar-color: var(--rule) transparent;
 }
-.msg { padding: .7rem 1rem; border-radius: 12px; max-width: 82%; white-space: pre-wrap; word-wrap: break-word; }
-.msg.user { align-self: flex-end; background: #2b3554; }
-.msg.assistant { align-self: flex-start; background: #171f36; border: 1px solid #232c44; }
-.msg.assistant.thinking { color: #6b7794; font-style: italic; }
-.msg.error { align-self: center; background: #3a1620; color: #f0a7b8; font-size: .85rem; }
+.row { display: flex; flex-direction: column; gap: .3rem; max-width: 86%; }
+.row.user { align-self: flex-end; align-items: flex-end; }
+.tag { font-size: .62rem; letter-spacing: .22em; color: var(--muted); }
+.tag b { color: var(--accent); font-weight: 600; }
+.bubble {
+  padding: .8rem 1rem; border-radius: 4px; white-space: pre-wrap; word-wrap: break-word;
+  border: 1px solid var(--rule); background: oklch(17% 0.01 65 / 0.82); position: relative;
+}
+.user .bubble { border-color: oklch(72% 0.14 50 / 0.5); background: oklch(72% 0.14 50 / 0.09); }
+.assistant .bubble { border-left: 2px solid var(--accent); }
+.bubble.thinking { color: var(--muted); font-style: italic; }
+.bubble.error { border-color: #8b3040; background: oklch(30% 0.12 20 / 0.2); color: #f0a7b8; font-size: .8rem; }
+.cursor { display: inline-block; width: .55em; height: 1em; background: var(--accent); vertical-align: -0.12em; animation: blink 1s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+
+/* ---------- composer ---------- */
 form {
-  display: flex; gap: .6rem; padding: 1rem 1.2rem; border-top: 1px solid #232c44;
-  max-width: 860px; margin: 0 auto; width: 100%;
+  position: relative; z-index: 2;
+  display: flex; gap: .6rem; align-items: flex-end;
+  max-width: 920px; width: 100%; margin: 0 auto; padding: .9rem 1.4rem 1.1rem;
 }
+.inputwrap {
+  flex: 1; position: relative; border: 1px solid var(--rule); border-radius: 3px;
+  background: oklch(17% 0.01 65 / 0.9); transition: border-color .15s;
+}
+.inputwrap:focus-within { border-color: var(--accent); box-shadow: 0 0 0 1px oklch(72% 0.14 50 / 0.3), 0 0 24px var(--glow); }
 textarea {
-  flex: 1; resize: none; background: #131a2e; border: 1px solid #232c44; color: #dce4f5;
-  border-radius: 10px; padding: .7rem .9rem; font: inherit; min-height: 48px; max-height: 160px;
+  width: 100%; resize: none; border: 0; background: transparent; color: var(--ink);
+  font: inherit; padding: .75rem .9rem; min-height: 52px; max-height: 180px; outline: none;
 }
-textarea:focus { outline: 1px solid #4a5b8c; }
-button {
-  background: #7c66dc; color: white; border: 0; border-radius: 10px; padding: 0 .9rem;
-  font: inherit; cursor: pointer;
+#send {
+  background: var(--accent); color: var(--bg); border: 0; border-radius: 3px;
+  font: 600 .72rem/1 var(--mono); letter-spacing: .18em; padding: 0 1.3rem; height: 52px;
+  cursor: pointer; transition: filter .15s, transform .05s;
 }
-button:disabled { opacity: .45; cursor: default; }
+#send:hover:not(:disabled) { filter: brightness(1.12); }
+#send:active:not(:disabled) { transform: translateY(1px); }
+#send:disabled { opacity: .4; cursor: default; }
+
+/* ---------- gate ---------- */
 #gate {
-  position: fixed; inset: 0; background: #0a0f1c; display: grid; place-content: center;
-  gap: .8rem; text-align: center; z-index: 10;
+  position: fixed; inset: 0; z-index: 10; display: grid; place-content: center; gap: 1.1rem;
+  background: oklch(13% 0.008 65 / 0.97); text-align: center; backdrop-filter: blur(6px);
 }
-#gate p { color: #6b7794; margin: 0 0 .4rem; font-size: .85rem; }
-#gate input {
-  background: #131a2e; border: 1px solid #232c44; color: #dce4f5; border-radius: 10px;
-  padding: .7rem 1rem; font: inherit; text-align: center; width: 260px;
+#gate .aperture { margin: 0 auto; width: 44px; height: 44px; }
+#gate h2 { margin: 0; font-size: .9rem; letter-spacing: .3em; font-weight: 600; }
+#gate p { color: var(--muted); font-size: .72rem; margin: 0; letter-spacing: .06em; }
+#pass {
+  background: oklch(17% 0.01 65); border: 1px solid var(--rule); color: var(--ink);
+  font: inherit; padding: .8rem 1rem; border-radius: 3px; width: 300px; text-align: center;
+  letter-spacing: .3em; outline: none;
 }
-@media (max-width: 640px) { .msg { max-width: 92%; } }
+#pass:focus { border-color: var(--accent); box-shadow: 0 0 24px var(--glow); }
+#gate-go {
+  background: var(--accent); color: var(--bg); border: 0; border-radius: 3px;
+  font: 600 .72rem/1 var(--mono); letter-spacing: .22em; padding: .85rem 2rem; cursor: pointer;
+}
+.err { color: #f0a7b8; font-size: .72rem; min-height: 1em; letter-spacing: .04em; }
+
+@media (max-width: 640px) {
+  .row { max-width: 94%; }
+  .hstatus .lbl { display: none; }
+}
 </style>
 </head>
 <body>
 <div id="gate">
-  <p>Access passphrase — ask Aaron.</p>
-  <input id="pass" type="password" placeholder="passphrase" autocomplete="off">
-  <button id="gate-go">Enter</button>
+  <div class="aperture"></div>
+  <h2>RESTRICTED LINE</h2>
+  <p>GLM WEB INTERFACE TEST · PRIVATE PREVIEW</p>
+  <input id="pass" type="password" placeholder="ACCESS PHRASE" autocomplete="off">
+  <button id="gate-go">AUTHENTICATE</button>
+  <div class="err" id="gate-err"></div>
 </div>
+
 <header>
-  <h1>GLM · zer0state</h1><span>GLM-5.3-Flash · 2×DGX Spark cluster · private preview</span>
+  <div class="aperture"></div>
+  <div class="title">
+    <b>GLM WEB INTERFACE <span class="flash">TEST</span></b>
+    <small>ZER0STATE · GLM-5.3-FLASH · 2× DGX SPARK CLUSTER</small>
+  </div>
+  <div class="hstatus">
+    <span class="lbl"><span class="dot"></span>LINK ACTIVE</span>
+    <span class="lbl" id="lat">LAT —</span>
+    <span class="lbl">MODEL: GLM-5.3</span>
+  </div>
 </header>
+
 <div id="log"></div>
+
 <form id="f">
-  <textarea id="t" rows="1" placeholder="Say something…"></textarea>
-  <button id="send">Send</button>
+  <div class="inputwrap"><textarea id="t" rows="1" placeholder="TRANSMIT — enter to send, shift+enter for newline"></textarea></div>
+  <button id="send">SEND</button>
 </form>
+
 <script>
 const WORKER = 'https://glm-chat.zer0state.workers.dev/v1/chat/completions';
 const $ = (s) => document.querySelector(s);
 const log = $('#log'), t = $('#t'), send = $('#send');
 let pass = sessionStorage.getItem('chat-pass') || '';
 let history = [];
+let bootDone = false;
 
-if (pass) $('#gate').style.display = 'none';
+if (pass) { $('#gate').style.display = 'none'; boot(); }
 $('#gate-go').onclick = () => {
   pass = $('#pass').value;
-  if (!pass) return;
+  if (!pass) { $('#gate-err').textContent = 'PHRASE REQUIRED'; return; }
   sessionStorage.setItem('chat-pass', pass);
   $('#gate').style.display = 'none';
+  boot();
   t.focus();
 };
 $('#pass').addEventListener('keydown', (e) => { if (e.key === 'Enter') $('#gate-go').click(); });
 
-function add(role, text) {
+function boot() {
+  if (bootDone) return; bootDone = true;
+  sysline('CHANNEL OPEN — model GLM-5.3-Flash-EXL3 — lineage: zer0state cluster');
+}
+
+function sysline(text) {
   const d = document.createElement('div');
-  d.className = 'msg ' + role;
-  d.textContent = text;
+  d.className = 'tag'; d.style.alignSelf = 'center';
+  d.textContent = '·· ' + text + ' ··';
   log.append(d);
+}
+
+function add(role, text) {
+  const row = document.createElement('div');
+  row.className = 'row ' + role;
+  const tag = document.createElement('div');
+  tag.className = 'tag';
+  tag.innerHTML = role === 'user' ? '<b>YOU</b>' : '<b>GLM-5.3</b>';
+  const b = document.createElement('div');
+  b.className = 'bubble' + (role === 'assistant' && text === '…' ? ' thinking' : '');
+  b.textContent = text;
+  if (role === 'assistant' && text === '…') b.innerHTML = 'computing <span class="cursor"></span>';
+  row.append(tag, b);
+  log.append(row);
   log.scrollTop = log.scrollHeight;
-  return d;
+  return b;
 }
 
 async function sendMsg() {
@@ -100,8 +219,9 @@ async function sendMsg() {
   t.value = '';
   add('user', text);
   history.push({ role: 'user', content: text });
-  const thinking = add('assistant', '…');
+  const bubble = add('assistant', '…');
   send.disabled = true;
+  const t0 = performance.now();
   try {
     const res = await fetch(WORKER, {
       method: 'POST',
@@ -110,14 +230,14 @@ async function sendMsg() {
     });
     const data = await res.json();
     const reply = data?.choices?.[0]?.message?.content;
-    if (!res.ok || !reply) throw new Error(data?.error || res.status);
+    if (!res.ok || !reply) throw new Error(typeof data?.error === 'string' ? data.error : res.status);
     history.push({ role: 'assistant', content: reply });
-    thinking.textContent = reply;
+    bubble.classList.remove('thinking');
+    bubble.textContent = reply;
+    $('#lat').textContent = 'LAT ' + Math.round(performance.now() - t0) + 'MS';
   } catch (err) {
-    thinking.className = 'msg error';
-    thinking.textContent = typeof err.message === 'string' && err.message !== '[object Object]'
-      ? 'Error: ' + err.message
-      : 'Error: could not reach the model.';
+    bubble.className = 'bubble error';
+    bubble.textContent = 'TRANSMISSION FAILED — ' + (typeof err.message === 'string' ? err.message : 'LINK DOWN');
   }
   send.disabled = false;
   t.focus();
@@ -126,6 +246,10 @@ async function sendMsg() {
 $('#f').addEventListener('submit', (e) => { e.preventDefault(); sendMsg(); });
 t.addEventListener('keydown', (e) => {
   if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMsg(); }
+});
+t.addEventListener('input', () => {
+  t.style.height = 'auto';
+  t.style.height = Math.min(t.scrollHeight, 180) + 'px';
 });
 </script>
 </body>
