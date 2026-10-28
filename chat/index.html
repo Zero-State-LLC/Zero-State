@@ -167,7 +167,9 @@ textarea {
 </form>
 
 <script>
-const WORKER = 'https://glm-chat.zer0state.workers.dev/v1/chat/completions';
+const API = 'https://glm-api.zer0state.com/v1/chat/completions';
+const CID = '26ce9918542bf0bf14a8a06b193d4d47.access';
+const CSECRET = 'cfast_CyJQ09q1z5duhHVOP2LuKfMN4ged95RCDZQZFZJC9d9f6efd';
 const $ = (s) => document.querySelector(s);
 const log = $('#log'), t = $('#t'), send = $('#send');
 let pass = sessionStorage.getItem('chat-pass') || '';
@@ -216,6 +218,11 @@ function add(role, text) {
 async function sendMsg() {
   const text = t.value.trim();
   if (!text || send.disabled) return;
+  const today = new Date().toISOString().slice(0,10);
+  const rkey = 'glm-chat-count-' + today;
+  const count = parseInt(localStorage.getItem(rkey) || '0', 10);
+  if (count >= 30) { add('error', 'DAILY LIMIT REACHED (30) — come back tomorrow.'); return; }
+  localStorage.setItem(rkey, String(count+1));
   t.value = '';
   add('user', text);
   history.push({ role: 'user', content: text });
@@ -225,7 +232,11 @@ async function sendMsg() {
   try {
     const res = await fetch(WORKER, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'X-Chat-Pass': pass },
+      headers: {
+        'Content-Type': 'application/json',
+        'CF-Access-Client-Id': CID,
+        'CF-Access-Client-Secret': CSECRET,
+      },
       body: JSON.stringify({ messages: history.slice(-16), max_tokens: 2048 }),
     });
     const data = await res.json();
