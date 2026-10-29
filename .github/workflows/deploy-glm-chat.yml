@@ -21,6 +21,7 @@ jobs:
           set -e
           # wrangler 4: create prints the binding TOML; if it already exists it errors - then list and grep
           OUT=$(npx wrangler kv namespace create RATE 2>&1) || true
+          echo "$OUT" | tail -20   # visible for debugging
           ID=$(echo "$OUT" | grep -oE 'id\s*=\s*"?([a-f0-9]{32})"?' | grep -oE '[a-f0-9]{32}' | head -1)
           if [ -z "$ID" ]; then
             OUT2=$(npx wrangler kv namespace list 2>&1) || true
