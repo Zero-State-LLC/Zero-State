@@ -176,7 +176,7 @@ let bootDone = false;
 
 if (pass) { $('#gate').style.display = 'none'; boot(); }
 $('#gate-go').onclick = () => {
-  pass = $('#pass').value;
+  pass = $('#pass').value.trim().replace(/^NEIL_CHAT_PASSPHRASE=/,'');
   if (!pass) { $('#gate-err').textContent = 'PHRASE REQUIRED'; return; }
   sessionStorage.setItem('chat-pass', pass);
   $('#gate').style.display = 'none';
@@ -230,6 +230,13 @@ async function sendMsg() {
     });
     const data = await res.json();
     const reply = data?.choices?.[0]?.message?.content;
+    if (res.status === 401) {
+      sessionStorage.removeItem('chat-pass'); pass = '';
+      bubble.remove(); history.pop();
+      $('#gate').style.display = ''; $('#pass').value = '';
+      $('#gate-err').textContent = 'PHRASE REJECTED — TRY AGAIN';
+      send.disabled = false; return;
+    }
     if (!res.ok || !reply) throw new Error(typeof data?.error === 'string' ? data.error : res.status);
     history.push({ role: 'assistant', content: reply });
     bubble.classList.remove('thinking');
