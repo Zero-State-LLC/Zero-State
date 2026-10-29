@@ -19,13 +19,14 @@ jobs:
         id: kv
         run: |
           set -e
-          # wrangler 4: create prints the binding TOML; if it already exists it errors - then list and grep
-          OUT=$(npx wrangler kv namespace create RATE 2>&1) || true
-          echo "$OUT" | tail -20   # visible for debugging
-          ID=$(echo "$OUT" | grep -oE 'id\s*=\s*"?([a-f0-9]{32})"?' | grep -oE '[a-f0-9]{32}' | head -1)
+          # RATE namespace likely exists already (idempotent deploys): LIST first, create only if absent.
+          OUT2=$(npx wrangler kv namespace list 2>&1) || true
+          echo "$OUT2"
+          ID=$(echo "$OUT2" | grep -B6 'RATE' | grep -oE '[a-f0-9]{32}' | head -1) || true
           if [ -z "$ID" ]; then
-            OUT2=$(npx wrangler kv namespace list 2>&1) || true
-            ID=$(echo "$OUT2" | grep -B2 -A6 'glm-chat' | grep -oE '[a-f0-9]{32}' | head -1)
+            OUT=$(npx wrangler kv namespace create RATE 2>&1)
+            echo "$OUT"
+            ID=$(echo "$OUT" | grep -oE '[a-f0-9]{32}' | head -1)
           fi
           echo "KV_ID=$ID"
           if [ -z "$ID" ]; then echo "KV creation failed"; exit 1; fi
