@@ -405,9 +405,10 @@
 .programs__list li + li { padding-inline-start: var(--space-md); border-inline-start: 1px solid var(--color-rule-2); }
 .program__logo { width: 28px; height: 28px; margin-bottom: var(--space-xs); color: var(--color-ink-2); }
 .program__brand { font-weight: 500; }
+.program__badge { display: block; width: 100px; height: auto; margin-bottom: var(--space-xs); }
 .program__name { color: var(--color-muted); font: 400 var(--text-2xs)/1.5 var(--font-mono); letter-spacing: 0.02em; }
 @media (min-width: 48rem) {
-  .programs__list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .programs__list { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   .programs__list li { border-bottom: 0; padding-inline-start: var(--space-lg); }
   .programs__list li + li { border-inline-start: 1px solid var(--color-rule-2); }
   .programs__list li:first-child { padding-inline-start: 0; }
