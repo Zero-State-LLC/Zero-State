@@ -217,3 +217,7 @@
 .entry__evidence--blackdog img { width: 70%; height: 70%; margin: 15% auto; object-fit: contain; }
 
 .dossier__status:has(.live-tag)::before { content: none; }
+
+/* Official App Store badge: Apple requires unmodified artwork, >=40px tall, clear space of 1/4 badge height */
+.appstore-badge { display: inline-block; padding: 12px; margin: -12px; line-height: 0; }
+.appstore-badge img { display: block; height: 48px; width: auto; }
