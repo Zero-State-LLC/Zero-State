@@ -125,7 +125,9 @@
       });
       if (!res.ok || !res.body) {
         const body = await res.json().catch(() => ({}));
-        throw new Error(res.status === 429 ? body.error : UNAVAILABLE);
+        // Show the Worker's own words for the per-IP rate limit and the monthly budget pause.
+        const friendly = res.status === 429 || body.code === 'budget_exhausted';
+        throw new Error(friendly && typeof body.error === 'string' ? body.error : UNAVAILABLE);
       }
       const reader = res.body.getReader();
       const decoder = new TextDecoder();

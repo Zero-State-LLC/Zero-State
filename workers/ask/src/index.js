@@ -1,11 +1,16 @@
 // Ask Zero State · POST / with { messages: [{ role, content }] } → text/plain stream of the answer.
 // The model sees only knowledge.md (generated from the site) plus the visitor's conversation.
 import KNOWLEDGE from '../knowledge.md';
+import { costMicros, monthKey, readConfig, reserveMicros, secondsUntilNextMonth } from './budget.js';
+
+export { AskBudget } from './budget-do.js';
 
 const MAX_MESSAGES = 16;    // must equal MAX_HISTORY in assets/ask/ask.js
 const MAX_CHARS = 1000;     // per message; must equal MAX_CHARS in assets/ask/ask.js
 const MAX_TOKENS = 600;
 const CONTACT = 'zer0state@zer0state.com';
+const RESTING = `Ask Zero State is resting until next month. You can still email ${CONTACT}.`;
+const UNAVAILABLE = 'The assistant is unavailable right now.';
 
 const RULES = `You are "Ask Zero State", the assistant on zer0state.com, the website of Zero State LLC, an independent software studio.
 
@@ -26,13 +31,13 @@ ${KNOWLEDGE}
 </website>`;
 
 export default {
-	async fetch(request, env) {
+	async fetch(request, env, ctx) {
 		const origin = request.headers.get('Origin') || '';
 		const allowed = env.ALLOWED_ORIGINS.split(',').includes(origin);
 		const cors = allowed
 			? { 'Access-Control-Allow-Origin': origin, 'Access-Control-Allow-Methods': 'POST, OPTIONS', 'Access-Control-Allow-Headers': 'Content-Type', 'Access-Control-Max-Age': '86400', Vary: 'Origin' }
 			: {};
-		const fail = (status, error) => Response.json({ error }, { status, headers: cors });
+		const fail = (status, error, code, headers = {}) => Response.json(code ? { error, code } : { error }, { status, headers: { ...cors, ...headers } });
 
 		if (request.method === 'OPTIONS') return new Response(null, { status: allowed ? 204 : 403, headers: cors });
 		if (request.method === 'GET') return new Response('ok', { headers: cors });   // wake/health check
@@ -41,7 +46,7 @@ export default {
 
 		const ip = request.headers.get('CF-Connecting-IP') || 'local';
 		const { success } = await env.ASK_LIMIT.limit({ key: ip });
-		if (!success) return fail(429, 'Too many questions at once. Please wait a minute.');
+		if (!success) return fail(429, 'Too many questions at once. Please wait a minute.', 'rate_limited');
 
 		let messages;
 		try {
@@ -52,13 +57,39 @@ export default {
 		const problem = validate(messages);
 		if (problem) return fail(400, problem);
 
+		// Monthly spend cap: reserve the worst-case cost of this answer before calling the model.
+		// Fails closed: no budget config or no ledger means no model call.
+		const config = readConfig(env);
+		const month = monthKey();
+		const chat = [{ role: 'system', content: RULES }, ...messages.map(({ role, content }) => ({ role, content: content.trim() }))];
+		let ledger;
+		let reserved = 0;
+		try {
+			if (!config) throw new Error('budget vars missing or invalid');
+			reserved = reserveMicros(chat.reduce((n, m) => n + m.content.length + 16, 0), MAX_TOKENS, config.prices);
+			ledger = env.BUDGET.get(env.BUDGET.idFromName('global'));
+			const { ok } = await ledger.reserve(month, reserved, config.limitMicros);
+			if (!ok) return fail(503, RESTING, 'budget_exhausted', { 'Retry-After': String(secondsUntilNextMonth()) });
+		} catch (err) {
+			console.error('budget check failed', String(err));
+			return fail(503, UNAVAILABLE, 'budget_unavailable');
+		}
+		// Settle once, with the real cost if the model reported usage, else keep the full reservation.
+		let settled = false;
+		const settleWith = (actual) => {
+			if (settled) return;
+			settled = true;
+			ctx.waitUntil(ledger.settle(month, reserved, actual ?? reserved).catch((err) => console.error('budget settle failed', String(err))));
+		};
+
 		let stream;
 		try {
 			stream = await env.AI.run(
 				env.MODEL,
 				{
-					messages: [{ role: 'system', content: RULES }, ...messages.map(({ role, content }) => ({ role, content: content.trim() }))],
+					messages: chat,
 					stream: true,
+					stream_options: { include_usage: true },
 					max_tokens: MAX_TOKENS,
 					temperature: 0.2,
 					reasoning_effort: 'none',
@@ -68,10 +99,11 @@ export default {
 			);
 		} catch (err) {
 			console.error('AI.run failed', String(err));
-			return fail(502, 'The assistant is unavailable right now.');
+			settleWith(0);   // no answer was produced, so release the reservation
+			return fail(502, UNAVAILABLE);
 		}
 
-		return new Response(stream.pipeThrough(sseToText()), {
+		return new Response(stream.pipeThrough(sseToText((usage) => settleWith(costMicros(usage, config.prices)))), {
 			headers: { ...cors, 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff' },
 		});
 	},
@@ -90,16 +122,20 @@ export function validate(messages) {
 }
 
 // Workers AI streams SSE: `data: {"response": "..."}` (native) or OpenAI-style `choices[0].delta.content`.
-export function sseToText() {
+// onDone(usage) runs when the stream ends; usage is the last `usage` object seen, or null.
+// If the visitor disconnects mid-answer, onDone never runs and the full reservation stays charged.
+export function sseToText(onDone = () => {}) {
 	const decoder = new TextDecoder();
 	const encoder = new TextEncoder();
 	let buffer = '';
+	let usage = null;
 	const emit = (line, controller) => {
 		if (!line.startsWith('data:')) return;
 		const data = line.slice(5).trim();
 		if (!data || data === '[DONE]') return;
 		try {
 			const event = JSON.parse(data);
+			if (event.usage) usage = event.usage;
 			const text = event.response ?? event.choices?.[0]?.delta?.content ?? '';
 			if (text) controller.enqueue(encoder.encode(text));
 		} catch {
@@ -115,6 +151,7 @@ export function sseToText() {
 		},
 		flush(controller) {
 			emit(buffer, controller);
+			onDone(usage);
 		},
 	});
 }
