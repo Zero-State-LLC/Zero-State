@@ -15,6 +15,7 @@ const requiredPages = [
   'products/noema.html', 'products/pawl.html', 'products/j-chain.html', 'products/blackdog.html',
   'clients/autogive.html',
   'community/suas.html',
+  'collaborators.html',
   'skills/orchestra.html', 'skills/hyperlex.html', 'skills/kubrick.html', 'skills/neon-genie.html'
 ];
 
@@ -400,6 +401,19 @@ for (const file of officialFiles) {
   const canonical = html.match(/<link\s+rel=["']canonical["']\s+href=["']([^"']+)["']/i);
   if (!canonical) fail(file, `missing canonical for ${loc}`);
   else if (canonical[1] !== loc) fail(file, `canonical must be ${loc}`);
+}
+
+// Collaborators: data file is valid, generated cards are in sync, and every page links the section.
+for (const message of require('./collaborators.js').verify(root)) fail('collaborators.html', message.replace(/^collaborators\.html: /, ''));
+for (const message of require('./collaborators.test.js').run()) fail('scripts/collaborators.test.js', message);
+for (const file of htmlFiles) {
+  const html = fs.readFileSync(path.join(root, file), 'utf8');
+  const prefix = file.includes('/') ? '../' : '';
+  const nav = html.match(/<nav class="nav__links"[\s\S]*?<\/nav>/);
+  const foot = html.match(/<nav class="foot__links"[\s\S]*?<\/nav>/);
+  const link = `href="${prefix}collaborators.html"`;
+  if (nav && !nav[0].includes(link)) fail(file, 'primary nav is missing the Collaborators link');
+  if (foot && !foot[0].includes(link)) fail(file, 'footer is missing the Collaborators link');
 }
 
 if (failures.length) {
