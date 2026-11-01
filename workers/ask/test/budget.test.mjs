@@ -96,7 +96,7 @@ const fullStore = () => {
 		setIpDay: (ip, day, n, micros) => days.set(`${ip}|${day}`, { n, micros }),
 		prune: (now, day) => {
 			hits = hits.filter((h) => h.ts > now - 60_000);
-			for (const k of days.keys()) if (!k.endsWith(`|${day}`)) days.delete(k);
+			for (const k of days.keys()) if (k.split('|')[1] < day) days.delete(k);   // same rule as the SQL
 		},
 		size: () => ({ hits: hits.length, days: days.size }),
 	};
@@ -136,6 +136,14 @@ test('daily per-IP dollar cap stops one visitor before the monthly budget', () =
 	settle(store, '2026-11', 35_000, 500, 'a', '2026-11-01');
 	assert.equal(store.ipDay('a', '2026-11-01').micros, 6 * 35_000 + 500);
 	assert.equal(store.get('2026-11'), 6 * 35_000 + 500);
+});
+
+test('an out-of-order request for an earlier day never wipes the current day', () => {
+	const store = fullStore();
+	const limits = { perDay: 1 };
+	assert.equal(admit(store, req({ ...limits, day: '2026-11-02', now: T0 + 86_400_000 })).ok, true);
+	admit(store, req({ ...limits, ip: 'late', day: '2026-11-01', now: T0 + 86_399_000 }));   // delayed from yesterday
+	assert.equal(admit(store, req({ ...limits, day: '2026-11-02', now: T0 + 86_460_000 })).reason, 'daily_limit');
 });
 
 test('monthly budget is checked after the visitor limits and blocks everyone', () => {

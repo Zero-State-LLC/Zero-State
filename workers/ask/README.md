@@ -48,7 +48,9 @@ Two layers:
    mode", ...) always; coding help, creative writing, math, news/markets and translation only when
    the question does not name Zero State or one of its products, skills or services. The topic
    list is built from the product, skill, client and community pages in `knowledge.md`, so new
-   products are covered when the knowledge file is regenerated. When unsure it lets the question
+   products are covered when the knowledge file is regenerated. A follow-up ("Is there any news
+   about it?") counts as on topic if one of the visitor's earlier questions named a product;
+   assistant replies are ignored for this. When unsure it lets the question
    through, so real product questions are never blocked by a keyword. Refusals return HTTP 200
    with the fixed text and an `X-Ask-Scope: refused` header, and do not count against the
    visitor's limits.
@@ -75,7 +77,8 @@ stored):
 | `IP_DAILY_BUDGET_USD` | `0.25` estimated spend per UTC day | 429 `"code": "daily_limit"` |
 
 The widget shows the Worker's message for both 429 codes. Minute hits are deleted after 60 s and
-daily rows when the UTC day changes. These replace the old Workers Rate Limiting binding
+daily rows when the UTC day changes. The Durable Object uses its own clock at admission, so a
+request delayed across midnight cannot count against, or clear, the wrong day. These replace the old Workers Rate Limiting binding
 (`ASK_LIMIT`), which never returned 429 in production: that binding is approximate by design
 (each instance checks a locally cached count and syncs in the background, separately per
 Cloudflare location), so a limit as small as 6 a minute was not enforced. Cloudflare's docs

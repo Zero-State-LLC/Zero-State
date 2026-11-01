@@ -1,7 +1,7 @@
 // Ask Zero State · POST / with { messages: [{ role, content }] } → text/plain stream of the answer.
 // The model sees only knowledge.md (generated from the site) plus the visitor's conversation.
 import KNOWLEDGE from '../knowledge.md';
-import { costMicros, dayKey, inputTokenBound, monthKey, readConfig, reserveMicros, secondsUntilNextDay, secondsUntilNextMonth } from './budget.mjs';
+import { costMicros, inputTokenBound, readConfig, reserveMicros, secondsUntilNextDay, secondsUntilNextMonth } from './budget.mjs';
 import { CONTACT, REFUSAL, extractTopics, precheck } from './scope.mjs';
 
 export { AskBudget } from './budget-do.js';
@@ -61,7 +61,7 @@ export default {
 
 		// Products-only scope, free: obvious off-topic or prompt-injection requests get the fixed refusal
 		// without a model call (and without counting against the visitor's limits). See scope.mjs.
-		const reason = precheck(messages.at(-1).content, TOPICS);
+		const reason = precheck(messages.at(-1).content, TOPICS, messages.filter((m) => m.role === 'user').slice(0, -1).map((m) => m.content));
 		if (reason) {
 			return new Response(REFUSAL, {
 				headers: { ...cors, 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff', 'X-Ask-Scope': 'refused' },
@@ -73,8 +73,8 @@ export default {
 		// before the model runs. Fails closed: no config or no Durable Object means no model call.
 		const config = readConfig(env);
 		const now = new Date();
-		const month = monthKey(now);
-		const day = dayKey(now);
+		let month;
+		let day;
 		const chat = [{ role: 'system', content: RULES }, ...messages.map(({ role, content }) => ({ role, content: content.trim() }))];
 		let ledger;
 		let ip;
@@ -84,7 +84,8 @@ export default {
 			ip = await hashIp(request.headers.get('CF-Connecting-IP') || 'unknown');
 			reserved = reserveMicros(inputTokenBound(chat), MAX_TOKENS, config.prices);
 			ledger = env.BUDGET.get(env.BUDGET.idFromName('global'));
-			const verdict = await ledger.admit({ ip, now: now.getTime(), month, day, amount: reserved, limitMicros: config.limitMicros, ...config.ip });
+			const verdict = await ledger.admit({ ip, amount: reserved, limitMicros: config.limitMicros, ...config.ip });
+			({ month, day } = verdict);   // the Durable Object's clock decides the month and day
 			if (verdict.reason === 'rate_limited') return fail(429, TOO_FAST, 'rate_limited', { 'Retry-After': String(verdict.retryAfter) });
 			if (verdict.reason === 'daily_limit') return fail(429, DAILY, 'daily_limit', { 'Retry-After': String(secondsUntilNextDay(now)) });
 			if (verdict.reason === 'budget_exhausted') return fail(503, RESTING, 'budget_exhausted', { 'Retry-After': String(secondsUntilNextMonth(now)) });

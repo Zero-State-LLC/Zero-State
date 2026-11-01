@@ -80,13 +80,15 @@ export function costMicros(usage, prices) {
 //   get(month) -> micros, set(month, micros)                      monthly spend
 //   hits(ip, sinceMs) -> [ts...] ascending, addHit(ip, ts)        per-visitor sliding minute
 //   ipDay(ip, day) -> { n, micros }, setIpDay(ip, day, n, micros)  per-visitor daily count and spend
-//   prune(nowMs, day)                                             drop expired minute hits and old days
+//   prune(nowMs, day)                                             drop expired minute hits and days before `day`
 //
 // admit() is the single gate before a model call. It checks, in order: per-visitor requests in the
 // last 60 s, per-visitor questions today, per-visitor spend today, then the month's spend. Only if
 // all pass does it record the hit and reserve `amount` against both the visitor's day and the month.
 // Returns { ok: true } or { ok: false, reason: 'rate_limited' | 'daily_limit' | 'budget_exhausted',
 // retryAfter } (retryAfter in seconds, only for rate_limited; callers derive the others).
+// The Durable Object passes its own clock (admitNow), so a request delayed across UTC midnight is
+// counted on the day it is admitted, not the day it was sent.
 export function admit(store, { ip, now, month, day, amount, limitMicros, perMinute, perDay, dailyMicros }) {
 	store.prune(now, day);
 	const recent = store.hits(ip, now - 60_000);

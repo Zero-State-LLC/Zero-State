@@ -76,8 +76,12 @@ const OFF_TOPIC = [
 ];
 
 // Returns null to let the question through to the model, or a short reason string to refuse it.
-export function precheck(text, topics) {
+// `earlier` is the visitor's previous questions in this conversation: a follow-up such as "Is there
+// any news about it?" after a HexWire question is about a product, so it goes to the model. Only
+// the visitor's own questions count; assistant replies (which always name products, even the
+// refusal) are ignored. Injection checks apply to the newest question only.
+export function precheck(text, topics, earlier = []) {
 	if (INJECTION.some((re) => re.test(text))) return 'injection';
-	if (OFF_TOPIC.some((re) => re.test(text)) && !mentionsTopic(text, topics)) return 'off_topic';
+	if (OFF_TOPIC.some((re) => re.test(text)) && ![text, ...earlier].some((t) => mentionsTopic(t, topics))) return 'off_topic';
 	return null;
 }

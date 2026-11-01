@@ -4,7 +4,7 @@
 // Visitor data: only a SHA-256 hash of the IP (never the IP), with minute hits deleted after 60 s
 // and daily rows deleted when the UTC day changes.
 import { DurableObject } from 'cloudflare:workers';
-import { admit, reserve, settle } from './budget.mjs';
+import { admit, dayKey, monthKey, reserve, settle } from './budget.mjs';
 
 export class AskBudget extends DurableObject {
 	constructor(ctx, env) {
@@ -25,13 +25,18 @@ export class AskBudget extends DurableObject {
 				sql.exec('INSERT INTO ipday (ip, day, n, micros) VALUES (?, ?, ?, ?) ON CONFLICT(ip, day) DO UPDATE SET n = excluded.n, micros = excluded.micros', ip, day, n, micros),
 			prune: (now, day) => {
 				sql.exec('DELETE FROM hits WHERE ts <= ?', now - 60_000);
-				sql.exec('DELETE FROM ipday WHERE day <> ?', day);
+				sql.exec('DELETE FROM ipday WHERE day < ?', day);   // ISO dates sort as strings; never drops today
 			},
 		};
 	}
 
+	// Time, month and day come from the Durable Object's own clock at admission, never from the caller,
+	// so out-of-order or delayed requests cannot count against (or prune) the wrong day. The month and
+	// day used are returned so the Worker settles against the same rows.
 	admit(request) {
-		return admit(this.store, request);
+		const date = new Date();
+		const at = { now: date.getTime(), month: monthKey(date), day: dayKey(date) };
+		return { ...admit(this.store, { ...request, ...at }), month: at.month, day: at.day };
 	}
 
 	settle(month, reserved, actual, ip, day) {
