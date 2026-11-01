@@ -1,7 +1,7 @@
 // Ask Zero State · POST / with { messages: [{ role, content }] } → text/plain stream of the answer.
 // The model sees only knowledge.md (generated from the site) plus the visitor's conversation.
 import KNOWLEDGE from '../knowledge.md';
-import { costMicros, monthKey, readConfig, reserveMicros, secondsUntilNextMonth } from './budget.mjs';
+import { costMicros, inputTokenBound, monthKey, readConfig, reserveMicros, secondsUntilNextMonth } from './budget.mjs';
 
 export { AskBudget } from './budget-do.js';
 
@@ -66,7 +66,7 @@ export default {
 		let reserved = 0;
 		try {
 			if (!config) throw new Error('budget vars missing or invalid');
-			reserved = reserveMicros(chat.reduce((n, m) => n + m.content.length + 16, 0), MAX_TOKENS, config.prices);
+			reserved = reserveMicros(inputTokenBound(chat), MAX_TOKENS, config.prices);
 			ledger = env.BUDGET.get(env.BUDGET.idFromName('global'));
 			const { ok } = await ledger.reserve(month, reserved, config.limitMicros);
 			if (!ok) return fail(503, RESTING, 'budget_exhausted', { 'Retry-After': String(secondsUntilNextMonth()) });

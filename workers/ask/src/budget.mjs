@@ -27,10 +27,22 @@ export function readConfig(env) {
 	return { limitMicros: Math.round(budget * 1e6), prices: { input, cached, output } };
 }
 
+// Provable upper bound on prompt tokens for a byte-level BPE tokenizer (DeepSeek's is): a token is
+// never shorter than one UTF-8 byte, so tokens <= bytes. Dense text such as rare Unicode cannot beat
+// it. Chat-template overhead (role markers, separators) is covered by a generous per-message and
+// fixed allowance.
+export const TEMPLATE_TOKENS_PER_MESSAGE = 32;
+export const TEMPLATE_TOKENS_FIXED = 64;
+const encoder = new TextEncoder();
+export function inputTokenBound(messages) {
+	let tokens = TEMPLATE_TOKENS_FIXED;
+	for (const m of messages) tokens += encoder.encode(m.role).length + encoder.encode(m.content).length + TEMPLATE_TOKENS_PER_MESSAGE;
+	return tokens;
+}
+
 // Worst-case cost of one answer, charged before the model runs: every input token billed at the
-// uncached rate (about 3 characters per token, deliberately pessimistic) plus a full max_tokens reply.
-export function reserveMicros(inputChars, maxTokens, prices) {
-	const inputTokens = Math.ceil(inputChars / 3);
+// uncached rate plus a full max_tokens reply.
+export function reserveMicros(inputTokens, maxTokens, prices) {
 	return Math.ceil(inputTokens * prices.input + maxTokens * prices.output);
 }
 

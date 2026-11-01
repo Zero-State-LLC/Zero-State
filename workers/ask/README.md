@@ -36,8 +36,9 @@ The Worker stops calling the model once its estimated Workers AI spend for the m
 
 - How it works: one global Durable Object (`AskBudget`, binding `BUDGET`, SQLite storage) keeps a
   per-month total in micro-dollars. Before each model call the Worker reserves the worst-case cost
-  of that answer (every prompt token uncached at about 3 characters per token, plus a full
-  `MAX_TOKENS` reply, about $0.0073 today). If the reservation would push the month over the cap,
+  of that answer: prompt tokens bounded by the UTF-8 byte count (the model's byte-level tokenizer
+  never makes more tokens than bytes) plus chat-template overhead, all billed uncached, plus a full
+  `MAX_TOKENS` reply. That is about $0.021 for a typical question and at most about $0.035. If the reservation would push the month over the cap,
   the model is not called. When the answer finishes, the reservation is replaced by the real cost
   from the token usage the model reports. If no usage arrives (visitor closed the tab, stream
   error) the full reservation stays charged. If the model call throws, the reservation is refunded.

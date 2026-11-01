@@ -1,7 +1,7 @@
 // Unit tests for the monthly spend ledger (workers/ask/src/budget.mjs). Run: node --test workers/ask/test/budget.test.mjs (also run by npm test)
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { costMicros, monthKey, readConfig, reserve, reserveMicros, secondsUntilNextMonth, settle } from '../src/budget.mjs';
+import { costMicros, inputTokenBound, monthKey, readConfig, reserve, reserveMicros, secondsUntilNextMonth, settle } from '../src/budget.mjs';
 
 const ENV = { MONTHLY_BUDGET_USD: '5', PRICE_INPUT_PER_M: '0.30', PRICE_CACHED_INPUT_PER_M: '0.006', PRICE_OUTPUT_PER_M: '1.20' };
 const { prices, limitMicros } = readConfig(ENV);
@@ -25,12 +25,24 @@ test('month key and reset are UTC calendar months', () => {
 	assert.equal(secondsUntilNextMonth(new Date('2026-11-30T23:59:00Z')), 60);
 });
 
-test('reservation is a pessimistic upper bound on the real cost', () => {
-	const chars = 66_000;   // about the size of the system prompt plus a question
-	const reserved = reserveMicros(chars, 600, prices);
-	assert.equal(reserved, Math.ceil(22_000 * 0.3 + 600 * 1.2));   // 7,320 micro-dollars, about $0.0073
-	// Same request with a cold cache at a realistic 4 chars/token, and a full-length answer:
-	assert.ok(costMicros({ prompt_tokens: 16_500, completion_tokens: 600 }, prices) <= reserved);
+test('input bound is UTF-8 bytes plus template overhead, so dense Unicode cannot exceed it', () => {
+	const ascii = inputTokenBound([{ role: 'user', content: 'hello' }]);
+	assert.equal(ascii, 64 + 4 + 5 + 32);
+	// 1,000 rare CJK characters: 1,000 JS chars but 3,000 UTF-8 bytes, so at least 3,000 tokens reserved
+	// (a byte-level BPE tokenizer can never produce more tokens than bytes).
+	const dense = inputTokenBound([{ role: 'user', content: '\u9fa5'.repeat(1000) }]);
+	assert.ok(dense >= 3_000 + 32 + 64);
+	// Astral characters (surrogate pairs) are 4 bytes each.
+	assert.ok(inputTokenBound([{ role: 'user', content: '\u{1F600}'.repeat(10) }]) >= 40);
+});
+
+test('reservation covers a cold-cache, full-length answer', () => {
+	const messages = [{ role: 'system', content: 'x'.repeat(65_000) }, { role: 'user', content: 'What is live?' }];
+	const bound = inputTokenBound(messages);
+	const reserved = reserveMicros(bound, 600, prices);
+	assert.equal(reserved, Math.ceil(bound * 0.3 + 600 * 1.2));   // about $0.020
+	// Worst real case: one token per byte, nothing cached, full reply.
+	assert.ok(costMicros({ prompt_tokens: bound, completion_tokens: 600 }, prices) <= reserved);
 });
 
 test('actual cost uses cached-input pricing when the model reports it', () => {
