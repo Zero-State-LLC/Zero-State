@@ -1,8 +1,9 @@
 // One global Durable Object is the single gate before every model call. Durable Objects run one
 // request at a time and the SQL API is synchronous, so admit() is an atomic check-and-increment:
-// concurrent questions cannot exceed a visitor's per-minute or daily limits, or the month's budget.
-// Visitor data: only a SHA-256 hash of the IP (never the IP), with minute hits deleted after 60 s
-// and daily rows deleted when the UTC day changes.
+// concurrent questions cannot exceed a visitor's per-minute or daily limits, the site-wide limits,
+// or the month's budget. Visitor data: only a SHA-256 hash of the visitor key (IPv4 address or IPv6
+// /64, never the IP), with minute hits deleted after 60 s and daily rows deleted when the UTC day
+// changes. Site-wide counts use the same tables under the key '*site*' (see budget.mjs).
 import { DurableObject } from 'cloudflare:workers';
 import { admit, dayKey, monthKey, reserve, settle } from './budget.mjs';
 

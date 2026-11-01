@@ -21,6 +21,10 @@
 		"IP_PER_MINUTE": "6",
 		"IP_PER_DAY": "30",
 		"IP_DAILY_BUDGET_USD": "0.25",
+		// Site-wide limits across all visitors (admitted questions per rolling minute and per UTC day),
+		// so visitors rotating IP addresses cannot get around the per-visitor limits.
+		"SITE_PER_MINUTE": "30",
+		"SITE_PER_DAY": "300",
 		"PRICE_INPUT_PER_M": "0.30",
 		"PRICE_CACHED_INPUT_PER_M": "0.006",
 		"PRICE_OUTPUT_PER_M": "1.20",

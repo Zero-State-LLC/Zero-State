@@ -125,7 +125,8 @@
       });
       if (!res.ok || !res.body) {
         const body = await res.json().catch(() => ({}));
-        // Show the Worker's own words for the per-IP rate limit and the monthly budget pause.
+        // Show the Worker's own words for every 429 (rate_limited, daily_limit, busy) and the monthly
+        // budget pause (503 budget_exhausted).
         const friendly = res.status === 429 || body.code === 'budget_exhausted';
         throw new Error(friendly && typeof body.error === 'string' ? body.error : UNAVAILABLE);
       }

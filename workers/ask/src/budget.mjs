@@ -24,13 +24,16 @@ export function readConfig(env) {
 	const ipDaily = num(env.IP_DAILY_BUDGET_USD);
 	const perMinute = int(env.IP_PER_MINUTE);
 	const perDay = int(env.IP_PER_DAY);
+	const sitePerMinute = int(env.SITE_PER_MINUTE);
+	const sitePerDay = int(env.SITE_PER_DAY);
 	const input = num(env.PRICE_INPUT_PER_M);
 	const cached = num(env.PRICE_CACHED_INPUT_PER_M);
 	const output = num(env.PRICE_OUTPUT_PER_M);
-	if ([budget, ipDaily, perMinute, perDay, input, cached, output].includes(null)) return null;
+	if ([budget, ipDaily, perMinute, perDay, sitePerMinute, sitePerDay, input, cached, output].includes(null)) return null;
 	return {
 		limitMicros: Math.round(budget * 1e6),
 		ip: { perMinute, perDay, dailyMicros: Math.round(ipDaily * 1e6) },
+		site: { sitePerMinute, sitePerDay },
 		prices: { input, cached, output },
 	};
 }
@@ -83,25 +86,37 @@ export function costMicros(usage, prices) {
 //   prune(nowMs, day)                                             drop expired minute hits and days before `day`
 //
 // admit() is the single gate before a model call. It checks, in order: per-visitor requests in the
-// last 60 s, per-visitor questions today, per-visitor spend today, then the month's spend. Only if
-// all pass does it record the hit and reserve `amount` against both the visitor's day and the month.
-// Returns { ok: true } or { ok: false, reason: 'rate_limited' | 'daily_limit' | 'budget_exhausted',
-// retryAfter } (retryAfter in seconds, only for rate_limited; callers derive the others).
+// last 60 s, per-visitor questions today, per-visitor spend today, site-wide questions in the last
+// 60 s and today (all visitors together, so rotating IPs cannot get around it), then the month's
+// spend. Only if all pass does it record the hit (for the visitor and the site) and reserve `amount`
+// against the visitor's day and the month.
+// Returns { ok: true } or { ok: false, reason: 'rate_limited' | 'daily_limit' | 'busy' |
+// 'budget_exhausted', retryAfter, window } (retryAfter in seconds, for rate_limited and busy; window
+// is 'minute' or 'day' for busy; callers derive the others). The site-wide rows use the key SITE,
+// which can never equal a hashed visitor key (those are 32 hex characters).
 // The Durable Object passes its own clock (admitNow), so a request delayed across UTC midnight is
 // counted on the day it is admitted, not the day it was sent.
-export function admit(store, { ip, now, month, day, amount, limitMicros, perMinute, perDay, dailyMicros }) {
+export const SITE = '*site*';
+const windowWait = (recent, limit, now) => Math.max(1, Math.ceil((recent[recent.length - limit] + 60_000 - now) / 1000));
+
+export function admit(store, { ip, now, month, day, amount, limitMicros, perMinute, perDay, dailyMicros, sitePerMinute, sitePerDay }) {
 	store.prune(now, day);
 	const recent = store.hits(ip, now - 60_000);
-	if (recent.length >= perMinute) {
-		const retryAfter = Math.max(1, Math.ceil((recent[recent.length - perMinute] + 60_000 - now) / 1000));
-		return { ok: false, reason: 'rate_limited', retryAfter };
-	}
+	if (recent.length >= perMinute) return { ok: false, reason: 'rate_limited', retryAfter: windowWait(recent, perMinute, now) };
 	const today = store.ipDay(ip, day);
 	if (today.n >= perDay || today.micros + amount > dailyMicros) return { ok: false, reason: 'daily_limit' };
+	const siteRecent = store.hits(SITE, now - 60_000);
+	if (siteRecent.length >= sitePerMinute) {
+		return { ok: false, reason: 'busy', window: 'minute', retryAfter: sitePerMinute > 0 ? windowWait(siteRecent, sitePerMinute, now) : 60 };
+	}
+	const siteToday = store.ipDay(SITE, day);
+	if (siteToday.n >= sitePerDay) return { ok: false, reason: 'busy', window: 'day', retryAfter: secondsUntilNextDay(new Date(now)) };
 	const spent = store.get(month);
 	if (spent + amount > limitMicros) return { ok: false, reason: 'budget_exhausted' };
 	store.addHit(ip, now);
+	store.addHit(SITE, now);
 	store.setIpDay(ip, day, today.n + 1, today.micros + amount);
+	store.setIpDay(SITE, day, siteToday.n + 1, 0);   // the site row counts questions only
 	store.set(month, spent + amount);
 	return { ok: true };
 }
