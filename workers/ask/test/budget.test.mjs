@@ -1,7 +1,7 @@
-// Unit tests for the monthly spend ledger (workers/ask/src/budget.js). Run: npm run test:ask
+// Unit tests for the monthly spend ledger (workers/ask/src/budget.mjs). Run: node --test workers/ask/test/budget.test.mjs (also run by npm test)
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { costMicros, monthKey, readConfig, reserve, reserveMicros, secondsUntilNextMonth, settle } from '../src/budget.js';
+import { costMicros, monthKey, readConfig, reserve, reserveMicros, secondsUntilNextMonth, settle } from '../src/budget.mjs';
 
 const ENV = { MONTHLY_BUDGET_USD: '5', PRICE_INPUT_PER_M: '0.30', PRICE_CACHED_INPUT_PER_M: '0.006', PRICE_OUTPUT_PER_M: '1.20' };
 const { prices, limitMicros } = readConfig(ENV);
