@@ -12,6 +12,11 @@
         {
           "type": "website",
           "url": "https://fry-cv.pages.dev"
+        },
+        {
+          "type": "other",
+          "label": "Hacker Dojo",
+          "url": "https://hackerdojo.org/"
         }
       ]
     },
