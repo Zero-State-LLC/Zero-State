@@ -7,7 +7,7 @@
       "role": "Network & Infrastructure",
       "bio": "Fry has spent 18+ years building networks in the field, from carrier fiber to data-center-grade IDF/MDF rooms. He deploys network infrastructure at 75-150 high-security sites a year and designed Hacker Dojo's Wi-Fi 7 network. At Zero State he brings hands-on infrastructure, clean cutovers and a habit of testing everything.",
       "order": 1,
-      "approved": "pending",
+      "approved": "2026-10-31",
       "links": [
         {
           "type": "website",
@@ -20,7 +20,7 @@
       "name": "Badri Rajendran",
       "role": "Collaborator, BlackDog - full-stack and GenAI engineer",
       "bio": "Badri is a full-stack software engineer in the San Francisco Bay Area who builds production GenAI systems: LLM agents, retrieval-augmented generation (RAG), and evals. He works with Zero State on BlackDog.",
-      "approved": "pending",
+      "approved": "2026-10-31",
       "links": [
         {
           "type": "other",
