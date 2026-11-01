@@ -5,3 +5,4 @@ work/
 npm-debug.log*
 .pawl/
 pawl-test-results.xml
+.wrangler/

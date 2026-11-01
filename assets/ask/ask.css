@@ -1,0 +1,194 @@
+/* Ask Zero State · chat widget. Loaded by assets/ask/ask.js only once the Worker answers.
+ * Every colour, face, space and duration comes from tokens.css. */
+.zsa-launcher {
+  position: fixed;
+  right: max(var(--space-md), env(safe-area-inset-right));
+  bottom: max(var(--space-md), env(safe-area-inset-bottom));
+  z-index: var(--z-modal);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-sm) var(--space-md);
+  border: 1px solid var(--color-rule);
+  border-radius: var(--radius-pill);
+  background: var(--color-veil-2);
+  backdrop-filter: blur(10px);
+  color: var(--color-ink);
+  font: 500 var(--text-xs) / 1 var(--font-mono);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  box-shadow: 0 10px 30px var(--color-shadow);
+  cursor: pointer;
+  transition: border-color var(--dur-short) var(--ease-out), transform var(--dur-short) var(--ease-out);
+}
+.zsa-launcher:hover { border-color: var(--color-accent); transform: translateY(-1px); }
+.zsa-launcher[hidden] { display: none; }
+.zsa-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--color-accent);
+  box-shadow: 0 0 0 4px var(--color-glow);
+}
+
+.zsa-panel {
+  position: fixed;
+  right: max(var(--space-md), env(safe-area-inset-right));
+  bottom: max(var(--space-md), env(safe-area-inset-bottom));
+  z-index: var(--z-modal);
+  display: flex;
+  flex-direction: column;
+  width: min(25rem, calc(100vw - 2 * var(--space-md)));
+  height: min(38rem, calc(100dvh - 2 * var(--space-md)));
+  border: 1px solid var(--color-rule);
+  border-radius: var(--radius-card);
+  background: var(--color-paper-2);
+  color: var(--color-ink-2);
+  font: var(--text-sm) / 1.55 var(--font-body);
+  box-shadow: 0 24px 60px var(--color-shadow);
+  overflow: hidden;
+  animation: zsa-in var(--dur-long) var(--ease-out);
+}
+.zsa-panel[hidden] { display: none; }
+@keyframes zsa-in { from { opacity: 0; transform: translateY(12px); } }
+
+.zsa-head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-sm) var(--space-sm) var(--space-md);
+  border-bottom: 1px solid var(--color-rule-2);
+}
+.zsa-title {
+  flex: 1;
+  margin: 0;
+  color: var(--color-ink);
+  font: 500 var(--text-xs) / 1 var(--font-mono);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.zsa-close, .zsa-send {
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--color-muted);
+  cursor: pointer;
+}
+.zsa-close:hover { color: var(--color-ink); background: var(--color-paper-3); }
+.zsa-close svg, .zsa-send svg { width: 1.1rem; height: 1.1rem; }
+
+.zsa-log {
+  flex: 1;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+.zsa-msg { max-width: 92%; white-space: pre-wrap; overflow-wrap: anywhere; }
+.zsa-msg--bot { align-self: flex-start; color: var(--color-ink-2); }
+.zsa-msg--user {
+  align-self: flex-end;
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: 14px 14px 4px 14px;
+  background: var(--color-paper-3);
+  color: var(--color-ink);
+}
+.zsa-msg--error { color: var(--color-accent); }
+.zsa-msg strong { color: var(--color-ink); font-weight: 600; }
+.zsa-msg a { color: var(--color-accent); text-underline-offset: 2px; }
+.zsa-msg--pending::after {
+  content: "";
+  display: inline-block;
+  width: 0.45em;
+  height: 1em;
+  margin-left: 2px;
+  vertical-align: -0.15em;
+  background: var(--color-accent);
+  animation: zsa-blink 1s steps(1) infinite;
+}
+@keyframes zsa-blink { 50% { opacity: 0; } }
+
+.zsa-suggest {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  padding: 0 var(--space-md) var(--space-sm);
+}
+.zsa-suggest[hidden] { display: none; }
+.zsa-chip {
+  padding: var(--space-2xs) var(--space-sm);
+  border: 1px solid var(--color-rule);
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--color-ink-2);
+  font: var(--text-xs) / 1.4 var(--font-body);
+  text-align: left;
+  cursor: pointer;
+}
+.zsa-chip:hover { border-color: var(--color-accent); color: var(--color-ink); }
+
+.zsa-form {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-xs);
+  margin: 0 var(--space-sm);
+  padding: var(--space-2xs) var(--space-2xs) var(--space-2xs) var(--space-sm);
+  border: 1px solid var(--color-rule);
+  border-radius: 14px;
+  background: var(--color-paper);
+}
+.zsa-form:focus-within { border-color: var(--color-accent); }
+.zsa-input {
+  flex: 1;
+  max-height: 8rem;
+  padding: var(--space-xs) 0;
+  border: 0;
+  outline: 0;
+  resize: none;
+  background: transparent;
+  color: var(--color-ink);
+  font: var(--text-sm) / 1.45 var(--font-body);
+}
+.zsa-input::placeholder { color: var(--color-muted); }
+.zsa-send { background: var(--color-accent); color: var(--color-accent-ink); }
+.zsa-send:disabled { opacity: 0.4; cursor: default; }
+.zsa-send .zsa-stop { display: none; }
+.zsa-send[data-busy] .zsa-stop { display: block; }
+.zsa-send[data-busy] .zsa-arrow { display: none; }
+
+.zsa-note {
+  margin: 0;
+  padding: var(--space-xs) var(--space-md) var(--space-sm);
+  color: var(--color-muted);
+  font: var(--text-2xs) / 1.4 var(--font-mono);
+}
+.zsa-note a { color: inherit; }
+
+.zsa-launcher:focus-visible, .zsa-close:focus-visible, .zsa-send:focus-visible, .zsa-chip:focus-visible, .zsa-msg a:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* Phones: a full-screen sheet. */
+@media (max-width: 560px) {
+  .zsa-panel {
+    inset: 0;
+    width: auto;
+    height: 100dvh;
+    border: 0;
+    border-radius: 0;
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .zsa-input { font-size: 16px; } /* stops iOS zooming on focus */
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .zsa-panel, .zsa-msg--pending::after { animation: none; }
+  .zsa-launcher { transition: none; }
+}

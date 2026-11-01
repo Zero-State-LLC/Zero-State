@@ -1,0 +1,19 @@
+// Ask Zero State · answers visitor questions from the site's own copy (knowledge.md).
+// Deploy is a human step: see README.md. No secrets live here; Workers AI needs no key.
+{
+	"name": "zs-ask",
+	"main": "src/index.js",
+	"compatibility_date": "2026-10-13",
+	"rules": [{ "type": "Text", "globs": ["**/*.md"], "fallthrough": true }],
+	"ai": { "binding": "AI" },
+	"ratelimits": [
+		// Per visitor IP, per Cloudflare location. Approximate by design.
+		{ "name": "ASK_LIMIT", "namespace_id": "4201", "simple": { "limit": 6, "period": 60 } }
+	],
+	"vars": {
+		// Cheapest Workers AI model that answers well from a ~16k-token context (Workers Paid plan).
+		"MODEL": "@cf/deepseek-ai/deepseek-v4.1-flash-1017",
+		"ALLOWED_ORIGINS": "https://zer0state.com,https://www.zer0state.com,http://localhost:8080,http://127.0.0.1:8080"
+	},
+	"observability": { "enabled": true }
+}

@@ -406,6 +406,8 @@ for (const file of officialFiles) {
 // Collaborators: data file is valid, generated cards are in sync, and every page links the section.
 for (const message of require('./collaborators.js').verify(root)) fail('collaborators.html', message.replace(/^collaborators\.html: /, ''));
 for (const message of require('./collaborators.test.js').run()) fail('scripts/collaborators.test.js', message);
+// Ask Zero State: knowledge file is current, covers every home-page project, and carries nothing private.
+for (const message of require('./ask-knowledge.js').verify(root)) fail('workers/ask/knowledge.md', message.replace(/^workers\/ask\/knowledge\.md: /, ''));
 // Check every manifest page plus every required page (the manifest lists some pages requiredPages does not).
 const manifestPages = exists('site-manifest.json')
   ? (JSON.parse(fs.readFileSync(path.join(root, 'site-manifest.json'), 'utf8')).pages || [])
