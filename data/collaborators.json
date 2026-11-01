@@ -2,6 +2,20 @@
   "$schema": "./collaborators.schema.json",
   "collaborators": [
     {
+      "slug": "adam-fry",
+      "name": "Adam Fry",
+      "role": "Network & Infrastructure",
+      "bio": "Fry has spent 18+ years building networks in the field, from carrier fiber to data-center-grade IDF/MDF rooms. He deploys network infrastructure at 75-150 high-security sites a year and designed Hacker Dojo's Wi-Fi 7 network. At Zero State he brings hands-on infrastructure, clean cutovers and a habit of testing everything.",
+      "order": 1,
+      "approved": "pending",
+      "links": [
+        {
+          "type": "website",
+          "url": "https://fry-cv.pages.dev"
+        }
+      ]
+    },
+    {
       "slug": "badri-rajendran",
       "name": "Badri Rajendran",
       "role": "Collaborator, BlackDog - full-stack and GenAI engineer",
@@ -27,7 +41,8 @@
           "page": "products/blackdog.html",
           "label": "BlackDog"
         }
-      ]
+      ],
+      "order": 2
     }
   ]
 }
