@@ -9,6 +9,7 @@
     "lint:css": "node scripts/validate-site.js --css",
     "check:links": "node scripts/validate-site.js --links",
     "test:a11y": "node scripts/validate-site.js --a11y",
+    "build:collaborators": "node scripts/collaborators.js",
     "build": "node scripts/validate-site.js",
     "test": "node scripts/validate-site.js"
   },

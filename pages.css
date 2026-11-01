@@ -221,3 +221,36 @@
 /* Official App Store badge: Apple requires unmodified artwork, >=40px tall, clear space of 1/4 badge height */
 .appstore-badge { display: inline-block; padding: 12px; margin: -12px; line-height: 0; }
 .appstore-badge img { display: block; height: 48px; width: auto; }
+
+/* Collaborators (collaborators.html). Cards are generated from data/collaborators.json; see docs/specs/collaborators.md. */
+.person { border-bottom: 1px solid var(--color-rule-2); scroll-margin-top: 72px; }
+.person__card { display: grid; grid-template-columns: 56px minmax(0, 1fr); column-gap: var(--space-md); align-items: start; padding: var(--space-md) var(--space-2xs); }
+.person__avatar { display: block; overflow: hidden; width: 56px; aspect-ratio: 1; border-radius: 8px; background: var(--color-paper-2); box-shadow: 0 0 0 1px var(--color-rule-2); }
+.person__avatar img { width: 100%; height: 100%; object-fit: cover; }
+.person__avatar--mono { display: grid; place-items: center; color: var(--color-ink-2); font: 500 var(--text-sm)/1 var(--font-mono); letter-spacing: 0.08em; box-shadow: inset 0 0 0 1px var(--color-rule); }
+.person__text { display: grid; gap: var(--space-3xs); min-width: 0; }
+.person__role { color: var(--color-muted); font-size: var(--text-sm); }
+.person__name { color: var(--color-ink); font-size: var(--text-md); font-weight: 500; line-height: 1.25; overflow-wrap: anywhere; }
+.person__bio { margin-top: var(--space-2xs); max-width: 60ch; color: var(--color-ink-2); font-size: var(--text-sm); }
+.person__projects { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--space-2xs) var(--space-sm); margin-top: var(--space-xs); }
+.person__label { color: var(--color-muted); font: 400 var(--text-2xs)/1.6 var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase; }
+.person__projects ul { display: flex; flex-wrap: wrap; gap: var(--space-2xs) var(--space-sm); }
+.person__projects a { color: var(--color-ink); font-size: var(--text-sm); text-decoration-color: var(--color-accent); text-underline-offset: 0.25em; }
+.person__links { display: flex; flex-wrap: wrap; gap: var(--space-xs); margin-top: var(--space-xs); }
+.person__links a { display: inline-flex; align-items: center; min-height: 40px; padding: 0 var(--space-md); border: 1px solid var(--color-rule); border-radius: var(--radius-pill); color: var(--color-ink-2); font-size: var(--text-sm); text-decoration: none; white-space: nowrap; }
+@media (hover: hover) {
+  .person__projects a:hover { color: var(--color-accent); }
+  .person__links a:hover { border-color: var(--color-accent); color: var(--color-ink); }
+}
+.person-empty { display: grid; gap: var(--space-xs); margin-top: var(--space-lg); padding: var(--space-xl) var(--space-2xs); border-top: 1px solid var(--color-rule); border-bottom: 1px solid var(--color-rule-2); color: var(--color-muted); font-size: var(--text-sm); }
+.person-empty__title { color: var(--color-ink); font: 300 var(--text-lg)/1.2 var(--font-display); }
+.person-empty a { color: var(--color-ink); text-decoration-color: var(--color-accent); text-underline-offset: 0.25em; }
+@media (min-width: 48rem) {
+  .person__card { grid-template-columns: 96px minmax(0, 1fr); column-gap: var(--space-lg); padding-block: var(--space-lg); }
+  .person__avatar { width: 96px; }
+  .person__avatar--mono { font-size: var(--text-md); }
+  .person__name { font-size: var(--text-lg); font-weight: 400; }
+}
+@media (min-width: 62rem) {
+  .person-empty { margin-top: 0; }
+}

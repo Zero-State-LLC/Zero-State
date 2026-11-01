@@ -23,6 +23,10 @@ Cumulative release since `v0.3.0`: official dark home, social preview, and Herme
 
 ## Unreleased
 
+### Collaborators section (2026-10-31)
+- New `collaborators.html` catalogue page, linked from the primary nav and footer. Cards are generated from `data/collaborators.json` (JSON Schema in `data/collaborators.schema.json`) by `npm run build:collaborators`; ships with no profiles and an empty state.
+- `npm test` now checks the collaborators data, that the page is in sync with it, and that every page links the section. Spec: `docs/specs/collaborators.md`.
+
 ### Portfolio mismatch fixes (2026-10-26)
 - Hollersports page, home card and Products card now read "On hold · v0.5.0 advisory beta", matching the Work card. No hollersports.com link (parked registrar page); the validator now rejects one.
 - PsyFi: removed "web ship live now" (no public URL found). The Work card and page now say web ship gates complete and native iOS deferred, per the repo readiness board; Recent updates adds the Oct 23 next-milestone note.
