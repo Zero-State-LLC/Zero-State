@@ -408,11 +408,15 @@ for (const message of require('./collaborators.js').verify(root)) fail('collabor
 for (const message of require('./collaborators.test.js').run()) fail('scripts/collaborators.test.js', message);
 // Ask Zero State: knowledge file is current, covers every home-page project, and carries nothing private.
 for (const message of require('./ask-knowledge.js').verify(root)) fail('workers/ask/knowledge.md', message.replace(/^workers\/ask\/knowledge\.md: /, ''));
-// Ask Zero State: monthly spend ledger unit tests (node:test).
-try {
-  execFileSync(process.execPath, ['--test', path.join(root, 'workers/ask/test/budget.test.mjs')], { stdio: 'pipe' });
-} catch (error) {
-  fail('workers/ask/test/budget.test.mjs', `budget tests failed\n${error.stdout || ''}${error.stderr || ''}`);
+// Ask Zero State: Worker unit tests (node:test): spend ledger, per-visitor limits, products-only scope.
+const askTests = fs.readdirSync(path.join(root, 'workers/ask/test')).filter((f) => f.endsWith('.test.mjs')).sort();
+if (!askTests.length) fail('workers/ask/test', 'no *.test.mjs files found');
+for (const file of askTests) {
+  try {
+    execFileSync(process.execPath, ['--test', path.join(root, 'workers/ask/test', file)], { stdio: 'pipe' });
+  } catch (error) {
+    fail(`workers/ask/test/${file}`, `tests failed\n${error.stdout || ''}${error.stderr || ''}`);
+  }
 }
 // Check every manifest page plus every required page (the manifest lists some pages requiredPages does not).
 const manifestPages = exists('site-manifest.json')

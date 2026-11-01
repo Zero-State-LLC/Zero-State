@@ -7,8 +7,8 @@
   const ENDPOINT = local ? 'http://localhost:8787' : 'https://zs-ask.zer0state-noema.workers.dev';
   if (!window.fetch || !window.TextDecoder || !window.AbortController) return;
 
-  const MAX_HISTORY = 16;   // must equal MAX_MESSAGES in workers/ask/src/index.js
-  const MAX_CHARS = 1000;   // must equal MAX_CHARS in workers/ask/src/index.js
+  const MAX_HISTORY = 8;    // must equal MAX_MESSAGES in workers/ask/src/index.js
+  const MAX_CHARS = 500;    // must equal MAX_CHARS in workers/ask/src/index.js
   const GREETING = 'Ask about Zero State, our products, client work, agent skills, or local AI deployments.';
   const SUGGESTIONS = ['What does Zero State do?', 'What is live right now?', 'Tell me about HexWire', 'Can you deploy AI on our hardware?'];
   const CUT_OFF = 'The answer was cut off. Please try again.';
