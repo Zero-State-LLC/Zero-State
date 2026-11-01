@@ -408,6 +408,12 @@ for (const message of require('./collaborators.js').verify(root)) fail('collabor
 for (const message of require('./collaborators.test.js').run()) fail('scripts/collaborators.test.js', message);
 // Ask Zero State: knowledge file is current, covers every home-page project, and carries nothing private.
 for (const message of require('./ask-knowledge.js').verify(root)) fail('workers/ask/knowledge.md', message.replace(/^workers\/ask\/knowledge\.md: /, ''));
+// Ask Zero State: monthly spend ledger unit tests (node:test).
+try {
+  execFileSync(process.execPath, ['--test', path.join(root, 'workers/ask/test/budget.test.mjs')], { stdio: 'pipe' });
+} catch (error) {
+  fail('workers/ask/test/budget.test.mjs', `budget tests failed\n${error.stdout || ''}${error.stderr || ''}`);
+}
 // Check every manifest page plus every required page (the manifest lists some pages requiredPages does not).
 const manifestPages = exists('site-manifest.json')
   ? (JSON.parse(fs.readFileSync(path.join(root, 'site-manifest.json'), 'utf8')).pages || [])
