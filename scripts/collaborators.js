@@ -59,8 +59,12 @@ function unknownKeys(obj, allowed, where, errors) {
   for (const key of Object.keys(obj)) if (!allowed.includes(key)) errors.push(`${where}: unknown field "${key}"`);
 }
 
-/** Validate parsed data. Returns a list of error strings (empty when valid). */
-function validate(data, root = ROOT) {
+/**
+ * Validate parsed data. Returns a list of error strings (empty when valid).
+ * approved: "pending" marks a drafted profile awaiting approval. Only the local build
+ * (allowPending) accepts it, so `npm test` and CI stay red until a real date is set.
+ */
+function validate(data, root = ROOT, { allowPending = false } = {}) {
   const errors = [];
   if (!isObj(data) || !Array.isArray(data.collaborators)) {
     return [`${DATA_FILE}: must be an object with a "collaborators" array`];
@@ -78,7 +82,9 @@ function validate(data, root = ROOT) {
     if (!isText(c.name, 80)) errors.push(`${where}: name is required (1-80 chars, no < or >, no surrounding spaces)`);
     if (!isText(c.role, 120)) errors.push(`${where}: role is required (1-120 chars, no < or >)`);
     if (!isText(c.bio, 600)) errors.push(`${where}: bio is required (1-600 chars, plain text, no < or >)`);
-    if (typeof c.approved !== 'string' || !DATE_RE.test(c.approved) || Number.isNaN(Date.parse(c.approved))) {
+    if (c.approved === 'pending') {
+      if (!allowPending) errors.push(`${where}: awaiting approval (approved is "pending"); set the YYYY-MM-DD approval date before merge`);
+    } else if (typeof c.approved !== 'string' || !DATE_RE.test(c.approved) || Number.isNaN(Date.parse(c.approved))) {
       errors.push(`${where}: approved must be the YYYY-MM-DD date the profile was approved for publication`);
     }
     if (c.featured !== undefined && typeof c.featured !== 'boolean') errors.push(`${where}: featured must be true or false`);
@@ -247,7 +253,7 @@ function main(argv) {
     return;
   }
   const data = load(ROOT);
-  const errors = validate(data, ROOT);
+  const errors = validate(data, ROOT, { allowPending: true });
   if (errors.length) { errors.forEach((e) => console.error(`- ${e}`)); process.exit(1); }
   const pageFile = path.join(ROOT, PAGE_FILE);
   const html = fs.readFileSync(pageFile, 'utf8');
@@ -255,6 +261,8 @@ function main(argv) {
   if (next === null) { console.error(`- ${PAGE_FILE}: generated-block markers are missing`); process.exit(1); }
   if (next !== html) fs.writeFileSync(pageFile, next);
   console.log(`Wrote ${PAGE_FILE}: ${data.collaborators.length} collaborator(s).`);
+  const pending = data.collaborators.filter((c) => c.approved === 'pending').map((c) => c.slug);
+  if (pending.length) console.warn(`WARNING: awaiting approval, npm test will fail until approved: ${pending.join(', ')}`);
 }
 
 module.exports = { validate, render, verify, escapeHtml, monogram, sortEntries, START, END };

@@ -75,6 +75,12 @@ const cases = [
       .some((e) => /file is missing/.test(e)));
     assert.ok(validate(withEntry({ photo: { src: 'assets/collaborators/x.webp', width: 400, height: 400 } }), root).some((e) => /alt/.test(e)));
   }],
+  ['pending approval renders locally but fails strict validation', () => {
+    const data = withEntry({ approved: 'pending' });
+    assert.ok(validate(data, root).some((e) => /awaiting approval/.test(e)));
+    assert.deepEqual(validate(data, root, { allowPending: true }), []);
+    assert.ok(validate(withEntry({ approved: 'soon' }), root, { allowPending: true }).length > 0);
+  }],
   ['sort: featured first, then order, then name', () => {
     const list = [
       { ...EXAMPLE, slug: 'c', name: 'Charlie' },

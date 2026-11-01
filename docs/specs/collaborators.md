@@ -35,7 +35,7 @@ One file, `data/collaborators.json`, typed by `data/collaborators.schema.json`
 | `name` | yes | As the person wants it shown. Max 80. |
 | `role` | yes | What they collaborate on, e.g. "Hardware design for zzThis". Max 120. |
 | `bio` | yes | 1-3 plain-text sentences the person approved. Max 600. No HTML. |
-| `approved` | yes | `YYYY-MM-DD` the profile was approved for publication. Not rendered. |
+| `approved` | yes | `YYYY-MM-DD` the profile was approved for publication. Not rendered. `"pending"` renders locally (for review screenshots) but makes `npm test` and CI fail, so a drafted profile cannot pass before approval. |
 | `photo` | no | `{ src, fallback?, alt, width, height }`. Local files under `assets/collaborators/` only. |
 | `links` | no | `[{ type, url, label? }]`; `type` is `website`, `x`, `github`, `linkedin`, or `other` (needs `label`). https only; `x`/`github`/`linkedin` must be on their own domains. Rendered in the given order. |
 | `projects` | no | `[{ page, label }]`; `page` must be an official page in `site-manifest.json`, e.g. `clients/zzthis.html`. |

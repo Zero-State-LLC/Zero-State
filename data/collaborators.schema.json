@@ -5,38 +5,104 @@
   "description": "Source of truth for collaborators.html. Edit data/collaborators.json, then run npm run build:collaborators. scripts/collaborators.js enforces these rules plus file and page existence checks. Spec: docs/specs/collaborators.md",
   "type": "object",
   "additionalProperties": false,
-  "required": ["collaborators"],
+  "required": [
+    "collaborators"
+  ],
   "properties": {
-    "$schema": { "type": "string" },
+    "$schema": {
+      "type": "string"
+    },
     "collaborators": {
       "type": "array",
-      "items": { "$ref": "#/$defs/collaborator" }
+      "items": {
+        "$ref": "#/$defs/collaborator"
+      }
     }
   },
   "$defs": {
-    "text": { "type": "string", "pattern": "^[^<>\\s](?:[^<>]*[^<>\\s])?$" },
+    "text": {
+      "type": "string",
+      "pattern": "^[^<>\\s](?:[^<>]*[^<>\\s])?$"
+    },
     "collaborator": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["slug", "name", "role", "bio", "approved"],
+      "required": [
+        "slug",
+        "name",
+        "role",
+        "bio",
+        "approved"
+      ],
       "properties": {
-        "slug": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$", "maxLength": 60, "description": "Unique id; becomes the card anchor collaborators.html#<slug>." },
-        "name": { "$ref": "#/$defs/text", "maxLength": 80, "description": "Display name exactly as the collaborator wants it shown." },
-        "role": { "$ref": "#/$defs/text", "maxLength": 120, "description": "What they collaborate on, e.g. 'Hardware design for zzThis'." },
-        "bio": { "$ref": "#/$defs/text", "maxLength": 600, "description": "1-3 sentences, plain text, approved by the collaborator." },
-        "approved": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$", "description": "Date the profile was approved for publication (YYYY-MM-DD)." },
-        "featured": { "type": "boolean", "description": "Sort first. Not shown as a badge." },
-        "order": { "type": "integer", "description": "Ascending sort after featured; ties sort by name." },
+        "slug": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+          "maxLength": 60,
+          "description": "Unique id; becomes the card anchor collaborators.html#<slug>."
+        },
+        "name": {
+          "$ref": "#/$defs/text",
+          "maxLength": 80,
+          "description": "Display name exactly as the collaborator wants it shown."
+        },
+        "role": {
+          "$ref": "#/$defs/text",
+          "maxLength": 120,
+          "description": "What they collaborate on, e.g. 'Hardware design for zzThis'."
+        },
+        "bio": {
+          "$ref": "#/$defs/text",
+          "maxLength": 600,
+          "description": "1-3 sentences, plain text, approved by the collaborator."
+        },
+        "approved": {
+          "type": "string",
+          "pattern": "^(?:\\d{4}-\\d{2}-\\d{2}|pending)$",
+          "description": "Date the profile was approved for publication (YYYY-MM-DD). \"pending\" renders locally but fails npm test, so a drafted profile cannot pass CI before approval."
+        },
+        "featured": {
+          "type": "boolean",
+          "description": "Sort first. Not shown as a badge."
+        },
+        "order": {
+          "type": "integer",
+          "description": "Ascending sort after featured; ties sort by name."
+        },
         "photo": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["src", "alt", "width", "height"],
+          "required": [
+            "src",
+            "alt",
+            "width",
+            "height"
+          ],
           "properties": {
-            "src": { "type": "string", "pattern": "^assets/collaborators/[a-z0-9]+(?:-[a-z0-9]+)*\\.(?:webp|jpg|jpeg|png|avif)$", "description": "Primary (preferably WebP) local file." },
-            "fallback": { "type": "string", "pattern": "^assets/collaborators/[a-z0-9]+(?:-[a-z0-9]+)*\\.(?:webp|jpg|jpeg|png|avif)$", "description": "Optional JPEG/PNG fallback when src is WebP or AVIF." },
-            "alt": { "$ref": "#/$defs/text", "maxLength": 200 },
-            "width": { "type": "integer", "minimum": 64, "maximum": 1200 },
-            "height": { "type": "integer", "minimum": 64, "maximum": 1200 }
+            "src": {
+              "type": "string",
+              "pattern": "^assets/collaborators/[a-z0-9]+(?:-[a-z0-9]+)*\\.(?:webp|jpg|jpeg|png|avif)$",
+              "description": "Primary (preferably WebP) local file."
+            },
+            "fallback": {
+              "type": "string",
+              "pattern": "^assets/collaborators/[a-z0-9]+(?:-[a-z0-9]+)*\\.(?:webp|jpg|jpeg|png|avif)$",
+              "description": "Optional JPEG/PNG fallback when src is WebP or AVIF."
+            },
+            "alt": {
+              "$ref": "#/$defs/text",
+              "maxLength": 200
+            },
+            "width": {
+              "type": "integer",
+              "minimum": 64,
+              "maximum": 1200
+            },
+            "height": {
+              "type": "integer",
+              "minimum": 64,
+              "maximum": 1200
+            }
           }
         },
         "links": {
@@ -44,11 +110,29 @@
           "items": {
             "type": "object",
             "additionalProperties": false,
-            "required": ["type", "url"],
+            "required": [
+              "type",
+              "url"
+            ],
             "properties": {
-              "type": { "enum": ["website", "x", "github", "linkedin", "other"] },
-              "url": { "type": "string", "pattern": "^https://" },
-              "label": { "$ref": "#/$defs/text", "maxLength": 40, "description": "Required only when type is 'other'." }
+              "type": {
+                "enum": [
+                  "website",
+                  "x",
+                  "github",
+                  "linkedin",
+                  "other"
+                ]
+              },
+              "url": {
+                "type": "string",
+                "pattern": "^https://"
+              },
+              "label": {
+                "$ref": "#/$defs/text",
+                "maxLength": 40,
+                "description": "Required only when type is 'other'."
+              }
             }
           }
         },
@@ -57,10 +141,20 @@
           "items": {
             "type": "object",
             "additionalProperties": false,
-            "required": ["page", "label"],
+            "required": [
+              "page",
+              "label"
+            ],
             "properties": {
-              "page": { "type": "string", "pattern": "^(?:products|clients|community|skills|media)/[a-z0-9-]+\\.html$", "description": "Existing official page from site-manifest.json." },
-              "label": { "$ref": "#/$defs/text", "maxLength": 60 }
+              "page": {
+                "type": "string",
+                "pattern": "^(?:products|clients|community|skills|media)/[a-z0-9-]+\\.html$",
+                "description": "Existing official page from site-manifest.json."
+              },
+              "label": {
+                "$ref": "#/$defs/text",
+                "maxLength": 60
+              }
             }
           }
         }

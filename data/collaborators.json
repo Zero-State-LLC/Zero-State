@@ -1,4 +1,33 @@
 {
   "$schema": "./collaborators.schema.json",
-  "collaborators": []
+  "collaborators": [
+    {
+      "slug": "badri-rajendran",
+      "name": "Badri Rajendran",
+      "role": "Collaborator, BlackDog - full-stack and GenAI engineer",
+      "bio": "Badri is a full-stack software engineer in the San Francisco Bay Area who builds production GenAI systems: LLM agents, retrieval-augmented generation (RAG), and evals. He works with Zero State on BlackDog.",
+      "approved": "pending",
+      "links": [
+        {
+          "type": "other",
+          "label": "Ask Badri.ai",
+          "url": "https://badri-rajendran.github.io/"
+        },
+        {
+          "type": "linkedin",
+          "url": "https://www.linkedin.com/in/badri-rajendran"
+        },
+        {
+          "type": "github",
+          "url": "https://github.com/Badri-Rajendran"
+        }
+      ],
+      "projects": [
+        {
+          "page": "products/blackdog.html",
+          "label": "BlackDog"
+        }
+      ]
+    }
+  ]
 }
