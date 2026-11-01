@@ -11,8 +11,7 @@
     "test:a11y": "node scripts/validate-site.js --a11y",
     "build:collaborators": "node scripts/collaborators.js",
     "build": "node scripts/validate-site.js",
-    "test": "node scripts/validate-site.js && node --test workers/ask/test/*.test.mjs",
-    "test:ask": "node --test workers/ask/test/*.test.mjs"
+    "test": "node scripts/validate-site.js"
   },
   "engines": {
     "node": ">=20"

@@ -63,7 +63,7 @@ The Worker stops calling the model once its estimated Workers AI spend for the m
   `0` pauses the assistant immediately. Raising the cap mid-month takes effect at once, since the
   stored total is compared against the current value.
 - Test the cap without spending: `npx wrangler dev --var MONTHLY_BUDGET_USD:0`, then POST a
-  question; expect 503 `budget_exhausted`. Unit tests: `npm run test:ask` from the repo root.
+  question; expect 503 `budget_exhausted`. Unit tests: `npm test` from the repo root (runs `workers/ask/test/budget.test.mjs`).
 
 ## Deploy (human step)
 

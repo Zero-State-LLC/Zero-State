@@ -2,7 +2,7 @@
 // the SQL API is synchronous, so reserve() is an atomic check-and-increment: concurrent questions
 // cannot push the month past MONTHLY_BUDGET_USD. Stores only "YYYY-MM" -> micro-dollars; no visitor data.
 import { DurableObject } from 'cloudflare:workers';
-import { reserve, settle } from './budget.js';
+import { reserve, settle } from './budget.mjs';
 
 export class AskBudget extends DurableObject {
 	constructor(ctx, env) {

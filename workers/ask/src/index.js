@@ -1,7 +1,7 @@
 // Ask Zero State · POST / with { messages: [{ role, content }] } → text/plain stream of the answer.
 // The model sees only knowledge.md (generated from the site) plus the visitor's conversation.
 import KNOWLEDGE from '../knowledge.md';
-import { costMicros, monthKey, readConfig, reserveMicros, secondsUntilNextMonth } from './budget.js';
+import { costMicros, monthKey, readConfig, reserveMicros, secondsUntilNextMonth } from './budget.mjs';
 
 export { AskBudget } from './budget-do.js';
 
