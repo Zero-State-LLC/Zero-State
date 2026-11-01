@@ -67,8 +67,14 @@ allowed example questions; add to it when tuning.
 ### Per-visitor limits (strict)
 
 Every question that reaches the model first passes one atomic check in the `AskBudget` Durable
-Object, keyed by a SHA-256 hash of the visitor's IP (`CF-Connecting-IP`; the IP itself is never
-stored):
+Object, keyed by a SHA-256 hash of the visitor key (the IP itself is never stored). The visitor
+key comes from `CF-Connecting-IP` (`src/visitor.mjs`):
+
+- IPv4: the full address.
+- IPv6: the /64 prefix. One home, phone or server usually holds a whole /64 and can rotate the
+  lower 64 bits freely, so per-address limits would not hold.
+- IPv4-mapped IPv6 (`::ffff:1.2.3.4` or `::ffff:102:304`): the IPv4 address it carries.
+- Anything unparseable: its own key (still limited).
 
 | Var | Default | Over the limit |
 | --- | --- | --- |
@@ -76,14 +82,31 @@ stored):
 | `IP_PER_DAY` | `30` questions per UTC day | 429 `"code": "daily_limit"` |
 | `IP_DAILY_BUDGET_USD` | `0.25` estimated spend per UTC day | 429 `"code": "daily_limit"` |
 
-The widget shows the Worker's message for both 429 codes. Minute hits are deleted after 60 s and
+The widget shows the Worker's message for every 429 code. Minute hits are deleted after 60 s and
 daily rows when the UTC day changes. The Durable Object uses its own clock at admission, so a
 request delayed across midnight cannot count against, or clear, the wrong day. These replace the old Workers Rate Limiting binding
 (`ASK_LIMIT`), which never returned 429 in production: that binding is approximate by design
 (each instance checks a locally cached count and syncs in the background, separately per
 Cloudflare location), so a limit as small as 6 a minute was not enforced. Cloudflare's docs
-recommend a Durable Object for a strict limit. Visitors sharing an IP (offices, mobile carriers)
-share these limits.
+recommend a Durable Object for a strict limit. Visitors sharing an IPv4 address or an IPv6 /64
+(offices, mobile carriers) share these limits.
+
+### Site-wide cap
+
+Per-visitor limits alone cannot stop traffic that rotates addresses (for example a VPN or proxy
+pool handing out a new IPv6 /64 per request). So the same atomic check also counts admitted
+questions across all visitors:
+
+| Var | Default | Over the limit |
+| --- | --- | --- |
+| `SITE_PER_MINUTE` | `30` (sliding 60 s) | 429 `"code": "busy"`, "Ask Zero State is busy right now, try again in a minute.", `Retry-After` until the oldest of the last 30 leaves the window |
+| `SITE_PER_DAY` | `300` questions per UTC day | 429 `"code": "busy"`, "Ask Zero State is busy today...", `Retry-After` until 00:00 UTC |
+
+Order of checks: visitor minute, visitor day (questions, then dollars), site minute, site day,
+then the monthly budget. A visitor over their own limit sees `rate_limited` or `daily_limit`, not
+`busy`. Only admitted questions count. Refusals (off-topic precheck, any 429 or 503) record
+nothing. At about $0.0004 to $0.023 per answer, 300 questions a day is at most about $7 a day, so
+the monthly budget is still the hard stop.
 
 ### Monthly spend cap
 
@@ -119,13 +142,16 @@ The Worker stops calling the model once its estimated Workers AI spend for the m
 - Change the cap: edit `MONTHLY_BUDGET_USD` in `wrangler.jsonc` and redeploy (human step below).
   `0` pauses the assistant immediately. Raising the cap mid-month takes effect at once, since the
   stored total is compared against the current value.
-- Change the per-visitor limits the same way (`IP_PER_MINUTE`, `IP_PER_DAY`,
-  `IP_DAILY_BUDGET_USD`). Invalid or missing values fail closed (503 `budget_unavailable`).
+- Change the per-visitor and site-wide limits the same way (`IP_PER_MINUTE`, `IP_PER_DAY`,
+  `IP_DAILY_BUDGET_USD`, `SITE_PER_MINUTE`, `SITE_PER_DAY`). Invalid or missing values fail
+  closed (503 `budget_unavailable`).
 - Test without spending: `npx wrangler dev --var MONTHLY_BUDGET_USD:0`, then POST a product
   question; expect 503 `budget_exhausted`. To test the per-visitor limits locally without the
   model, run `wrangler dev` with a copy of `wrangler.jsonc` that omits the `"ai"` binding: each
   admitted question returns 502 (no model) and the 7th within a minute returns 429
-  `rate_limited`. Unit tests: `npm test` from the repo root runs every `workers/ask/test/*.test.mjs`.
+  `rate_limited`. Add `--var SITE_PER_MINUTE:2` (local only) and send from two addresses (set
+  `CF-Connecting-IP` on each request) to see the 3rd return 429 `busy`. Unit tests:
+  `node scripts/validate-site.js` (also `npm test`) runs every `workers/ask/test/*.test.mjs`.
 
 ## Deploy (human step)
 

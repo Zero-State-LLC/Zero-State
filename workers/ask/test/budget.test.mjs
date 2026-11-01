@@ -1,10 +1,10 @@
 // Unit tests for the monthly spend ledger (workers/ask/src/budget.mjs). Run: node --test workers/ask/test/budget.test.mjs (also run by npm test)
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { admit, costMicros, dayKey, inputTokenBound, monthKey, readConfig, reserve, reserveMicros, secondsUntilNextDay, secondsUntilNextMonth, settle } from '../src/budget.mjs';
+import { SITE, admit, costMicros, dayKey, inputTokenBound, monthKey, readConfig, reserve, reserveMicros, secondsUntilNextDay, secondsUntilNextMonth, settle } from '../src/budget.mjs';
 
-const ENV = { MONTHLY_BUDGET_USD: '5', IP_PER_MINUTE: '6', IP_PER_DAY: '30', IP_DAILY_BUDGET_USD: '0.25', PRICE_INPUT_PER_M: '0.30', PRICE_CACHED_INPUT_PER_M: '0.006', PRICE_OUTPUT_PER_M: '1.20' };
-const { prices, limitMicros, ip: ipLimits } = readConfig(ENV);
+const ENV = { MONTHLY_BUDGET_USD: '5', IP_PER_MINUTE: '6', IP_PER_DAY: '30', IP_DAILY_BUDGET_USD: '0.25', SITE_PER_MINUTE: '30', SITE_PER_DAY: '300', PRICE_INPUT_PER_M: '0.30', PRICE_CACHED_INPUT_PER_M: '0.006', PRICE_OUTPUT_PER_M: '1.20' };
+const { prices, limitMicros, ip: ipLimits, site: siteLimits } = readConfig(ENV);
 const memoryStore = () => {
 	const data = new Map();
 	return { get: (m) => data.get(m) ?? 0, set: (m, v) => data.set(m, v) };
@@ -13,6 +13,9 @@ const memoryStore = () => {
 test('config: $5 budget in micro-dollars; missing or bad vars fail closed', () => {
 	assert.equal(limitMicros, 5_000_000);
 	assert.deepEqual(ipLimits, { perMinute: 6, perDay: 30, dailyMicros: 250_000 });
+	assert.deepEqual(siteLimits, { sitePerMinute: 30, sitePerDay: 300 });
+	assert.equal(readConfig({ ...ENV, SITE_PER_MINUTE: undefined }), null);
+	assert.equal(readConfig({ ...ENV, SITE_PER_DAY: '300.5' }), null);
 	assert.equal(readConfig({ ...ENV, IP_PER_MINUTE: '2.5' }), null);
 	assert.equal(readConfig({ ...ENV, IP_DAILY_BUDGET_USD: '' }), null);
 	assert.equal(readConfig({ ...ENV, MONTHLY_BUDGET_USD: undefined }), null);
@@ -102,7 +105,7 @@ const fullStore = () => {
 	};
 };
 const T0 = Date.parse('2026-11-01T12:00:00Z');
-const req = (over = {}) => ({ ip: 'a', now: T0, month: '2026-11', day: '2026-11-01', amount: 20_000, limitMicros, ...ipLimits, ...over });
+const req = (over = {}) => ({ ip: 'a', now: T0, month: '2026-11', day: '2026-11-01', amount: 20_000, limitMicros, ...ipLimits, ...siteLimits, ...over });
 
 test('strict per-IP limit: the 7th request inside 60 s is refused, with Retry-After', () => {
 	const store = fullStore();
@@ -123,7 +126,7 @@ test('daily per-IP question cap', () => {
 	assert.equal(admit(store, req({ now: T0 + 900_000, amount: 100 })).reason, 'daily_limit');
 	// Next UTC day: fresh allowance, and yesterday's rows are pruned.
 	assert.equal(admit(store, req({ now: T0 + 86_400_000, day: '2026-11-02', amount: 100 })).ok, true);
-	assert.equal(store.size().days, 1);
+	assert.equal(store.size().days, 2);   // today's row for this visitor and for the site
 });
 
 test('daily per-IP dollar cap stops one visitor before the monthly budget', () => {
@@ -152,4 +155,45 @@ test('monthly budget is checked after the visitor limits and blocks everyone', (
 	assert.equal(admit(store, req()).reason, 'budget_exhausted');
 	assert.equal(admit(store, req({ ip: 'z' })).reason, 'budget_exhausted');
 	assert.deepEqual(store.ipDay('a', '2026-11-01'), { n: 0, micros: 0 });   // nothing recorded
+});
+
+test('site-wide minute cap: the 31st admitted question in 60 s is busy for everyone, with Retry-After', () => {
+	const store = fullStore();
+	// 30 different visitors (rotating IPs) each ask once, 1 s apart.
+	for (let i = 0; i < 30; i++) assert.deepEqual(admit(store, req({ ip: `v${i}`, now: T0 + i * 1000 })), { ok: true });
+	const next = admit(store, req({ ip: 'new', now: T0 + 30_000 }));
+	assert.deepEqual(next, { ok: false, reason: 'busy', window: 'minute', retryAfter: 30 });   // T0's hit leaves at T0 + 60 s
+	assert.equal(admit(store, req({ ip: 'v0', now: T0 + 30_500 })).reason, 'busy');
+	assert.equal(store.get('2026-11'), 30 * 20_000);                       // busy requests reserve nothing
+	assert.deepEqual(store.ipDay('new', '2026-11-01'), { n: 0, micros: 0 }); // and count nothing
+	assert.equal(store.ipDay(SITE, '2026-11-01').n, 30);
+	assert.equal(admit(store, req({ ip: 'new', now: T0 + 60_001 })).ok, true);   // window slides
+});
+
+test('per-visitor limits are checked before the site cap, so one noisy visitor sees rate_limited', () => {
+	const store = fullStore();
+	for (let i = 0; i < 30; i++) admit(store, req({ ip: `v${i}`, now: T0 + i * 100 }));
+	for (let i = 0; i < 6; i++) store.addHit('noisy', T0 + i * 100);
+	assert.equal(admit(store, req({ ip: 'noisy', now: T0 + 5_000 })).reason, 'rate_limited');
+	assert.equal(admit(store, req({ ip: 'quiet', now: T0 + 5_000 })).reason, 'busy');
+});
+
+test('site-wide daily cap: busy until the next UTC day', () => {
+	const store = fullStore();
+	let ok = 0;
+	for (let i = 0; i < 320; i++) if (admit(store, req({ ip: `v${i % 40}`, now: T0 + i * 10_000, amount: 100 })).ok) ok++;
+	assert.equal(ok, 300);
+	const late = admit(store, req({ ip: 'fresh', now: T0 + 3_300_000, amount: 100 }));
+	assert.equal(late.reason, 'busy');
+	assert.equal(late.window, 'day');
+	assert.equal(late.retryAfter, secondsUntilNextDay(new Date(T0 + 3_300_000)));
+	assert.equal(admit(store, req({ ip: 'fresh', now: T0 + 86_400_000, day: '2026-11-02', amount: 100 })).ok, true);
+});
+
+test('settle never moves the site row (it counts questions only)', () => {
+	const store = fullStore();
+	admit(store, req());
+	settle(store, '2026-11', 20_000, 500, 'a', '2026-11-01');
+	assert.deepEqual(store.ipDay(SITE, '2026-11-01'), { n: 1, micros: 0 });
+	assert.equal(store.ipDay('a', '2026-11-01').micros, 500);
 });

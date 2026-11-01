@@ -3,6 +3,7 @@
 import KNOWLEDGE from '../knowledge.md';
 import { costMicros, inputTokenBound, readConfig, reserveMicros, secondsUntilNextDay, secondsUntilNextMonth } from './budget.mjs';
 import { CONTACT, REFUSAL, extractTopics, precheck } from './scope.mjs';
+import { visitorKey } from './visitor.mjs';
 
 export { AskBudget } from './budget-do.js';
 
@@ -13,6 +14,8 @@ const TOPICS = extractTopics(KNOWLEDGE);
 const RESTING = `Ask Zero State is resting until next month. You can still email ${CONTACT}.`;
 const TOO_FAST = 'Too many questions at once. Please wait a minute.';
 const DAILY = `You have reached today's limit for Ask Zero State. Please come back tomorrow, or email ${CONTACT}.`;
+const BUSY = 'Ask Zero State is busy right now, try again in a minute.';
+const BUSY_TODAY = `Ask Zero State is busy today. Please try again tomorrow, or email ${CONTACT}.`;
 const UNAVAILABLE = 'The assistant is unavailable right now.';
 
 const RULES = `You are "Ask Zero State", the assistant on zer0state.com, the website of Zero State LLC, an independent software studio.
@@ -81,13 +84,14 @@ export default {
 		let reserved = 0;
 		try {
 			if (!config) throw new Error('budget vars missing or invalid');
-			ip = await hashIp(request.headers.get('CF-Connecting-IP') || 'unknown');
+			ip = await hashKey(visitorKey(request.headers.get('CF-Connecting-IP')));
 			reserved = reserveMicros(inputTokenBound(chat), MAX_TOKENS, config.prices);
 			ledger = env.BUDGET.get(env.BUDGET.idFromName('global'));
-			const verdict = await ledger.admit({ ip, amount: reserved, limitMicros: config.limitMicros, ...config.ip });
+			const verdict = await ledger.admit({ ip, amount: reserved, limitMicros: config.limitMicros, ...config.ip, ...config.site });
 			({ month, day } = verdict);   // the Durable Object's clock decides the month and day
 			if (verdict.reason === 'rate_limited') return fail(429, TOO_FAST, 'rate_limited', { 'Retry-After': String(verdict.retryAfter) });
 			if (verdict.reason === 'daily_limit') return fail(429, DAILY, 'daily_limit', { 'Retry-After': String(secondsUntilNextDay(now)) });
+			if (verdict.reason === 'busy') return fail(429, verdict.window === 'day' ? BUSY_TODAY : BUSY, 'busy', { 'Retry-After': String(verdict.retryAfter) });
 			if (verdict.reason === 'budget_exhausted') return fail(503, RESTING, 'budget_exhausted', { 'Retry-After': String(secondsUntilNextMonth(now)) });
 			if (!verdict.ok) throw new Error('unexpected verdict');
 		} catch (err) {
@@ -129,10 +133,10 @@ export default {
 	},
 };
 
-// Visitors are counted by a SHA-256 hash of their IP (CF-Connecting-IP), so the Durable Object never
-// stores an IP address.
-async function hashIp(ip) {
-	const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(`zs-ask:${ip}`));
+// Visitors are counted by a SHA-256 hash of their visitor key (IPv4 address or IPv6 /64, from
+// CF-Connecting-IP; see visitor.mjs), so the Durable Object never stores an IP address.
+async function hashKey(key) {
+	const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(`zs-ask:${key}`));
 	return [...new Uint8Array(digest).slice(0, 16)].map((b) => b.toString(16).padStart(2, '0')).join('');
 }
 
