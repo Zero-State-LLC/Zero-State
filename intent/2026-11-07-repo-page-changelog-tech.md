@@ -78,6 +78,12 @@ home page, new portfolio entries, and any change to product availability claims.
 5. Who signs off on roadmap wording per project? Proposed: the owner reviews every
    roadmap in the PR before merge.
 
+Status 2026-11-07: Aaron asked for this as a draft PR for Danny's review. The proposed
+answers above are applied in that PR and stand until Danny accepts or changes them.
+One case for Danny: the BlackDog page says its specification and docs are Apache-2.0
+while the code is proprietary. Under the rule above the page no longer links the
+specification; restoring it would need an exception for licensed documents.
+
 ## Verified / assumed claims
 
 | Claim | Label | Basis |

@@ -65,6 +65,10 @@
     "Zero-State-LLC/NeonGenie",
     "Zero-State-LLC/Sigil-Forge"
   ],
+  "open_source": [
+    { "page": "products/pawl.html", "repo": "Zero-State-LLC/pawl", "license": "Apache-2.0", "checked": "2026-11-07" },
+    { "page": "skills/kubrick.html", "repo": "Zero-State-LLC/Kubrick", "license": "MIT", "checked": "2026-11-07" }
+  ],
   "live": [
     {
       "page": "products/j-chain.html",
