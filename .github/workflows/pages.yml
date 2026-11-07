@@ -10,6 +10,7 @@ on:
       - "assets/**"
       - "media/**"
       - "products/**"
+      - "app-ads.txt"
       - ".github/workflows/pages.yml"
   workflow_dispatch:
 
