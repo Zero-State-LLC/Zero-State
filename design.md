@@ -52,6 +52,8 @@ Named 4-point scale in `tokens.css` (`--space-3xs` … `--space-3xl`). Pages ref
 - Scroll-linked, ≥ 40 rem and no-preference only: hero orbits turn up to 140°, “The world moves.” drifts 26 % while “The reference remains.” holds still; the field grid moves toward the reader; the orbital map turns ±24° as it crosses the viewport (all rings rigidly, so spacing never collapses).
 - Reveal once: the method glyph's passage (brand-token spec: 4800 ms, linear, one pass); the enclosure's frame corners close in.
 - State: N10 nav morph (one curve, 520 ms); map readout crossfade on hover or focus.
+- 3D marks (WebGL, `aperture-3d.js` and `marks-3d.js`, three.js r170 from jsDelivr, MIT): the hero mark, the method glyph and the enclosure are drawn as lit solids in cream and copper, in exactly the place and size of the flat art, which stays as the no-WebGL fallback. The hero mark assembles from its layers once on load (2.4 s) and sways slightly; each mark turns when dragged and eases back to face front. The method passage keeps its one 4800 ms pass on reveal. In the enclosure the ember dot travels Models → Agents → Your data, holding at each, and the dotted ring turns once every 40 s.
+- Idle: the hero orbit rings also turn slowly at rest (inner ring once a minute); the scroll-linked turn adds on top.
 
 All motion is `transform` / `opacity` except the brand passage stroke. Every animation has a `prefers-reduced-motion` path (opacity only, ≤ 150 ms); scroll-linked motion is progressive enhancement (`@supports (animation-timeline: view())`) and never runs below 40 rem.
 
