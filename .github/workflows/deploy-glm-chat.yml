@@ -141,6 +141,6 @@ jobs:
       - name: Smoke test
         run: |
           sleep 5
-          CODE=$(curl -s -o /dev/null -w '%{http_code}' -X POST https://glm-chat.zer0state.workers.dev/v1/chat/completions -H 'Content-Type: application/json' -d '{}')
+          CODE=$(curl -s -o /dev/null -w '%{http_code}' -X POST https://glm-chat.zer0state-noema.workers.dev/v1/chat/completions -H 'Content-Type: application/json' -d '{}')
           echo "unauth probe -> $CODE (expect 401)"
           test "$CODE" = "401"

@@ -24,6 +24,8 @@ request body to the self-hosted GLM API almost unchanged:
   16000 chars), `max_tokens` as an integer 1..4096 (default 2048), `stream: false`.
   Invalid input returns 400 before any upstream call.
 - Secrets reach the deploy step as `env:` values and are piped with `printf '%s'`.
+- The unauthenticated smoke probe calls `glm-chat.zer0state-noema.workers.dev`,
+  the host Wrangler actually deploys, and expects 401. It does not call the model.
 - `chat/index.html` refuses a user message over 16000 characters, drops a failed
   send from history, and stores at most 16000 characters of each reply in the
   transcript it sends back. The on-screen reply is not cut.

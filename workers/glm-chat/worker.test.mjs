@@ -7,6 +7,11 @@ import vm from 'node:vm';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const workflow = readFileSync(path.join(root, '.github/workflows/deploy-glm-chat.yml'), 'utf8');
+
+test('the smoke probe uses the deployed workers.dev host', () => {
+  assert.match(workflow, /https:\/\/glm-chat\.zer0state-noema\.workers\.dev\/v1\/chat\/completions/);
+  assert.doesNotMatch(workflow, /https:\/\/glm-chat\.zer0state\.workers\.dev\//);
+});
 const page = readFileSync(path.join(root, 'chat/index.html'), 'utf8');
 
 function workerFns() {
