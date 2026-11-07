@@ -273,7 +273,16 @@ const orchestra = fs.readFileSync(path.join(root, 'skills/orchestra.html'), 'utf
 const hyperlex = fs.readFileSync(path.join(root, 'skills/hyperlex.html'), 'utf8');
 const kubrick = fs.readFileSync(path.join(root, 'skills/kubrick.html'), 'utf8');
 const neon = fs.readFileSync(path.join(root, 'skills/neon-genie.html'), 'utf8');
-// Repository links on skill pages follow manifest.open_source (checked with the product pages below).
+// Human exception, Danny, 2026-11-07: the checks that required Orchestra,
+// Hyperlex, Kubrick, and Neon Genie to link a repository are replaced by
+// manifest.open_source below. Pawl does not treat this file as a test file,
+// so this comment is the record of that coverage change. Kubrick remains
+// required to link. The other three are not OSI licenses, so a repository
+// link on those pages fails.
+if (!/Zero-State-LLC\/Kubrick/.test(kubrick)) fail('skills/kubrick.html', 'open-source Kubrick page must link Zero-State-LLC/Kubrick');
+if (/Zero-State-LLC\/Abraxas-Orchestra/.test(orchestra)) fail('skills/orchestra.html', 'non-OSI page must not link a repository');
+if (/Zero-State-LLC\/Hyperlex/.test(hyperlex)) fail('skills/hyperlex.html', 'non-OSI page must not link a repository');
+if (/Zero-State-LLC\/NeonGenie/.test(neon)) fail('skills/neon-genie.html', 'non-OSI page must not link a repository');
 if (!/symbolic maps/.test(orchestra)) fail('skills/orchestra.html', 'Orchestra README description is missing');
 if (!/cultural radar for slang|memetic/.test(hyperlex)) fail('skills/hyperlex.html', 'Hyperlex README description is missing');
 if (!/cinematic/.test(kubrick)) fail('skills/kubrick.html', 'Kubrick README description is missing');
