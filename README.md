@@ -30,7 +30,7 @@ Public product pages map to org repositories:
 | Marigold Market | [Zero-State-LLC/Marigold-Market](https://github.com/Zero-State-LLC/Marigold-Market) |
 | Noema | [noema.guru](https://noema.guru) |
 | Pawl | [pypi.org/project/pawl-gate](https://pypi.org/project/pawl-gate/) |
-| J-Chain | [Zero-State-LLC/JChain](https://github.com/Zero-State-LLC/JChain) |
+| J-Chain | [j-chain.net](https://j-chain.net) |
 | BlackDog | [Zero-State-LLC/BlackDog](https://github.com/Zero-State-LLC/BlackDog) |
 
 ### Clients
