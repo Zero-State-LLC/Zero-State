@@ -162,12 +162,14 @@ textarea {
 <div id="log"></div>
 
 <form id="f">
-  <div class="inputwrap"><textarea id="t" rows="1" placeholder="TRANSMIT — enter to send, shift+enter for newline"></textarea></div>
+  <div class="inputwrap"><textarea id="t" rows="1" maxlength="16000" placeholder="TRANSMIT — enter to send, shift+enter for newline"></textarea></div>
   <button id="send">SEND</button>
 </form>
 
 <script>
 const WORKER = 'https://glm-chat.zer0state-noema.workers.dev/v1/chat/completions';
+// The worker rejects any message over this many characters (400), so never send one.
+const MAX_CHARS = 16000;
 const $ = (s) => document.querySelector(s);
 const log = $('#log'), t = $('#t'), send = $('#send');
 let pass = sessionStorage.getItem('chat-pass') || '';
@@ -216,9 +218,14 @@ function add(role, text) {
 async function sendMsg() {
   const text = t.value.trim();
   if (!text || send.disabled) return;
+  if (text.length > MAX_CHARS) {
+    sysline(`MESSAGE TOO LONG — ${text.length} OF ${MAX_CHARS} CHARACTERS`);
+    return;
+  }
   t.value = '';
   add('user', text);
-  history.push({ role: 'user', content: text });
+  const msg = { role: 'user', content: text };
+  history.push(msg);
   const bubble = add('assistant', '…');
   send.disabled = true;
   const t0 = performance.now();
@@ -245,6 +252,10 @@ async function sendMsg() {
   } catch (err) {
     bubble.className = 'bubble error';
     bubble.textContent = 'TRANSMISSION FAILED — ' + (typeof err.message === 'string' ? err.message : 'LINK DOWN');
+    // A message that failed must not ride along with every later request; hand it back for a retry.
+    const i = history.lastIndexOf(msg);
+    if (i !== -1) history.splice(i, 1);
+    if (!t.value) t.value = text;
   }
   send.disabled = false;
   t.focus();
