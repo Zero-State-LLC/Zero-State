@@ -1,0 +1,34 @@
+// Ask Zero State · answers visitor questions from the site's own copy (knowledge.md).
+// Deploy is a human step: see README.md. No secrets live here; Workers AI needs no key.
+{
+	"name": "zs-ask",
+	"main": "src/index.js",
+	"compatibility_date": "2026-10-13",
+	"rules": [{ "type": "Text", "globs": ["**/*.md"], "fallthrough": true }],
+	"ai": { "binding": "AI" },
+	// One global Durable Object gates every model call: strict per-IP rate and daily limits plus the
+	// monthly spend cap (see README "Limits and spend cap").
+	"durable_objects": { "bindings": [{ "name": "BUDGET", "class_name": "AskBudget" }] },
+	"migrations": [{ "tag": "v1", "new_sqlite_classes": ["AskBudget"] }],
+	"vars": {
+		// Cheapest Workers AI model that answers well from a ~16k-token context (Workers Paid plan).
+		"MODEL": "@cf/deepseek-ai/deepseek-v4.1-flash-1017",
+		// Hard monthly cap in USD (UTC calendar month). Prices are USD per million tokens for MODEL;
+		// update them if MODEL changes: https://developers.cloudflare.com/workers-ai/platform/pricing/
+		"MONTHLY_BUDGET_USD": "5",
+		// Strict per-visitor (per IP) limits, enforced in the same Durable Object. Daily limits reset at
+		// 00:00 UTC. IP_DAILY_BUDGET_USD stops one visitor from spending much of the month's budget.
+		"IP_PER_MINUTE": "6",
+		"IP_PER_DAY": "30",
+		"IP_DAILY_BUDGET_USD": "0.25",
+		// Site-wide limits across all visitors (admitted questions per rolling minute and per UTC day),
+		// so visitors rotating IP addresses cannot get around the per-visitor limits.
+		"SITE_PER_MINUTE": "30",
+		"SITE_PER_DAY": "300",
+		"PRICE_INPUT_PER_M": "0.30",
+		"PRICE_CACHED_INPUT_PER_M": "0.006",
+		"PRICE_OUTPUT_PER_M": "1.20",
+		"ALLOWED_ORIGINS": "https://zer0state.com,https://www.zer0state.com,http://localhost:8080,http://127.0.0.1:8080"
+	},
+	"observability": { "enabled": true }
+}

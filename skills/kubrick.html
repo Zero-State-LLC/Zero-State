@@ -34,7 +34,7 @@
     <p class="kicker" data-load="0">Hermes skill · cinematic narrative</p>
     <h1 class="page-title" id="page-title" data-load="1">Kubrick</h1>
     <p class="dossier__lede" data-load="2">Symbolic cinematic engineering — form first, dramatic function first, continuity that can ship.</p>
-    <p class="dossier__status" data-load="3">v0.27.15 · production surfaces</p>
+    <p class="dossier__status" data-load="3"><span class="oss-tag">Open source</span> v0.27.15 · production surfaces · MIT</p>
   </div>
   <figure class="dossier__symbol" aria-hidden="true" data-load="1">
     <svg class="dossier__orbits" viewBox="0 0 400 400" focusable="false">
@@ -50,14 +50,18 @@
 <section class="dossier__section" aria-labelledby="s1"><h2 id="s1">What it is</h2><div class="dossier__body"><p>Kubrick helps agents and operators build cinematic narrative systems: story structure, visual continuity, and production-ready packets without collapsing into trivia or generic prose.</p>
         <p>Observed form and dramatic pressure first — then frames, motifs, and handoff surfaces that stay consistent across a project.</p></div></section>
 <section class="dossier__section" aria-labelledby="s2"><h2 id="s2">In short</h2><div class="dossier__body"><p>Use when the job is screenplay, storyboard, or visual continuity — not film trivia or unrelated software work.</p>
-        <a class="text-link" href="https://github.com/Zero-State-LLC/Kubrick">Source on GitHub <span aria-hidden="true">↗</span></a></div></section>
-<section class="dossier__section" aria-labelledby="recent"><h2 id="recent">Recent updates</h2><div class="dossier__body"><p class="status">Last 30 days to Oct 26, 2026 · Pacific time</p>
-        <ul class="recent">
-          <li><time datetime="2026-10-11">Oct 11</time> <span>Opt-in telemetry added.</span></li>
-          <li><time datetime="2026-10-10">Oct 10</time> <span>v0.27.15: prompt guardrails for end-card space, off-screen UI, prop lettering and handwritten text; spend estimates now fail closed when they are not finite numbers.</span></li>
-          <li><time datetime="2026-10-07">Oct 7</time> <span>v0.27.14: negative lines from the lock are compiled into prompts.</span></li>
-          <li><time datetime="2026-10-07">Oct 7</time> <span>v0.27.12: hold-list quality checks on frames, with per-hold judge routing.</span></li>
-        </ul></div></section>
+        <a class="text-link" href="https://github.com/Zero-State-LLC/Kubrick" target="_blank" rel="noopener noreferrer">Source on GitHub <span aria-hidden="true">↗</span></a></div></section>
+<section class="dossier__section" aria-labelledby="built"><h2 id="built">Built with</h2><div class="dossier__body">
+        <ul class="stack" role="list"><li><b>Hermes</b><span>main agent the skill is packaged for</span></li><li><b>OpenClaw</b><span>agent with its own Kubrick edition</span></li><li><b>Python</b><span>language of the command line and checks</span></li><li><b>Keyframe</b><span>turns shot plans into image and video jobs</span></li><li><b>Grok Imagine</b><span>image and video generator it writes prompts for</span></li><li><b>Flux, Stable Diffusion 3, Midjourney</b><span>other image generators with prompt adapters</span></li><li><b>DINOv2</b><span>open vision model comparing faces to references</span></li><li><b>Model Context Protocol (MCP)</b><span>optional way for other tools to call it</span></li></ul></div></section>
+<section class="dossier__section" aria-labelledby="changelog"><h2 id="changelog">Changelog</h2><div class="dossier__body"><p class="status">Milestones in plain English, newest first, to Nov 7, 2026</p>
+        <div class="changelog">
+          <div><h3><time datetime="2026-10">October 2026</time></h3><ul role="list"><li>Added optional, off-by-default usage feedback that never uploads prompts, scripts or project files.</li><li>Kubrick is now open source under the MIT license, with a plain-English README.</li><li>v0.27.15: new prompt checks catch reserved end-card space, interface text off screen, and handwritten lettering.</li><li>v0.24 to v0.27: storyboards and finished takes are checked against locked references before more video money is spent.</li></ul></div>
+          <div><h3><time datetime="2026-09">September 2026</time></h3><ul role="list"><li>v0.17.1: updated the skill file to the newer Hermes Agent skill format.</li></ul></div>
+          <div><h3><time datetime="2026-08">August 2026</time></h3><ul role="list"><li>v0.17.0: added a guided wizard that plans a job before anything runs.</li><li>v0.15 and v0.16: one workflow now covers design documents, scripts, image prompts and video shot plans.</li></ul></div>
+          <div><h3><time datetime="2026-07">July 2026</time></h3><ul role="list"><li>v0.14: one simple command for every job, plus a safe installer with preview and rollback.</li><li>v0.14: an OpenClaw edition of the skill became available on its own branch.</li><li>v0.13: added prompt adapters for Flux, Stable Diffusion 3 and Midjourney, and an optional tool interface.</li><li>v0.8 to v0.12: first standalone release, then a storyboard compiler that keeps continuity from shot to shot.</li></ul></div>
+        </div></div></section>
+<section class="dossier__section" aria-labelledby="roadmap"><h2 id="roadmap">Roadmap</h2><div class="dossier__body"><p class="status">What comes next. Plans, not promises, and no dates.</p>
+        <ul class="roadmap" role="list"><li><span class="evidence-label" data-evidence="NOT_READY">In progress</span><span>Collect opt-in usage feedback once a service to receive it is in place.</span></li><li><span class="evidence-label" data-evidence="ASPIRATIONAL">Planned</span><span>Find heads automatically in wide storyboard frames so identity checks need no hand-drawn box.</span></li><li><span class="evidence-label" data-evidence="ASPIRATIONAL">Planned</span><span>Build a second labeled image set so check wording is not tuned on the set that scores it.</span></li><li><span class="evidence-label" data-evidence="ASPIRATIONAL">Planned</span><span>Reuse the storyboard image checks when reviewing finished video takes.</span></li></ul></div></section>
 <nav class="dossier__back" aria-label="Return"><p>Return to the portfolio</p><a href="../work.html#skills">All skills ↖</a></nav>
 </main>
 <footer class="foot">

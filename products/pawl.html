@@ -34,8 +34,8 @@
     <p class="kicker" data-load="0">Agent coding integrity gate</p>
     <h1 class="page-title" id="page-title" data-load="1">Pawl</h1>
     <p class="dossier__lede" data-load="2">Code can only move forward.</p>
-    <p class="dossier__status" data-load="3">v0.5.0 · public PyPI release · Apache-2.0</p>
-    <div class="dossier__links" data-load="4"><p><a class="text-link" href="https://pypi.org/project/pawl-gate/" target="_blank" rel="noopener noreferrer">Install Pawl on PyPI <span aria-hidden="true">↗</span></a></p></div>
+    <p class="dossier__status" data-load="3"><span class="oss-tag">Open source</span> v0.5.0 · public PyPI release · Apache-2.0</p>
+    <div class="dossier__links" data-load="4"><p><a class="text-link" href="https://pypi.org/project/pawl-gate/" target="_blank" rel="noopener noreferrer">Install Pawl on PyPI <span aria-hidden="true">↗</span></a></p><p><a class="text-link" href="https://github.com/Zero-State-LLC/pawl" target="_blank" rel="noopener noreferrer">Source on GitHub <span aria-hidden="true">↗</span></a></p></div>
   </div>
   <figure class="dossier__symbol" aria-hidden="true" data-load="1">
     <svg class="dossier__orbits" viewBox="0 0 400 400" focusable="false">
@@ -52,13 +52,14 @@
         <p>Known failures are allowed—and can only go down. Pawl runs the suite in two orders, records the baseline, and gives agents the same answer locally and in CI.</p></div></section>
 <section class="dossier__section" aria-labelledby="s2"><h2 id="s2">In short</h2><div class="dossier__body"><p>Install it with <code>pip install pawl-gate</code>, initialize a repo with <code>pawl init --github</code>, and make the Pawl check required. Hooks support Claude Code, Codex, Cursor, and Hermes.</p>
         <p>In Pawl's saved 2026-10-10 benchmark, on an in-repo corpus of 23 synthetic agent cheats and 9 clean changes, Pawl in CI caught 21 of the 23 cheats and blocked none of the clean changes. That result is in-repo benchmark evidence, not a universal guarantee.</p></div></section>
-<section class="dossier__section" aria-labelledby="recent"><h2 id="recent">Recent updates</h2><div class="dossier__body"><p class="status">Last 30 days to Oct 26, 2026 · Pacific time</p>
-        <ul class="recent">
-          <li><time datetime="2026-10-13">Oct 13</time> <span>v0.5.0: the check now fails when a new test sits outside the recorded baseline.</span></li>
-          <li><time datetime="2026-10-10">Oct 10</time> <span>v0.4.0 and v0.4.1 (to Oct 13): the Codex protect hook also covers MCP tools, a broken config now blocks instead of passing, and known in-repo gaps were closed, including a trusted run of Pawl on its own repo.</span></li>
-          <li><time datetime="2026-10-10">Oct 10</time> <span>v0.3.0: a protected-contracts registry flags changes to spec authority files, and approvals now record where they came from.</span></li>
-          <li><time datetime="2026-10-08">Oct 8</time> <span>v0.2.0: metric checks fail closed on bad exit codes, and an approval label is bound to the commit it was applied at.</span></li>
-        </ul></div></section>
+<section class="dossier__section" aria-labelledby="built"><h2 id="built">Built with</h2><div class="dossier__body">
+        <ul class="stack" role="list"><li><b>Python</b><span>the gate and command-line tool, no dependencies</span></li><li><b>PyPI</b><span>publishes releases as the pawl-gate package</span></li><li><b>GitHub Actions</b><span>runs the authoritative check on pull requests</span></li><li><b>pytest, Jest, Vitest, Go and Cargo</b><span>test runners Pawl runs and compares</span></li><li><b>JUnit XML</b><span>standard report format for any other runner</span></li><li><b>Claude Code, Codex, Cursor and Hermes</b><span>agent tools that get Pawl&#x27;s local hooks</span></li><li><b>pre-commit</b><span>optional local check before each commit</span></li></ul></div></section>
+<section class="dossier__section" aria-labelledby="changelog"><h2 id="changelog">Changelog</h2><div class="dossier__body"><p class="status">Milestones in plain English, newest first, to Nov 7, 2026</p>
+        <div class="changelog">
+          <div><h3><time datetime="2026-10">October 2026</time></h3><ul role="list"><li>v0.5.0: the check now fails when new tests appear that the recorded baseline does not cover yet.</li><li>v0.4.0 and v0.4.1: a broken configuration now blocks changes, and the Codex hook also covers Model Context Protocol (MCP) tools.</li><li>v0.2.0 and v0.3.0: approvals bind to one commit, and protected specification files block until a human approves.</li><li>v0.1.0, first release on PyPI: a test-by-test ratchet, a change guard, and hooks for four agent tools.</li></ul></div>
+        </div></div></section>
+<section class="dossier__section" aria-labelledby="roadmap"><h2 id="roadmap">Roadmap</h2><div class="dossier__body"><p class="status">What comes next. Plans, not promises, and no dates.</p>
+        <ul class="roadmap" role="list"><li><span class="evidence-label" data-evidence="NOT_READY">In progress</span><span>A doctor command that audits an installation, plus faster incremental checks and a self-contained HTML report.</span></li><li><span class="evidence-label" data-evidence="NOT_READY">In progress</span><span>A trend log that shows how CI results change from run to run.</span></li><li><span class="evidence-label" data-evidence="ASPIRATIONAL">Planned</span><span>A 1.0 release with stable settings and report formats, a security audit and independently repeated evaluations.</span></li><li><span class="evidence-label" data-evidence="ASPIRATIONAL">Planned</span><span>Signed hook logs, so a reviewer can tell an edited log from an intact one.</span></li></ul></div></section>
 <nav class="dossier__back" aria-label="Return"><p>Return to the evidence</p><a href="../index.html#evidence">All projects ↖</a></nav>
 </main>
 <footer class="foot">

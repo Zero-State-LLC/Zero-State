@@ -1,5 +1,14 @@
 // Zero State · shared chrome — nav morph, menu sheet, reveal-once, symbol hand-off between pages.
 (() => {
+  // Ask Zero State: the chat widget lives in its own file and shows itself only when its Worker answers.
+  const self = document.currentScript;
+  if (self) {
+    const ask = document.createElement('script');
+    ask.src = new URL('assets/ask/ask.js', self.src).href;
+    ask.defer = true;
+    document.body.appendChild(ask);
+  }
+
   const year = document.querySelector('[data-year]');
   if (year) year.textContent = String(new Date().getFullYear());
 
