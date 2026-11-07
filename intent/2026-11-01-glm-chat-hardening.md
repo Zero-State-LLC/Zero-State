@@ -24,10 +24,14 @@ request body to the self-hosted GLM API almost unchanged:
   16000 chars), `max_tokens` as an integer 1..4096 (default 2048), `stream: false`.
   Invalid input returns 400 before any upstream call.
 - Secrets reach the deploy step as `env:` values and are piped with `printf '%s'`.
+- `chat/index.html` refuses a user message over 16000 characters, drops a failed
+  send from history, and stores at most 16000 characters of each reply in the
+  transcript it sends back. The on-screen reply is not cut.
 
 Out of scope: the per-IP KV rate limit is read-then-write and can be raced by
 parallel requests, and there is no site-wide cap. Fixing that needs a Durable
-Object (as `workers/ask` uses) and is left for a separate change.
+Object (as `workers/ask` uses) and is left for a separate change. Invalid
+requests still increment that counter; this change does not rewrite it.
 
 ## Affected users / systems
 
@@ -38,7 +42,8 @@ which stays valid.
 ## Constraints / non-goals
 
 No deploy. The workflow is `workflow_dispatch` only; a human runs it.
-No change to the gate, CORS, rate limit, or site pages.
+No change to the gate, CORS, or the 30-request daily cap. The chat page is
+updated so a long reply cannot make later turns fail validation.
 
 ## Open questions
 
