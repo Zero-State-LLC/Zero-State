@@ -452,6 +452,12 @@ for (const file of askTests) {
     fail(`workers/ask/test/${file}`, `tests failed\n${error.stdout || ''}${error.stderr || ''}`);
   }
 }
+// GLM chat: message bounds in the deploy-time worker, and the page must not resend a rejected transcript.
+try {
+  execFileSync(process.execPath, ['--test', path.join(root, 'workers/glm-chat/worker.test.mjs')], { stdio: 'pipe' });
+} catch (error) {
+  fail('workers/glm-chat/worker.test.mjs', `tests failed\n${error.stdout || ''}${error.stderr || ''}`);
+}
 // Check every manifest page plus every required page (the manifest lists some pages requiredPages does not).
 const manifestPages = exists('site-manifest.json')
   ? (JSON.parse(fs.readFileSync(path.join(root, 'site-manifest.json'), 'utf8')).pages || [])
