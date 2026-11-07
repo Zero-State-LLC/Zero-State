@@ -117,6 +117,8 @@ Humans and coding agents follow [`AGENTS.md`](AGENTS.md). [`CLAUDE.md`](CLAUDE.m
 | `styles-dark.css` | Legacy; kept because the validator asserts it exists |
 | `assets/glyphs.svg` | Symbol system — one glyph per portfolio entry and section |
 | `assets/fonts/` | Self-hosted OFL faces (see `assets/THIRD_PARTY_NOTICES.md`) |
+| `aperture-3d.js` + `marks-3d.js` | 3D home marks; flat art stays as the fallback |
+| `assets/vendor/three/` | Self-hosted three.js, verified and unmodified (see `assets/THIRD_PARTY_NOTICES.md`) |
 | `concepts/dark-landing/` | Redirect to official home (legacy URL) |
 | `assets/` | Marks, retina identity, product heroes |
 | `design.md` | Locked design system |
