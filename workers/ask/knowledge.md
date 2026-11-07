@@ -493,7 +493,7 @@ The iOS app stays the reference implementation. The Spectacles Lens is in progre
 
 ### Built with
 - Swift and SwiftUI the iPhone app and its screens
-- ARKit and RealityKit showing Lira in augmented reality
+- ARKit and RealityKit AR companion view inside the audio-first iPhone app; a device evidence pass is still pending
 - Core Location and MapKit real walks and the session map
 - AVFoundation plays the companion's audio cues
 - SwiftData keeps memories and Bond on the phone
@@ -512,9 +512,9 @@ Milestones in plain English, newest first, to Nov 7, 2026
 
 #### July 2026
 - First walking loop on iPhone: begin a walk or demo walk, then see a summary and memory.
-- Walks gained an AR companion view, path progress and optional HealthKit step context.
+- Walks gained an AR companion view, path progress and optional HealthKit step context. AR continuity on a real device is still an evidence pass.
 - Added a full session map with your walked path, plus first-run onboarding.
-- A packaged, animated companion can now be placed in AR, with a built-in fallback if loading fails.
+- A packaged companion can be placed in AR in the build, with a fallback if loading fails. That is not a finished device-evidence claim.
 
 ### Roadmap
 What comes next. Plans, not promises, and no dates.
@@ -546,7 +546,7 @@ Canonical MVP and PatchBook Design Engine land on main ; design engine flags def
 - FastAPI the web service behind the app
 - PostgreSQL stores rigs, patches and the module catalog
 - React, TypeScript and Vite the browser app for building rigs
-- Cloudflare hosts the app, service and stored files
+- Cloudflare staging host recorded on this page; production deploy has not been performed
 - Stripe checkout, kept in test mode only
 - Docker runs a complete test copy of the system
 - Playwright automated tests that click through the app
@@ -561,7 +561,7 @@ Milestones in plain English, newest first, to Nov 7, 2026
 - Added a plain privacy notice and a delete-account control that anonymizes the account.
 
 #### October 2026
-- Moved the app and its service onto Cloudflare, with a separate staging site for testing.
+- Moved the app and its service onto Cloudflare staging for testing. This page still records that production deploy has not been performed.
 - Module catalog grew by about 2,700 entries gathered from manufacturers' own websites.
 - Catalog data re-checked against manufacturer pages; values that could not be confirmed were blanked.
 - v0.3.0-alpha.2 pre-release, the first with aligned version numbers and an automated release process.
@@ -737,7 +737,7 @@ GameState is the single gameplay authority. UI and SpriteKit layers emit intents
 - Swift language the whole game is written in
 - SwiftUI menus, roster and mission screens
 - SpriteKit draws the hex-grid battles and characters
-- iOS runs on iPhone, available on the App Store
+- iOS the page lists iPhone and iPad; live on the App Store
 
 ### Changelog
 Milestones in plain English, newest first, to Nov 7, 2026
@@ -875,7 +875,7 @@ All fifteen authored modes render in the simulator. Physical-watch tilt behavior
 - Core Motion reads wrist tilt and shake to move water
 - MapKit map of reviewed water places on iPhone
 - WatchConnectivity sends the water you choose from phone to watch
-- NOAA and USGS public data live water, wind and gauge readings for places
+- NOAA and USGS public data reviewed-place readings in test builds, not a general live feed
 
 ### Changelog
 Milestones in plain English, newest first, to Nov 7, 2026
@@ -1031,10 +1031,6 @@ Operators direct. Agents author.
 ### Changelog
 Milestones in plain English, newest first, to Nov 7, 2026
 
-#### November 2026
-- Chat agents can now connect through a remote Model Context Protocol connector that acts for their Operator's agent.
-- Admins can invite new Operators by email from the admin page.
-
 #### October 2026
 - A leaderboard ranks agents, models and agent harnesses, and agents can now react to posts in character.
 - TypeScript, Python and MCP clients released as downloads on GitHub; provenance now records each agent's harness.
@@ -1074,21 +1070,21 @@ Training data is tracked with its source rights, evaluation holdouts are kept ap
 - Node.js runs the sandboxed compiler worker
 - Python file store, test harnesses and dataset tools
 - JSON Schema validates every dataset, run and receipt
-- NVIDIA GPUs local training and speed tests
+- NVIDIA DGX Spark one recorded Qwen smoke run for training and response speed; not a trained model
 
 ### Changelog
 Milestones in plain English, newest first, to Nov 7, 2026
 
 #### October 2026
 - Dataset snapshots now require reviewed source ranges for every function, with offline tooling to review them.
-- A short trial training run on local NVIDIA hardware recorded bounded training and response speeds.
+- A Qwen smoke run on an NVIDIA DGX Spark recorded bounded training, prefill and decode throughput. Repeated qualification is still pending, and this is not a trained model.
 - Renamed from FaustCoder to BlackDog, the same day a sandboxed signal-testing harness landed.
 - Project began as FaustCoder; a fingerprinted file store, sandboxed Faust compiler and data-rights tracking followed.
 
 ### Roadmap
 What comes next. Plans, not promises, and no dates.
 - In progress Freeze the split between training and test data, then measure baseline models before any real training.
-- In progress Run the first full specialist training on local NVIDIA hardware once the data and baseline checks pass.
+- Planned First full specialist training on the DGX Spark waits until the data and baseline checks pass.
 - Planned Turn generated Faust code into audio plugins (CLAP, VST3, LV2) and code for small embedded audio boards.
 - Planned Serve the model locally through a programming interface and connect it to code editors.
 Return to the portfolio
