@@ -222,8 +222,16 @@ function resize() {
   const unitsPerPx = (2 * CAM_D * Math.tan(deg(FOV / 2))) / h;
   root.scale.setScalar((w / PNG.w) * unitsPerPx);
 }
-new ResizeObserver(resize).observe(canvas);
+// Draw on demand: only while something moves (the load assembly, hover tilt, a drag and its ease
+// back) and only while the hero is on screen. At rest the mark faces front and nothing redraws.
+let visible = false;
+let raf = 0;
+function wake() {
+  if (!raf && visible) raf = requestAnimationFrame(frame);
+}
+new ResizeObserver(() => { resize(); wake(); }).observe(canvas);
 resize();
+new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; wake(); }).observe(canvas);
 
 const ASSEMBLE_FROM = 2.6;
 const assembleStart = performance.now();
@@ -237,30 +245,36 @@ canvas.addEventListener('pointermove', (e) => {
     hover.tYaw = ((e.clientX - r.left) / r.width - 0.5) * 0.36;
     hover.tPitch = ((e.clientY - r.top) / r.height - 0.5) * 0.2;
   }
-  if (!drag.on) return;
-  drag.yaw += (e.clientX - drag.x) * 0.012;
-  drag.pitch = THREE.MathUtils.clamp(drag.pitch + (e.clientY - drag.y) * 0.006, -0.6, 0.6);
-  drag.x = e.clientX; drag.y = e.clientY;
+  if (drag.on) {
+    drag.yaw += (e.clientX - drag.x) * 0.012;
+    drag.pitch = THREE.MathUtils.clamp(drag.pitch + (e.clientY - drag.y) * 0.006, -0.6, 0.6);
+    drag.x = e.clientX; drag.y = e.clientY;
+  }
+  wake();
 });
-canvas.addEventListener('pointerleave', () => { hover.tYaw = 0; hover.tPitch = 0; });
+canvas.addEventListener('pointerleave', () => { hover.tYaw = 0; hover.tPitch = 0; wake(); });
 canvas.addEventListener('pointerdown', (e) => {
   drag.on = true; drag.x = e.clientX; drag.y = e.clientY;
   canvas.setPointerCapture(e.pointerId);
+  wake();
 });
-const endDrag = () => { drag.on = false; };
+const endDrag = () => { drag.on = false; wake(); };
 canvas.addEventListener('pointerup', endDrag);
 canvas.addEventListener('pointercancel', endDrag);
 canvas.addEventListener('keydown', (e) => {
   if (e.key === 'ArrowLeft') drag.yaw -= 0.3;
   if (e.key === 'ArrowRight') drag.yaw += 0.3;
+  wake();
 });
 
 const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
-const clock = new THREE.Clock();
+const SETTLED = 1e-4;
+let last = performance.now();
 
 function frame(now) {
-  const dt = Math.min(clock.getDelta(), 0.05);
-  const t = clock.elapsedTime;
+  raf = 0;
+  const dt = Math.min((now - last) / 1000, 0.05);
+  last = now;
 
   let explode = 0;
   if (assembling) {
@@ -284,11 +298,17 @@ function frame(now) {
   hover.yaw += (hover.tYaw - hover.yaw) * s;
   hover.pitch += (hover.tPitch - hover.pitch) * s;
 
-  const idle = reduceMotion ? 0 : 1;
-  root.rotation.y = drag.yaw + hover.yaw + idle * 0.22 * Math.sin(t * 0.33);
-  root.rotation.x = drag.pitch + hover.pitch + idle * 0.05 * Math.sin(t * 0.27);
+  const moving = assembling || drag.on
+    || Math.abs(drag.yaw) > SETTLED || Math.abs(drag.pitch) > SETTLED
+    || Math.abs(hover.tYaw - hover.yaw) > SETTLED || Math.abs(hover.tPitch - hover.pitch) > SETTLED;
+  if (!moving) {
+    drag.yaw = drag.pitch = 0;
+    hover.yaw = hover.tYaw;
+    hover.pitch = hover.tPitch;
+  }
+  root.rotation.y = drag.yaw + hover.yaw;
+  root.rotation.x = drag.pitch + hover.pitch;
 
   renderer.render(scene, camera);
-  requestAnimationFrame(frame);
+  if (moving) wake();
 }
-requestAnimationFrame(frame);

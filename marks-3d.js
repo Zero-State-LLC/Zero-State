@@ -140,15 +140,13 @@ function mountStage({ svg, viewW, pivot, pad, depth, build }) {
     const unitsPerPx = (2 * depth * Math.tan(deg(FOV / 2))) / h;
     spin.scale.setScalar(k * unitsPerPx);
   }
-  const ro = new ResizeObserver(layout);
+  const ro = new ResizeObserver(() => { layout(); wake(); });
   ro.observe(svg);
   ro.observe(host);
   layout();
 
   // Trackball: drag rotates about the axis across the drag, in screen space, with a little momentum.
   const user = new THREE.Quaternion();
-  const sway = new THREE.Quaternion();
-  const swayEuler = new THREE.Euler();
   const vel = new THREE.Vector2();
   const axis = new THREE.Vector3();
   const step = new THREE.Quaternion();
@@ -164,6 +162,7 @@ function mountStage({ svg, viewW, pivot, pad, depth, build }) {
     dragging = true; lastX = e.clientX; lastY = e.clientY; vel.set(0, 0);
     lastInput = performance.now();
     svg.setPointerCapture(e.pointerId);
+    wake();
   });
   svg.addEventListener('pointermove', (e) => {
     if (!dragging) return;
@@ -172,38 +171,52 @@ function mountStage({ svg, viewW, pivot, pad, depth, build }) {
     vel.set(dx, dy);
     lastX = e.clientX; lastY = e.clientY;
     lastInput = performance.now();
+    wake();
   });
-  const end = () => { dragging = false; lastInput = performance.now(); };
+  const end = () => { dragging = false; lastInput = performance.now(); wake(); };
   svg.addEventListener('pointerup', end);
   svg.addEventListener('pointercancel', end);
 
-  // Only draw while the stage is on screen.
+  // Draw on demand, and only while the stage is on screen: during a drag, its momentum and the ease
+  // back to front, and while the art's own tick says it is animating. Otherwise nothing redraws.
   let visible = false;
-  new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; }, { rootMargin: '120px' }).observe(host);
-
-  const clock = new THREE.Clock();
-  function frame(now) {
-    const dt = Math.min(clock.getDelta(), 0.05);
-    const t = clock.elapsedTime;
-    if (visible) {
-      if (!dragging) {
-        if (vel.lengthSq() > 0.01) {
-          rotateBy(vel.x, vel.y);
-          vel.multiplyScalar(Math.exp(-dt * 5));
-        }
-        // After a pause it settles back to face front, as the hero mark does.
-        if (now - lastInput > 1800) user.slerp(IDENTITY, 1 - Math.exp(-dt * 1.4));
-      }
-      const idle = reduceMotion ? 0 : 1;
-      swayEuler.set(idle * 0.06 * Math.sin(t * 0.27), idle * 0.2 * Math.sin(t * 0.33), 0);
-      sway.setFromEuler(swayEuler);
-      spin.quaternion.copy(user).multiply(sway);
-      tick(t, dt, now);
-      renderer.render(scene, camera);
-    }
-    requestAnimationFrame(frame);
+  let raf = 0, timer = 0, last = performance.now();
+  function wake() {
+    if (!raf && visible) raf = requestAnimationFrame(frame);
   }
-  requestAnimationFrame(frame);
+  new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; wake(); }, { rootMargin: '120px' }).observe(host);
+
+  function frame(now) {
+    raf = 0;
+    const dt = Math.min((now - last) / 1000, 0.05);
+    last = now;
+    let moving = dragging;
+    if (!dragging) {
+      if (vel.lengthSq() > 0.01) {
+        rotateBy(vel.x, vel.y);
+        vel.multiplyScalar(Math.exp(-dt * 5));
+        moving = true;
+      }
+      // After a pause it settles back to face front, as the hero mark does.
+      const turned = 2 * Math.acos(Math.min(1, Math.abs(user.w))) > 1e-3;
+      if (turned && !moving) {
+        const wait = 1800 - (now - lastInput);
+        if (wait > 0) {
+          clearTimeout(timer);
+          timer = setTimeout(wake, wait);
+        } else {
+          user.slerp(IDENTITY, 1 - Math.exp(-dt * 1.4));
+          moving = true;
+        }
+      } else if (!turned && !moving) {
+        user.identity();
+      }
+    }
+    spin.quaternion.copy(user);
+    const animating = tick(now / 1000, dt, now);
+    renderer.render(scene, camera);
+    if (moving || animating) wake();
+  }
 }
 
 // Method glyph: viewBox 48 x 48, ring centred at (24, 24). Units here are viewBox units, y up.
@@ -260,6 +273,7 @@ function buildMethod(root, mat, highway) {
       m.scale.x = s1 - s0;
       m.position.copy(start).addScaledVector(dir, (s0 + s1) / 2);
     });
+    return !reduceMotion && (revealedAt === null || now - revealedAt < PASS_MS);
   };
 }
 
@@ -348,12 +362,13 @@ function buildEnclosure(root, mat, figure) {
       c.g.position.set(c.from[0] * (1 - p), c.from[1] * (1 - p), 0);
       c.m.opacity = p;
     }
-    if (reduceMotion) return;
+    if (reduceMotion) return false;
     dots.rotation.z = -t * (Math.PI * 2 / 40);
     const leg = Math.floor(t / LEG) % 3;
     const k = easeInOut(clamp01(((t % LEG) - HOLD) / TRAVEL));
     const a = stops[leg], b = stops[(leg + 1) % 3];
     dot.position.set(a.x + (b.x - a.x) * k, a.y + (b.y - a.y) * k, 2.5);
+    return true;
   };
 }
 
