@@ -554,3 +554,25 @@
   .mz__highway.is-revealed { animation: none !important; }
   [data-reveal] .enc__corner { transform: none !important; }
 }
+
+/* ---------- 3D marks ----------
+   aperture-3d.js draws the hero mark over the PNG box; the PNG then shows only its wordmark strip.
+   marks-3d.js draws the method glyph and the enclosure over their SVGs, which stay for layout and dragging.
+   With no WebGL the scripts add nothing and the flat art stays. */
+.aperture-3d { position: absolute; inset: 0; z-index: 2; width: 100%; height: 100%; display: block; touch-action: pan-y; cursor: grab; }
+.aperture-3d:active { cursor: grabbing; }
+.aperture-3d:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 4px; }
+.stage--3d .aperture-mark { clip-path: inset(81% 0 0 0); }
+.has-3d .svg-3d { opacity: 0; cursor: grab; touch-action: pan-y; }
+.has-3d .svg-3d:active { cursor: grabbing; }
+.mark-3d { position: absolute; z-index: 1; pointer-events: none; }
+
+/* The hero orbit rings also turn slowly at rest; the scroll-linked turn (--spin) adds on top. */
+@property --idle { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+@keyframes orb-idle { to { --idle: 360deg; } }
+@media (prefers-reduced-motion: no-preference) {
+  .orb--a, .orb--b, .orb--c { animation: orb-idle 60s linear infinite; }
+  .orb--a { transform: rotate(calc(var(--spin) * 1.6 + var(--idle))); }
+  .orb--b { transform: rotate(calc(var(--spin) * -1 - var(--idle) * 0.6)); }
+  .orb--c { transform: rotate(calc(var(--spin) * 0.45 + var(--idle) * 0.2)); }
+}

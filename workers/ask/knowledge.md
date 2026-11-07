@@ -202,7 +202,7 @@ We begin from reality, remove expired assumptions, preserve what remains true, a
 We allow the quality, coherence, and durability of the work to reveal whether the philosophy has value.
 
 ### Public sources
-Product work is developed under the Zero State brand. Portfolio pages present the current product posture; App Store and production product URLs are not claimed until a release is ready.
+Product work is developed under the Zero State brand. Portfolio pages present the current product posture; HexWire is live on the App Store; other products are listed with their current status, and we link to a store or production URL only once a release is live.
 
 ### Contact
 Reach Zero State at zer0state@zer0state.com (mailto:zer0state@zer0state.com).
