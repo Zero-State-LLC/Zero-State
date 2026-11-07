@@ -254,3 +254,18 @@
 @media (min-width: 62rem) {
   .person-empty { margin-top: 0; }
 }
+
+/* Open source tag (status line) and the Built with / Changelog / Roadmap sections. */
+.oss-tag { display: inline-block; margin-right: 0.45em; padding: 0.05em 0.5em; border: 1px solid var(--color-accent); border-radius: 999px; color: var(--color-accent); font: 700 var(--text-2xs)/1.5 var(--font-mono); letter-spacing: 0.1em; text-transform: uppercase; vertical-align: baseline; white-space: nowrap; }
+.dossier__status:has(.oss-tag)::before { content: none; }
+.dossier__body .stack { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr)); gap: var(--space-sm) var(--space-lg); list-style: none; padding: 0; }
+.dossier__body .stack li { display: grid; gap: 2px; min-width: 0; }
+.dossier__body .stack b { color: var(--color-ink); font-weight: 500; }
+.dossier__body .stack span { color: var(--color-muted); font-size: var(--text-sm); }
+.dossier__body .changelog { display: grid; gap: var(--space-lg); }
+.dossier__body .changelog h3 { color: var(--color-ink); font: 500 var(--text-xs)/1.6 var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase; }
+.dossier__body .changelog ul { display: grid; gap: var(--space-2xs); list-style: none; padding: 0; }
+.dossier__body .changelog li::before { content: "◦ "; color: var(--color-accent); }
+.dossier__body .roadmap { display: grid; gap: var(--space-sm); list-style: none; padding: 0; }
+.dossier__body .roadmap li { display: grid; grid-template-columns: 11ch minmax(0, 1fr); gap: var(--space-sm); align-items: baseline; }
+.dossier__body .evidence-label { color: var(--color-muted); font: 500 var(--text-2xs)/1.6 var(--font-mono); letter-spacing: 0.08em; }

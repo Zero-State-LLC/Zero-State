@@ -273,10 +273,16 @@ const orchestra = fs.readFileSync(path.join(root, 'skills/orchestra.html'), 'utf
 const hyperlex = fs.readFileSync(path.join(root, 'skills/hyperlex.html'), 'utf8');
 const kubrick = fs.readFileSync(path.join(root, 'skills/kubrick.html'), 'utf8');
 const neon = fs.readFileSync(path.join(root, 'skills/neon-genie.html'), 'utf8');
-if (!/Zero-State-LLC\/Abraxas-Orchestra/.test(orchestra)) fail('skills/orchestra.html', 'canonical repository link is missing');
-if (!/Zero-State-LLC\/Hyperlex/.test(hyperlex)) fail('skills/hyperlex.html', 'canonical repository link is missing');
-if (!/Zero-State-LLC\/Kubrick/.test(kubrick)) fail('skills/kubrick.html', 'canonical repository link is missing');
-if (!/Zero-State-LLC\/NeonGenie/.test(neon)) fail('skills/neon-genie.html', 'canonical repository link is missing');
+// Human exception, Danny, 2026-11-07: the checks that required Orchestra,
+// Hyperlex, Kubrick, and Neon Genie to link a repository are replaced by
+// manifest.open_source below. Pawl does not treat this file as a test file,
+// so this comment is the record of that coverage change. Kubrick remains
+// required to link. The other three are not OSI licenses, so a repository
+// link on those pages fails.
+if (!/Zero-State-LLC\/Kubrick/.test(kubrick)) fail('skills/kubrick.html', 'open-source Kubrick page must link Zero-State-LLC/Kubrick');
+if (/Zero-State-LLC\/Abraxas-Orchestra/.test(orchestra)) fail('skills/orchestra.html', 'non-OSI page must not link a repository');
+if (/Zero-State-LLC\/Hyperlex/.test(hyperlex)) fail('skills/hyperlex.html', 'non-OSI page must not link a repository');
+if (/Zero-State-LLC\/NeonGenie/.test(neon)) fail('skills/neon-genie.html', 'non-OSI page must not link a repository');
 if (!/symbolic maps/.test(orchestra)) fail('skills/orchestra.html', 'Orchestra README description is missing');
 if (!/cultural radar for slang|memetic/.test(hyperlex)) fail('skills/hyperlex.html', 'Hyperlex README description is missing');
 if (!/cinematic/.test(kubrick)) fail('skills/kubrick.html', 'Kubrick README description is missing');
@@ -359,6 +365,34 @@ if (exists('site-manifest.json')) {
     const tagged = (html.match(/href="((?:products|clients)\/[a-z-]+\.html)"[^>]*>(?:(?!<\/a>).)*?<span class="(?:entry|node)__status"><span class="live-tag">LIVE<\/span>/gs) || []).map((s) => s.match(/href="([^"]+)"/)[1]);
     for (const p of tagged) if (!livePages.has(p)) fail(name, `${p} card carries LIVE but is not in manifest.live`);
     for (const p of livePages) if (name !== 'marketing.html' || p.startsWith('products/')) if (!tagged.includes(p)) fail(name, `${p} card is missing the LIVE tag`);
+  }
+  // Open source: driven by manifest.open_source (public repository under an OSI license).
+  // Only those product and skill pages carry the label and link their repository; no other
+  // product or skill page links a Zero-State-LLC repository.
+  const openList = Array.isArray(manifest.open_source) ? manifest.open_source : [];
+  const openPages = new Map(openList.map((e) => [e.page, e]));
+  for (const e of openList) {
+    if (!/^Zero-State-LLC\/[A-Za-z0-9._-]+$/.test(e.repo || '') || !e.license || !e.checked) fail('site-manifest.json', `open_source entry ${e.page} needs a repo, a license and a checked date`);
+    if (!(manifest.pages || []).includes(e.page)) fail('site-manifest.json', `open_source entry ${e.page} is not an official page`);
+  }
+  for (const dir of ['products', 'skills']) {
+    for (const name of fs.readdirSync(path.join(root, dir)).filter((f) => f.endsWith('.html'))) {
+      const page = `${dir}/${name}`;
+      const html = fs.readFileSync(path.join(root, page), 'utf8');
+      const linked = [...html.matchAll(/href=["']https:\/\/github\.com\/Zero-State-LLC\/([A-Za-z0-9._-]+)/g)].map((m) => m[1]);
+      const entry = openPages.get(page);
+      if (entry) {
+        if (!linked.includes(entry.repo.split('/')[1])) fail(page, 'open-source project must link its repository');
+        if (!/<span class="oss-tag">Open source<\/span>/.test(html)) fail(page, 'open-source project needs the Open source tag in its status line');
+        if (!html.includes(entry.license)) fail(page, `open-source project must name its license (${entry.license})`);
+      } else {
+        for (const repo of linked) fail(page, `links ${repo}, but only projects in manifest.open_source may link a repository`);
+        if (/class="oss-tag"/.test(html)) fail(page, 'only projects in manifest.open_source may carry the Open source tag');
+      }
+      for (const heading of ['Built with', 'Changelog', 'Roadmap']) {
+        if (!new RegExp(`<h2 id="[a-z-]+">${heading}</h2>`).test(html)) fail(page, `${heading} section is missing`);
+      }
+    }
   }
   const pages = Array.isArray(manifest.pages) ? manifest.pages : [];
   for (const entry of pages) {

@@ -250,9 +250,13 @@ a { color: inherit; }
 .foot__links a { color: var(--color-ink-2); font-size: var(--text-sm); text-decoration: none; white-space: nowrap; }
 .foot__links a:hover { color: var(--color-accent); }
 .foot__legal { color: var(--color-muted); font: 400 var(--text-xs)/1.4 var(--font-mono); }
+/* Trademark notices sit on their own full-width row under the meta line. */
+.foot__legal + .foot__legal { grid-column: 1 / -1; max-width: 72ch; padding-top: var(--space-md); border-top: 1px solid var(--color-rule-2); font-size: 0.6875rem; opacity: 0.8; }
 @media (min-width: 62rem) {
   .foot__meta { grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; column-gap: var(--space-xl); }
   .foot__links { justify-content: center; }
+  .foot__legal { white-space: nowrap; }
+  .foot__legal + .foot__legal { white-space: normal; }
 }
 
 /* ---------- motion: one orchestrated load ---------- */
