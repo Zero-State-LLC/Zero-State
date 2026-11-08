@@ -251,7 +251,7 @@ How Zero State LLC handles personal information across our website, apps, and re
 On this page
 1. Scope2. Information we collect3. How we use information4. Legal bases (where applicable)5. How we share information6. Retention7. Security8. Children9. International transfers10. Your privacy rights11. Push notifications, tracking, and platform settings12. Do Not Track13. Third-party links and SDKs14. Changes to this policy15. ContactAppendix A — App-specific disclosures
 Effective date: August 7, 2026
-Last updated: August 11, 2026
+Last updated: November 8, 2026
 This Privacy Policy describes how Zero State LLC (“Zero State,” “we,” “us,” or “our”), a company organized in the United States, collects, uses, shares, and protects information when you use our websites, mobile applications, and related services (collectively, the “Services”).
 If you have questions or want to exercise privacy rights, contact us at zer0state@zer0state.com (mailto:zer0state@zer0state.com).
 
@@ -280,8 +280,9 @@ Depending on the app and platform permissions you grant, we or our service provi
 Where an app stores progress primarily on device, that data may remain local unless you enable cloud sync, backups, or similar features.
 
 #### 2.3 Website visitors
-This marketing website does not currently provide account registration forms, on-site analytics pixels, advertising trackers, or marketing cookies that we control. The site is hosted on GitHub Pages. GitHub may process standard server and request logs (such as IP address, user agent, and timestamps) as part of delivering the site. See GitHub’s Privacy Statement (https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
-If we add forms, analytics, or cookies later, we will update this policy before those features go live.
+This marketing website does not currently provide account registration forms, advertising trackers, or marketing cookies that we control. The site is hosted on GitHub Pages. GitHub may process standard server and request logs (such as IP address, user agent, and timestamps) as part of delivering the site. See GitHub’s Privacy Statement (https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
+The site uses Cloudflare Web Analytics, a privacy-focused, cookieless analytics service from Cloudflare, Inc. It measures aggregate visits: pages viewed, referrer, browser and device type, country, and performance timings. It sets no cookies, does not use local storage to identify visitors, and does not build profiles across sites. This data is processed by Cloudflare. See Cloudflare’s Privacy Policy (https://www.cloudflare.com/privacypolicy/).
+If we add forms or cookies later, we will update this policy before those features go live.
 
 #### 2.4 Information from third parties
 - App platforms (for example Apple App Store) — limited developer reports, sales summaries, crash and performance aggregates, and review metadata

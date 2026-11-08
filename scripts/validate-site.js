@@ -16,7 +16,8 @@ const requiredPages = [
   'clients/autogive.html',
   'community/suas.html',
   'collaborators.html',
-  'skills/orchestra.html', 'skills/hyperlex.html', 'skills/kubrick.html', 'skills/neon-genie.html'
+  'skills/orchestra.html', 'skills/hyperlex.html', 'skills/kubrick.html', 'skills/neon-genie.html',
+  '404.html'
 ];
 
 function officialPageFile(entry) {
@@ -468,9 +469,100 @@ for (const file of [...new Set([...htmlFiles, ...manifestPages])]) {
   if (foot && !foot[0].includes(link)) fail(file, 'footer is missing the Collaborators link');
 }
 
+// Real-website baseline (owner request, 2026-11-08): titles, descriptions, social cards, icons, 404,
+// footer privacy link, alt text, and the analytics disclosure.
+const pngSize = (file) => {
+  const b = fs.readFileSync(path.join(root, file));
+  return b.toString('ascii', 12, 16) === 'IHDR' ? `${b.readUInt32BE(16)}x${b.readUInt32BE(20)}` : 'not a PNG';
+};
+const meta = (html, attr, name) => (html.match(new RegExp(`<meta\\s+${attr}=["']${name}["']\\s+content=["']([^"']*)["']`, 'i')) || [])[1];
+if (exists('assets/og-image.png') && pngSize('assets/og-image.png') !== '1200x630') fail('assets/og-image.png', 'social preview image must be 1200x630');
+if (exists('assets/brand/apple-touch-icon.png') && pngSize('assets/brand/apple-touch-icon.png') !== '180x180') fail('assets/brand/apple-touch-icon.png', 'apple-touch-icon must be 180x180');
+if (!exists('favicon.ico')) fail('favicon.ico', 'root favicon is missing');
+else {
+  const ico = fs.readFileSync(path.join(root, 'favicon.ico'));
+  const sizes = ico.readUInt16LE(2) === 1 ? Array.from({ length: ico.readUInt16LE(4) }, (_, i) => ico[6 + 16 * i] || 256) : [];
+  for (const size of [16, 32, 48]) if (!sizes.includes(size)) fail('favicon.ico', `must contain a ${size}x${size} icon`);
+}
+if (!exists('site.webmanifest')) fail('site.webmanifest', 'web app manifest is missing');
+else {
+  const manifest = JSON.parse(fs.readFileSync(path.join(root, 'site.webmanifest'), 'utf8'));
+  if (!manifest.name || !manifest.theme_color) fail('site.webmanifest', 'needs name and theme_color');
+  for (const size of ['192x192', '512x512']) {
+    const icon = (manifest.icons || []).find((i) => i.sizes === size && i.type === 'image/png');
+    if (!icon) fail('site.webmanifest', `needs a ${size} PNG icon`);
+    else if (!exists(icon.src)) fail('site.webmanifest', `icon is missing: ${icon.src}`);
+    else if (pngSize(icon.src) !== size) fail(icon.src, `must be ${size}`);
+  }
+}
+const titles = new Map();
+const descriptions = new Map();
+for (const file of [...officialFiles, '404.html']) {
+  if (!exists(file)) continue;
+  const html = fs.readFileSync(path.join(root, file), 'utf8');
+  const prefix = file.includes('/') ? '../' : '';
+  for (const [label, needle] of [
+    ['favicon.ico', `<link rel="icon" href="${prefix}favicon.ico"`],
+    ['apple-touch-icon', `<link rel="apple-touch-icon" href="${prefix}assets/brand/apple-touch-icon.png">`],
+    ['web app manifest', `<link rel="manifest" href="${prefix}site.webmanifest">`]
+  ]) if (!html.includes(needle)) fail(file, `missing ${label} link`);
+  const foot = html.match(/<nav class="foot__links"[\s\S]*?<\/nav>/);
+  if (!foot || !foot[0].includes(`href="${prefix}privacy.html"`)) fail(file, 'footer is missing the Privacy link');
+  if (file === '404.html') {
+    if (meta(html, 'name', 'robots') !== 'noindex') fail(file, 'not-found page must be noindex');
+    if (!/<a class="button" href="index\.html">/.test(html)) fail(file, 'not-found page must link home with the primary button');
+    continue;
+  }
+  const title = (html.match(/<title>([^<]*)<\/title>/i) || [])[1]?.trim() || '';
+  const description = meta(html, 'name', 'description') || '';
+  if (title.length < 10) fail(file, 'title is missing or too short to describe the page');
+  if (description.length < 50) fail(file, 'meta description is missing or shorter than 50 characters');
+  if (titles.has(title)) fail(file, `title duplicates ${titles.get(title)}`);
+  if (descriptions.has(description)) fail(file, `meta description duplicates ${descriptions.get(description)}`);
+  titles.set(title, file);
+  descriptions.set(description, file);
+  const og = (name) => meta(html, 'property', `og:${name}`);
+  for (const name of ['title', 'description', 'type', 'image:alt']) if (!og(name)) fail(file, `og:${name} is missing`);
+  if (og('url') !== officialPageLoc(file)) fail(file, `og:url must be ${officialPageLoc(file)}`);
+  if (og('image') !== `${APEX}/assets/og-image.png`) fail(file, `og:image must be ${APEX}/assets/og-image.png`);
+  if (og('image:width') !== '1200' || og('image:height') !== '630') fail(file, 'og:image:width/height must be 1200/630');
+  if (meta(html, 'name', 'twitter:card') !== 'summary_large_image') fail(file, 'twitter:card must be summary_large_image');
+}
+// Alt text: every <img> in every page, inline script, and JS template has an alt attribute (alt="" when decorative),
+// and every script-built <img> sets one. Canvas sprites (new Image()) never enter the DOM and are not checked.
+const servedSources = [];
+(function walk(dir) {
+  for (const entry of fs.readdirSync(path.join(root, dir), { withFileTypes: true })) {
+    const rel = dir ? `${dir}/${entry.name}` : entry.name;
+    if (entry.isDirectory()) {
+      if (!/^(?:\.git|node_modules|assets\/vendor)$/.test(rel)) walk(rel);
+    } else if (/\.(?:html|m?js)$/.test(entry.name)) servedSources.push(rel);
+  }
+})('');
+for (const file of servedSources) {
+  const src = fs.readFileSync(path.join(root, file), 'utf8');
+  for (const tag of src.match(/<img\s[^>]*>/gi) || []) {
+    if (!/\balt\s*=/i.test(tag)) fail(file, `<img> without alt: ${tag.slice(0, 80)}`);
+  }
+  for (const made of src.matchAll(/createElement\(\s*['"]img['"]\s*\)/g)) {
+    if (!/\.alt\s*=|setAttribute\(\s*['"]alt['"]|\balt:/.test(src.slice(made.index, made.index + 400))) fail(file, 'script-built <img> does not set alt');
+  }
+}
+// Analytics: the beacon in site.js and privacy.html §2.3 must agree; a page CSP must allow the beacon.
+const siteJs = fs.readFileSync(path.join(root, 'site.js'), 'utf8');
+if (/static\.cloudflareinsights\.com/.test(siteJs) && (!/Cloudflare Web Analytics/.test(privacy) || !privacy.includes('https://www.cloudflare.com/privacypolicy/'))) {
+  fail('privacy.html', 'site.js loads Cloudflare Web Analytics, so §2.3 must disclose it and link Cloudflare’s privacy policy');
+}
+for (const file of servedSources.filter((f) => f.endsWith('.html'))) {
+  const csp = meta(fs.readFileSync(path.join(root, file), 'utf8'), 'http-equiv', 'Content-Security-Policy');
+  if (csp && (!csp.includes('https://static.cloudflareinsights.com') || !csp.includes('https://cloudflareinsights.com'))) {
+    fail(file, 'Content-Security-Policy must allow static.cloudflareinsights.com (script-src) and cloudflareinsights.com (connect-src)');
+  }
+}
+
 if (failures.length) {
   console.error(`Zero State validation failed (${failures.length}):`);
   failures.forEach((message) => console.error(`- ${message}`));
   process.exit(1);
 }
-console.log(`PASS: ${requiredPages.length} pages, sitemap/robots, product heroes, dark home, social preview, internal links, metadata, and product-source posture validated.`);
+console.log(`PASS: ${requiredPages.length} pages, sitemap/robots, product heroes, dark home, social cards, icons, 404, alt text, internal links, metadata, and product-source posture validated.`);

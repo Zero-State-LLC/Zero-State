@@ -9,6 +9,18 @@
     document.body.appendChild(ask);
   }
 
+  // Cloudflare Web Analytics: cookieless, aggregate visits only (privacy.html §2.3). Paste the site token from
+  // the Cloudflare dashboard (Web Analytics → zer0state.com). While it is empty, nothing loads. Counts the
+  // production host only, never a local preview.
+  const CF_WEB_ANALYTICS_TOKEN = '';
+  if (CF_WEB_ANALYTICS_TOKEN && location.hostname === 'zer0state.com') {
+    const beacon = document.createElement('script');
+    beacon.defer = true;
+    beacon.src = 'https://static.cloudflareinsights.com/beacon.min.js';
+    beacon.setAttribute('data-cf-beacon', JSON.stringify({ token: CF_WEB_ANALYTICS_TOKEN }));
+    document.body.appendChild(beacon);
+  }
+
   const year = document.querySelector('[data-year]');
   if (year) year.textContent = String(new Date().getFullYear());
 
