@@ -250,7 +250,7 @@ Legal
 How Zero State LLC handles personal information across our website, apps, and related services.
 On this page
 1. Scope2. Information we collect3. How we use information4. Legal bases (where applicable)5. How we share information6. Retention7. Security8. Children9. International transfers10. Your privacy rights11. Push notifications, tracking, and platform settings12. Do Not Track13. Third-party links and SDKs14. Changes to this policy15. ContactAppendix A — App-specific disclosures
-Effective date: August 7, 2026
+Effective date: November 8, 2026
 Last updated: November 8, 2026
 This Privacy Policy describes how Zero State LLC (“Zero State,” “we,” “us,” or “our”), a company organized in the United States, collects, uses, shares, and protects information when you use our websites, mobile applications, and related services (collectively, the “Services”).
 If you have questions or want to exercise privacy rights, contact us at zer0state@zer0state.com (mailto:zer0state@zer0state.com).
