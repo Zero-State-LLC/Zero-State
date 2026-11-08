@@ -349,7 +349,7 @@ EEA/UK residents: You may lodge a complaint with your local supervisory authorit
 Where an app uses push notifications, you can disable them in system settings. On Apple platforms, App Tracking Transparency and system privacy settings control certain advertising and tracking identifiers. Use your device’s Settings app to review permissions for each Zero State app.
 
 ### 12. Do Not Track
-There is no consistent industry standard for browser Do Not Track signals. Our marketing website does not respond to DNT signals in a special way because we do not currently run first-party analytics on the site. App-level tracking follows platform rules and any in-app disclosures.
+There is no consistent industry standard for browser Do Not Track signals. Our marketing website does not respond to DNT signals in a special way. The Cloudflare Web Analytics described in section 2.3 is cookieless, counts aggregate visits, and does not track visitors across sites. App-level tracking follows platform rules and any in-app disclosures.
 
 ### 13. Third-party links and SDKs
 Apps or pages may link to third-party content (documentation, stores, social profiles). We are not responsible for third-party privacy practices. If an app embeds third-party SDKs, those providers may process data under their policies; we will identify material SDKs in app disclosures or updates to this policy when they are introduced.
