@@ -250,8 +250,8 @@ Legal
 How Zero State LLC handles personal information across our website, apps, and related services.
 On this page
 1. Scope2. Information we collect3. How we use information4. Legal bases (where applicable)5. How we share information6. Retention7. Security8. Children9. International transfers10. Your privacy rights11. Push notifications, tracking, and platform settings12. Do Not Track13. Third-party links and SDKs14. Changes to this policy15. ContactAppendix A — App-specific disclosures
-Effective date: August 7, 2026
-Last updated: August 11, 2026
+Effective date: November 8, 2026
+Last updated: November 8, 2026
 This Privacy Policy describes how Zero State LLC (“Zero State,” “we,” “us,” or “our”), a company organized in the United States, collects, uses, shares, and protects information when you use our websites, mobile applications, and related services (collectively, the “Services”).
 If you have questions or want to exercise privacy rights, contact us at zer0state@zer0state.com (mailto:zer0state@zer0state.com).
 
@@ -280,8 +280,10 @@ Depending on the app and platform permissions you grant, we or our service provi
 Where an app stores progress primarily on device, that data may remain local unless you enable cloud sync, backups, or similar features.
 
 #### 2.3 Website visitors
-This marketing website does not currently provide account registration forms, on-site analytics pixels, advertising trackers, or marketing cookies that we control. The site is hosted on GitHub Pages. GitHub may process standard server and request logs (such as IP address, user agent, and timestamps) as part of delivering the site. See GitHub’s Privacy Statement (https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
-If we add forms, analytics, or cookies later, we will update this policy before those features go live.
+This marketing website does not currently provide account registration forms, advertising trackers, or marketing cookies that we control. The site is hosted on GitHub Pages. GitHub may process standard server and request logs (such as IP address, user agent, and timestamps) as part of delivering the site. See GitHub’s Privacy Statement (https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
+The site uses Cloudflare Web Analytics, a privacy-focused, cookieless analytics service from Cloudflare, Inc. For each page view, its script sends Cloudflare the page address, the referring page, and performance measurements. Cloudflare works out the browser, operating system, device type, and country from that request, then discards the IP address, and shows us only aggregate reports. Cloudflare states that the script stores nothing in your browser (no cookies or local storage) and that it does not track visitors across sites. This data is processed by Cloudflare. See Cloudflare’s Privacy Policy (https://www.cloudflare.com/privacypolicy/).
+Ask Zero State. If you type a question into the Ask box, your question and the earlier messages of that conversation (at most eight) are sent to a Zero State Cloudflare Worker and answered by an AI model on Cloudflare Workers AI, using only information published on this site. Our code does not store the conversation; Cloudflare processes it to run the model and may keep standard request logs. To enforce usage limits, the Worker keeps a one-way hash of your IP address (or of its IPv6 /64 network) with a count of recent questions, never the address itself. Per-minute entries are deleted after 60 seconds and daily counts when the UTC day ends. Please do not include personal information in questions.
+If we add forms or cookies later, we will update this policy before those features go live.
 
 #### 2.4 Information from third parties
 - App platforms (for example Apple App Store) — limited developer reports, sales summaries, crash and performance aggregates, and review metadata
@@ -348,7 +350,7 @@ EEA/UK residents: You may lodge a complaint with your local supervisory authorit
 Where an app uses push notifications, you can disable them in system settings. On Apple platforms, App Tracking Transparency and system privacy settings control certain advertising and tracking identifiers. Use your device’s Settings app to review permissions for each Zero State app.
 
 ### 12. Do Not Track
-There is no consistent industry standard for browser Do Not Track signals. Our marketing website does not respond to DNT signals in a special way because we do not currently run first-party analytics on the site. App-level tracking follows platform rules and any in-app disclosures.
+There is no consistent industry standard for browser Do Not Track signals. Our marketing website does not respond to DNT signals in a special way. The Cloudflare Web Analytics described in section 2.3 is cookieless, gives us aggregate reports only, and does not track visitors across sites. App-level tracking follows platform rules and any in-app disclosures.
 
 ### 13. Third-party links and SDKs
 Apps or pages may link to third-party content (documentation, stores, social profiles). We are not responsible for third-party privacy practices. If an app embeds third-party SDKs, those providers may process data under their policies; we will identify material SDKs in app disclosures or updates to this policy when they are introduced.

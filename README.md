@@ -93,7 +93,11 @@ without exposing the private product repositories.
 
 ## Social preview
 
-`assets/og-image.png` (1200×630) is referenced by Open Graph and Twitter Card meta on the home page.
+`assets/og-image.png` (1200×630) is referenced by Open Graph and Twitter Card meta on every official page.
+
+## Analytics
+
+Cloudflare Web Analytics (cookieless, disclosed in `privacy.html` §2.3) loads from `site.js`, the one script every page shares. The site token goes in `CF_WEB_ANALYTICS_TOKEN` near the top of `site.js`. It stays empty until the owner adds `zer0state.com` in the Cloudflare dashboard (Web Analytics → Add a site) and pastes the token there; while it is empty, nothing loads. The token is public by design (it ships in the page), so it is not a secret.
 
 ## Agent contract
 
@@ -124,6 +128,8 @@ Humans and coding agents follow [`AGENTS.md`](AGENTS.md). [`CLAUDE.md`](CLAUDE.m
 | `design.md` | Locked design system |
 | `scripts/validate-site.js` | CI / Pages build validation |
 | `sitemap.xml`, `robots.txt` | Public crawler list at `https://zer0state.com/` |
+| `404.html` | Not-found page; GitHub Pages serves it with a 404 status |
+| `favicon.ico`, `site.webmanifest` | Icon set (16/32/48 ICO, 180 touch icon, 192/512 manifest icons), all from the mark 3 art |
 | `.github/workflows/` | Site validation + GitHub Pages deploy |
 
 ## Deployment
