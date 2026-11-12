@@ -187,7 +187,7 @@ About
 ## A software company at the beginning of its work.
 Zero State LLC develops software from an adaptive, first-principles philosophy.
 On this page
-Legal entityOur positionOur methodOur standardPublic sourcesContact
+Legal entityOur positionOur methodOur standardPublic sourcesListingsContact
 
 ### Legal entity
 Zero State LLC is a United States limited liability company. We publish products and public work under the Zero State brand. Contact: zer0state@zer0state.com (mailto:zer0state@zer0state.com).
@@ -203,6 +203,9 @@ We allow the quality, coherence, and durability of the work to reveal whether th
 
 ### Public sources
 Product work is developed under the Zero State brand. Portfolio pages present the current product posture; HexWire is live on the App Store; other products are listed with their current status, and we link to a store or production URL only once a release is live.
+
+### Listings
+Zero State is listed as an AI services provider on the MultiExpertHub Network (https://multiexperthub.com/network/zero-state). MultiExpertHub Network is a directory of IT service providers and AI service companies.
 
 ### Contact
 Reach Zero State at zer0state@zer0state.com (mailto:zer0state@zer0state.com).
