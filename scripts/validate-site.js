@@ -321,6 +321,12 @@ if (/world\.perihelion-reach-3|Civic Exchange|Recover/i.test(noema + marketing))
 if (!/privacy\.html/.test(marketing)) fail('marketing.html', 'privacy link is missing');
 if (!/contact\.html/.test(marketing)) fail('marketing.html', 'support link is missing');
 if (!/Zero State LLC/.test(about)) fail('about.html', 'legal entity name is missing');
+if (!/<a\b[^>]*href="https:\/\/multiexperthub\.com\/network\/zero-state"[^>]*>/.test(about)) {
+  fail('about.html', 'MultiExpertHub Network listing link is missing');
+} else if (!/<a\b[^>]*href="https:\/\/multiexperthub\.com\/network\/zero-state"[^>]*\btarget="_blank"[^>]*>/.test(about)
+        || !/<a\b[^>]*href="https:\/\/multiexperthub\.com\/network\/zero-state"[^>]*\brel="noopener noreferrer"[^>]*>/.test(about)) {
+  fail('about.html', 'MultiExpertHub Network listing must use target="_blank" rel="noopener noreferrer"');
+}
 if (/San Diego/i.test(index)) fail('index.html', 'San Diego location copy must be removed');
 if (!/zer0state@zer0state\.com/.test(index)) fail('index.html', 'home contact email is missing');
 
