@@ -77,7 +77,7 @@ testimonials, and endorsements are out of scope for v1.
   block between the `collaborators:start` / `collaborators:end` markers. Visitors
   and crawlers get plain HTML; no client-side JavaScript is needed.
 - `npm test` fails if the data is invalid, if the page is out of date with the data,
-  if the generated block is not ASCII-only, or if any page with the shared nav or footer lacks
+  if the page is not ASCII-only, or if any page with the shared nav or footer lacks
   the Collaborators link. Fixture tests live in `scripts/collaborators.test.js`.
 - Generated output escapes every non-ASCII character as an HTML entity, so names
   with accents are safe and the file stays ASCII.
@@ -116,7 +116,7 @@ every profile is later removed.
 
 ## SEO
 
-- Title "Collaborators — Zero State" (real em dash, like other pages), meta description, canonical, Open Graph and
+- Title "Collaborators &mdash; Zero State" (em dash entity, like other pages), meta description, canonical, Open Graph and
   Twitter card tags using the site social image (`assets/og-image.png`).
 - In `site-manifest.json` and `sitemap.xml`.
 - Structured data (schema.org `Person`) is deferred until there are profiles.

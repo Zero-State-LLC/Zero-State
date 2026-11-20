@@ -240,8 +240,7 @@ function verify(root = ROOT) {
   const next = replaceBlock(html, render(data.collaborators));
   if (next === null) return [`${PAGE_FILE}: generated-block markers are missing`];
   if (next !== html) return [`${PAGE_FILE}: out of date with ${DATA_FILE}; run npm run build:collaborators`];
-  const block = next.slice(next.indexOf(START), next.indexOf(END) + END.length);
-  if (/[^\x00-\x7f]/.test(block)) return [`${PAGE_FILE}: generated block must be ASCII-only (use HTML entities)`];
+  if (/[^\x00-\x7f]/.test(next)) return [`${PAGE_FILE}: must be ASCII-only (use HTML entities)`];
   return [];
 }
 
