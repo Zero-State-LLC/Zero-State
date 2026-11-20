@@ -21,6 +21,20 @@
     document.body.appendChild(beacon);
   }
 
+  // Google Analytics 4 (privacy.html §2.3): first-party loader, production host only.
+  // Not loaded on localhost or github.io. The gtag URL stays out of HTML.
+  const GA_MEASUREMENT_ID = 'G-VLZZK7RHW2';
+  if (location.hostname === 'zer0state.com') {
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function gtag() { window.dataLayer.push(arguments); };
+    const loader = document.createElement('script');
+    loader.async = true;
+    loader.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_MEASUREMENT_ID;
+    document.head.appendChild(loader);
+    window.gtag('js', new Date());
+    window.gtag('config', GA_MEASUREMENT_ID);
+  }
+
   const year = document.querySelector('[data-year]');
   if (year) year.textContent = String(new Date().getFullYear());
 
