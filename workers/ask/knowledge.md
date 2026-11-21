@@ -251,7 +251,7 @@ How Zero State LLC handles personal information across our website, apps, and re
 On this page
 1. Scope2. Information we collect3. How we use information4. Legal bases (where applicable)5. How we share information6. Retention7. Security8. Children9. International transfers10. Your privacy rights11. Push notifications, tracking, and platform settings12. Do Not Track13. Third-party links and SDKs14. Changes to this policy15. ContactAppendix A — App-specific disclosures
 Effective date: November 19, 2026
-Last updated: November 19, 2026
+Last updated: November 21, 2026
 This Privacy Policy describes how Zero State LLC (“Zero State,” “we,” “us,” or “our”), a company organized in the United States, collects, uses, shares, and protects information when you use our websites, mobile applications, and related services (collectively, the “Services”).
 If you have questions or want to exercise privacy rights, contact us at zer0state@zer0state.com (mailto:zer0state@zer0state.com).
 
@@ -298,7 +298,7 @@ We use personal information to:
 - Process purchases and restore entitlements through platform stores
 - Comply with law, enforce terms, and protect users, the public, and Zero State
 - Communicate about updates, security notices, or policy changes when appropriate
-We do not sell your personal information. We do not use personal information to train public foundation models. We do not use the contents of private support emails for advertising.
+We do not sell your personal information for money. Marigold Market’s advertising may count as “sharing,” and possibly a “sale,” under U.S. state privacy laws; Appendix A describes it and how to opt out. We do not use personal information to train public foundation models. We do not use the contents of private support emails for advertising.
 
 ### 4. Legal bases (where applicable)
 If you are in a region that requires a legal basis for processing (for example the EEA, UK, or similar), we rely on one or more of the following as appropriate:
@@ -314,7 +314,7 @@ We may share information with:
 - Professional advisors (legal, accounting) under confidentiality obligations when needed
 - Authorities or other parties when required by law, legal process, or to protect rights, safety, and security
 - Business transfers — if we are involved in a merger, acquisition, financing, or sale of assets, information may transfer subject to appropriate safeguards
-We do not sell personal information and we do not share personal information for cross-context behavioral advertising as those terms are commonly defined under U.S. state privacy laws, unless we update this policy and provide any required opt-out mechanism first.
+We do not sell personal information for money. Except as described for Marigold Market in Appendix A, which explains how to opt out, we do not share personal information for cross-context behavioral advertising as those terms are commonly defined under U.S. state privacy laws. Before any other app does so, we will update this policy and provide any required opt-out mechanism.
 
 ### 6. Retention
 We keep personal information only as long as needed for the purposes described above, including:
@@ -342,9 +342,9 @@ Depending on where you live, you may have rights to:
 - Export or receive a copy of information (data portability)
 - Object to or restrict certain processing
 - Withdraw consent where processing is based on consent
-- Opt out of “sale” or “sharing” of personal information if we ever engage in those activities as defined by applicable law
+- Opt out of “sale” or “sharing” of personal information as defined by applicable law (for Marigold Market, see Appendix A)
 To make a request, email zer0state@zer0state.com (mailto:zer0state@zer0state.com) with “Privacy Request” in the subject line. We may need to verify your identity before fulfilling a request. You may use an authorized agent where law allows. You will not be discriminated against for exercising privacy rights.
-California residents: We do not sell personal information. For categories of information, sources, purposes, and sharing, see the sections above. You may submit access or deletion requests as described here. If we process sensitive personal information in the future, we will disclose it and provide any required choice mechanisms.
+California residents: We do not sell personal information for money. If you allow tracking in Marigold Market, its advertising is “sharing” for cross-context behavioral advertising under the CCPA, as amended by the CPRA, and may count as a “sale”; Appendix A describes it and how to opt out. For categories of information, sources, purposes, and sharing, see the sections above. You may submit access or deletion requests as described here. If we process sensitive personal information in the future, we will disclose it and provide any required choice mechanisms.
 EEA/UK residents: You may lodge a complaint with your local supervisory authority. You can also contact us first so we can try to resolve the issue.
 
 ### 11. Push notifications, tracking, and platform settings
@@ -403,6 +403,72 @@ None of this is transmitted to Zero State. Waykin has no remote analytics
 and no upload path. Map search and routing are handled by Apple's services under Apple's
 own privacy terms. You can deny any permission and still use the app, including a fully
 offline Demo Mode.
+
+#### Marigold Market (iOS)
+Data collected: yes. Marigold Market is free to play, shows ads and offers
+in-app purchases. It has no accounts or sign-in, and Zero State runs no servers for it. Your
+progress, purchases and settings are stored on your device, and deleting the app removes them.
+The app uses these third-party SDKs: Google Mobile Ads (AdMob), Google User Messaging
+Platform, Google Analytics for Firebase, Firebase Crashlytics and Firebase Remote Config. Its
+App Store privacy label is not “Data Not Collected.”
+- Advertising. Rewarded ads you choose to watch, and ads between levels,
+are served by Google Mobile Ads, which may fill them from Google and the ad technology
+partners Google works with. To serve, measure and limit ads, Google's SDK may collect the
+advertising identifier (IDFA) only if you allow tracking , identifiers
+scoped to the app or developer, your IP address (which may be used to estimate a general
+location), device and app information, which ads were shown and how you interacted with
+them, and diagnostics about the ad SDK. Zero State receives aggregate reports and
+per-impression revenue, not this data. See
+Google's Privacy Policy (https://policies.google.com/privacy) and
+how Google uses information from apps that use its services (https://policies.google.com/technologies/partner-sites).
+- Consent where the law requires it. In the European Economic Area, the
+UK, Switzerland and US states with their own privacy laws, the game shows a consent message
+from Google's User Messaging Platform before ads start. Google decides from your location
+whether the message applies to you. Ads wait for your answer and follow it. Where the game's
+Settings shows Privacy choices, you can change your answer there; Google shows that option
+wherever its rules require one.
+- Tracking permission. After level 5, iOS asks whether the game may track
+you. If you allow it, Google and its ad partners may use the IDFA to personalize and measure
+ads across apps. If you don't, ads are still shown but are not personalized that way, and
+nothing else about the game changes. You can change this in Settings → Privacy &
+Security → Tracking.
+- Sale and sharing. If you allow tracking, the game makes your advertising
+identifier and data about the ads you see and interact with available to Google and its ad partners to show
+and measure ads across apps and websites. Under California law and similar US state laws
+this is “sharing” personal information for cross-context behavioral advertising,
+and may count as a “sale.” We do not sell your data for money or share it for any
+other purpose. To opt out, deny tracking (without tracking permission the advertising
+identifier is not shared at all), or, in US states with privacy laws, opt out in the consent
+message or, where shown, in the game's Settings → Privacy choices.
+- Analytics. Google Analytics for Firebase records game events, such as
+starting, winning or failing a level, using a booster, being offered or watching an ad, and
+making a purchase with its price, together with an app-instance identifier, device and app
+information, and an approximate location (country or region) derived from your IP address.
+It uses the advertising identifier only if you allow tracking. These events are tied to
+identifiers for your installation (and to the advertising identifier if you allow tracking),
+not to your name or an account. Apple counts data tied to a device identifier as linked to
+you, and the App Store privacy answers say so. See
+Firebase's privacy information (https://firebase.google.com/support/privacy).
+- Crash reports. TestFlight and App Store builds send crash reports
+through Firebase Crashlytics: the crash trace, device model and operating system, memory and
+disk size, app version, whether the app was in the background, and random installation and
+session identifiers. They are kept for 90 days, are not linked to you and are not used for
+advertising. You can turn them off in the game's Settings (“Send crash
+reports”).
+- Remote configuration. The game fetches tuning values, such as coin
+prices and how often ads may appear, from Firebase Remote Config. The request carries a
+Firebase installation ID.
+- In-app purchases. Coin packs, a starter bundle and the weekly VIP and
+Ad-Free subscriptions are processed entirely by Apple. Zero State never receives payment
+details. Purchases and their prices are also recorded in analytics, as above.
+- Children. The game is for a general audience. It is not directed to
+children under 13, or under the age of digital consent where you live, and we do not
+knowingly collect personal information from them. It is rated 4+ for its content and is not
+in the App Store's Kids category, because it shows third-party ads. Section 8 applies.
+- AI. Music and sound effects were generated during development using
+ElevenLabs under a paid commercial licence held by Zero State, and ship as files inside the
+app. The game performs no AI processing while you play and sends nothing about you to any
+AI provider.
 
 #### Beta and TestFlight builds
 If you use a pre-release build through TestFlight , Apple may collect crash
