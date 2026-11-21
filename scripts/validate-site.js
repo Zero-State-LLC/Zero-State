@@ -527,6 +527,7 @@ for (const file of [...officialFiles, '404.html']) {
   if (og('image') !== `${APEX}/assets/og-image.png`) fail(file, `og:image must be ${APEX}/assets/og-image.png`);
   if (og('image:width') !== '1200' || og('image:height') !== '630') fail(file, 'og:image:width/height must be 1200/630');
   if (meta(html, 'name', 'twitter:card') !== 'summary_large_image') fail(file, 'twitter:card must be summary_large_image');
+  if (meta(html, 'name', 'twitter:site') !== '@z3r0st4t3') fail(file, 'twitter:site must be @z3r0st4t3');
 }
 // Alt text: every <img> in every page, inline script, and JS template has an alt attribute (alt="" when decorative),
 // and every script-built <img> sets one. Canvas sprites (new Image()) never enter the DOM and are not checked.
@@ -548,15 +549,29 @@ for (const file of servedSources) {
     if (!/\.alt\s*=|setAttribute\(\s*['"]alt['"]|\balt:/.test(src.slice(made.index, made.index + 400))) fail(file, 'script-built <img> does not set alt');
   }
 }
-// Analytics: the beacon in site.js and privacy.html §2.3 must agree; a page CSP must allow the beacon.
+// Analytics: site.js and privacy.html §2.3 must agree. A page CSP must allow whatever analytics site.js loads.
 const siteJs = fs.readFileSync(path.join(root, 'site.js'), 'utf8');
 if (/static\.cloudflareinsights\.com/.test(siteJs) && (!/Cloudflare Web Analytics/.test(privacy) || !privacy.includes('https://www.cloudflare.com/privacypolicy/'))) {
   fail('privacy.html', 'site.js loads Cloudflare Web Analytics, so §2.3 must disclose it and link Cloudflare’s privacy policy');
 }
+const loadsGa4 = /www\.googletagmanager\.com\/gtag\/js/.test(siteJs);
+if (loadsGa4 && (!/G-VLZZK7RHW2/.test(siteJs) || !/GA_MEASUREMENT_ID/.test(siteJs) || !/location\.hostname === ['"]zer0state\.com['"]/.test(siteJs))) {
+  fail('site.js', 'GA4 must use measurement ID G-VLZZK7RHW2 and load only when location.hostname is zer0state.com');
+}
+if (loadsGa4 && (!/G-VLZZK7RHW2/.test(privacy) || !/googletagmanager\.com/.test(privacy) || !/gtag/.test(privacy) || !/production host zer0state\.com only/.test(privacy))) {
+  fail('privacy.html', 'site.js loads Google Analytics 4, so §2.3 must disclose gtag from googletagmanager.com, measurement ID G-VLZZK7RHW2, and the production host only');
+}
 for (const file of servedSources.filter((f) => f.endsWith('.html'))) {
-  const csp = meta(fs.readFileSync(path.join(root, file), 'utf8'), 'http-equiv', 'Content-Security-Policy');
+  const html = fs.readFileSync(path.join(root, file), 'utf8');
+  if (/<script\b[^>]*\bsrc=["'][^"']*googletagmanager\.com/i.test(html)) {
+    fail(file, 'GA4 script must be injected from site.js, not referenced in HTML');
+  }
+  const csp = meta(html, 'http-equiv', 'Content-Security-Policy');
   if (csp && (!csp.includes('https://static.cloudflareinsights.com') || !csp.includes('https://cloudflareinsights.com'))) {
     fail(file, 'Content-Security-Policy must allow static.cloudflareinsights.com (script-src) and cloudflareinsights.com (connect-src)');
+  }
+  if (csp && loadsGa4 && (!csp.includes('https://www.googletagmanager.com') || !csp.includes('https://www.google-analytics.com'))) {
+    fail(file, 'Content-Security-Policy must allow www.googletagmanager.com (script-src) and www.google-analytics.com (connect-src)');
   }
 }
 
