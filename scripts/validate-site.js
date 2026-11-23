@@ -8,7 +8,7 @@ const root = path.resolve(__dirname, '..');
 const APEX = 'https://zer0state.com';
 const requiredPages = [
   'index.html', 'work.html', 'philosophy.html', 'about.html', 'contact.html',
-  'privacy.html', 'terms.html', 'marketing.html',
+  'privacy.html', 'terms.html', 'marketing.html', 'local-intelligence.html',
   'products/waykin.html', 'products/patchhive.html', 'products/psyfi.html',
   'products/surveillance-survivor.html', 'products/hexwire.html',
   'products/hollersports.html', 'products/marigold-market.html', 'products/slosh.html',
@@ -573,6 +573,53 @@ for (const file of servedSources.filter((f) => f.endsWith('.html'))) {
   if (csp && loadsGa4 && (!csp.includes('https://www.googletagmanager.com') || !csp.includes('https://www.google-analytics.com'))) {
     fail(file, 'Content-Security-Policy must allow www.googletagmanager.com (script-src) and www.google-analytics.com (connect-src)');
   }
+}
+
+
+// AEO baseline (2026-11-22): llms.txt and structured data on the flagged pages.
+if (!exists('llms.txt')) fail('llms.txt', 'public llms.txt is missing');
+else {
+  const llms = fs.readFileSync(path.join(root, 'llms.txt'), 'utf8');
+  for (const needle of [
+    'https://zer0state.com/local-intelligence.html',
+    'pawl-gate',
+    'https://github.com/Zero-State-LLC/pawl',
+    'https://apps.apple.com/us/app/hexwire/id6800604898'
+  ]) {
+    if (!llms.includes(needle)) fail('llms.txt', `must mention ${needle}`);
+  }
+}
+const localIntel = exists('local-intelligence.html') ? fs.readFileSync(path.join(root, 'local-intelligence.html'), 'utf8') : '';
+if (!localIntel) fail('local-intelligence.html', 'Local intelligence page is missing');
+else {
+  if (!/application\/ld\+json/.test(localIntel) || !/"@type":\s*"Service"/.test(localIntel)) {
+    fail('local-intelligence.html', 'Service JSON-LD is missing');
+  }
+  for (const needle of ['Frame', 'Fit', 'Deploy', 'Hand over', 'NVIDIA GPUs']) {
+    if (!localIntel.includes(needle)) fail('local-intelligence.html', `must mention ${needle}`);
+  }
+}
+if (!/id=["']local["']/.test(index)) fail('index.html', 'homepage #local section is missing');
+if (!/local-intelligence\.html/.test(index)) fail('index.html', 'homepage must link the Local intelligence page');
+const pawlPage = fs.readFileSync(path.join(root, 'products/pawl.html'), 'utf8');
+if (!/application\/ld\+json/.test(pawlPage)) fail('products/pawl.html', 'JSON-LD is missing');
+if (!pawlPage.includes('https://github.com/Zero-State-LLC/pawl')) fail('products/pawl.html', 'canonical GitHub repo link is missing');
+if (!pawlPage.includes('https://pypi.org/project/pawl-gate/')) fail('products/pawl.html', 'canonical PyPI pawl-gate link is missing');
+if (/ulukaya\/pawl/.test(pawlPage) || /github\.com\/pawl-gate\/pawl/.test(pawlPage)) {
+  fail('products/pawl.html', 'must not name other Pawl repositories');
+}
+if (!/application\/ld\+json/.test(hexwire) || !/"@type":\s*"VideoGame"/.test(hexwire) || !/"price":\s*"3\.99"/.test(hexwire)) {
+  fail('products/hexwire.html', 'VideoGame Offer JSON-LD with price 3.99 is missing');
+}
+if (!/application\/ld\+json/.test(jchain) || !/"@type":\s*"SoftwareApplication"/.test(jchain)) {
+  fail('products/j-chain.html', 'SoftwareApplication JSON-LD is missing');
+}
+if (!/application\/ld\+json/.test(noema) || !/"@type":\s*"SoftwareApplication"/.test(noema)) {
+  fail('products/noema.html', 'SoftwareApplication JSON-LD is missing');
+}
+const kubrickPage = exists('skills/kubrick.html') ? fs.readFileSync(path.join(root, 'skills/kubrick.html'), 'utf8') : '';
+if (!/application\/ld\+json/.test(kubrickPage) || !/"@type":\s*"SoftwareApplication"/.test(kubrickPage)) {
+  fail('skills/kubrick.html', 'SoftwareApplication JSON-LD is missing');
 }
 
 if (failures.length) {

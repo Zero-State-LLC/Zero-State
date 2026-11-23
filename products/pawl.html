@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="description" content="Pawl is a ratchet gate for agent coding work: code can only move forward.">
+  <meta name="description" content="Pawl is the Zero State ratchet gate that stops coding agents from deleting, skipping, or quietly breaking tests. Official package: pawl-gate on PyPI. Source: Zero-State-LLC/pawl.">
   <meta name="theme-color" content="#0f1110">
   <meta name="color-scheme" content="dark">
   <title>Pawl — Zero State</title>
@@ -15,7 +15,7 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Zero State">
   <meta property="og:title" content="Pawl — Zero State">
-  <meta property="og:description" content="Pawl is a ratchet gate for agent coding work: code can only move forward.">
+  <meta property="og:description" content="Pawl is the Zero State ratchet gate that stops coding agents from deleting, skipping, or quietly breaking tests. Official package: pawl-gate on PyPI. Source: Zero-State-LLC/pawl.">
   <meta property="og:url" content="https://zer0state.com/products/pawl.html">
   <meta property="og:image" content="https://zer0state.com/assets/og-image.png">
   <meta property="og:image:width" content="1200">
@@ -24,11 +24,62 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@z3r0st4t3">
   <meta name="twitter:title" content="Pawl — Zero State">
-  <meta name="twitter:description" content="Pawl is a ratchet gate for agent coding work: code can only move forward.">
+  <meta name="twitter:description" content="Pawl is the Zero State ratchet gate that stops coding agents from deleting, skipping, or quietly breaking tests. Official package: pawl-gate on PyPI. Source: Zero-State-LLC/pawl.">
   <meta name="twitter:image" content="https://zer0state.com/assets/og-image.png">
   <link rel="preload" href="../assets/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="../tokens.css">
   <link rel="stylesheet" href="../site.css">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "Pawl",
+      "alternateName": ["pawl-gate"],
+      "url": "https://zer0state.com/products/pawl.html",
+      "description": "Pawl is a ratchet gate for agent coding work. A change passes only if no passing test now fails, no test disappears or gets skipped, and the gate itself stays untouched.",
+      "applicationCategory": "DeveloperApplication",
+      "softwareVersion": "0.5.0",
+      "license": "https://www.apache.org/licenses/LICENSE-2.0",
+      "author": {"@type": "Organization", "name": "Zero State LLC", "url": "https://zer0state.com/"},
+      "codeRepository": "https://github.com/Zero-State-LLC/pawl",
+      "downloadUrl": "https://pypi.org/project/pawl-gate/",
+      "installUrl": "https://pypi.org/project/pawl-gate/",
+      "isAccessibleForFree": true
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How do I stop Claude Code, Codex, or Cursor from deleting or skipping tests?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Install Pawl with pip install pawl-gate, run pawl init --github, and make the Pawl check required. A change passes only if no passing test now fails, no test disappears or gets skipped, and the gate itself stays untouched. Hooks support Claude Code, Codex, Cursor, and Hermes. The GitHub Actions check is the authoritative result."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Which Pawl is this?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "This is the Zero State Pawl, a ratchet gate for agent coding work. Official source: https://github.com/Zero-State-LLC/pawl. Official PyPI package name: pawl-gate (https://pypi.org/project/pawl-gate/)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I use Pawl on a legacy repo that already has failing tests?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Known failures are allowed, and can only go down. Pawl records a baseline and then enforces a forward-only ratchet. Install with pip install pawl-gate, initialize with pawl init --github, and make the check required."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
   <link rel="stylesheet" href="../pages.css">
 </head>
 <body class="obs">
@@ -37,7 +88,7 @@
   <div class="nav__inner">
     <a class="wordmark" href="../index.html" aria-label="Zero State home"><picture><source srcset="../assets/brand/zero_state_mark_3_nav.webp" type="image/webp"><img src="../assets/brand/zero_state_mark_3_nav.png" alt="" width="20" height="32"></picture><span>ZERØ STATE</span></a>
     <nav class="nav__links" id="nav-links" aria-label="Primary">
-      <a href="../index.html#evidence">Work</a><a href="../index.html#local">Local intelligence</a><a href="../index.html#method">Method</a><a href="../work.html">Portfolio</a><a href="../collaborators.html">Collaborators</a>
+      <a href="../index.html#evidence">Work</a><a href="../local-intelligence.html">Local intelligence</a><a href="../index.html#method">Method</a><a href="../work.html">Portfolio</a><a href="../collaborators.html">Collaborators</a>
       <a class="nav__sheet-cta" href="../index.html#contact">Begin here</a>
     </nav>
     <a class="nav__cta" href="../index.html#contact">Begin here</a>
@@ -68,6 +119,30 @@
         <p>Known failures are allowed—and can only go down. Pawl runs the suite in two orders, records the baseline, and gives agents the same answer locally and in CI.</p></div></section>
 <section class="dossier__section" aria-labelledby="s2"><h2 id="s2">In short</h2><div class="dossier__body"><p>Install it with <code>pip install pawl-gate</code>, initialize a repo with <code>pawl init --github</code>, and make the Pawl check required. Hooks support Claude Code, Codex, Cursor, and Hermes.</p>
         <p>In Pawl's saved 2026-10-10 benchmark, on an in-repo corpus of 23 synthetic agent cheats and 9 clean changes, Pawl in CI caught 21 of the 23 cheats and blocked none of the clean changes. That result is in-repo benchmark evidence, not a universal guarantee.</p></div></section>
+
+<section class="dossier__section" aria-labelledby="s-stop"><h2 id="s-stop">How Pawl stops Claude Code, Codex, and Cursor from cheating tests</h2><div class="dossier__body"><p>Coding agents can delete a test, skip it, or change it just enough to stay green. Pawl is built to catch that.</p>
+        <p>A change passes only if no passing test now fails, no test disappears or gets skipped, and the gate itself stays untouched. Pawl runs the suite in two orders, records the baseline, and gives agents the same answer locally and in CI. The GitHub Actions check is the authoritative result.</p>
+        <p>Install it with <code>pip install pawl-gate</code>, initialize a repo with <code>pawl init --github</code>, and make the Pawl check required. Hooks support Claude Code, Codex, Cursor, and Hermes.</p></div></section>
+<section class="dossier__section" aria-labelledby="s-legacy"><h2 id="s-legacy">Legacy repos and known failures</h2><div class="dossier__body"><p>Known failures are allowed, and can only go down. You do not have to get a noisy legacy suite to a clean run before you turn the gate on.</p>
+        <p>Record a baseline, then keep the ratchet forward-only: existing failures may be fixed, and they may not come back. New tests that the baseline does not yet cover fail the check, starting with v0.5.0.</p>
+        <p>The usual sequence is: <code>pip install pawl-gate</code>, <code>pawl init --github</code>, then make the Pawl check required on the repository. Hooks keep local agent runs aligned with CI.</p></div></section>
+<section class="dossier__section" aria-labelledby="s-which"><h2 id="s-which">Which Pawl this is</h2><div class="dossier__body"><p>This is the Zero State Pawl, a ratchet gate for agent coding work.</p>
+        <ul>
+          <li>Official source: <a href="https://github.com/Zero-State-LLC/pawl" target="_blank" rel="noopener noreferrer">github.com/Zero-State-LLC/pawl</a></li>
+          <li>Official PyPI package name: <a href="https://pypi.org/project/pawl-gate/" target="_blank" rel="noopener noreferrer">pawl-gate</a>. Install with <code>pip install pawl-gate</code>.</li>
+        </ul></div></section>
+<section class="dossier__section" aria-labelledby="s-compare"><h2 id="s-compare">Pawl, pre-commit, and other gates</h2><div class="dossier__body"><p>Pawl&#x27;s job is the test ratchet: passing tests must keep passing, tests must not disappear or be skipped, and known failures can only go down. This page does not claim a full feature comparison with static analyzers or other ratchet tools.</p>
+        <table>
+          <caption>Only facts stated on this site. Pre-commit is listed because Pawl already describes it as an optional local check.</caption>
+          <thead>
+            <tr><th>Tool</th><th>What this site can say</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">Pawl (<code>pawl-gate</code>)</th><td>Ratchet gate for agent coding work. Official package <code>pawl-gate</code> on PyPI; source at Zero-State-LLC/pawl. Hooks for Claude Code, Codex, Cursor, and Hermes. Authoritative check runs in GitHub Actions. In the saved 2026-10-10 in-repo benchmark, Pawl in CI caught 21 of 23 synthetic cheats and blocked none of 9 clean changes. That result is in-repo evidence, not a universal guarantee.</td></tr>
+            <tr><th scope="row">pre-commit</th><td>Pawl treats pre-commit as an optional local check before each commit. It can sit beside Pawl. It is not described here as a replacement for the CI ratchet.</td></tr>
+            <tr><th scope="row">SonarQube, Test Ratchet, and similar tools</th><td>Not compared in detail on this page. If you already run one of them, Pawl still does the test-by-test ratchet and skip or delete guard described above.</td></tr>
+          </tbody>
+        </table></div></section>
 <section class="dossier__section" aria-labelledby="built"><h2 id="built">Built with</h2><div class="dossier__body">
         <ul class="stack" role="list"><li><b>Python</b><span>the gate and command-line tool, no dependencies</span></li><li><b>PyPI</b><span>publishes releases as the pawl-gate package</span></li><li><b>GitHub Actions</b><span>runs the authoritative check on pull requests</span></li><li><b>pytest, Jest, Vitest, Go and Cargo</b><span>test runners Pawl runs and compares</span></li><li><b>JUnit XML</b><span>standard report format for any other runner</span></li><li><b>Claude Code, Codex, Cursor and Hermes</b><span>agent tools that get Pawl&#x27;s local hooks</span></li><li><b>pre-commit</b><span>optional local check before each commit</span></li></ul></div></section>
 <section class="dossier__section" aria-labelledby="changelog"><h2 id="changelog">Changelog</h2><div class="dossier__body"><p class="status">Milestones in plain English, newest first, to Nov 7, 2026</p>
