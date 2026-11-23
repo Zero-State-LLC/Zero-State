@@ -605,8 +605,8 @@ const pawlPage = fs.readFileSync(path.join(root, 'products/pawl.html'), 'utf8');
 if (!/application\/ld\+json/.test(pawlPage)) fail('products/pawl.html', 'JSON-LD is missing');
 if (!pawlPage.includes('https://github.com/Zero-State-LLC/pawl')) fail('products/pawl.html', 'canonical GitHub repo link is missing');
 if (!pawlPage.includes('https://pypi.org/project/pawl-gate/')) fail('products/pawl.html', 'canonical PyPI pawl-gate link is missing');
-if (!/ulukaya\/pawl/.test(pawlPage) || !/github\.com\/pawl-gate\/pawl/.test(pawlPage)) {
-  fail('products/pawl.html', 'must disambiguate colliding Pawl repositories');
+if (/ulukaya\/pawl/.test(pawlPage) || /github\.com\/pawl-gate\/pawl/.test(pawlPage)) {
+  fail('products/pawl.html', 'must not name other Pawl repositories');
 }
 if (!/application\/ld\+json/.test(hexwire) || !/"@type":\s*"VideoGame"/.test(hexwire) || !/"price":\s*"3\.99"/.test(hexwire)) {
   fail('products/hexwire.html', 'VideoGame Offer JSON-LD with price 3.99 is missing');

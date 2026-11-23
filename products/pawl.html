@@ -64,7 +64,7 @@
           "name": "Which Pawl is this?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "This Pawl is the Zero State ratchet gate. Official source: https://github.com/Zero-State-LLC/pawl. Official PyPI package name: pawl-gate (https://pypi.org/project/pawl-gate/). It is not github.com/pawl-gate/pawl and not github.com/ulukaya/pawl."
+            "text": "This is the Zero State Pawl, a ratchet gate for agent coding work. Official source: https://github.com/Zero-State-LLC/pawl. Official PyPI package name: pawl-gate (https://pypi.org/project/pawl-gate/)."
           }
         },
         {
@@ -126,12 +126,11 @@
 <section class="dossier__section" aria-labelledby="s-legacy"><h2 id="s-legacy">Legacy repos and known failures</h2><div class="dossier__body"><p>Known failures are allowed, and can only go down. You do not have to get a noisy legacy suite to a clean run before you turn the gate on.</p>
         <p>Record a baseline, then keep the ratchet forward-only: existing failures may be fixed, and they may not come back. New tests that the baseline does not yet cover fail the check, starting with v0.5.0.</p>
         <p>The usual sequence is: <code>pip install pawl-gate</code>, <code>pawl init --github</code>, then make the Pawl check required on the repository. Hooks keep local agent runs aligned with CI.</p></div></section>
-<section class="dossier__section" aria-labelledby="s-which"><h2 id="s-which">Which Pawl this is</h2><div class="dossier__body"><p>This Pawl is the Zero State ratchet gate for agent coding work.</p>
+<section class="dossier__section" aria-labelledby="s-which"><h2 id="s-which">Which Pawl this is</h2><div class="dossier__body"><p>This is the Zero State Pawl, a ratchet gate for agent coding work.</p>
         <ul>
           <li>Official source: <a href="https://github.com/Zero-State-LLC/pawl" target="_blank" rel="noopener noreferrer">github.com/Zero-State-LLC/pawl</a></li>
           <li>Official PyPI package name: <a href="https://pypi.org/project/pawl-gate/" target="_blank" rel="noopener noreferrer">pawl-gate</a>. Install with <code>pip install pawl-gate</code>.</li>
-        </ul>
-        <p>It is not <a href="https://github.com/pawl-gate/pawl" target="_blank" rel="noopener noreferrer">github.com/pawl-gate/pawl</a>, and it is not <a href="https://github.com/ulukaya/pawl" target="_blank" rel="noopener noreferrer">github.com/ulukaya/pawl</a>.</p></div></section>
+        </ul></div></section>
 <section class="dossier__section" aria-labelledby="s-compare"><h2 id="s-compare">Pawl, pre-commit, and other gates</h2><div class="dossier__body"><p>Pawl&#x27;s job is the test ratchet: passing tests must keep passing, tests must not disappear or be skipped, and known failures can only go down. This page does not claim a full feature comparison with static analyzers or other ratchet tools.</p>
         <table>
           <caption>Only facts stated on this site. Pre-commit is listed because Pawl already describes it as an optional local check.</caption>

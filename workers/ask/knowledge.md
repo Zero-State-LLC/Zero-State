@@ -1101,10 +1101,9 @@ Record a baseline, then keep the ratchet forward-only: existing failures may be 
 The usual sequence is: pip install pawl-gate , pawl init --github , then make the Pawl check required on the repository. Hooks keep local agent runs aligned with CI.
 
 ### Which Pawl this is
-This Pawl is the Zero State ratchet gate for agent coding work.
+This is the Zero State Pawl, a ratchet gate for agent coding work.
 - Official source: github.com/Zero-State-LLC/pawl (https://github.com/Zero-State-LLC/pawl)
 - Official PyPI package name: pawl-gate (https://pypi.org/project/pawl-gate/). Install with pip install pawl-gate .
-It is not github.com/pawl-gate/pawl (https://github.com/pawl-gate/pawl), and it is not github.com/ulukaya/pawl (https://github.com/ulukaya/pawl).
 
 ### Pawl, pre-commit, and other gates
 Pawl's job is the test ratchet: passing tests must keep passing, tests must not disappear or be skipped, and known failures can only go down. This page does not claim a full feature comparison with static analyzers or other ratchet tools.

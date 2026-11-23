@@ -27,7 +27,7 @@ Cumulative release since `v0.3.0`: official dark home, social preview, and Herme
 
 - Add `local-intelligence.html`, linked from the homepage `#local` section and the primary nav, so the private-AI service is an indexable page instead of only a fragment.
 - Add `llms.txt` describing live products, official Pawl identity (`Zero-State-LLC/pawl`, PyPI `pawl-gate`), and HexWire's live App Store listing.
-- Upgrade `products/pawl.html` with problem-led copy, a known-failures section, a limited comparison table, JSON-LD, and disambiguation from `pawl-gate/pawl` and `ulukaya/pawl`.
+- Upgrade `products/pawl.html` with problem-led copy, a known-failures section, a limited comparison table, JSON-LD, and explicit identity as the Zero State Pawl (`Zero-State-LLC/pawl`, PyPI `pawl-gate`).
 - Add VideoGame + Offer JSON-LD to HexWire and a "Where to get it" section that restates the live $3.99 App Store listing.
 - Add SoftwareApplication JSON-LD to J-Chain, Noema, and Kubrick. Kubrick's summary now leads with storyboard and visual continuity, using wording already on that page.
 

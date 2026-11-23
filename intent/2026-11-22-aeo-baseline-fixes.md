@@ -2,7 +2,7 @@
 
 ## Problem
 
-GAP's 2026-11-22 AEO baseline found that zer0state.com is close to invisible on non-branded buyer questions. Google Search Console (2026-08-01 to 2026-11-22) showed 90 impressions, 0 clicks, and 1 non-branded query. Context.dev web-answers recommended Zero State on 2 of 19 non-branded questions. Local intelligence (Q01-Q05) scored 0 of 5 on every engine, including OpenRouter Perplexity/sonar. `/llms.txt` returns 404. Only `index.html` has JSON-LD. Pawl answers collide with `github.com/pawl-gate/pawl` and `github.com/ulukaya/pawl`. Perplexity treated HexWire as not clearly live, even though this repo already says it is live on the App Store.
+GAP's 2026-11-22 AEO baseline found that zer0state.com is close to invisible on non-branded buyer questions. Google Search Console (2026-08-01 to 2026-11-22) showed 90 impressions, 0 clicks, and 1 non-branded query. Context.dev web-answers recommended Zero State on 2 of 19 non-branded questions. Local intelligence (Q01-Q05) scored 0 of 5 on every engine, including OpenRouter Perplexity/sonar. `/llms.txt` returns 404. Only `index.html` has JSON-LD. Pawl answers sometimes collided with other similarly named repositories. Perplexity treated HexWire as not clearly live, even though this repo already says it is live on the App Store.
 
 ## Proposed outcome
 
@@ -35,7 +35,7 @@ Still for Danny after the PR:
 
 - Publish a TCO or hardware-sizing guide if he wants numbers on the Local intelligence page.
 - Source a feature-by-feature comparison with SonarQube, Test Ratchet, or noskip if he wants that table filled in.
-- Confirm whether to name the colliding Pawl repositories on the public page (the PR does name them, as a disambiguation).
+- The public Pawl page keeps only the official identity (Zero-State-LLC/pawl, PyPI pawl-gate) and does not name other projects.
 
 ## Verified / assumed claims
 
@@ -46,7 +46,7 @@ Still for Danny after the PR:
 | HexWire is live on the App Store at $3.99, id6800604898 | `OBSERVED` | `products/hexwire.html`, `work.html` validator |
 | Pawl is installed as `pawl-gate` from PyPI; source is `Zero-State-LLC/pawl`; Apache-2.0; v0.5.0 | `OBSERVED` | `products/pawl.html`, README, `site-manifest.json` |
 | GSC 90 impressions, 0 clicks, 1 non-branded query (Aug 1–Nov 22, 2026) | `OBSERVED` | GAP baseline from Search Console |
-| Perplexity hit Pawl on Q09 but also cited `ulukaya/pawl`; HexWire was not clearly live in that answer | `OBSERVED` | GAP Perplexity summary, 2026-11-22 9:50 PM PT |
+| Perplexity hit Pawl on Q09 but also cited another similarly named repository; HexWire was not clearly live in that answer | `OBSERVED` | GAP Perplexity summary, 2026-11-22 9:50 PM PT |
 
 ## Author / date
 
