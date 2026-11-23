@@ -6,7 +6,7 @@ The homepage `#local` section and `local-intelligence.html` describe the private
 
 ## Proposed outcome
 
-A "See the pitch deck in two minutes" button in the homepage `#local` section opens a full-screen slide player with a 13-slide summary of the client deck. `local-intelligence.html` links to it with `index.html#deck`.
+A "Take the two-minute tour" button in the homepage `#local` section opens a full-screen slide player with a 13-slide summary of the client deck. `local-intelligence.html` links to it with `index.html#tour`. Visible copy never says "pitch deck" (owner's call).
 
 Out of scope: the full deck, speaker notes, client names, and per-package prices beyond the starting price.
 

@@ -62,7 +62,7 @@ Point at a symbol to read it. Every symbol opens its page.
 ### Local intelligence.
 Local intelligence on your own hardware.
 Private AI that runs on hardware you control, such as NVIDIA GPUs. We set up models, agents, and retrieval inside your walls, designed so the work gets sharper and the data stays home.
-See the pitch deck in two minutes
+Take the two-minute tour
 Talk about a deployment → (mailto:zer0state@zer0state.com?subject=Local%20intelligence%20deployment)
 How a deployment works → (https://zer0state.com/local-intelligence.html)
 -
@@ -97,7 +97,7 @@ Installed on your machines, on your network, under your access rules.
 
 #### Hand over
 Documented, observable, and yours to run.
-The pitch deck, in two minutes Zero State Private AI
+Private AI, in two minutes Zero State Private AI
 ✕
 -
 Zero State · On-premise private AI
@@ -213,7 +213,7 @@ Next step
 
 #### Start with a document audit.
 Two weeks with your team. You get a map of where your hours go, any data leaks closed, and a fixed-price plan you can take or leave.
-Ask for the full deck → (mailto:zer0state@zer0state.com?subject=Zero%20State%20Private%20AI%20deck)How a deployment works → (https://zer0state.com/local-intelligence.html)
+Book a walkthrough → (mailto:zer0state@zer0state.com?subject=Zero%20State%20Private%20AI%20walkthrough)How a deployment works → (https://zer0state.com/local-intelligence.html)
 ←
 01 / 13
 →
@@ -337,7 +337,7 @@ For business
 ## Local intelligence on your own hardware.
 Private AI that runs on hardware you control, such as NVIDIA GPUs. We set up models, agents, and retrieval inside your walls, designed so the work gets sharper and the data stays home.
 Talk about a deployment → (mailto:zer0state@zer0state.com?subject=Local%20intelligence%20deployment)
-See the pitch deck in two minutes → (https://zer0state.com/index.html#deck)
+Take the two-minute tour → (https://zer0state.com/index.html#tour)
 On this page
 What it isHow a deployment is builtCost against cloud APIsQuestionsStart a conversation
 

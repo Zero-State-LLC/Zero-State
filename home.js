@@ -15,7 +15,7 @@
     new ResizeObserver(place).observe(principles);
   }
 
-  // Deck summary — a full-screen slide player; the Local intelligence button and #deck links open it.
+  // Two-minute tour — a full-screen slide player; the Local intelligence button and #tour links open it.
   const deck = document.querySelector('[data-deck]');
   const track = deck?.querySelector('[data-deck-track]');
   if (deck && track && typeof deck.showModal === 'function') {
@@ -64,11 +64,11 @@
     document.querySelectorAll('[data-deck-open]').forEach((b) => b.addEventListener('click', open));
     deck.querySelector('[data-deck-close]')?.addEventListener('click', () => deck.close());
     deck.addEventListener('close', () => {
-      if (location.hash === '#deck') history.replaceState(null, '', location.pathname + location.search);
+      if (location.hash === '#tour') history.replaceState(null, '', location.pathname + location.search);
     });
     window.addEventListener('resize', () => { if (deck.open) track.scrollTo({ left: at * track.clientWidth, behavior: 'instant' }); });
-    if (location.hash === '#deck') open();
-    window.addEventListener('hashchange', () => { if (location.hash === '#deck') open(); });
+    if (location.hash === '#tour') open();
+    window.addEventListener('hashchange', () => { if (location.hash === '#tour') open(); });
   }
 
   // Orbital map readout — hover or focus a symbol, read its posture.
