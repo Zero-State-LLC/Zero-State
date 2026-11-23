@@ -124,7 +124,10 @@
     <h2 id="local-title">Local intelligence.</h2>
     <p class="local__nvidia"><span>Local intelligence on your own hardware.</span></p>
     <p class="local__lede">Private AI that runs on hardware you control, such as NVIDIA GPUs. We set up models, agents, and retrieval inside your walls, designed so the work gets sharper and the data stays home.</p>
-    <a class="button" href="mailto:zer0state@zer0state.com?subject=Local%20intelligence%20deployment">Talk about a deployment <span aria-hidden="true">→</span></a>
+    <div class="local__actions">
+      <button class="button button--solid" type="button" data-deck-open aria-haspopup="dialog" aria-controls="deck">See the pitch deck in two minutes</button>
+      <a class="button" href="mailto:zer0state@zer0state.com?subject=Local%20intelligence%20deployment">Talk about a deployment <span aria-hidden="true">→</span></a>
+    </div>
     <p><a class="text-link" href="local-intelligence.html">How a deployment works <span aria-hidden="true">→</span></a></p>
   </div>
   <figure class="enclosure" data-reveal><svg class="enclosure__art" viewBox="0 0 480 320" aria-hidden="true" focusable="false">
@@ -148,6 +151,92 @@
   </figure>
   <ul class="local__uses" role="list"><li><h3>Private knowledge</h3><p>Ask across your own documents, tickets, and records. Designed so answers cite their sources and the data stays on your network.</p></li><li><h3>Agents at work</h3><p>Agents designed to work inside your tools, with their actions logged for review.</p></li><li><h3>Voice and media</h3><p>Transcription, speech, and media pipelines designed to keep recordings on your machines.</p></li><li><h3>Plain-language limits</h3><p>Each deployment is designed to include tests, receipts, and a clear statement of what it will not do.</p></li></ul>
   <ol class="local__steps" role="list"><li><span class="step__n" aria-hidden="true">01</span><h3>Frame</h3><p>We map the work, the data, and the boundary it must not cross.</p></li><li><span class="step__n" aria-hidden="true">02</span><h3>Fit</h3><p>We size models to the job and hardware to the models.</p></li><li><span class="step__n" aria-hidden="true">03</span><h3>Deploy</h3><p>Installed on your machines, on your network, under your access rules.</p></li><li><span class="step__n" aria-hidden="true">04</span><h3>Hand over</h3><p>Documented, observable, and yours to run.</p></li></ol>
+  <dialog class="deck" id="deck" aria-labelledby="deck-title" aria-roledescription="presentation" data-deck>
+    <header class="deck__bar">
+      <p class="deck__brand"><span class="deck__kicker">The pitch deck, in two minutes</span><span class="deck__name" id="deck-title">Zero State Private AI</span></p>
+      <button class="deck__icon" type="button" data-deck-close aria-label="Close the pitch deck"><span aria-hidden="true">✕</span></button>
+    </header>
+    <ol class="deck__track" role="list" data-deck-track>
+      <li class="deck__slide deck__slide--cover" role="group" aria-roledescription="slide" aria-label="1 of 13"><div class="deck__inner">
+        <p class="deck__eyebrow">Zero State · On-premise private AI</p>
+        <h3 class="deck__cover">Big-company AI that keeps your files in your building.</h3>
+        <p class="deck__text">A private AI system installed on hardware you own. It reads, checks and drafts. Your clients’ files never leave the office.</p>
+        <p class="deck__hint" aria-hidden="true">Swipe, scroll or use the arrow keys <span>→</span></p>
+      </div></li>
+      <li class="deck__slide" role="group" aria-roledescription="slide" aria-label="2 of 13"><div class="deck__inner">
+        <p class="deck__eyebrow">01 · The problem</p>
+        <h3 class="deck__h">Every firm wants AI. Few can send it their files.</h3>
+        <ul class="deck__cards" role="list"><li><strong>It’s already happening</strong><span>Staff paste client documents into personal AI accounts nobody controls or logs.</span></li><li><strong>The files can’t leave</strong><span>Privacy rules, client contracts and plain trust say sensitive files stay with you.</span></li><li><strong>The hours keep leaking</strong><span>Reading, re-typing, checking and chasing the same paperwork, every day.</span></li></ul>
+      </div></li>
+      <li class="deck__slide" role="group" aria-roledescription="slide" aria-label="3 of 13"><div class="deck__inner">
+        <p class="deck__eyebrow">02 · Keep what works</p>
+        <h3 class="deck__h">Keep your AI tools. Keep your files private.</h3>
+        <ul class="deck__cards deck__cards--two" role="list"><li><strong>Keep using</strong><span>ChatGPT, Claude, Copilot and Gemini stay on for general work. The system plans and writes with the frontier model you choose, on your own account.</span></li><li class="is-lit"><strong>Kept private</strong><span>Client documents, names and account numbers are read only by the private model in your office.</span></li></ul>
+      </div></li>
+      <li class="deck__slide" role="group" aria-roledescription="slide" aria-label="4 of 13"><div class="deck__inner">
+        <p class="deck__eyebrow">03 · How it works</p>
+        <h3 class="deck__h">Frontier brain, local hands.</h3>
+        <ol class="deck__flow" role="list" aria-label="How a request flows"><li><strong>Your records</strong><span>email, files, books</span></li><li><strong>Private reader</strong><span>reads in your office</span></li><li class="is-lit"><strong>Leak guard</strong><span>checks every cloud call</span></li><li><strong>Frontier AI</strong><span>sees summaries only</span></li></ol>
+        <p class="deck__text">The frontier model never receives a document, a client name or an account number. Fully local, with no cloud at all, is an option.</p>
+      </div></li>
+      <li class="deck__slide" role="group" aria-roledescription="slide" aria-label="5 of 13"><div class="deck__inner">
+        <p class="deck__eyebrow">04 · What it does</p>
+        <h3 class="deck__h">The work it takes off your desk.</h3>
+        <ul class="deck__chips" role="list"><li>Document intake</li><li>Cross-checks</li><li>Follow-up chasers</li><li>Ask your files, with sources</li><li>Daily briefs</li><li>Drafts to approve</li></ul>
+        <p class="deck__text">Every draft waits for a person. The system reads, sorts, checks and drafts; your people make every decision on credit, care, legal advice and money.</p>
+      </div></li>
+      <li class="deck__slide" role="group" aria-roledescription="slide" aria-label="6 of 13"><div class="deck__inner">
+        <p class="deck__eyebrow">05 · Who it is for</p>
+        <h3 class="deck__h">Firms with files that can’t leave.</h3>
+        <ul class="deck__chips" role="list"><li>Mortgage and lending</li><li>Accounting and tax</li><li>Law firms</li><li>Medical and dental</li><li>Insurance agencies</li><li>Real estate</li><li>Financial advisors</li><li>Appraisal</li></ul>
+        <p class="deck__text">Not on the list? If it involves information you wouldn’t paste into ChatGPT, it fits.</p>
+      </div></li>
+      <li class="deck__slide" role="group" aria-roledescription="slide" aria-label="7 of 13"><div class="deck__inner">
+        <p class="deck__eyebrow">06 · When something breaks</p>
+        <h3 class="deck__h">It fails safe. Nothing leaks.</h3>
+        <dl class="deck__rows"><div><dt>The AI machine goes down</dt><dd>A standby model takes over, and work queues instead of failing.</dd></div><div><dt>The internet drops</dt><dd>Work queues and resumes. Nothing falls back to another cloud service.</dd></div><div><dt>A safety check fails</dt><dd>The system stops rather than send anything out.</dd></div></dl>
+      </div></li>
+      <li class="deck__slide" role="group" aria-roledescription="slide" aria-label="8 of 13"><div class="deck__inner">
+        <p class="deck__eyebrow">07 · Included in every install</p>
+        <h3 class="deck__h">Two things most firms have never had done.</h3>
+        <ul class="deck__cards deck__cards--two" role="list"><li><strong>A security audit</strong><span>Where your data goes today, who can see what, and the leaks closed first, with a one-page summary for your auditor or insurer.</span></li><li><strong>A business analysis</strong><span>Drawing on 30 years of running small-business operations, so the first assistants go where your hours go.</span></li></ul>
+      </div></li>
+      <li class="deck__slide" role="group" aria-roledescription="slide" aria-label="9 of 13"><div class="deck__inner">
+        <p class="deck__eyebrow">08 · Ground rules</p>
+        <h3 class="deck__h">Four rules every build keeps.</h3>
+        <dl class="deck__rows"><div><dt>You own it</dt><dd>The hardware, the code and your data.</dd></div><div><dt>People approve</dt><dd>Nothing leaves without a person signing off.</dd></div><div><dt>Every answer is checkable</dt><dd>Each figure cites its document and page.</dd></div><div><dt>Everything is logged</dt><dd>Every question, draft and approval.</dd></div></dl>
+      </div></li>
+      <li class="deck__slide" role="group" aria-roledescription="slide" aria-label="10 of 13"><div class="deck__inner">
+        <p class="deck__eyebrow">09 · Evidence</p>
+        <h3 class="deck__h">Already being built for a mortgage lender.</h3>
+        <dl class="deck__stats"><div><dt>99.3%</dt><dd>of fields read correctly</dd></div><div><dt>99.7%</dt><dd>of amounts and dates</dd></div><div><dt>187</dt><dd>test documents it had never seen</dd></div></dl>
+        <p class="deck__text deck__text--fine">First-pass results from our local document reader on a mixed test set, not your files. The audit measures it on your own documents.</p>
+      </div></li>
+      <li class="deck__slide" role="group" aria-roledescription="slide" aria-label="11 of 13"><div class="deck__inner">
+        <p class="deck__eyebrow">10 · How a build runs</p>
+        <h3 class="deck__h">Three stages, each delivered on its own.</h3>
+        <ol class="deck__steps" role="list"><li><span>1</span><strong>Document audit</strong><em>Two weeks, ending in a fixed-price plan.</em></li><li><span>2</span><strong>Install and build</strong><em>First assistants live in about six weeks.</em></li><li><span>3</span><strong>Handoff</strong><em>You own it. Support by the hour, or an optional care plan.</em></li></ol>
+      </div></li>
+      <li class="deck__slide" role="group" aria-roledescription="slide" aria-label="12 of 13"><div class="deck__inner">
+        <p class="deck__eyebrow">11 · Packages</p>
+        <h3 class="deck__h">Start small. Grow to the whole firm.</h3>
+        <dl class="deck__stats"><div><dt>$15,000</dt><dd>installs start here</dd></div><div><dt>Fixed</dt><dd>price per stage, half to start</dd></div><div><dt>At cost</dt><dd>hardware, sized to the work</dd></div></dl>
+        <p class="deck__text">Firm-wide programs for larger teams and several offices are quoted after the audit.</p>
+      </div></li>
+      <li class="deck__slide deck__slide--cover" role="group" aria-roledescription="slide" aria-label="13 of 13"><div class="deck__inner">
+        <p class="deck__eyebrow">Next step</p>
+        <h3 class="deck__cover">Start with a document audit.</h3>
+        <p class="deck__text">Two weeks with your team. You get a map of where your hours go, any data leaks closed, and a fixed-price plan you can take or leave.</p>
+        <div class="deck__cta"><a class="button button--solid" href="mailto:zer0state@zer0state.com?subject=Zero%20State%20Private%20AI%20deck">Ask for the full deck <span aria-hidden="true">→</span></a><a class="text-link" href="local-intelligence.html">How a deployment works <span aria-hidden="true">→</span></a></div>
+      </div></li>
+    </ol>
+    <footer class="deck__controls">
+      <button class="deck__icon" type="button" data-deck-prev aria-label="Previous slide"><span aria-hidden="true">←</span></button>
+      <p class="deck__count" aria-live="polite"><span data-deck-count>01</span> / 13</p>
+      <div class="deck__progress" aria-hidden="true"><span data-deck-progress></span></div>
+      <button class="deck__icon deck__icon--next" type="button" data-deck-next aria-label="Next slide"><span aria-hidden="true">→</span></button>
+    </footer>
+  </dialog>
 </section>
 <section class="programs" aria-labelledby="programs-title">
   <h2 id="programs-title">Supported by</h2>

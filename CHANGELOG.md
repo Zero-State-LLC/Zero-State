@@ -23,6 +23,12 @@ Cumulative release since `v0.3.0`: official dark home, social preview, and Herme
 
 ## Unreleased
 
+### Local intelligence deck summary (2026-11-23)
+
+- Add a "See the pitch deck in two minutes" button to the homepage `#local` section. It opens a full-screen, 13-slide summary of the Zero State Private AI client deck: swipe, scroll, arrow keys or buttons, with a progress bar and counter.
+- `local-intelligence.html` links to it with `index.html#deck`, which opens the player on arrival.
+- The player is a native `<dialog>`; slide content stays visible without the script, and motion is skipped under reduced-motion settings.
+
 ### AEO baseline fixes (2026-11-22)
 
 - Add `local-intelligence.html`, linked from the homepage `#local` section and the primary nav, so the private-AI service is an indexable page instead of only a fragment.
