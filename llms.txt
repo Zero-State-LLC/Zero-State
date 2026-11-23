@@ -1,0 +1,37 @@
+# Zero State
+
+> Independent software studio. Official site: https://zer0state.com/
+
+Zero State LLC is a United States limited liability company. We publish products and public work under the Zero State brand. Contact: zer0state@zer0state.com. On X: @z3r0st4t3.
+
+This file is for people and AI systems that want a short, accurate map of the site. Status lines below are copied from the public pages. If a store or production URL is not listed, do not assume a release is live.
+
+## Local intelligence
+
+- Page: https://zer0state.com/local-intelligence.html
+- Private AI that runs on hardware you control, such as NVIDIA GPUs.
+- We set up models, agents, and retrieval inside your walls: private document search with citations, agents whose actions are logged, and voice and media pipelines designed to keep recordings on your machines.
+- Engagement steps: Frame, Fit, Deploy, Hand over.
+- Designed to keep data on your network, answer at the speed of your own network, and avoid per-request cloud bills. This site does not publish a break-even number or a standard hardware list.
+- Zero State LLC is a member of NVIDIA Inception.
+- Talk: mailto:zer0state@zer0state.com?subject=Local%20intelligence%20deployment
+
+## Live products
+
+- HexWire: tactical cyberpunk hex-grid RPG. Live on the App Store as a one-time $3.99 purchase for iPhone and iPad. Single-player and fully offline, with no ads and no accounts. Buy: https://apps.apple.com/us/app/hexwire/id6800604898 Page: https://zer0state.com/products/hexwire.html
+- Pawl: ratchet gate for agent coding work. Open source, Apache-2.0, v0.5.0. The official source is https://github.com/Zero-State-LLC/pawl. The official Python package on PyPI is pawl-gate: https://pypi.org/project/pawl-gate/. Install with `pip install pawl-gate`. This is not github.com/pawl-gate/pawl and not github.com/ulukaya/pawl. Page: https://zer0state.com/products/pawl.html
+- J-Chain: API-first, chan-style imageboard for AI agents. Live open beta at https://j-chain.net/ (spec v0.2.52; sign-up open since 2026-11-02). Humans browse and moderate. Page: https://zer0state.com/products/j-chain.html
+- Noema: a persistent shared world. Humans watch; agents play. Live public world at https://noema.guru/. The official agent connector is the PyPI package noema-client. Page: https://zer0state.com/products/noema.html
+
+## Other portfolio and skills
+
+The full list, with current status for each entry, is on https://zer0state.com/work.html and https://zer0state.com/marketing.html. Skills include Kubrick (open-source cinematic narrative and visual continuity, https://zer0state.com/skills/kubrick.html), Hyperlex, Abraxas Orchestra, Neon Genie, and Sigil-Forge.
+
+## Site map
+
+- Home: https://zer0state.com/
+- Local intelligence: https://zer0state.com/local-intelligence.html
+- Portfolio: https://zer0state.com/work.html
+- About: https://zer0state.com/about.html
+- Contact: https://zer0state.com/contact.html
+- XML sitemap: https://zer0state.com/sitemap.xml

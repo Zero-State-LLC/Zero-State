@@ -10,7 +10,7 @@ Independent software studio
 The world moves.
 The reference remains.
 We build thoughtful, adaptable software by returning to first principles—then combining the tools already here in ways that weren’t obvious before.
-- For business Local intelligence, deployed on your hardware. →
+- For business Local intelligence, deployed on your hardware. → (https://zer0state.com/local-intelligence.html)
 - For players and partners Products, games, and agent skills in motion. →
 zer0state@zer0state.com (mailto:zer0state@zer0state.com)
 Software for a world that keeps changing
@@ -63,6 +63,7 @@ Point at a symbol to read it. Every symbol opens its page.
 Local intelligence on your own hardware.
 Private AI that runs on hardware you control, such as NVIDIA GPUs. We set up models, agents, and retrieval inside your walls, designed so the work gets sharper and the data stays home.
 Talk about a deployment → (mailto:zer0state@zer0state.com?subject=Local%20intelligence%20deployment)
+How a deployment works → (https://zer0state.com/local-intelligence.html)
 -
 
 #### Private knowledge
@@ -206,6 +207,55 @@ Product work is developed under the Zero State brand. Portfolio pages present th
 
 ### Contact
 Reach Zero State at zer0state@zer0state.com (mailto:zer0state@zer0state.com).
+
+## Local intelligence — Zero State
+URL: https://zer0state.com/local-intelligence.html
+
+For business
+
+## Local intelligence on your own hardware.
+Private AI that runs on hardware you control, such as NVIDIA GPUs. We set up models, agents, and retrieval inside your walls, designed so the work gets sharper and the data stays home.
+Talk about a deployment → (mailto:zer0state@zer0state.com?subject=Local%20intelligence%20deployment)
+On this page
+What it isHow a deployment is builtCost against cloud APIsQuestionsStart a conversation
+
+### What it is
+Local intelligence is Zero State's private AI service. It is installed on machines you own or lease, on your network, under your access rules.
+The work covers four jobs:
+- Private knowledge. Ask across your own documents, tickets, and records. Answers are designed to cite their sources, and the data is designed to stay on your network.
+- Agents at work. Agents designed to work inside your tools, with their actions logged for review.
+- Voice and media. Transcription, speech, and media pipelines designed to keep recordings on your machines.
+- Plain-language limits. Each deployment is designed to include tests, receipts, and a clear statement of what it will not do.
+Zero State LLC is a member of NVIDIA Inception. That is a membership, not a hardware endorsement, and it is not a claim that we resell NVIDIA products.
+
+### How a deployment is built
+Every engagement follows the same four steps.
+- Frame. We map the work, the data, and the boundary it must not cross.
+- Fit. We size models to the job and hardware to the models.
+- Deploy. Installed on your machines, on your network, under your access rules.
+- Hand over. Documented, observable, and yours to run.
+The design keeps your data inside that frame, answers at the speed of your own network, and avoids per-request cloud bills. This page does not name a default model server, vector database, or GPU SKU, because those choices belong in the Fit step for a specific job.
+
+### Cost against cloud APIs
+A local deployment is designed to avoid per-request cloud bills. Whether it costs less than a cloud API depends on your volume, hardware, and operating cost. We do not publish a break-even formula or a sample bill of materials on this site.
+If you want help reasoning through that tradeoff for your own workload, write to us. Bring the work, the data boundary, and whatever hardware you already have.
+
+### Questions
+
+#### Can this run on our NVIDIA GPUs so company documents stay on our network?
+Yes. That is the point of the service. We set up models, agents, and retrieval on hardware you control, such as NVIDIA GPUs, inside your walls.
+
+#### Do you build custom internal agents, or only document search?
+Both. Private knowledge, logged agents inside your tools, and local voice and media pipelines are all in scope.
+
+#### Can transcription and speech stay on our servers?
+Yes. Those pipelines are designed to keep recordings on your machines.
+
+#### Do you publish a hardware sizing guide?
+No. In the Fit step we size models to the job and hardware to the models. There is no public calculator or standard rack list on this site.
+
+### Start a conversation
+Email zer0state@zer0state.com (mailto:zer0state@zer0state.com?subject=Local%20intelligence%20deployment) with the subject line "Local intelligence deployment."
 
 ## Contact & Support — Zero State
 URL: https://zer0state.com/contact.html
@@ -802,6 +852,10 @@ The campaign includes a persistent economy with nuyen, black-market access, and 
 Live on the App Store as a one-time $3.99 purchase. Single-player and fully offline, with no ads and no accounts. The launch build includes a four-fight prologue, six story missions, side contracts, an arena, an Endless Gauntlet, and a Codex that shows the dice math.
 GameState is the single gameplay authority. UI and SpriteKit layers emit intents and render from state.
 
+### Where to get it
+HexWire is live now. It is a one-time $3.99 purchase on the App Store for iPhone and iPad. It is single-player and fully offline, with no ads and no accounts.
+The launch build is single-player and fully offline. Buy it here: apps.apple.com/us/app/hexwire/id6800604898 (https://apps.apple.com/us/app/hexwire/id6800604898).
+
 ### Built with
 - Swift language the whole game is written in
 - SwiftUI menus, roster and mission screens
@@ -1035,6 +1089,30 @@ Known failures are allowed—and can only go down. Pawl runs the suite in two or
 ### In short
 Install it with pip install pawl-gate , initialize a repo with pawl init --github , and make the Pawl check required. Hooks support Claude Code, Codex, Cursor, and Hermes.
 In Pawl's saved 2026-10-10 benchmark, on an in-repo corpus of 23 synthetic agent cheats and 9 clean changes, Pawl in CI caught 21 of the 23 cheats and blocked none of the clean changes. That result is in-repo benchmark evidence, not a universal guarantee.
+
+### How Pawl stops Claude Code, Codex, and Cursor from cheating tests
+Coding agents can delete a test, skip it, or change it just enough to stay green. Pawl is built to catch that.
+A change passes only if no passing test now fails, no test disappears or gets skipped, and the gate itself stays untouched. Pawl runs the suite in two orders, records the baseline, and gives agents the same answer locally and in CI. The GitHub Actions check is the authoritative result.
+Install it with pip install pawl-gate , initialize a repo with pawl init --github , and make the Pawl check required. Hooks support Claude Code, Codex, Cursor, and Hermes.
+
+### Legacy repos and known failures
+Known failures are allowed, and can only go down. You do not have to get a noisy legacy suite to a clean run before you turn the gate on.
+Record a baseline, then keep the ratchet forward-only: existing failures may be fixed, and they may not come back. New tests that the baseline does not yet cover fail the check, starting with v0.5.0.
+The usual sequence is: pip install pawl-gate , pawl init --github , then make the Pawl check required on the repository. Hooks keep local agent runs aligned with CI.
+
+### Which Pawl this is
+This Pawl is the Zero State ratchet gate for agent coding work.
+- Official source: github.com/Zero-State-LLC/pawl (https://github.com/Zero-State-LLC/pawl)
+- Official PyPI package name: pawl-gate (https://pypi.org/project/pawl-gate/). Install with pip install pawl-gate .
+It is not github.com/pawl-gate/pawl (https://github.com/pawl-gate/pawl), and it is not github.com/ulukaya/pawl (https://github.com/ulukaya/pawl).
+
+### Pawl, pre-commit, and other gates
+Pawl's job is the test ratchet: passing tests must keep passing, tests must not disappear or be skipped, and known failures can only go down. This page does not claim a full feature comparison with static analyzers or other ratchet tools.
+Only facts stated on this site. Pre-commit is listed because Pawl already describes it as an optional local check.
+Tool What this site can say
+Pawl ( pawl-gate ) Ratchet gate for agent coding work. Official package pawl-gate on PyPI; source at Zero-State-LLC/pawl. Hooks for Claude Code, Codex, Cursor, and Hermes. Authoritative check runs in GitHub Actions. In the saved 2026-10-10 in-repo benchmark, Pawl in CI caught 21 of 23 synthetic cheats and blocked none of 9 clean changes. That result is in-repo evidence, not a universal guarantee.
+pre-commit Pawl treats pre-commit as an optional local check before each commit. It can sit beside Pawl. It is not described here as a replacement for the CI ratchet.
+SonarQube, Test Ratchet, and similar tools Not compared in detail on this page. If you already run one of them, Pawl still does the test-by-test ratchet and skip or delete guard described above.
 
 ### Built with
 - Python the gate and command-line tool, no dependencies
@@ -1339,10 +1417,10 @@ All skills ↖ (https://zer0state.com/work.html#skills)
 ## Kubrick — Zero State
 URL: https://zer0state.com/skills/kubrick.html
 
-Hermes skill · cinematic narrative
+Hermes skill · storyboard and visual continuity
 
 ## Kubrick
-Symbolic cinematic engineering — form first, dramatic function first, continuity that can ship.
+Story structure, visual continuity, and production-ready packets that stay consistent across a project.
 Open source v0.27.15 · production surfaces · MIT
 
 ### What it is
