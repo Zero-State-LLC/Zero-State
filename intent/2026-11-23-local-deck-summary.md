@@ -17,25 +17,21 @@ Site visitors on the homepage and the Local intelligence page. `index.html`, `ho
 ## Constraints / non-goals
 
 - Copy comes only from the owner-approved client deck; nothing new is invented.
-- This departs on purpose from the 2026-11-22 AEO intent's "no prices, metrics or customers" constraint. It adds the starting price, first-pass document-reader accuracy with its caveat, and an unnamed mortgage-lender build. The co-founder should accept or strike those three in review.
+- **Resolved 2026-11-23 (review):** the 2026-11-22 AEO intent's "no prices, metrics or customers" constraint stands. The starting price, the first-pass accuracy figures, and the unnamed mortgage-lender reference are struck from the public deck. The Evidence and Packages slides now describe the audit and pricing process qualitatively (fixed price per stage, hardware at cost, every figure cites its source) with no dollar amount, percentage, document count, or client/industry reference.
 - Hardware stays generic ("sized to the work"), matching the Local intelligence page's rule against naming a default GPU model.
 - No person is named.
 
 ## Open questions
 
-- Keep the starting price public? (Jev: show it, confidence 0.24.)
-- Keep the accuracy figures public? (Jev: show them with the caveat, confidence 0.80.)
-- Generic hardware wording? (Jev: generic, confidence 0.10.)
 - Format: Jev preferred an inline expander (0.38). The owner asked for something you click that brings up a summary, and then for "whatever looks most impressive", so this uses a full-screen player.
 
 ## Verified / assumed claims
 
 | Claim | Label | Basis |
 |---|---|---|
-| Installs start at $15,000; fixed price per stage, half to start | `OBSERVED` | Owner-approved client deck, packages slide |
-| 99.3% of fields, 99.7% of amounts and dates, 187 unseen test documents, first pass | `OBSERVED` | Scry first-pass results in the client deck |
-| Being built for a mortgage lender | `OBSERVED` | Client deck evidence slide; the client is not named |
 | First assistants live in about six weeks | `ASPIRATIONAL` | Client deck build slide; a plan, not a measured result |
+
+Struck per the public-disclosure policy (not published): starting price, first-pass accuracy figures, and the unnamed mortgage-lender reference. All three were `OBSERVED` against the owner-approved client deck but are excluded by the 2026-11-22 "no prices, metrics or customers" constraint.
 
 ## Author / date
 
