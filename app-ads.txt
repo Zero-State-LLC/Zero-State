@@ -1,0 +1,4 @@
+# Authorised sellers of ad inventory in Zero State's apps (https://iabtechlab.com/ads-txt/).
+# Google AdMob (publisher account for all Zero State apps)
+google.com, pub-6709576018739138, DIRECT, f08c47fec0942fa0
+# AppLovin MAX line to be added when the account is reactivated.

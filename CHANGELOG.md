@@ -23,6 +23,15 @@ Cumulative release since `v0.3.0`: official dark home, social preview, and Herme
 
 ## Unreleased
 
+### AEO baseline fixes (2026-11-22)
+
+- Add `local-intelligence.html`, linked from the homepage `#local` section and the primary nav, so the private-AI service is an indexable page instead of only a fragment.
+- Add `llms.txt` describing live products, official Pawl identity (`Zero-State-LLC/pawl`, PyPI `pawl-gate`), and HexWire's live App Store listing.
+- Upgrade `products/pawl.html` with problem-led copy, a known-failures section, a limited comparison table, JSON-LD, and explicit identity as the Zero State Pawl (`Zero-State-LLC/pawl`, PyPI `pawl-gate`).
+- Add VideoGame + Offer JSON-LD to HexWire and a "Where to get it" section that restates the live $3.99 App Store listing.
+- Add SoftwareApplication JSON-LD to J-Chain, Noema, and Kubrick. Kubrick's summary now leads with storyboard and visual continuity, using wording already on that page.
+
+
 ### Collaborators section (2026-10-31)
 - New `collaborators.html` catalogue page, linked from the primary nav and footer. Cards are generated from `data/collaborators.json` (JSON Schema in `data/collaborators.schema.json`) by `npm run build:collaborators`; ships with no profiles and an empty state.
 - `npm test` now checks the collaborators data, that the page is in sync with it, and that every page links the section. Spec: `docs/specs/collaborators.md`.

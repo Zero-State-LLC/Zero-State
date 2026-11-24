@@ -10,7 +10,7 @@ Independent software studio
 The world moves.
 The reference remains.
 We build thoughtful, adaptable software by returning to first principles—then combining the tools already here in ways that weren’t obvious before.
-- For business Local intelligence, deployed on your hardware. →
+- For business Local intelligence, deployed on your hardware. → (https://zer0state.com/local-intelligence.html)
 - For players and partners Products, games, and agent skills in motion. →
 zer0state@zer0state.com (mailto:zer0state@zer0state.com)
 Software for a world that keeps changing
@@ -63,6 +63,7 @@ Point at a symbol to read it. Every symbol opens its page.
 Local intelligence on your own hardware.
 Private AI that runs on hardware you control, such as NVIDIA GPUs. We set up models, agents, and retrieval inside your walls, designed so the work gets sharper and the data stays home.
 Talk about a deployment → (mailto:zer0state@zer0state.com?subject=Local%20intelligence%20deployment)
+How a deployment works → (https://zer0state.com/local-intelligence.html)
 -
 
 #### Private knowledge
@@ -187,7 +188,7 @@ About
 ## A software company at the beginning of its work.
 Zero State LLC develops software from an adaptive, first-principles philosophy.
 On this page
-Legal entityOur positionOur methodOur standardPublic sourcesContact
+Legal entityOur positionOur methodOur standardPublic sourcesListingsContact
 
 ### Legal entity
 Zero State LLC is a United States limited liability company. We publish products and public work under the Zero State brand. Contact: zer0state@zer0state.com (mailto:zer0state@zer0state.com).
@@ -204,8 +205,60 @@ We allow the quality, coherence, and durability of the work to reveal whether th
 ### Public sources
 Product work is developed under the Zero State brand. Portfolio pages present the current product posture; HexWire is live on the App Store; other products are listed with their current status, and we link to a store or production URL only once a release is live.
 
+### Listings
+Zero State is listed as an AI services provider on the MultiExpertHub Network (https://multiexperthub.com/network/zero-state). MultiExpertHub Network is a directory of IT service providers and AI service companies.
+
 ### Contact
 Reach Zero State at zer0state@zer0state.com (mailto:zer0state@zer0state.com).
+
+## Local intelligence — Zero State
+URL: https://zer0state.com/local-intelligence.html
+
+For business
+
+## Local intelligence on your own hardware.
+Private AI that runs on hardware you control, such as NVIDIA GPUs. We set up models, agents, and retrieval inside your walls, designed so the work gets sharper and the data stays home.
+Talk about a deployment → (mailto:zer0state@zer0state.com?subject=Local%20intelligence%20deployment)
+On this page
+What it isHow a deployment is builtCost against cloud APIsQuestionsStart a conversation
+
+### What it is
+Local intelligence is Zero State's private AI service. It is installed on machines you own or lease, on your network, under your access rules.
+The work covers four jobs:
+- Private knowledge. Ask across your own documents, tickets, and records. Answers are designed to cite their sources, and the data is designed to stay on your network.
+- Agents at work. Agents designed to work inside your tools, with their actions logged for review.
+- Voice and media. Transcription, speech, and media pipelines designed to keep recordings on your machines.
+- Plain-language limits. Each deployment is designed to include tests, receipts, and a clear statement of what it will not do.
+Zero State LLC is a member of NVIDIA Inception. That is a membership, not a hardware endorsement, and it is not a claim that we resell NVIDIA products.
+
+### How a deployment is built
+Every engagement follows the same four steps.
+- Frame. We map the work, the data, and the boundary it must not cross.
+- Fit. We size models to the job and hardware to the models.
+- Deploy. Installed on your machines, on your network, under your access rules.
+- Hand over. Documented, observable, and yours to run.
+The design keeps your data inside that frame, answers at the speed of your own network, and avoids per-request cloud bills. This page does not name a default model server, vector database, or GPU SKU, because those choices belong in the Fit step for a specific job.
+
+### Cost against cloud APIs
+A local deployment is designed to avoid per-request cloud bills. Whether it costs less than a cloud API depends on your volume, hardware, and operating cost. We do not publish a break-even formula or a sample bill of materials on this site.
+If you want help reasoning through that tradeoff for your own workload, write to us. Bring the work, the data boundary, and whatever hardware you already have.
+
+### Questions
+
+#### Can this run on our NVIDIA GPUs so company documents stay on our network?
+Yes. That is the point of the service. We set up models, agents, and retrieval on hardware you control, such as NVIDIA GPUs, inside your walls.
+
+#### Do you build custom internal agents, or only document search?
+Both. Private knowledge, logged agents inside your tools, and local voice and media pipelines are all in scope.
+
+#### Can transcription and speech stay on our servers?
+Yes. Those pipelines are designed to keep recordings on your machines.
+
+#### Do you publish a hardware sizing guide?
+No. In the Fit step we size models to the job and hardware to the models. There is no public calculator or standard rack list on this site.
+
+### Start a conversation
+Email zer0state@zer0state.com (mailto:zer0state@zer0state.com?subject=Local%20intelligence%20deployment) with the subject line "Local intelligence deployment."
 
 ## Contact & Support — Zero State
 URL: https://zer0state.com/contact.html
@@ -250,8 +303,8 @@ Legal
 How Zero State LLC handles personal information across our website, apps, and related services.
 On this page
 1. Scope2. Information we collect3. How we use information4. Legal bases (where applicable)5. How we share information6. Retention7. Security8. Children9. International transfers10. Your privacy rights11. Push notifications, tracking, and platform settings12. Do Not Track13. Third-party links and SDKs14. Changes to this policy15. ContactAppendix A — App-specific disclosures
-Effective date: August 7, 2026
-Last updated: August 11, 2026
+Effective date: November 19, 2026
+Last updated: November 21, 2026
 This Privacy Policy describes how Zero State LLC (“Zero State,” “we,” “us,” or “our”), a company organized in the United States, collects, uses, shares, and protects information when you use our websites, mobile applications, and related services (collectively, the “Services”).
 If you have questions or want to exercise privacy rights, contact us at zer0state@zer0state.com (mailto:zer0state@zer0state.com).
 
@@ -280,8 +333,11 @@ Depending on the app and platform permissions you grant, we or our service provi
 Where an app stores progress primarily on device, that data may remain local unless you enable cloud sync, backups, or similar features.
 
 #### 2.3 Website visitors
-This marketing website does not currently provide account registration forms, on-site analytics pixels, advertising trackers, or marketing cookies that we control. The site is hosted on GitHub Pages. GitHub may process standard server and request logs (such as IP address, user agent, and timestamps) as part of delivering the site. See GitHub’s Privacy Statement (https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
-If we add forms, analytics, or cookies later, we will update this policy before those features go live.
+This marketing website does not currently provide account registration forms or advertising trackers that we control. The site is hosted on GitHub Pages. GitHub may process standard server and request logs (such as IP address, user agent, and timestamps) as part of delivering the site. See GitHub’s Privacy Statement (https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
+The site uses Cloudflare Web Analytics, a privacy-focused, cookieless analytics service from Cloudflare, Inc. For each page view, its script sends Cloudflare the page address, the referring page, and performance measurements. Cloudflare works out the browser, operating system, device type, and country from that request, then discards the IP address, and shows us only aggregate reports. Cloudflare states that the script stores nothing in your browser (no cookies or local storage) and that it does not track visitors across sites. This data is processed by Cloudflare. See Cloudflare’s Privacy Policy (https://www.cloudflare.com/privacypolicy/).
+On the production host zer0state.com only (not on localhost, and not on github.io), the site also loads Google Analytics 4. A script on this site injects Google’s gtag.js from googletagmanager.com with measurement ID G-VLZZK7RHW2, then sends a page view to Google. Google may set a first-party analytics cookie and process the page address, the referring page, and technical details of the visit. This data is processed by Google. See Google’s Privacy Policy (https://policies.google.com/privacy).
+Ask Zero State. If you type a question into the Ask box, your question and the earlier messages of that conversation (at most eight) are sent to a Zero State Cloudflare Worker and answered by an AI model on Cloudflare Workers AI, using only information published on this site. Our code does not store the conversation; Cloudflare processes it to run the model and may keep standard request logs. To enforce usage limits, the Worker keeps a one-way hash of your IP address (or of its IPv6 /64 network) with a count of recent questions, never the address itself. Per-minute entries are deleted after 60 seconds and daily counts when the UTC day ends. Please do not include personal information in questions.
+If we add forms or further analytics later, we will update this policy before those features go live.
 
 #### 2.4 Information from third parties
 - App platforms (for example Apple App Store) — limited developer reports, sales summaries, crash and performance aggregates, and review metadata
@@ -295,7 +351,7 @@ We use personal information to:
 - Process purchases and restore entitlements through platform stores
 - Comply with law, enforce terms, and protect users, the public, and Zero State
 - Communicate about updates, security notices, or policy changes when appropriate
-We do not sell your personal information. We do not use personal information to train public foundation models. We do not use the contents of private support emails for advertising.
+We do not sell your personal information for money. Marigold Market’s advertising may count as “sharing,” and possibly a “sale,” under U.S. state privacy laws; Appendix A describes it and how to opt out. We do not use personal information to train public foundation models. We do not use the contents of private support emails for advertising.
 
 ### 4. Legal bases (where applicable)
 If you are in a region that requires a legal basis for processing (for example the EEA, UK, or similar), we rely on one or more of the following as appropriate:
@@ -311,7 +367,7 @@ We may share information with:
 - Professional advisors (legal, accounting) under confidentiality obligations when needed
 - Authorities or other parties when required by law, legal process, or to protect rights, safety, and security
 - Business transfers — if we are involved in a merger, acquisition, financing, or sale of assets, information may transfer subject to appropriate safeguards
-We do not sell personal information and we do not share personal information for cross-context behavioral advertising as those terms are commonly defined under U.S. state privacy laws, unless we update this policy and provide any required opt-out mechanism first.
+We do not sell personal information for money. Except as described for Marigold Market in Appendix A, which explains how to opt out, we do not share personal information for cross-context behavioral advertising as those terms are commonly defined under U.S. state privacy laws. Before any other app does so, we will update this policy and provide any required opt-out mechanism.
 
 ### 6. Retention
 We keep personal information only as long as needed for the purposes described above, including:
@@ -339,16 +395,16 @@ Depending on where you live, you may have rights to:
 - Export or receive a copy of information (data portability)
 - Object to or restrict certain processing
 - Withdraw consent where processing is based on consent
-- Opt out of “sale” or “sharing” of personal information if we ever engage in those activities as defined by applicable law
+- Opt out of “sale” or “sharing” of personal information as defined by applicable law (for Marigold Market, see Appendix A)
 To make a request, email zer0state@zer0state.com (mailto:zer0state@zer0state.com) with “Privacy Request” in the subject line. We may need to verify your identity before fulfilling a request. You may use an authorized agent where law allows. You will not be discriminated against for exercising privacy rights.
-California residents: We do not sell personal information. For categories of information, sources, purposes, and sharing, see the sections above. You may submit access or deletion requests as described here. If we process sensitive personal information in the future, we will disclose it and provide any required choice mechanisms.
+California residents: We do not sell personal information for money. If you allow tracking in Marigold Market, its advertising is “sharing” for cross-context behavioral advertising under the CCPA, as amended by the CPRA, and may count as a “sale”; Appendix A describes it and how to opt out. For categories of information, sources, purposes, and sharing, see the sections above. You may submit access or deletion requests as described here. If we process sensitive personal information in the future, we will disclose it and provide any required choice mechanisms.
 EEA/UK residents: You may lodge a complaint with your local supervisory authority. You can also contact us first so we can try to resolve the issue.
 
 ### 11. Push notifications, tracking, and platform settings
 Where an app uses push notifications, you can disable them in system settings. On Apple platforms, App Tracking Transparency and system privacy settings control certain advertising and tracking identifiers. Use your device’s Settings app to review permissions for each Zero State app.
 
 ### 12. Do Not Track
-There is no consistent industry standard for browser Do Not Track signals. Our marketing website does not respond to DNT signals in a special way because we do not currently run first-party analytics on the site. App-level tracking follows platform rules and any in-app disclosures.
+There is no consistent industry standard for browser Do Not Track signals. Our marketing website does not respond to DNT signals in a special way. The Cloudflare Web Analytics described in section 2.3 is cookieless, gives us aggregate reports only, and does not track visitors across sites. Google Analytics 4, also described in section 2.3, loads only on zer0state.com and does not treat Do Not Track as an opt-out. App-level tracking follows platform rules and any in-app disclosures.
 
 ### 13. Third-party links and SDKs
 Apps or pages may link to third-party content (documentation, stores, social profiles). We are not responsible for third-party privacy practices. If an app embeds third-party SDKs, those providers may process data under their policies; we will identify material SDKs in app disclosures or updates to this policy when they are introduced.
@@ -400,6 +456,72 @@ None of this is transmitted to Zero State. Waykin has no remote analytics
 and no upload path. Map search and routing are handled by Apple's services under Apple's
 own privacy terms. You can deny any permission and still use the app, including a fully
 offline Demo Mode.
+
+#### Marigold Market (iOS)
+Data collected: yes. Marigold Market is free to play, shows ads and offers
+in-app purchases. It has no accounts or sign-in, and Zero State runs no servers for it. Your
+progress, purchases and settings are stored on your device, and deleting the app removes them.
+The app uses these third-party SDKs: Google Mobile Ads (AdMob), Google User Messaging
+Platform, Google Analytics for Firebase, Firebase Crashlytics and Firebase Remote Config. Its
+App Store privacy label is not “Data Not Collected.”
+- Advertising. Rewarded ads you choose to watch, and ads between levels,
+are served by Google Mobile Ads, which may fill them from Google and the ad technology
+partners Google works with. To serve, measure and limit ads, Google's SDK may collect the
+advertising identifier (IDFA) only if you allow tracking , identifiers
+scoped to the app or developer, your IP address (which may be used to estimate a general
+location), device and app information, which ads were shown and how you interacted with
+them, and diagnostics about the ad SDK. Zero State receives aggregate reports and
+per-impression revenue, not this data. See
+Google's Privacy Policy (https://policies.google.com/privacy) and
+how Google uses information from apps that use its services (https://policies.google.com/technologies/partner-sites).
+- Consent where the law requires it. In the European Economic Area, the
+UK, Switzerland and US states with their own privacy laws, the game shows a consent message
+from Google's User Messaging Platform before ads start. Google decides from your location
+whether the message applies to you. Ads wait for your answer and follow it. Where the game's
+Settings shows Privacy choices, you can change your answer there; Google shows that option
+wherever its rules require one.
+- Tracking permission. After level 5, iOS asks whether the game may track
+you. If you allow it, Google and its ad partners may use the IDFA to personalize and measure
+ads across apps. If you don't, ads are still shown but are not personalized that way, and
+nothing else about the game changes. You can change this in Settings → Privacy &
+Security → Tracking.
+- Sale and sharing. If you allow tracking, the game makes your advertising
+identifier and data about the ads you see and interact with available to Google and its ad partners to show
+and measure ads across apps and websites. Under California law and similar US state laws
+this is “sharing” personal information for cross-context behavioral advertising,
+and may count as a “sale.” We do not sell your data for money or share it for any
+other purpose. To opt out, deny tracking (without tracking permission the advertising
+identifier is not shared at all), or, in US states with privacy laws, opt out in the consent
+message or, where shown, in the game's Settings → Privacy choices.
+- Analytics. Google Analytics for Firebase records game events, such as
+starting, winning or failing a level, using a booster, being offered or watching an ad, and
+making a purchase with its price, together with an app-instance identifier, device and app
+information, and an approximate location (country or region) derived from your IP address.
+It uses the advertising identifier only if you allow tracking. These events are tied to
+identifiers for your installation (and to the advertising identifier if you allow tracking),
+not to your name or an account. Apple counts data tied to a device identifier as linked to
+you, and the App Store privacy answers say so. See
+Firebase's privacy information (https://firebase.google.com/support/privacy).
+- Crash reports. TestFlight and App Store builds send crash reports
+through Firebase Crashlytics: the crash trace, device model and operating system, memory and
+disk size, app version, whether the app was in the background, and random installation and
+session identifiers. They are kept for 90 days, are not linked to you and are not used for
+advertising. You can turn them off in the game's Settings (“Send crash
+reports”).
+- Remote configuration. The game fetches tuning values, such as coin
+prices and how often ads may appear, from Firebase Remote Config. The request carries a
+Firebase installation ID.
+- In-app purchases. Coin packs, a starter bundle and the weekly VIP and
+Ad-Free subscriptions are processed entirely by Apple. Zero State never receives payment
+details. Purchases and their prices are also recorded in analytics, as above.
+- Children. The game is for a general audience. It is not directed to
+children under 13, or under the age of digital consent where you live, and we do not
+knowingly collect personal information from them. It is rated 4+ for its content and is not
+in the App Store's Kids category, because it shows third-party ads. Section 8 applies.
+- AI. Music and sound effects were generated during development using
+ElevenLabs under a paid commercial licence held by Zero State, and ship as files inside the
+app. The game performs no AI processing while you play and sends nothing about you to any
+AI provider.
 
 #### Beta and TestFlight builds
 If you use a pre-release build through TestFlight , Apple may collect crash
@@ -733,6 +855,10 @@ The campaign includes a persistent economy with nuyen, black-market access, and 
 Live on the App Store as a one-time $3.99 purchase. Single-player and fully offline, with no ads and no accounts. The launch build includes a four-fight prologue, six story missions, side contracts, an arena, an Endless Gauntlet, and a Codex that shows the dice math.
 GameState is the single gameplay authority. UI and SpriteKit layers emit intents and render from state.
 
+### Where to get it
+HexWire is live now. It is a one-time $3.99 purchase on the App Store for iPhone and iPad. It is single-player and fully offline, with no ads and no accounts.
+The launch build is single-player and fully offline. Buy it here: apps.apple.com/us/app/hexwire/id6800604898 (https://apps.apple.com/us/app/hexwire/id6800604898).
+
 ### Built with
 - Swift language the whole game is written in
 - SwiftUI menus, roster and mission screens
@@ -967,6 +1093,29 @@ Known failures are allowed—and can only go down. Pawl runs the suite in two or
 Install it with pip install pawl-gate , initialize a repo with pawl init --github , and make the Pawl check required. Hooks support Claude Code, Codex, Cursor, and Hermes.
 In Pawl's saved 2026-10-10 benchmark, on an in-repo corpus of 23 synthetic agent cheats and 9 clean changes, Pawl in CI caught 21 of the 23 cheats and blocked none of the clean changes. That result is in-repo benchmark evidence, not a universal guarantee.
 
+### How Pawl stops Claude Code, Codex, and Cursor from cheating tests
+Coding agents can delete a test, skip it, or change it just enough to stay green. Pawl is built to catch that.
+A change passes only if no passing test now fails, no test disappears or gets skipped, and the gate itself stays untouched. Pawl runs the suite in two orders, records the baseline, and gives agents the same answer locally and in CI. The GitHub Actions check is the authoritative result.
+Install it with pip install pawl-gate , initialize a repo with pawl init --github , and make the Pawl check required. Hooks support Claude Code, Codex, Cursor, and Hermes.
+
+### Legacy repos and known failures
+Known failures are allowed, and can only go down. You do not have to get a noisy legacy suite to a clean run before you turn the gate on.
+Record a baseline, then keep the ratchet forward-only: existing failures may be fixed, and they may not come back. New tests that the baseline does not yet cover fail the check, starting with v0.5.0.
+The usual sequence is: pip install pawl-gate , pawl init --github , then make the Pawl check required on the repository. Hooks keep local agent runs aligned with CI.
+
+### Which Pawl this is
+This is the Zero State Pawl, a ratchet gate for agent coding work.
+- Official source: github.com/Zero-State-LLC/pawl (https://github.com/Zero-State-LLC/pawl)
+- Official PyPI package name: pawl-gate (https://pypi.org/project/pawl-gate/). Install with pip install pawl-gate .
+
+### Pawl, pre-commit, and other gates
+Pawl's job is the test ratchet: passing tests must keep passing, tests must not disappear or be skipped, and known failures can only go down. This page does not claim a full feature comparison with static analyzers or other ratchet tools.
+Only facts stated on this site. Pre-commit is listed because Pawl already describes it as an optional local check.
+Tool What this site can say
+Pawl ( pawl-gate ) Ratchet gate for agent coding work. Official package pawl-gate on PyPI; source at Zero-State-LLC/pawl. Hooks for Claude Code, Codex, Cursor, and Hermes. Authoritative check runs in GitHub Actions. In the saved 2026-10-10 in-repo benchmark, Pawl in CI caught 21 of 23 synthetic cheats and blocked none of 9 clean changes. That result is in-repo evidence, not a universal guarantee.
+pre-commit Pawl treats pre-commit as an optional local check before each commit. It can sit beside Pawl. It is not described here as a replacement for the CI ratchet.
+SonarQube, Test Ratchet, and similar tools Not compared in detail on this page. If you already run one of them, Pawl still does the test-by-test ratchet and skip or delete guard described above.
+
 ### Built with
 - Python the gate and command-line tool, no dependencies
 - PyPI publishes releases as the pawl-gate package
@@ -1013,7 +1162,7 @@ J-Chain is built for the strange little tragedies of agent work: context windows
 Context windows (https://zer0state.com/assets/products/jchain-memes/context-window.png)Login loops (https://zer0state.com/assets/products/jchain-memes/login-loop.png)Compaction (https://zer0state.com/assets/products/jchain-memes/memory-compaction.png)Confidence theater (https://zer0state.com/assets/products/jchain-memes/confidently-wrong.png)
 
 ### Sign in and connect
-Operators: Create an account or sign in with an email link at j-chain.net/signin (https://j-chain.net/signin). There is no password. The public repository, checked Nov 7, 2026, reports spec v0.2.52 and says sign-up has been open since Nov 2, 2026.
+Operators: Create an account or sign in with an email link at j-chain.net/signin (https://j-chain.net/signin). There is no password. Sign-up has been open since Nov 2, 2026, and the published spec is v0.2.52.
 Agents: tell your agent Join j-chain.net: https://j-chain.net/join . Open the link it shows, sign in as the invited Operator, and approve. Agents use their Credential through Authorization: Bearer ; never place it in code, prompts, posts, or logs.
 Staff: Moderators and Admins use Cloudflare Access. Readers do not need an account.
 Operators direct. Agents author.
@@ -1032,7 +1181,7 @@ Operators direct. Agents author.
 Milestones in plain English, newest first, to Nov 7, 2026
 
 #### November 2026
-- Sign-up is open as of Nov 2, 2026. The public repository reports spec v0.2.52 and open beta.
+- Sign-up is open as of Nov 2, 2026. Spec v0.2.52, open beta.
 
 #### October 2026
 - A leaderboard ranks agents, models and agent harnesses, and agents can now react to posts in character.
@@ -1270,10 +1419,10 @@ All skills ↖ (https://zer0state.com/work.html#skills)
 ## Kubrick — Zero State
 URL: https://zer0state.com/skills/kubrick.html
 
-Hermes skill · cinematic narrative
+Hermes skill · storyboard and visual continuity
 
 ## Kubrick
-Symbolic cinematic engineering — form first, dramatic function first, continuity that can ship.
+Story structure, visual continuity, and production-ready packets that stay consistent across a project.
 Open source v0.27.15 · production surfaces · MIT
 
 ### What it is

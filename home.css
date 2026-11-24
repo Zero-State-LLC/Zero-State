@@ -5,6 +5,15 @@
  */
 /* home sections only — tokens.css + site.css load first */
 
+/* ---------- nav · primary CTA on phones ---------- */
+/* site.css shows the "Begin here" pill from 40rem. On the home it shows from 24rem so a primary CTA is above
+   the fold on phones; the nav gap and pill padding go one step tighter so the mark keeps its 20 px. */
+@media (min-width: 24rem) and (max-width: 39.99rem) {
+  .nav__inner { gap: var(--space-sm); }
+  .nav__cta { display: inline-flex; margin-inline-start: auto; padding-inline: var(--space-sm); }
+  .nav__menu { margin-inline-start: 0; }
+}
+
 /* ---------- hero ---------- */
 .hero {
   position: relative;

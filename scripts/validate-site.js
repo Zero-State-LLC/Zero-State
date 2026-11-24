@@ -8,7 +8,7 @@ const root = path.resolve(__dirname, '..');
 const APEX = 'https://zer0state.com';
 const requiredPages = [
   'index.html', 'work.html', 'philosophy.html', 'about.html', 'contact.html',
-  'privacy.html', 'terms.html', 'marketing.html',
+  'privacy.html', 'terms.html', 'marketing.html', 'local-intelligence.html',
   'products/waykin.html', 'products/patchhive.html', 'products/psyfi.html',
   'products/surveillance-survivor.html', 'products/hexwire.html',
   'products/hollersports.html', 'products/marigold-market.html', 'products/slosh.html',
@@ -16,7 +16,8 @@ const requiredPages = [
   'clients/autogive.html',
   'community/suas.html',
   'collaborators.html',
-  'skills/orchestra.html', 'skills/hyperlex.html', 'skills/kubrick.html', 'skills/neon-genie.html'
+  'skills/orchestra.html', 'skills/hyperlex.html', 'skills/kubrick.html', 'skills/neon-genie.html',
+  '404.html'
 ];
 
 function officialPageFile(entry) {
@@ -320,6 +321,12 @@ if (/world\.perihelion-reach-3|Civic Exchange|Recover/i.test(noema + marketing))
 if (!/privacy\.html/.test(marketing)) fail('marketing.html', 'privacy link is missing');
 if (!/contact\.html/.test(marketing)) fail('marketing.html', 'support link is missing');
 if (!/Zero State LLC/.test(about)) fail('about.html', 'legal entity name is missing');
+if (!/<a\b[^>]*href="https:\/\/multiexperthub\.com\/network\/zero-state"[^>]*>/.test(about)) {
+  fail('about.html', 'MultiExpertHub Network listing link is missing');
+} else if (!/<a\b[^>]*href="https:\/\/multiexperthub\.com\/network\/zero-state"[^>]*\btarget="_blank"[^>]*>/.test(about)
+        || !/<a\b[^>]*href="https:\/\/multiexperthub\.com\/network\/zero-state"[^>]*\brel="noopener noreferrer"[^>]*>/.test(about)) {
+  fail('about.html', 'MultiExpertHub Network listing must use target="_blank" rel="noopener noreferrer"');
+}
 if (/San Diego/i.test(index)) fail('index.html', 'San Diego location copy must be removed');
 if (!/zer0state@zer0state\.com/.test(index)) fail('index.html', 'home contact email is missing');
 
@@ -474,9 +481,162 @@ for (const file of [...new Set([...htmlFiles, ...manifestPages])]) {
   if (foot && !foot[0].includes(link)) fail(file, 'footer is missing the Collaborators link');
 }
 
+// Real-website baseline (owner request, 2026-11-08): titles, descriptions, social cards, icons, 404,
+// footer privacy link, alt text, and the analytics disclosure.
+const pngSize = (file) => {
+  const b = fs.readFileSync(path.join(root, file));
+  return b.toString('ascii', 12, 16) === 'IHDR' ? `${b.readUInt32BE(16)}x${b.readUInt32BE(20)}` : 'not a PNG';
+};
+const meta = (html, attr, name) => (html.match(new RegExp(`<meta\\s+${attr}=["']${name}["']\\s+content=["']([^"']*)["']`, 'i')) || [])[1];
+if (exists('assets/og-image.png') && pngSize('assets/og-image.png') !== '1200x630') fail('assets/og-image.png', 'social preview image must be 1200x630');
+if (exists('assets/brand/apple-touch-icon.png') && pngSize('assets/brand/apple-touch-icon.png') !== '180x180') fail('assets/brand/apple-touch-icon.png', 'apple-touch-icon must be 180x180');
+if (!exists('favicon.ico')) fail('favicon.ico', 'root favicon is missing');
+else {
+  const ico = fs.readFileSync(path.join(root, 'favicon.ico'));
+  const sizes = ico.readUInt16LE(2) === 1 ? Array.from({ length: ico.readUInt16LE(4) }, (_, i) => ico[6 + 16 * i] || 256) : [];
+  for (const size of [16, 32, 48]) if (!sizes.includes(size)) fail('favicon.ico', `must contain a ${size}x${size} icon`);
+}
+if (!exists('site.webmanifest')) fail('site.webmanifest', 'web app manifest is missing');
+else {
+  const manifest = JSON.parse(fs.readFileSync(path.join(root, 'site.webmanifest'), 'utf8'));
+  if (!manifest.name || !manifest.theme_color) fail('site.webmanifest', 'needs name and theme_color');
+  for (const size of ['192x192', '512x512']) {
+    const icon = (manifest.icons || []).find((i) => i.sizes === size && i.type === 'image/png');
+    if (!icon) fail('site.webmanifest', `needs a ${size} PNG icon`);
+    else if (!exists(icon.src)) fail('site.webmanifest', `icon is missing: ${icon.src}`);
+    else if (pngSize(icon.src) !== size) fail(icon.src, `must be ${size}`);
+  }
+}
+const titles = new Map();
+const descriptions = new Map();
+for (const file of [...officialFiles, '404.html']) {
+  if (!exists(file)) continue;
+  const html = fs.readFileSync(path.join(root, file), 'utf8');
+  const prefix = file.includes('/') ? '../' : '';
+  for (const [label, needle] of [
+    ['favicon.ico', `<link rel="icon" href="${prefix}favicon.ico"`],
+    ['apple-touch-icon', `<link rel="apple-touch-icon" href="${prefix}assets/brand/apple-touch-icon.png">`],
+    ['web app manifest', `<link rel="manifest" href="${prefix}site.webmanifest">`]
+  ]) if (!html.includes(needle)) fail(file, `missing ${label} link`);
+  const foot = html.match(/<nav class="foot__links"[\s\S]*?<\/nav>/);
+  if (!foot || !foot[0].includes(`href="${prefix}privacy.html"`)) fail(file, 'footer is missing the Privacy link');
+  if (file === '404.html') {
+    if (meta(html, 'name', 'robots') !== 'noindex') fail(file, 'not-found page must be noindex');
+    if (!/<a class="button" href="index\.html">/.test(html)) fail(file, 'not-found page must link home with the primary button');
+    continue;
+  }
+  const title = (html.match(/<title>([^<]*)<\/title>/i) || [])[1]?.trim() || '';
+  const description = meta(html, 'name', 'description') || '';
+  if (title.length < 10) fail(file, 'title is missing or too short to describe the page');
+  if (description.length < 50) fail(file, 'meta description is missing or shorter than 50 characters');
+  if (titles.has(title)) fail(file, `title duplicates ${titles.get(title)}`);
+  if (descriptions.has(description)) fail(file, `meta description duplicates ${descriptions.get(description)}`);
+  titles.set(title, file);
+  descriptions.set(description, file);
+  const og = (name) => meta(html, 'property', `og:${name}`);
+  for (const name of ['title', 'description', 'type', 'image:alt']) if (!og(name)) fail(file, `og:${name} is missing`);
+  if (og('url') !== officialPageLoc(file)) fail(file, `og:url must be ${officialPageLoc(file)}`);
+  if (og('image') !== `${APEX}/assets/og-image.png`) fail(file, `og:image must be ${APEX}/assets/og-image.png`);
+  if (og('image:width') !== '1200' || og('image:height') !== '630') fail(file, 'og:image:width/height must be 1200/630');
+  if (meta(html, 'name', 'twitter:card') !== 'summary_large_image') fail(file, 'twitter:card must be summary_large_image');
+  if (meta(html, 'name', 'twitter:site') !== '@z3r0st4t3') fail(file, 'twitter:site must be @z3r0st4t3');
+}
+// Alt text: every <img> in every page, inline script, and JS template has an alt attribute (alt="" when decorative),
+// and every script-built <img> sets one. Canvas sprites (new Image()) never enter the DOM and are not checked.
+const servedSources = [];
+(function walk(dir) {
+  for (const entry of fs.readdirSync(path.join(root, dir), { withFileTypes: true })) {
+    const rel = dir ? `${dir}/${entry.name}` : entry.name;
+    if (entry.isDirectory()) {
+      if (!/^(?:\.git|node_modules|assets\/vendor)$/.test(rel)) walk(rel);
+    } else if (/\.(?:html|m?js)$/.test(entry.name)) servedSources.push(rel);
+  }
+})('');
+for (const file of servedSources) {
+  const src = fs.readFileSync(path.join(root, file), 'utf8');
+  for (const tag of src.match(/<img\s[^>]*>/gi) || []) {
+    if (!/\balt\s*=/i.test(tag)) fail(file, `<img> without alt: ${tag.slice(0, 80)}`);
+  }
+  for (const made of src.matchAll(/createElement\(\s*['"]img['"]\s*\)/g)) {
+    if (!/\.alt\s*=|setAttribute\(\s*['"]alt['"]|\balt:/.test(src.slice(made.index, made.index + 400))) fail(file, 'script-built <img> does not set alt');
+  }
+}
+// Analytics: site.js and privacy.html §2.3 must agree. A page CSP must allow whatever analytics site.js loads.
+const siteJs = fs.readFileSync(path.join(root, 'site.js'), 'utf8');
+if (/static\.cloudflareinsights\.com/.test(siteJs) && (!/Cloudflare Web Analytics/.test(privacy) || !privacy.includes('https://www.cloudflare.com/privacypolicy/'))) {
+  fail('privacy.html', 'site.js loads Cloudflare Web Analytics, so §2.3 must disclose it and link Cloudflare’s privacy policy');
+}
+const loadsGa4 = /www\.googletagmanager\.com\/gtag\/js/.test(siteJs);
+if (loadsGa4 && (!/G-VLZZK7RHW2/.test(siteJs) || !/GA_MEASUREMENT_ID/.test(siteJs) || !/location\.hostname === ['"]zer0state\.com['"]/.test(siteJs))) {
+  fail('site.js', 'GA4 must use measurement ID G-VLZZK7RHW2 and load only when location.hostname is zer0state.com');
+}
+if (loadsGa4 && (!/G-VLZZK7RHW2/.test(privacy) || !/googletagmanager\.com/.test(privacy) || !/gtag/.test(privacy) || !/production host zer0state\.com only/.test(privacy))) {
+  fail('privacy.html', 'site.js loads Google Analytics 4, so §2.3 must disclose gtag from googletagmanager.com, measurement ID G-VLZZK7RHW2, and the production host only');
+}
+for (const file of servedSources.filter((f) => f.endsWith('.html'))) {
+  const html = fs.readFileSync(path.join(root, file), 'utf8');
+  if (/<script\b[^>]*\bsrc=["'][^"']*googletagmanager\.com/i.test(html)) {
+    fail(file, 'GA4 script must be injected from site.js, not referenced in HTML');
+  }
+  const csp = meta(html, 'http-equiv', 'Content-Security-Policy');
+  if (csp && (!csp.includes('https://static.cloudflareinsights.com') || !csp.includes('https://cloudflareinsights.com'))) {
+    fail(file, 'Content-Security-Policy must allow static.cloudflareinsights.com (script-src) and cloudflareinsights.com (connect-src)');
+  }
+  if (csp && loadsGa4 && (!csp.includes('https://www.googletagmanager.com') || !csp.includes('https://www.google-analytics.com'))) {
+    fail(file, 'Content-Security-Policy must allow www.googletagmanager.com (script-src) and www.google-analytics.com (connect-src)');
+  }
+}
+
+
+// AEO baseline (2026-11-22): llms.txt and structured data on the flagged pages.
+if (!exists('llms.txt')) fail('llms.txt', 'public llms.txt is missing');
+else {
+  const llms = fs.readFileSync(path.join(root, 'llms.txt'), 'utf8');
+  for (const needle of [
+    'https://zer0state.com/local-intelligence.html',
+    'pawl-gate',
+    'https://github.com/Zero-State-LLC/pawl',
+    'https://apps.apple.com/us/app/hexwire/id6800604898'
+  ]) {
+    if (!llms.includes(needle)) fail('llms.txt', `must mention ${needle}`);
+  }
+}
+const localIntel = exists('local-intelligence.html') ? fs.readFileSync(path.join(root, 'local-intelligence.html'), 'utf8') : '';
+if (!localIntel) fail('local-intelligence.html', 'Local intelligence page is missing');
+else {
+  if (!/application\/ld\+json/.test(localIntel) || !/"@type":\s*"Service"/.test(localIntel)) {
+    fail('local-intelligence.html', 'Service JSON-LD is missing');
+  }
+  for (const needle of ['Frame', 'Fit', 'Deploy', 'Hand over', 'NVIDIA GPUs']) {
+    if (!localIntel.includes(needle)) fail('local-intelligence.html', `must mention ${needle}`);
+  }
+}
+if (!/id=["']local["']/.test(index)) fail('index.html', 'homepage #local section is missing');
+if (!/local-intelligence\.html/.test(index)) fail('index.html', 'homepage must link the Local intelligence page');
+const pawlPage = fs.readFileSync(path.join(root, 'products/pawl.html'), 'utf8');
+if (!/application\/ld\+json/.test(pawlPage)) fail('products/pawl.html', 'JSON-LD is missing');
+if (!pawlPage.includes('https://github.com/Zero-State-LLC/pawl')) fail('products/pawl.html', 'canonical GitHub repo link is missing');
+if (!pawlPage.includes('https://pypi.org/project/pawl-gate/')) fail('products/pawl.html', 'canonical PyPI pawl-gate link is missing');
+if (/ulukaya\/pawl/.test(pawlPage) || /github\.com\/pawl-gate\/pawl/.test(pawlPage)) {
+  fail('products/pawl.html', 'must not name other Pawl repositories');
+}
+if (!/application\/ld\+json/.test(hexwire) || !/"@type":\s*"VideoGame"/.test(hexwire) || !/"price":\s*"3\.99"/.test(hexwire)) {
+  fail('products/hexwire.html', 'VideoGame Offer JSON-LD with price 3.99 is missing');
+}
+if (!/application\/ld\+json/.test(jchain) || !/"@type":\s*"SoftwareApplication"/.test(jchain)) {
+  fail('products/j-chain.html', 'SoftwareApplication JSON-LD is missing');
+}
+if (!/application\/ld\+json/.test(noema) || !/"@type":\s*"SoftwareApplication"/.test(noema)) {
+  fail('products/noema.html', 'SoftwareApplication JSON-LD is missing');
+}
+const kubrickPage = exists('skills/kubrick.html') ? fs.readFileSync(path.join(root, 'skills/kubrick.html'), 'utf8') : '';
+if (!/application\/ld\+json/.test(kubrickPage) || !/"@type":\s*"SoftwareApplication"/.test(kubrickPage)) {
+  fail('skills/kubrick.html', 'SoftwareApplication JSON-LD is missing');
+}
+
 if (failures.length) {
   console.error(`Zero State validation failed (${failures.length}):`);
   failures.forEach((message) => console.error(`- ${message}`));
   process.exit(1);
 }
-console.log(`PASS: ${requiredPages.length} pages, sitemap/robots, product heroes, dark home, social preview, internal links, metadata, and product-source posture validated.`);
+console.log(`PASS: ${requiredPages.length} pages, sitemap/robots, product heroes, dark home, social cards, icons, 404, alt text, internal links, metadata, and product-source posture validated.`);

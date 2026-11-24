@@ -13,6 +13,7 @@
   const SUGGESTIONS = ['What does Zero State do?', 'What is live right now?', 'Tell me about HexWire', 'Can you deploy AI on our hardware?'];
   const CUT_OFF = 'The answer was cut off. Please try again.';
   const UNAVAILABLE = 'The assistant is unavailable right now. You can email zer0state@zer0state.com.';
+  const PENDING = 'Answering…';   // read out by the status line while a reply is on its way
   const here = new URL(document.currentScript.src);
   const base = new URL('../../', here);   // site root, from assets/ask/ask.js
 
@@ -53,15 +54,16 @@
     const input = el('textarea', { class: 'zsa-input', rows: '1', maxlength: String(MAX_CHARS), placeholder: 'Ask a question…', 'aria-label': 'Your question' });
     const send = el('button', { type: 'submit', class: 'zsa-send', 'aria-label': 'Send', icon: ICONS.send });
     const form = el('form', { class: 'zsa-form' }, [input, send]);
+    const status = el('p', { class: 'zsa-status', role: 'status' });
     const note = el('p', { class: 'zsa-note' });
     note.append('AI answers from this site’s content. Can be wrong. ');
     note.appendChild(el('a', { href: new URL('privacy.html', base).href, text: 'Privacy' }));
     const panel = el('section', { class: 'zsa-panel', role: 'dialog', 'aria-label': 'Ask Zero State', hidden: '' }, [
       el('header', { class: 'zsa-head' }, [el('h2', { class: 'zsa-title', text: 'Ask Zero State' }), close]),
-      log, suggest, form, note,
+      log, status, suggest, form, note,
     ]);
     document.body.append(launcher, panel);
-    ui = { launcher, panel, log, suggest, input, send, form };
+    ui = { launcher, panel, log, status, suggest, input, send, form };
 
     addMessage('bot', GREETING);
     launcher.addEventListener('click', open);
@@ -70,7 +72,8 @@
     suggest.addEventListener('click', (e) => { const chip = e.target.closest('.zsa-chip'); if (chip) ask(chip.textContent); });
     form.addEventListener('submit', (e) => { e.preventDefault(); controller ? controller.abort() : ask(input.value); });
     input.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' && !e.shiftKey && !e.isComposing) { e.preventDefault(); form.requestSubmit(); }
+      // Enter sends; while a reply is pending it does nothing (only the Stop button stops it).
+      if (e.key === 'Enter' && !e.shiftKey && !e.isComposing) { e.preventDefault(); if (!controller) form.requestSubmit(); }
     });
     input.addEventListener('input', () => {
       input.style.height = 'auto';
@@ -113,6 +116,8 @@
     const reply = addMessage('bot', '');
     reply.classList.add('zsa-msg--pending');
     controller = new AbortController();
+    ui.log.setAttribute('aria-busy', 'true');   // announce the finished answer, not every streamed fragment
+    ui.status.textContent = PENDING;
     ui.send.setAttribute('data-busy', '');
     ui.send.setAttribute('aria-label', 'Stop');
     let answer = '';
@@ -154,6 +159,8 @@
     } finally {
       reply.classList.remove('zsa-msg--pending');
       controller = null;
+      ui.log.removeAttribute('aria-busy');
+      ui.status.textContent = '';
       ui.send.removeAttribute('data-busy');
       ui.send.setAttribute('aria-label', 'Send');
     }
