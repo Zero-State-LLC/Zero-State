@@ -2,6 +2,13 @@
 
 All notable changes to the Zero State public website are documented here.
 
+## Unreleased
+
+### AWS Activate mention parked (2026-11-26)
+
+- The homepage "Supported by" wall no longer names AWS Activate. It shipped as plain text in #94 and was reverted the same day at the owner's direction: a text-only entry reads as a placeholder sitting next to real program badges, and the AWS mark itself cannot be used to fix that — AWS licenses its marks to customers, APN partners and SCA signatories and requires prior written permission for anything else, which includes the Activate mark (Trademark Guidelines §3(d), §4, §9).
+- The citation trail and the permission request live in `intent/2026-11-26-aws-activate-mention.md`. Land the AWS-supplied artwork in one change once that permission is on file.
+
 ## 0.3.2 — 2026-08-07
 
 Cumulative release since `v0.3.0`: official dark home, social preview, and Hermes/OpenClaw skills portfolio.

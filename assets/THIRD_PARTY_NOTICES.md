@@ -16,6 +16,8 @@ Monochrome mark outlines for Databricks, ElevenLabs, and Neon come from [Simple 
 
 The marks are trademarks of their respective owners. They appear only to identify programs Zero State takes part in, and they do not imply endorsement. Each owner's brand guidelines apply. See `intent/2026-10-02-site-redesign.md` § Open questions before shipping.
 
+AWS is the exception: Zero State is an AWS Activate member, but **no AWS name, logo, smile or lockup appears anywhere on this site**. Membership alone grants no logo right — AWS licenses its marks to customers (Powered by AWS), APN partners (Partner Badges) and SCA signatories, and requires prior written permission for any other use, which is how the Activate mark is covered (AWS Trademark Guidelines §3(d), §4, §9). Plain-text factual reference would have been fair use under §13 and shipped briefly, then came down on 2026-11-26 as a visual call — see `intent/2026-11-26-aws-activate-mention.md`. Add the mark only when AWS has approved it in writing and supplied the artwork; never redraw or recolour it.
+
 ## three.js (self-hosted, `assets/vendor/three/0.170.0/`)
 
 The home page's 3D marks (`aperture-3d.js`, `marks-3d.js`) use [three.js](https://threejs.org) 0.170.0, MIT License, © 2010-2024 three.js authors. The licence text is `assets/vendor/three/0.170.0/LICENSE`.
