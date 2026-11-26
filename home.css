@@ -520,6 +520,9 @@
 .programs__list li { display: grid; gap: var(--space-2xs); align-content: start; padding: var(--space-lg) 0; border-bottom: 1px solid var(--color-rule-2); }
 .program__logo { width: 28px; height: 28px; margin-bottom: var(--space-xs); color: var(--color-ink-2); }
 .program__brand { font-weight: 500; }
+/* Plain-text program reference: AWS's trademark rules permit the name in text only
+   until AWS grants written permission for the mark (aws.amazon.com/trademark-guidelines §13). */
+.program__wordmark { display: inline-block; align-self: start; justify-self: start; margin-bottom: var(--space-xs); color: var(--color-ink); font: 200 clamp(1.7rem, 1.6vw + 1rem, 2.1rem)/1 var(--font-display); letter-spacing: -0.02em; }
 .program__badge { display: block; width: 100px; height: auto; margin-bottom: var(--space-xs); }
 .program__link { display: block; }
 .program__badge--elevenlabs { width: min(100%, 250px); height: auto; }
@@ -531,7 +534,8 @@
   .programs__list { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   .programs__list li { border-bottom: 0; padding-inline-start: var(--space-lg); }
   .programs__list li + li { border-inline-start: 1px solid var(--color-rule-2); }
-  .programs__list li:first-child { padding-inline-start: 0; }
+  /* Clears the divider and inset on whichever item starts a wrapped row (1st, 5th, … in 4 columns). */
+  .programs__list li:first-child, .programs__list li:nth-child(4n+1) { border-inline-start: 0; padding-inline-start: 0; }
 }
 
 /* ---------- principles ---------- */

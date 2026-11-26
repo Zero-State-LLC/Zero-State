@@ -222,6 +222,7 @@ Book a walkthrough → (mailto:zer0state@zer0state.com?subject=Zero%20State%20Pr
 - Startup Grants
 - Startup Program
 - Startup Program
+- AWS Activate member
 - Zero State LLC is a member of NVIDIA Inception.
 
 ### See clearly. Build deliberately.
