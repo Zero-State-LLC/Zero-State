@@ -62,6 +62,7 @@ Point at a symbol to read it. Every symbol opens its page.
 ### Local intelligence.
 Local intelligence on your own hardware.
 Private AI that runs on hardware you control, such as NVIDIA GPUs. We set up models, agents, and retrieval inside your walls, designed so the work gets sharper and the data stays home.
+Take the two-minute tour
 Talk about a deployment → (mailto:zer0state@zer0state.com?subject=Local%20intelligence%20deployment)
 How a deployment works → (https://zer0state.com/local-intelligence.html)
 -
@@ -96,6 +97,126 @@ Installed on your machines, on your network, under your access rules.
 
 #### Hand over
 Documented, observable, and yours to run.
+Private AI, in two minutes Zero State Private AI
+✕
+-
+Zero State · On-premise private AI
+
+#### Big-company AI that keeps your files in your building.
+A private AI system installed on hardware you own. It reads, checks and drafts. Your clients’ files never leave the office.
+Swipe, scroll or use the arrow keys →
+-
+01 · The problem
+
+#### Every firm wants AI. Few can send it their files.
+- It’s already happening Staff paste client documents into personal AI accounts nobody controls or logs.
+- The files can’t leave Privacy rules, client contracts and plain trust say sensitive files stay with you.
+- The hours keep leaking Reading, re-typing, checking and chasing the same paperwork, every day.
+-
+02 · Keep what works
+
+#### Keep your AI tools. Keep your files private.
+- Keep using ChatGPT, Claude, Copilot and Gemini stay on for general work. The system plans and writes with the frontier model you choose, on your own account.
+- Kept private Client documents, names and account numbers are read only by the private model in your office.
+-
+03 · How it works
+
+#### Frontier brain, local hands.
+- Your records email, files, books
+- Private reader reads in your office
+- Leak guard checks every cloud call
+- Frontier AI sees summaries only
+The frontier model never receives a document, a client name or an account number. Fully local, with no cloud at all, is an option.
+-
+04 · What it does
+
+#### The work it takes off your desk.
+- Document intake
+- Cross-checks
+- Follow-up chasers
+- Ask your files, with sources
+- Daily briefs
+- Drafts to approve
+Every draft waits for a person. The system reads, sorts, checks and drafts; your people make every decision on credit, care, legal advice and money.
+-
+05 · Who it is for
+
+#### Firms with files that can’t leave.
+- Mortgage and lending
+- Accounting and tax
+- Law firms
+- Medical and dental
+- Insurance agencies
+- Real estate
+- Financial advisors
+- Appraisal
+Not on the list? If it involves information you wouldn’t paste into ChatGPT, it fits.
+-
+06 · When something breaks
+
+#### It fails safe. Nothing leaks.
+The AI machine goes down
+A standby model takes over, and work queues instead of failing.
+The internet drops
+Work queues and resumes. Nothing falls back to another cloud service.
+A safety check fails
+The system stops rather than send anything out.
+-
+07 · Included in every install
+
+#### Two things most firms have never had done.
+- A security audit Where your data goes today, who can see what, and the leaks closed first, with a one-page summary for your auditor or insurer.
+- A business analysis Drawing on 30 years of running small-business operations, so the first assistants go where your hours go.
+-
+08 · Ground rules
+
+#### Four rules every build keeps.
+You own it
+The hardware, the code and your data.
+People approve
+Nothing leaves without a person signing off.
+Every answer is checkable
+Each figure cites its document and page.
+Everything is logged
+Every question, draft and approval.
+-
+09 · Evidence
+
+#### Already being built for a mortgage lender.
+99.3%
+of fields read correctly
+99.7%
+of amounts and dates
+187
+test documents it had never seen
+First-pass results from our local document reader on a mixed test set, not your files. The audit measures it on your own documents.
+-
+10 · How a build runs
+
+#### Three stages, each delivered on its own.
+- 1 Document audit Two weeks, ending in a fixed-price plan.
+- 2 Install and build First assistants live in about six weeks.
+- 3 Handoff You own it. Support by the hour, or an optional care plan.
+-
+11 · Packages
+
+#### Start small. Grow to the whole firm.
+$15,000
+installs start here
+Fixed
+price per stage, half to start
+At cost
+hardware, sized to the work
+Firm-wide programs for larger teams and several offices are quoted after the audit.
+-
+Next step
+
+#### Start with a document audit.
+Two weeks with your team. You get a map of where your hours go, any data leaks closed, and a fixed-price plan you can take or leave.
+Book a walkthrough → (mailto:zer0state@zer0state.com?subject=Zero%20State%20Private%20AI%20walkthrough)How a deployment works → (https://zer0state.com/local-intelligence.html)
+←
+01 / 13
+→
 
 ### Supported by
 - Startup Grants
@@ -219,6 +340,7 @@ For business
 ## Local intelligence on your own hardware.
 Private AI that runs on hardware you control, such as NVIDIA GPUs. We set up models, agents, and retrieval inside your walls, designed so the work gets sharper and the data stays home.
 Talk about a deployment → (mailto:zer0state@zer0state.com?subject=Local%20intelligence%20deployment)
+Take the two-minute tour → (https://zer0state.com/index.html#tour)
 On this page
 What it isHow a deployment is builtCost against cloud APIsQuestionsStart a conversation
 

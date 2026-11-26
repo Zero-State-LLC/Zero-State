@@ -15,6 +15,62 @@
     new ResizeObserver(place).observe(principles);
   }
 
+  // Two-minute tour — a full-screen slide player; the Local intelligence button and #tour links open it.
+  const deck = document.querySelector('[data-deck]');
+  const track = deck?.querySelector('[data-deck-track]');
+  if (deck && track && typeof deck.showModal === 'function') {
+    const slides = [...track.children];
+    const prev = deck.querySelector('[data-deck-prev]');
+    const next = deck.querySelector('[data-deck-next]');
+    const count = deck.querySelector('[data-deck-count]');
+    const still = matchMedia('(prefers-reduced-motion: reduce)');
+    let at = 0;
+    const mark = (i) => {
+      at = i;
+      slides.forEach((s, n) => s.classList.toggle('is-active', n === i));
+      count.textContent = String(i + 1).padStart(2, '0');
+      deck.style.setProperty('--deck-at', i + 1);
+      prev.disabled = i === 0;
+      next.disabled = i === slides.length - 1;
+    };
+    const go = (i) => {
+      const n = Math.max(0, Math.min(slides.length - 1, i));
+      track.scrollTo({ left: n * track.clientWidth, behavior: still.matches ? 'instant' : 'smooth' });
+      mark(n);
+    };
+    const open = () => {
+      if (deck.open) return;
+      deck.showModal();
+      track.scrollTo({ left: 0, behavior: 'instant' });
+      mark(0);
+      next.focus();
+    };
+    let settle;
+    track.addEventListener('scroll', () => {
+      clearTimeout(settle);
+      settle = setTimeout(() => {
+        const i = Math.round(track.scrollLeft / track.clientWidth);
+        if (i !== at) mark(i);
+      }, 80);
+    }, { passive: true });
+    prev.addEventListener('click', () => go(at - 1));
+    next.addEventListener('click', () => go(at + 1));
+    deck.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'PageDown') { e.preventDefault(); go(at + 1); }
+      else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); go(at - 1); }
+      else if (e.key === 'Home') { e.preventDefault(); go(0); }
+      else if (e.key === 'End') { e.preventDefault(); go(slides.length - 1); }
+    });
+    document.querySelectorAll('[data-deck-open]').forEach((b) => b.addEventListener('click', open));
+    deck.querySelector('[data-deck-close]')?.addEventListener('click', () => deck.close());
+    deck.addEventListener('close', () => {
+      if (location.hash === '#tour') history.replaceState(null, '', location.pathname + location.search);
+    });
+    window.addEventListener('resize', () => { if (deck.open) track.scrollTo({ left: at * track.clientWidth, behavior: 'instant' }); });
+    if (location.hash === '#tour') open();
+    window.addEventListener('hashchange', () => { if (location.hash === '#tour') open(); });
+  }
+
   // Orbital map readout — hover or focus a symbol, read its posture.
   const map = document.querySelector('[data-map]');
   const readout = map?.querySelector('[data-readout]');
