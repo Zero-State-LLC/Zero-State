@@ -182,13 +182,14 @@ Every question, draft and approval.
 -
 09 · Evidence
 
-#### Checked against real documents, not a demo.
-Every figure cites its source
-document and page, not a guess.
-Tested on documents it had never seen
-not only the ones used to build it.
-The audit measures it on your files
-before anything goes live for your team.
+#### Already being built for a mortgage lender.
+99.3%
+of fields read correctly
+99.7%
+of amounts and dates
+187
+test documents it had never seen
+First-pass results from our local document reader on a mixed test set, not your files. The audit measures it on your own documents.
 -
 10 · How a build runs
 
@@ -200,12 +201,12 @@ before anything goes live for your team.
 11 · Packages
 
 #### Start small. Grow to the whole firm.
-Fixed price per stage
-agreed before work starts, half to start.
-Hardware at cost
-sized to the work, never marked up.
-Start where it pays off fastest
-then expand firm-wide after the audit.
+$15,000
+installs start here
+Fixed
+price per stage, half to start
+At cost
+hardware, sized to the work
 Firm-wide programs for larger teams and several offices are quoted after the audit.
 -
 Next step

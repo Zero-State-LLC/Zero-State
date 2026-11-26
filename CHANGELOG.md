@@ -28,7 +28,7 @@ Cumulative release since `v0.3.0`: official dark home, social preview, and Herme
 - Add a "Take the two-minute tour" button to the homepage `#local` section. It opens a full-screen, 13-slide summary of the Zero State Private AI client deck: swipe, scroll, arrow keys or buttons, with a progress bar and counter.
 - `local-intelligence.html` links to it with `index.html#tour`, which opens the player on arrival.
 - The player is a native `<dialog>`; slide content stays visible without the script, and motion is skipped under reduced-motion settings.
-- Per the 2026-11-22 public-disclosure policy, the Evidence and Packages slides stay qualitative: no starting price, no accuracy percentages or document counts, and no client/industry reference.
+- The Evidence and Packages slides carry the owner-approved disclosures: a `$15,000` starting price, first-pass document-reader accuracy (99.3% of fields, 99.7% of amounts and dates, 187 unseen documents) with its caveat, and an unnamed mortgage-lender reference. A 2026-11-23 review pass removed these under the 2026-11-22 public-disclosure line; the owner restored them on 2026-11-26.
 
 ### AEO baseline fixes (2026-11-22)
 
