@@ -2,6 +2,13 @@
 
 All notable changes to the Zero State public website are documented here.
 
+## Unreleased
+
+### AWS Activate mention parked (2026-11-26)
+
+- The homepage "Supported by" wall no longer names AWS Activate. It shipped as plain text in #94 and was reverted the same day at the owner's direction: a text-only entry reads as a placeholder sitting next to real program badges, and the AWS mark itself cannot be used to fix that — AWS licenses its marks to customers, APN partners and SCA signatories and requires prior written permission for anything else, which includes the Activate mark (Trademark Guidelines §3(d), §4, §9).
+- The citation trail and the permission request live in `intent/2026-11-26-aws-activate-mention.md`. Land the AWS-supplied artwork in one change once that permission is on file.
+
 ## 0.3.2 — 2026-08-07
 
 Cumulative release since `v0.3.0`: official dark home, social preview, and Hermes/OpenClaw skills portfolio.
@@ -22,14 +29,6 @@ Cumulative release since `v0.3.0`: official dark home, social preview, and Herme
 - `site-manifest.json` records `skill_repos` and `official_home: dark`.
 
 ## Unreleased
-
-### AWS Activate mention (2026-11-26)
-
-- The homepage "Supported by" wall names AWS Activate. Rendered as plain text in the site's own type, **not** as the AWS logo: AWS's trademark rules licence logos to customers, APN partners and SCA signatories, and everyone else needs prior written permission (§3(d), §4). Plain-text mention is allowed as fair use (§13), so that is what ships until AWS approves the mark.
-- No endorsement or "powered by AWS" claim is made, and the site's own claim discipline is unchanged: membership is the only thing stated.
-- The wall now has five entries in a four-column grid, so the divider rule no longer draws a stray vertical line on the item that wraps to the second row.
-- `workers/ask/knowledge.md` regenerated, so the ask endpoint picks up the program reference on its next deploy.
-- Intent and rule citations: `intent/2026-11-26-aws-activate-mention.md`.
 
 ### Local intelligence two-minute tour (2026-11-23)
 

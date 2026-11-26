@@ -1,5 +1,7 @@
 # Intent
 
+> **Status: parked, not abandoned (2026-11-26).** The plain-text entry shipped in #94 and was reverted the same day at Aaron's direction — it read as a placeholder next to the real program badges. The trademark findings below stand and are the reason we cannot simply drop a logo in to fix the look: the wall stays empty of AWS until AWS grants written permission and supplies the artwork. Keep this document; it is the citation trail for that decision.
+
 ## Problem
 
 Zero State LLC is in the AWS Activate program, but the site says nothing about it. The homepage "Supported by" wall (`index.html`, section `.programs`) already lists ElevenLabs Grants, Databricks Startup Program, Neon Startup Program and NVIDIA Inception, so the AWS relationship has an obvious home and currently reads as an omission to anyone comparing program pages.
