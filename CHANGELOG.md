@@ -23,14 +23,6 @@ Cumulative release since `v0.3.0`: official dark home, social preview, and Herme
 
 ## Unreleased
 
-### AWS Activate mention (2026-11-26)
-
-- The homepage "Supported by" wall names AWS Activate. Rendered as plain text in the site's own type, **not** as the AWS logo: AWS's trademark rules licence logos to customers, APN partners and SCA signatories, and everyone else needs prior written permission (§3(d), §4). Plain-text mention is allowed as fair use (§13), so that is what ships until AWS approves the mark.
-- No endorsement or "powered by AWS" claim is made, and the site's own claim discipline is unchanged: membership is the only thing stated.
-- The wall now has five entries in a four-column grid, so the divider rule no longer draws a stray vertical line on the item that wraps to the second row.
-- `workers/ask/knowledge.md` regenerated, so the ask endpoint picks up the program reference on its next deploy.
-- Intent and rule citations: `intent/2026-11-26-aws-activate-mention.md`.
-
 ### Local intelligence two-minute tour (2026-11-23)
 
 - Add a "Take the two-minute tour" button to the homepage `#local` section. It opens a full-screen, 13-slide summary of the Zero State Private AI client deck: swipe, scroll, arrow keys or buttons, with a progress bar and counter.
