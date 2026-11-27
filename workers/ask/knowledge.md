@@ -1073,7 +1073,7 @@ Haptics and sound are part of the game, not polish bolted on later.
 
 ### In short
 Cozy shelf-sorting on iPhone: match triples, restock rooms, clear levels without timers or lives. Feel-good juice is the product, not an afterthought.
-Item sets in flight include Pantry, Café, Craft room, and Vanity. Stack is SwiftUI, SpriteKit, pure-Swift GameCore, and XcodeGen. Home-screen label: Marigold.
+Item sets in flight include Pantry, Café, Craft room, and Vanity. Stack is SwiftUI, SpriteKit, pure-Swift GameCore, and XcodeGen. Public beta is open on TestFlight (https://testflight.apple.com/join/dWUvXb6W); App Store listing pending. Home-screen label: Marigold.
 
 ### Built with
 - Swift language for the puzzle rules and app
@@ -1096,8 +1096,7 @@ Milestones in plain English, newest first, to Nov 7, 2026
 
 ### Roadmap
 No public roadmap yet.
-Return to the evidence
-All projects ↖ (https://zer0state.com/index.html#evidence)
+Media kit ↗ (https://zer0state.com/media/marigold.html) · All projects ↖ (https://zer0state.com/index.html#evidence)
 
 ## Slosh — Zero State
 URL: https://zer0state.com/products/slosh.html

@@ -9,7 +9,7 @@ const ROOT = path.resolve(__dirname, '..');
 const OUT = 'workers/ask/knowledge.md';
 const SITE = 'https://zer0state.com/';
 // Pages that add nothing a visitor would ask about, or only repeat other pages.
-const SKIP = new Set(['marketing.html', 'media/hexwire.html']);
+const SKIP = new Set(['marketing.html', 'media/hexwire.html', 'media/marigold.html']);
 
 const ENTITIES = { amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", nbsp: ' ', middot: '·', rarr: '→', larr: '←', mdash: '—', ndash: '–', hellip: '…' };
 const decode = (s) => s
